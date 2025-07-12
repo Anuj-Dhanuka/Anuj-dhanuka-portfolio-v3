@@ -209,7 +209,7 @@ export function Hero() {
               >
                 <Image
                   src="/anuj_profile_pic.png"
-                  alt="Anuj Dhanuka - Full Stack Developer"
+                  alt="Anuj Dhanuka"
                   fill
                   className="object-cover"
                   priority
