@@ -42,6 +42,10 @@ export const metadata: Metadata = {
       "Expert full-stack developer specializing in React, Firebase, WordPress, and Shopify solutions that deliver exceptional digital experiences and drive business growth.",
     images: ["/og-image.png"],
   },
+  icons: {
+    icon: "/Anuj_favicon.svg",
+    shortcut: "/Anuj_favicon.svg",
+  },
   robots: {
     index: true,
     follow: true,
@@ -68,6 +72,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
         <meta name="theme-color" content="#7c3aed" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
           name="apple-mobile-web-app-status-bar-style"

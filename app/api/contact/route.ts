@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         <p>Submitted on: ${new Date().toLocaleString()}</p>
       `,
       // Add reply-to so you can directly reply to the sender
-      reply_to: email,
+      replyTo: email,
     })
 
     if (error) {
