@@ -1,9 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { Github, Linkedin, Twitter } from "lucide-react"
-import { Instagram } from "lucide-react"
 import { smoothScroll } from "@/utils/smooth-scroll"
+import { BsInstagram } from "react-icons/bs"
+import { FiGithub } from "react-icons/fi"
+import { LuLinkedin } from "react-icons/lu"
 
 export function Footer() {
   return (
@@ -31,7 +32,7 @@ export function Footer() {
                 className="text-gray-600 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400 transition-colors hover:scale-110 transform"
                 aria-label="GitHub profile"
               >
-                <Github className="h-5 w-5" />
+                <FiGithub className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </Link>
               <Link
@@ -41,7 +42,7 @@ export function Footer() {
                 className="text-gray-600 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400 transition-colors hover:scale-110 transform"
                 aria-label="LinkedIn profile"
               >
-                <Linkedin className="h-5 w-5" />
+                <LuLinkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
@@ -51,7 +52,7 @@ export function Footer() {
                 className="text-gray-600 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400 transition-colors hover:scale-110 transform"
                 aria-label="Instagram profile"
               >
-                <Instagram className="h-5 w-5" />
+                <BsInstagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </Link>
             </div>

@@ -73,7 +73,7 @@ export function Mentor() {
             <div className="relative">
               <div className="absolute -top-3 -left-3 w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg transform rotate-3"></div>
               <div className="relative overflow-hidden rounded-lg shadow-lg border-2 border-white dark:border-gray-800">
-                <div className="aspect-ratio-box" style={{ paddingBottom: "100%" }}>
+                <div className="aspect-ratio-box relative" style={{ paddingBottom: "100%" }}>
                   <Image
                     src="/anjneyulu-jadda-sir.png"
                     alt="Anjaneyulu Sir - My Mentor"

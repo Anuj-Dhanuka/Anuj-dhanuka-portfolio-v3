@@ -76,7 +76,7 @@ export function About() {
             <div className="relative">
               <div className="absolute -top-3 -left-3 w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg transform rotate-3"></div>
               <div className="relative overflow-hidden rounded-lg shadow-lg border-2 border-white dark:border-gray-800">
-                <div className="aspect-video md:aspect-square w-full">
+                <div className="relative aspect-video md:aspect-square w-full">
                   <Image src="/data-programming-in-dark.jpg" alt="About Me" fill className="object-cover" />
                 </div>
               </div>
