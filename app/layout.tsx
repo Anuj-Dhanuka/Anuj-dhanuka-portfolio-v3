@@ -42,10 +42,6 @@ export const metadata: Metadata = {
       "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
     images: ["/og-image.png"],
   },
-  icons: {
-    icon: "/Anuj_favicon.svg",
-    shortcut: "/Anuj_favicon.svg",
-  },
   robots: {
     index: true,
     follow: true,
