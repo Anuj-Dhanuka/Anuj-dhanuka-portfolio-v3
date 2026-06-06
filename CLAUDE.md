@@ -97,6 +97,19 @@ sips -s format png -Z 48 public/Anuj_favicon.svg --out /tmp/fav-48.png
 
 Google's favicon requirements: at least **48×48**, served at a stable URL, valid PNG/JPG/SVG. After redeploying, request reindex in Google Search Console — favicon refresh cycle can take **days to weeks**.
 
+## Search-engine plumbing
+
+The site uses Next.js's file-based metadata convention for sitemap, robots, and structured data:
+
+| File | Served at | Purpose |
+|---|---|---|
+| `app/sitemap.ts` | `/sitemap.xml` | Lists homepage + all in-page section anchors; submit this URL in Search Console → Sitemaps |
+| `app/robots.ts` | `/robots.txt` | Allows everything except `/api/`; declares sitemap location |
+| `app/layout.tsx` (`personJsonLd`) | inline `<script type="application/ld+json">` | Schema.org Person markup — name, role, employer, skills, social links. Improves search snippet appearance. |
+| `public/googlefcb50a119eef10da.html` | `/googlefcb50a119eef10da.html` | Google Search Console ownership verification — never delete |
+
+Site URL is hard-coded as `https://anujdhanuka.com` in sitemap/robots/JSON-LD. If the canonical domain ever changes, update all three.
+
 ## HR / positioning audit history
 
 This portfolio underwent a full HR-perspective audit. The following issues were **fixed** and should not regress:
