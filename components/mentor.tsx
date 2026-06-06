@@ -1,213 +1,131 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { ArrowRight, ExternalLink, Lightbulb, MessageSquareText, Sparkles, Target, TrendingUp } from "lucide-react"
 import Image from "next/image"
-import { Star, Heart, TrendingUp, User, Award, Quote, ExternalLink } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
+
+const learningAreas = [
+  { label: "User-Focused Thinking", Icon: Target },
+  { label: "Visual Communication", Icon: MessageSquareText },
+  { label: "Strategic Problem-Solving", Icon: Lightbulb },
+  { label: "Professional Growth", Icon: TrendingUp },
+]
 
 export function Mentor() {
   return (
-    <section
-      id="mentor"
-      className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950 relative overflow-hidden"
-    >
-      {/* Background elements */}
-      <div className="absolute inset-0 z-0 opacity-10">
-        <motion.div
-          className="absolute top-20 left-10 w-64 h-64 rounded-full bg-purple-500"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, 40, 0],
-          }}
-          transition={{
-            repeat: Number.POSITIVE_INFINITY,
-            duration: 20,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-pink-500"
-          animate={{
-            x: [0, -50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            repeat: Number.POSITIVE_INFINITY,
-            duration: 25,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+    <section id="mentor" className="relative isolate overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_18%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_84%_70%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_14%_18%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_84%_70%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+        aria-hidden="true"
+      />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="inline-flex items-center px-4 py-1 rounded-full text-sm font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 mb-3">
-            <Heart className="h-4 w-4 mr-2" />
-            Mentorship & Guidance
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-            My Mentor
-          </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">
-            The invaluable guidance that shaped my professional journey
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-12 gap-6 md:gap-8 items-start">
-          {/* Left column - Photo and Stats */}
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
           <motion.div
-            className="md:col-span-5 space-y-4"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            <div className="relative">
-              <div className="absolute -top-3 -left-3 w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg transform rotate-3"></div>
-              <div className="relative overflow-hidden rounded-lg shadow-lg border-2 border-white dark:border-gray-800">
-                <div className="aspect-ratio-box relative" style={{ paddingBottom: "100%" }}>
-                  <Image
-                    src="/anjneyulu-jadda-sir.png"
-                    alt="Anjaneyulu Sir - My Mentor"
-                    fill
-                    className="object-cover object-center"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <div className="p-4">
-                    <p className="text-white font-medium">Digital Marketing & UI/UX Expert</p>
-                  </div>
-                </div>
-              </div>
-              <motion.div
-                className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg z-10 flex items-center space-x-2"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-              >
-                <Award className="h-5 w-5 text-yellow-500" />
-                <span className="font-medium text-sm">8+ Years Experience</span>
-              </motion.div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
+              <Sparkles className="h-3.5 w-3.5" />
+              MENTORSHIP
             </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
-                <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg mr-2 flex-shrink-0">
-                  <TrendingUp className="h-4 w-4 text-purple-600" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-xs">Digital Marketing</h4>
-                  <p className="text-gray-500 dark:text-gray-400 text-xs">$5M+ ad spend</p>
-                </div>
-              </div>
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
-                <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg mr-2 flex-shrink-0">
-                  <User className="h-4 w-4 text-purple-600" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-xs">UI/UX Design</h4>
-                  <p className="text-gray-500 dark:text-gray-400 text-xs">Brand expert</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-4 text-white">
-              <h3 className="font-bold text-lg mb-2">Anjaneyulu Sir</h3>
-              <p className="text-white/90 text-sm">
-                Google-certified performance marketing expert and founder of PPCROY & Scale Minds, with over a decade of
-                experience in digital strategy.
+            <h2 className="mt-5 max-w-2xl text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-5xl">
+              Learning Beyond Development
+            </h2>
+            <div className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
+            <div className="mt-6 max-w-2xl space-y-4 text-base leading-8 text-gray-600 dark:text-gray-300">
+              <p>
+                I have had the opportunity to learn under the guidance of Anjaneyulu Jadda, founder of PPCROY and
+                Scale Minds.
               </p>
-              <div className="mt-3 flex justify-end">
-                <a href="https://www.linkedin.com/in/anjaneyulu-jadda/" target="_blank" rel="noopener noreferrer">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="bg-white/10 border-white/20 text-white hover:bg-white/20 text-xs"
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" /> Connect
-                  </Button>
-                </a>
-              </div>
+              <p>
+                His mentorship helped me strengthen my understanding of user-focused design, digital strategy,
+                professional responsibility and the relationship between product experiences and business goals.
+              </p>
+            </div>
+            <div className="mt-7">
+              <Button
+                asChild
+                className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700"
+              >
+                <Link href="https://www.linkedin.com/in/anjaneyulu-jadda/" target="_blank" rel="noopener noreferrer">
+                  Connect on LinkedIn
+                  <ExternalLink className="h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </motion.div>
 
-          {/* Right column - Testimonial and impact */}
           <motion.div
-            className="md:col-span-7"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            className="relative"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
           >
-            <Card className="bg-white dark:bg-gray-800 border-none shadow-md h-full">
-              <CardContent className="p-6 h-full flex flex-col">
-                <div className="mb-6 relative">
-                  <Quote className="h-12 w-12 text-purple-200 dark:text-purple-800 absolute -top-2 -left-2" />
-                  <h3 className="text-2xl font-bold ml-6 relative z-10">The Impact of Great Mentorship</h3>
-                  <div className="h-1 w-16 bg-gradient-to-r from-purple-600 to-pink-600 ml-6 mt-2"></div>
-                </div>
-
-                <div className="space-y-4 flex-grow">
-                  <p className="text-gray-600 dark:text-gray-300 italic relative text-lg">
-                    "I'm proud to be mentored by Anjaneyulu Jadda, a Google-certified performance marketing expert and
-                    founder of PPCROY & Scale Minds. With over a decade of experience and $15M+ in managed ad spend,
-                    he's helped me sharpen my skills in digital strategy, UI/UX, and high-converting growth systems. His
-                    guidance continues to shape the way I think, build, and lead."
-                  </p>
-
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Working under his mentorship at PPCROY Tech Solutions has been an invaluable experience. His deep
-                    understanding of design principles, strategic thinking, and humble nature make him an inspiring
-                    leader and mentor.
-                  </p>
-
-                  <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg mt-4">
-                    <h4 className="font-semibold mb-3 flex items-center">
-                      <Star className="h-4 w-4 text-yellow-500 mr-2" />
-                      Skills I've Developed Under His Guidance:
-                    </h4>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="flex items-center bg-white dark:bg-gray-800 p-2 rounded-md shadow-sm">
-                        <div className="h-2 w-2 bg-purple-500 rounded-full mr-2"></div>
-                        <span className="text-sm">Strategic Planning</span>
-                      </div>
-                      <div className="flex items-center bg-white dark:bg-gray-800 p-2 rounded-md shadow-sm">
-                        <div className="h-2 w-2 bg-purple-500 rounded-full mr-2"></div>
-                        <span className="text-sm">User-Centered Design</span>
-                      </div>
-                      <div className="flex items-center bg-white dark:bg-gray-800 p-2 rounded-md shadow-sm">
-                        <div className="h-2 w-2 bg-purple-500 rounded-full mr-2"></div>
-                        <span className="text-sm">Problem Solving</span>
-                      </div>
-                      <div className="flex items-center bg-white dark:bg-gray-800 p-2 rounded-md shadow-sm">
-                        <div className="h-2 w-2 bg-purple-500 rounded-full mr-2"></div>
-                        <span className="text-sm">Professional Growth</span>
-                      </div>
-                    </div>
+            <div
+              className="absolute inset-x-8 top-1/2 h-52 -translate-y-1/2 rounded-full bg-gradient-to-r from-brand-500/18 to-accent1-500/16 blur-3xl"
+              aria-hidden="true"
+            />
+            <div className="relative overflow-hidden rounded-lg border border-purple-100 bg-white/90 p-5 shadow-[0_1px_0_rgba(15,23,42,0.04),0_24px_70px_rgba(124,58,237,0.12)] backdrop-blur dark:border-purple-800/35 dark:bg-gray-950/55 sm:p-6">
+              <div className="grid gap-5 border-b border-purple-100 pb-5 dark:border-purple-800/35 sm:grid-cols-[170px_1fr] sm:items-center">
+                <div className="relative overflow-hidden rounded-lg border border-purple-100 bg-white p-2 shadow-[0_18px_45px_rgba(124,58,237,0.1)] dark:border-purple-800/40 dark:bg-gray-900">
+                  <div className="relative aspect-square overflow-hidden rounded-md bg-gradient-to-br from-brand-50 to-accent1-50">
+                    <Image
+                      src="/anjneyulu-jadda-sir.png"
+                      alt="Anjaneyulu Jadda"
+                      fill
+                      sizes="170px"
+                      className="object-cover object-center"
+                    />
                   </div>
                 </div>
-
-                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center">
-                    <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-full mr-3">
-                      <Heart className="h-5 w-5 text-purple-600" />
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300 font-medium">
-                      "His mentorship has been the cornerstone of my professional development."
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent1-600 dark:text-accent1-300">
+                      Areas of Learning
                     </p>
+                    <h3 className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
+                      Guidance that shaped my approach
+                    </h3>
                   </div>
+                  <span className="hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-accent1-600 text-white shadow-lg shadow-purple-500/20 sm:flex">
+                    <ArrowRight className="h-5 w-5" />
+                  </span>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {learningAreas.map(({ label, Icon }, index) => (
+                  <motion.div
+                    key={label}
+                    className="group rounded-lg border border-purple-100 bg-purple-50/55 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-[0_16px_45px_rgba(124,58,237,0.1)] dark:border-purple-800/35 dark:bg-purple-900/15 dark:hover:border-brand-700/70 dark:hover:bg-gray-950/60"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: index * 0.06, ease: "easeOut" }}
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-brand-600 shadow-sm transition-transform duration-300 group-hover:scale-105 dark:bg-gray-950/70 dark:text-brand-300">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <p className="mt-4 text-base font-bold leading-snug text-gray-900 dark:text-white">{label}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -20,93 +20,105 @@ import { useState } from "react"
 
 export function Experience() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const recognitionUrl =
+    "https://www.linkedin.com/posts/anuj-dhanuka_rewardsandrecognition-chefkart-reactnative-share-7463089455172845569-ML3k/?utm_source=share&utm_medium=member_desktop&rcm=ACoAACVInBQB17-NdeSfv3bpUy3ZdJaN7NgcWgI"
 
   const experienceData = [
     {
-      position: "Junior Software Developer",
-      company: "PPCROY Tech Solutions",
-      location: "Remote",
+      position: "Associate Software Engineer",
+      company: "ChefKart",
+      location: "Gurugram, Haryana",
+      workMode: "Onsite",
       type: "Full-time",
-      duration: "Mar 2025 - Present",
+      duration: "December 2025 - Present",
       description:
-        "After successfully completing my internship, I was offered a full-time position where I continue to develop and maintain web applications using React, Shopify, and WordPress. I work closely with clients to understand their requirements and deliver high-quality solutions.",
+        "I contribute across ChefKart's customer mobile application, internal team dashboard and website, building and refining interfaces used by customers and internal teams.",
       responsibilities: [
-        "Developing responsive and interactive web applications using React.js",
-        "Building and customizing e-commerce solutions with Shopify",
-        "Creating and maintaining WordPress websites with custom themes",
-        "Collaborating with design and backend teams to implement new features",
-        "Ensuring cross-browser compatibility and optimal performance",
+        "Build and improve React Native interfaces across booking, visit, wallet, payment, refund, cancellation and party-related customer journeys.",
+        "Improve communication and usability across important payment, refund and service-status states.",
+        "Contribute to the redesign and development of internal dashboard modules.",
+        "Implement analytics tracking for meaningful customer and product interactions.",
+        "Resolve responsive UI issues and improve interface consistency across different screen sizes.",
+        "Collaborate on production features from implementation through testing and release.",
       ],
-      technologies: ["React", "JavaScript", "Shopify", "WordPress", "HTML/CSS", "Tailwind CSS"],
+      technologies: ["React Native", "React.js", "JavaScript", "Analytics", "Mobile UI", "Dashboard UI"],
       companyUrl: "#",
+      ctaLabel: "View Recognition",
+      ctaUrl: recognitionUrl,
+      isCurrent: true,
+      icons: [
+        <Code key="code" className="h-5 w-5 text-blue-500" />,
+        <Monitor key="monitor" className="h-5 w-5 text-indigo-500" />,
+      ],
+      color: "purple",
+      bgImage: "/modern-office-workspace.jpg",
+      achievement: "Recognised in Technology & Engineering - May 2026",
+    },
+    {
+      position: "Junior Web Developer",
+      company: "PPCROY",
+      location: "Remote",
+      workMode: "Remote",
+      type: "Full-time",
+      duration: "October 2024 - December 2025",
+      description:
+        "Delivered 20+ client projects across business websites, landing pages, e-commerce experiences and responsive frontend interfaces.",
+      responsibilities: [
+        "Developed responsive websites and user-facing interfaces using React.js, JavaScript, HTML5 and CSS3.",
+        "Built client solutions using React, WordPress, Shopify and Webflow based on business goals and project requirements.",
+        "Converted design references and client requirements into polished, responsive web experiences.",
+        "Worked across projects for different industries, audiences and business use cases.",
+        "Maintained visual consistency, usability and responsiveness throughout project delivery.",
+        "Managed multiple project requirements while maintaining delivery quality.",
+      ],
+      technologies: ["React.js", "JavaScript", "HTML5", "CSS3", "WordPress", "Shopify", "Webflow"],
+      companyUrl: "#",
+      isCurrent: false,
       icons: [
         <Code key="code" className="h-5 w-5 text-blue-500" />,
         <ShoppingBag key="shop" className="h-5 w-5 text-green-500" />,
         <Globe key="globe" className="h-5 w-5 text-orange-500" />,
       ],
-      color: "purple",
-      bgImage: "/modern-office-workspace.jpg",
-      achievement: "Delivered 5+ client projects with 100% satisfaction rate",
-    },
-    {
-      position: "Junior Software Developer",
-      company: "PPCROY Tech Solutions",
-      location: "Remote",
-      type: "Internship",
-      duration: "Oct 2024 - Feb 2025",
-      description:
-        "Worked as a Junior Software Developer intern, focusing on web development projects using modern technologies. Gained valuable experience in real-world project development and client communication.",
-      responsibilities: [
-        "Assisted in developing web applications using React.js",
-        "Learned and implemented Shopify store customizations",
-        "Contributed to WordPress website development and maintenance",
-        "Participated in team meetings and code reviews",
-        "Collaborated with senior developers to improve coding practices",
-      ],
-      technologies: ["React", "JavaScript", "Shopify", "WordPress", "HTML/CSS"],
-      companyUrl: "#",
-      icons: [
-        <Monitor key="monitor" className="h-5 w-5 text-indigo-500" />,
-        <Code key="code" className="h-5 w-5 text-blue-500" />,
-      ],
       color: "blue",
       bgImage: "/collaborative-workspace.jpg",
-      achievement: "Promoted to full-time position after exceptional performance",
+      achievement: "20+ client projects delivered",
     },
     {
-      position: "Associate Software Engineer",
-      company: "3rd Eye Lab",
-      location: "Onsite",
+      position: "Associate Software Engineer Intern",
+      company: "Third Eye Lab",
+      location: "Hyderabad",
+      workMode: "Onsite",
       type: "Internship",
-      duration: "Apr 2024 - Jun 2024",
+      duration: "April 2024 - June 2024",
       description:
-        "Developed a quiz application called 'Levels App' using React Native. The app features different categories with questions specific to each category, providing an engaging learning experience for users.",
+        "Developed the Levels App, a React Native mobile quiz application featuring category-based questions and dynamically loaded content.",
       responsibilities: [
-        "Designed and developed a mobile quiz application using React Native",
-        "Implemented category-based question system with dynamic content loading",
-        "Created intuitive user interfaces for seamless navigation",
-        "Integrated state management for tracking user progress",
-        "Collaborated with the design team to ensure a visually appealing experience",
+        "Developed mobile application screens using React Native and JavaScript.",
+        "Implemented category-based quiz flows and dynamic question loading.",
+        "Built intuitive navigation and user-friendly mobile interactions.",
+        "Completed the assigned project ahead of schedule.",
+        "Delivered additional features beyond the original project requirements.",
       ],
-      technologies: ["React Native", "JavaScript", "Mobile Development", "UI/UX Design"],
+      technologies: ["React Native", "JavaScript", "Mobile UI", "Dynamic Content"],
       companyUrl: "#",
+      isCurrent: false,
       icons: [
         <Monitor key="monitor" className="h-5 w-5 text-pink-500" />,
         <Code key="code" className="h-5 w-5 text-purple-500" />,
       ],
       color: "pink",
       bgImage: "/mobile-app-development.jpg",
-      achievement: "Completed project ahead of schedule with additional features",
+      achievement: "Completed ahead of schedule with additional features",
     },
   ]
 
   return (
     <section
       id="experience"
-      className="py-16 md:py-24 bg-gradient-to-b from-white via-purple-50/30 to-pink-50/30 dark:from-gray-900 dark:via-purple-900/10 dark:to-pink-900/10 overflow-hidden"
+      className="relative py-16 md:py-24 bg-gradient-to-b from-white via-purple-50/30 to-pink-50/30 dark:from-gray-900 dark:via-purple-900/10 dark:to-pink-900/10 overflow-hidden"
     >
       {/* Background elements */}
-      <div className="absolute inset-0 z-0 opacity-30 dark:opacity-20">
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-30 dark:opacity-20">
         <motion.div
           className="absolute top-20 left-10 w-72 h-72 rounded-full bg-gradient-to-br from-purple-400/40 to-pink-400/40 dark:from-purple-600/30 dark:to-pink-600/30 blur-3xl"
           animate={{
@@ -162,14 +174,15 @@ export function Experience() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <Calendar className="h-4 w-4 mr-2 text-purple-600 dark:text-purple-400" />
-            1+ Year Experience
+            EXPERIENCE
           </motion.div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 dark:from-purple-400 dark:via-fuchsia-400 dark:to-pink-400">
-            Professional Experience
+          <h2 className="mx-auto mb-3 max-w-4xl text-3xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 dark:from-purple-400 dark:via-fuchsia-400 dark:to-pink-400 md:text-4xl">
+            Experience across product development and client delivery.
           </h2>
           <div className="h-1.5 w-24 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 dark:from-purple-400 dark:via-fuchsia-400 dark:to-pink-400 mx-auto mb-4 rounded-full shadow-lg shadow-purple-500/20 dark:shadow-purple-900/30"></div>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            My professional journey and career progression
+            My professional journey includes React Native mobile development, high-volume client project delivery
+            and ongoing ownership across customer-facing and internal product experiences.
           </p>
         </motion.div>
 
@@ -270,6 +283,10 @@ export function Experience() {
                           {item.location}
                         </div>
 
+                        <div className="px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+                          {item.workMode}
+                        </div>
+
                         <div
                           className={`px-2.5 py-1 rounded-full text-xs font-medium ${
                             item.color === 'purple'
@@ -282,7 +299,7 @@ export function Experience() {
                           {item.type}
                         </div>
 
-                        {item.type === "Full-time" && (
+                        {item.isCurrent && (
                           <div className="px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
                             Current
                           </div>
@@ -308,9 +325,9 @@ export function Experience() {
                     <div className="p-6">
                       <p className="text-gray-600 dark:text-gray-300 mb-6">{item.description}</p>
 
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Key Responsibilities:</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Key contributions:</h4>
                       <ul className="space-y-3 mb-6">
-                        {item.responsibilities.slice(0, 3).map((responsibility, i) => (
+                        {item.responsibilities.map((responsibility, i) => (
                           <motion.li
                             key={i}
                             className="flex items-start hover:translate-x-1 transition-transform cursor-pointer"
@@ -346,7 +363,7 @@ export function Experience() {
                       <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
                         <h4 className="font-medium text-sm mb-3">Technologies:</h4>
                         <div className="flex flex-wrap gap-2">
-                          {item.technologies.slice(0, 4).map((tech, i) => (
+                          {item.technologies.map((tech, i) => (
                             <Badge
                               key={i}
                               className={`transition-colors hover:scale-105 transform cursor-pointer ${
@@ -361,6 +378,17 @@ export function Experience() {
                             </Badge>
                           ))}
                         </div>
+                        {item.ctaLabel && item.ctaUrl && (
+                          <Link
+                            href={item.ctaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-5 inline-flex items-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-purple-500/25"
+                          >
+                            {item.ctaLabel}
+                            <ExternalLink className="ml-2 h-4 w-4" />
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </motion.div>

@@ -3,102 +3,139 @@
 import { motion } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { HelpCircle, Mail } from "lucide-react"
+import { LuLinkedin } from "react-icons/lu"
 import Link from "next/link"
 
-export function FAQ() {
-  const faqs = [
-    {
-      question: "What services do you offer?",
-      answer:
-        "I offer a comprehensive range of digital services including website development, mobile app development, Shopify store creation, and WordPress solutions. Each service is tailored to meet your specific business needs and goals.",
-    },
-    {
-      question: "How long have you been in the industry?",
-      answer:
-        "I have over 1 year of experience in the tech industry, working with startups and established businesses. During this time, I've successfully delivered numerous projects and built high-quality digital solutions.",
-    },
-    {
-      question: "What is your development process like?",
-      answer:
-        "My development process typically includes discovery and planning, design, development, testing, deployment, and post-launch support. I emphasize collaboration throughout, ensuring you're involved and informed at every stage.",
-    },
-    {
-      question: "How long does a typical project take?",
-      answer:
-        "Project timelines vary based on complexity and scope. A simple website might take 2-4 weeks, while a complex application could take 2-3 months. During our initial consultation, I'll provide a more accurate timeline based on your specific requirements.",
-    },
-    {
-      question: "What technologies do you specialize in?",
-      answer:
-        "I specialize in modern web and mobile technologies including React, Next.js, Node.js, React Native, and TypeScript. For e-commerce, I'm proficient with Shopify and WordPress/WooCommerce. I stay updated with the latest technologies to ensure your product is built using the most appropriate and future-proof solutions.",
-    },
-    {
-      question: "Do you provide support after the project is completed?",
-      answer:
-        "Yes, I offer post-launch support to ensure your digital product continues to perform optimally. This includes bug fixes, minor updates, and regular maintenance to keep everything running smoothly.",
-    },
-    {
-      question: "How do you structure your pricing?",
-      answer:
-        "I offer both project-based and hourly pricing models. For well-defined projects, I typically provide a fixed price quote. For ongoing work or projects with evolving requirements, an hourly rate might be more appropriate. I'm transparent about costs and will recommend the most suitable approach for your needs.",
-    },
-    {
-      question: "Can you work with my existing website or application?",
-      answer:
-        "Yes, I can work with existing websites and applications. I'll conduct a thorough review to understand the current structure and recommend the best approach for enhancements or modifications.",
-    },
-  ]
+const faqs = [
+  {
+    question: "What roles are you currently open to?",
+    answer:
+      "I'm open to Frontend Developer, React Developer, React Native Developer, Full-Stack Developer and Associate Software Engineer opportunities.\n\nMy strongest experience is in frontend and mobile development, and I'm also open to full-stack roles where I can contribute across the product while continuing to strengthen my backend expertise.",
+  },
+  {
+    question: "What are your strongest technical skills?",
+    answer:
+      "My core strengths are React Native, React.js, JavaScript, responsive frontend development and converting Figma designs into polished, production-ready interfaces.\n\nI also have experience with API integration, Firebase, WordPress, Shopify and Webflow.",
+  },
+  {
+    question: "What professional and production experience do you have?",
+    answer:
+      "My experience spans mobile application development, client project delivery and live product development.\n\nAt ChefKart, I contribute across the customer mobile application, internal dashboard and website. Previously, I delivered 20+ client projects at PPCROY and developed the Levels App during my internship at Third Eye Lab.",
+  },
+  {
+    question: "How do you approach development requirements?",
+    answer:
+      "I begin by understanding the user journey, business goal and expected behaviour.\n\nI then plan the component structure, identify important states and edge cases, coordinate around API requirements and test the experience across relevant devices before considering the feature complete.",
+  },
+  {
+    question: "How do you collaborate with product and engineering teams?",
+    answer:
+      "I work with product managers, designers and backend developers to clarify requirements, understand user flows, coordinate API behaviour and refine features based on testing and feedback.\n\nI value clear communication, practical problem-solving and shared responsibility for product quality.",
+  },
+  {
+    question: "How can we discuss an opportunity?",
+    answer:
+      "You can contact me through email or LinkedIn with the role, company details and a brief overview of the opportunity.\n\nI respond to professional enquiries within an hour.",
+  },
+]
 
+export function FAQ() {
   return (
-    <section id="faq" className="py-16 md:py-24 bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="relative isolate overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_16%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_12%_16%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 20 }}
+          className="mx-auto max-w-3xl text-center"
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6"></div>
-          <p className="text-gray-600 dark:text-gray-300">
-            Find answers to common questions about my services, process, and expertise
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
+            <HelpCircle className="h-3.5 w-3.5" />
+            Recruitment Information
+          </div>
+          <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-4xl">
+            Frequently Asked Questions
+          </h2>
+          <p className="mt-4 text-base leading-7 text-gray-600 dark:text-gray-300">
+            Key information for recruiters, hiring managers and technology leaders evaluating my experience and
+            suitability for frontend, mobile and full-stack development roles.
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="bg-white dark:bg-gray-900 rounded-xl shadow-md relative z-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <Accordion type="single" collapsible className="w-full pointer-events-auto">
+        <motion.div
+          className="mx-auto mt-12 max-w-4xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55, delay: 0.05, ease: "easeOut" }}
+        >
+          <div className="rounded-2xl border border-purple-100 bg-white/90 shadow-[0_20px_60px_rgba(124,58,237,0.10)] backdrop-blur dark:border-purple-800/40 dark:bg-gray-950/60 dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+            <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="pointer-events-auto">
-                  <AccordionTrigger className="text-left px-6 hover:no-underline hover:text-purple-600 dark:hover:text-purple-400 font-medium pointer-events-auto">
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border-purple-100/70 last:border-b-0 dark:border-purple-800/30"
+                >
+                  <AccordionTrigger className="px-5 py-5 text-left text-base font-semibold text-gray-900 hover:no-underline hover:text-brand-700 dark:text-white dark:hover:text-brand-300 sm:px-6">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4 text-gray-600 dark:text-gray-300 pointer-events-auto">
-                    {faq.answer}
+                  <AccordionContent className="px-5 pb-5 sm:px-6">
+                    <div className="space-y-3 text-[15px] leading-7 text-gray-600 dark:text-gray-300">
+                      {faq.answer.split("\n\n").map((paragraph, i) => (
+                        <p key={i}>{paragraph}</p>
+                      ))}
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
-          </motion.div>
-
-          <div className="mt-10 text-center">
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Don't see your question here? Feel free to reach out directly.
-            </p>
-            <Link href="#contact">
-              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
-                Ask Your Question
-              </Button>
-            </Link>
           </div>
-        </div>
+        </motion.div>
+
+        <motion.div
+          className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-3 sm:flex-row"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
+        >
+          <Button
+            asChild
+            className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:opacity-95"
+          >
+            <Link href="#contact">
+              <Mail className="h-4 w-4" />
+              Discuss an Opportunity
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="h-11 rounded-lg border-brand-200 bg-white px-5 text-brand-700 hover:bg-brand-50 hover:text-brand-800 dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300 dark:hover:bg-brand-900/30"
+          >
+            <Link href="https://www.linkedin.com/in/anuj-dhanuka/" target="_blank" rel="noopener noreferrer">
+              <LuLinkedin className="h-4 w-4" />
+              Connect on LinkedIn
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   )

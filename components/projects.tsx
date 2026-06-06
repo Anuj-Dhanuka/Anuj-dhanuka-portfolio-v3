@@ -2,355 +2,312 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, ExternalLink, Smartphone, Monitor } from "lucide-react"
+import {
+  BriefcaseBusiness,
+  Code2,
+  ExternalLink,
+  Monitor,
+  Smartphone,
+  Store,
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useState, memo } from "react"
 
-// Memoized Image component to prevent unnecessary re-renders
-const ProjectImage = memo(({ src, alt }: { src: string; alt: string }) => (
-  <Image
-    src={src}
-    alt={alt}
-    fill
-    className="object-cover"
-    loading="lazy"
-  />
-))
-ProjectImage.displayName = 'ProjectImage'
+type Project = {
+  title: string
+  role: string
+  description: string
+  category: string
+  image?: string
+  images?: string[]
+  type: "web" | "mobile" | "business"
+  tags: string[]
+  liveLink?: string
+  githubLink?: string
+  contributions: string[]
+  accent: string
+  Icon: typeof Monitor
+  imageFit?: "cover" | "contain"
+}
 
-export function Projects() {
-  const [activeProject, setActiveProject] = useState(0)
+const projects: Project[] = [
+  {
+    title: "Rekha Maa Ki Rasoi",
+    category: "Food Business Website",
+    role: "WordPress · Responsive Design · UI Customisation",
+    description:
+      "A warm and approachable WordPress website I created for my mother's homemade food business to give the brand a professional online presence and make its services easier for customers to discover.",
+    type: "business",
+    image: "/Projects_images/Rekha_maa_ki_rasoi.webp",
+    tags: ["WordPress", "Responsive Design", "UI Customisation"],
+    liveLink: "https://rekhamaakirasoi.com/",
+    contributions: [
+      "Planned the website structure around customer needs.",
+      "Created the visual direction and page layouts.",
+      "Built and customised the website using WordPress.",
+      "Organised services and business information clearly.",
+      "Optimised the experience for mobile and desktop devices.",
+      "Designed the interface to feel personal, trustworthy and welcoming.",
+    ],
+    accent: "from-brand-600 to-accent1-600",
+    Icon: Store,
+    imageFit: "cover",
+  },
+  {
+    title: "Rama Technical College of Education",
+    category: "Education Website",
+    role: "WordPress · Responsive Design · Information Architecture · UI Customisation",
+    description:
+      "A professional WordPress website created to present institutional and academic information with clearer navigation, stronger content hierarchy and improved credibility.",
+    type: "business",
+    image: "/Projects_images/Rama_technical_college_of_education.webp",
+    tags: ["WordPress", "Responsive Design", "Information Architecture", "UI Customisation"],
+    liveLink: "https://rtceindia.in/#",
+    contributions: [
+      "Structured institutional information into clear and accessible sections.",
+      "Designed and developed the complete website using WordPress.",
+      "Improved navigation and content readability.",
+      "Created a professional visual style suited to an educational institution.",
+      "Optimised the layout across mobile, tablet and desktop screens.",
+    ],
+    accent: "from-accent2-600 to-brand-600",
+    Icon: BriefcaseBusiness,
+    imageFit: "cover",
+  },
+  {
+    title: "Mopedo",
+    category: "React Web Application",
+    role: "React.js · JavaScript · CSS3 · Responsive Design",
+    description:
+      "A responsive single-page React application for an urban mobility platform offering bike taxi, food delivery and goods-delivery services.",
+    image: "/Projects_images/Mopedo.webp",
+    type: "web",
+    tags: ["React.js", "JavaScript", "CSS3", "Responsive Design"],
+    liveLink: "https://mopedo.netlify.app/",
+    contributions: [
+      "Created the complete website experience from concept to implementation.",
+      "Developed reusable interface components using React.",
+      "Built responsive, mobile-first sections.",
+      "Presented multiple services within a consistent visual system.",
+      "Added clear calls to action throughout the application.",
+      "Optimised the interface for different screen sizes.",
+    ],
+    accent: "from-brand-600 to-accent2-600",
+    Icon: Monitor,
+    imageFit: "cover",
+  },
+  {
+    title: "Levels App",
+    category: "React Native Application",
+    role: "React Native · JavaScript · Mobile UI · Dynamic Content",
+    description:
+      "A mobile quiz application built during my internship at Third Eye Lab, featuring category-based questions, dynamic content loading and intuitive user flows.",
+    images: ["/levels-app-quiz.webp", "/levels-app-categories.webp", "/levels-app-login.webp"],
+    type: "mobile",
+    tags: ["React Native", "JavaScript", "Mobile UI", "Dynamic Content"],
+    githubLink: "https://github.com/Anuj-Dhanuka/levels-app",
+    contributions: [
+      "Built the application screens using React Native.",
+      "Implemented category selection and quiz-question flows.",
+      "Added dynamic question-loading behaviour.",
+      "Created reusable screens and clear navigation.",
+      "Completed the project ahead of schedule.",
+      "Delivered additional features beyond the original requirements.",
+    ],
+    accent: "from-brand-600 to-accent1-600",
+    Icon: Smartphone,
+  },
+]
 
-  const projects = [
-    {
-      title: "Mopedo",
-      description:
-        "Mopedo is a responsive single-page React application that showcases a modern urban mobility platform offering Bike Taxi, Food Delivery, and Goods Delivery services. Designed with a clean UI and mobile-first approach, it highlights key features like GPS-tracked rides, fast meal deliveries, and secure parcel transport with real-time tracking and AI-optimized routes.",
-      image: "/mopedo-screenshot.png",
-      type: "web",
-      tags: ["React", "Single-Page App", "Mobile-First Design", "UI/UX"],
-      liveLink: "https://mopedo.netlify.app/",
-      githubLink: "https://github.com/anujd64",
-      results:
-        "Built using modular React components with emphasis on performance, usability, and conversion-focused design",
-      color: "from-blue-500 to-teal-500",
-      icon: <Monitor className="h-5 w-5" />,
-    },
-    {
-      title: "Jobby App",
-      description:
-        "Jobby App is a responsive job search web application built using React JS, featuring dynamic routing, protected routes, and real-time job listings. Users can log in using the credentials (username: rahul, password: rahul@2021) to access the platform. The app includes job filtering by employment type and salary range, along with detailed job descriptions and company information.",
-      image: "/jobby-app-screenshot.png",
-      type: "web",
-      tags: ["React JS", "API Integration", "Protected Routes", "State Management"],
-      liveLink: "https://anujjobbyapp.ccbp.tech",
-      results: "Demonstrates skills in API integration, state management with React hooks, and conditional rendering",
-      color: "from-indigo-500 to-purple-500",
-      icon: <Monitor className="h-5 w-5" />,
-      credentials: {
-        username: "rahul",
-        password: "rahul@2021",
-      },
-    },
-    {
-      title: "Levels App",
-      description:
-        "Developed a quiz application with React Native featuring different categories like Sports, General Knowledge, Current Affairs, and more. Users can test their knowledge, earn points, and compete with others on the leaderboard.",
-      images: ["/levels-app-quiz.webp", "/levels-app-categories.webp", "/levels-app-login.webp"],
-      type: "mobile",
-      tags: ["React Native", "JavaScript", "Mobile Development", "UI/UX Design"],
-      githubLink: "https://github.com/Anuj-Dhanuka/levels-app",
-      results: "Completed project ahead of schedule with additional features",
-      color: "from-purple-500 to-pink-500",
-      icon: <Smartphone className="h-5 w-5" />,
-    },
-    {
-      title: "Food Munch",
-      description:
-        "Food Munch is a fully responsive restaurant landing page built with HTML, CSS, and Bootstrap, designed to showcase a modern dining experience. The site features smooth navigation, visually appealing layouts, and clearly structured sections including menu highlights, customer testimonials, and a reservation call-to-action.",
-      image: "/food-munch-screenshot.png",
-      type: "web",
-      tags: ["HTML", "CSS", "Bootstrap", "Responsive Design"],
-      liveLink: "https://anujfoodmunch.ccbp.tech",
-      results:
-        "Demonstrates strong front-end fundamentals and attention to user experience for the food and hospitality sector",
-      color: "from-yellow-500 to-orange-500",
-      icon: <Monitor className="h-5 w-5" />,
-    },
-  ]
+function ProjectVisual({ project }: { project: Project }) {
+  if (project.type === "mobile" && project.images?.length) {
+    return (
+      <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand-50 via-white to-accent1-50 dark:from-brand-950/30 dark:via-gray-950 dark:to-accent1-950/20">
+        <div
+          className={`absolute inset-x-8 bottom-2 h-28 rounded-full bg-gradient-to-r ${project.accent} opacity-20 blur-3xl`}
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto flex h-full max-w-md items-center justify-center">
+          {project.images.map((image, index) => (
+            <div
+              key={image}
+              className={[
+                "absolute overflow-hidden rounded-[1.5rem] border-[6px] border-gray-950 bg-gray-950 shadow-2xl shadow-purple-500/20",
+                index === 0
+                  ? "z-20 h-[224px] w-[110px] sm:h-[270px] sm:w-[132px] lg:h-[296px] lg:w-[146px]"
+                  : index === 1
+                    ? "left-4 z-10 h-[190px] w-[94px] -rotate-6 opacity-85 sm:left-8 sm:h-[232px] sm:w-[114px] lg:h-[256px] lg:w-[126px]"
+                    : "right-4 z-10 h-[190px] w-[94px] rotate-6 opacity-85 sm:right-8 sm:h-[232px] sm:w-[114px] lg:h-[256px] lg:w-[126px]",
+              ].join(" ")}
+            >
+              <Image
+                src={image}
+                alt={`${project.title} screen ${index + 1}`}
+                width={292}
+                height={600}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <section id="projects" className="py-16 md:py-24 overflow-hidden">
-      {/* Creative background elements */}
-      <div className="absolute inset-0 z-0 opacity-10 dark:opacity-20">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-900/80 to-gray-950/80 dark:from-black/90 dark:to-gray-950/90"></div>
-        <div
-          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-purple-700/40 dark:bg-purple-900/40 mix-blend-overlay filter blur-3xl animate-blob"
-          style={{ animationDelay: "0s" }}
-        ></div>
-        <div
-          className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-pink-700/40 dark:bg-pink-900/40 mix-blend-overlay filter blur-3xl animate-blob"
-          style={{ animationDelay: "2s" }}
-        ></div>
-        <div
-          className="absolute bottom-1/4 right-1/3 w-72 h-72 rounded-full bg-indigo-700/40 dark:bg-indigo-900/40 mix-blend-overlay filter blur-3xl animate-blob"
-          style={{ animationDelay: "4s" }}
-        ></div>
+    <div className="relative overflow-hidden bg-white dark:bg-gray-950">
+      <div className="relative aspect-[16/9] w-full overflow-hidden">
+        <Image
+          src={project.image || "/placeholder.svg"}
+          alt={`${project.title} project screenshot`}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
+          priority
+        />
       </div>
+    </div>
+  )
+}
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+function ProjectLinks({ project }: { project: Project }) {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row">
+      {project.liveLink && (
+        <Button
+          asChild
+          className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6"></div>
-          <p className="text-gray-600 dark:text-gray-300">
-            Case studies of projects where I've demonstrated leadership and technical expertise
+          <Link href={project.liveLink} target="_blank" rel="noopener noreferrer">
+            View Live Project
+            <ExternalLink className="h-4 w-4" />
+          </Link>
+        </Button>
+      )}
+      {project.githubLink && (
+        <Button
+          asChild
+          variant="outline"
+          className="h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
+        >
+          <Link href={project.githubLink} target="_blank" rel="noopener noreferrer">
+            View Source
+            <Code2 className="h-4 w-4" />
+          </Link>
+        </Button>
+      )}
+    </div>
+  )
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const ProjectIcon = project.Icon
+
+  return (
+    <motion.article
+      className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-purple-100 bg-white/92 shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_50px_rgba(124,58,237,0.08)] backdrop-blur transition-transform duration-300 hover:-translate-y-1 dark:border-purple-800/30 dark:bg-gray-950/35"
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-70px" }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+    >
+      <div className={`absolute left-0 top-0 h-1 w-full bg-gradient-to-r ${project.accent}`} aria-hidden="true" />
+      <ProjectVisual project={project} />
+
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold text-accent1-600 dark:text-accent1-300">
+              {project.category}
+            </p>
+            <h3 className="mt-2 text-2xl font-bold leading-tight text-gray-900 dark:text-white">
+              {project.title}
+            </h3>
+          </div>
+          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-brand-100 bg-brand-50 text-brand-600 dark:border-brand-800/50 dark:bg-brand-900/25 dark:text-brand-300">
+            <ProjectIcon className="h-5 w-5" />
+          </span>
+        </div>
+
+        <p className="mt-3 text-sm font-semibold leading-6 text-brand-700 dark:text-brand-300">{project.role}</p>
+        <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">{project.description}</p>
+
+        <div className="mt-4">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-gray-400 dark:text-gray-500">
+            My contribution
+          </p>
+          <ul className="mt-3 space-y-2">
+            {project.contributions.map((contribution) => (
+              <li key={contribution} className="flex gap-2 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                <span className={`mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-r ${project.accent}`} />
+                <span>{contribution}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tags.slice(0, 3).map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-purple-100 bg-purple-50/70 px-2.5 py-1 text-xs font-semibold text-brand-700 dark:border-purple-800/40 dark:bg-purple-900/20 dark:text-brand-300"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-auto pt-5">
+          <ProjectLinks project={project} />
+        </div>
+      </div>
+    </motion.article>
+  )
+}
+
+export function Projects() {
+  return (
+    <section id="projects" className="relative isolate overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_18%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_82%_50%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_14%_18%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_82%_50%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="mx-auto max-w-3xl text-center"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+        >
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
+            <BriefcaseBusiness className="h-3.5 w-3.5" />
+            SELECTED PROJECTS
+          </div>
+          <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-4xl">
+            Projects that show how I turn ideas into complete digital experiences.
+          </h2>
+          <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
+          <p className="mt-6 text-base leading-7 text-gray-600 dark:text-gray-300">
+            Each project was planned and built by me, from structuring the content and defining the visual direction
+            to development and responsive implementation.
           </p>
         </motion.div>
 
-        {/* Interactive 3D Project Showcase */}
-        <div className="relative">
-          {/* Project selection tabs */}
-          <div className="flex justify-center mb-6 sm:mb-8 overflow-x-auto scrollbar-none">
-            <div className="flex gap-2 px-4 py-2 min-w-full sm:min-w-0 sm:px-0">
-              {projects.map((project, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveProject(index)}
-                  className={`flex-shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
-                    activeProject === index
-                      ? `bg-gradient-to-r ${project.color} text-white shadow-md`
-                      : "bg-white/90 dark:bg-gray-800/90 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 backdrop-blur-sm"
-                  }`}
-                  aria-label={`View ${project.title} project`}
-                >
-                  <span className="flex items-center whitespace-nowrap">
-                    {project.icon}
-                    <span className="ml-1.5">{project.title}</span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* 3D Project Display */}
-          <div className="relative h-[400px] sm:h-[500px] md:h-[600px] w-full perspective-1000">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                className={`absolute inset-0 backface-hidden rounded-2xl overflow-hidden transition-all duration-700 ${
-                  activeProject === index ? "z-10 opacity-100" : "opacity-0 pointer-events-none"
-                }`}
-                initial={false}
-                animate={{
-                  rotateY: activeProject === index ? 0 : activeProject > index ? -90 : 90,
-                  scale: activeProject === index ? 1 : 0.8,
-                }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 to-gray-900/90 z-0"></div>
-
-                {/* Project content with 3D effect */}
-                <div className="relative z-10 h-full flex flex-col md:flex-row">
-                  {/* Left side - Project showcase */}
-                  <div className="h-1/2 md:h-full md:w-3/5 relative overflow-hidden">
-                    <div
-                      className="absolute inset-0 bg-gradient-to-br from-black/30 to-black/10 z-10"
-                      style={{
-                        backgroundImage: `radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 60%)`,
-                      }}
-                    ></div>
-
-                    {project.type === "mobile" ? (
-                      // Mobile project - show devices in a creative layout
-                      <div className="relative h-full w-full flex items-center justify-center p-8">
-                        <div className="relative w-full h-full max-w-3xl mx-auto">
-                          {/* Floating devices with perspective */}
-                          <motion.div
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30%] h-[70%] z-30"
-                            whileInView={{
-                              y: [0, -10, 0],
-                              rotateY: [0, 5, 0],
-                              rotateX: [0, 2, 0],
-                            }}
-                            transition={{
-                              repeat: Number.POSITIVE_INFINITY,
-                              duration: 6,
-                              ease: "easeInOut",
-                            }}
-                          >
-                            <div className="relative w-full h-full rounded-3xl overflow-hidden border-8 border-gray-800 shadow-2xl">
-                              <ProjectImage
-                                src={project.images?.[0] || project.image || "/placeholder.svg"}
-                                alt={project.title}
-                              />
-                            </div>
-                          </motion.div>
-
-                          <motion.div
-                            className="absolute top-1/2 left-[20%] transform -translate-x-1/2 -translate-y-1/2 w-[25%] h-[60%] z-20"
-                            whileInView={{
-                              y: [0, 10, 0],
-                              rotateY: [0, -8, 0],
-                              rotateX: [0, -3, 0],
-                            }}
-                            transition={{
-                              repeat: Number.POSITIVE_INFINITY,
-                              duration: 7,
-                              ease: "easeInOut",
-                              delay: 0.5,
-                            }}
-                          >
-                            <div className="relative w-full h-full rounded-3xl overflow-hidden border-8 border-gray-800 shadow-2xl">
-                              <ProjectImage
-                                src={project.images?.[1] || project.image || "/placeholder.svg"}
-                                alt={project.title}
-                              />
-                            </div>
-                          </motion.div>
-
-                          <motion.div
-                            className="absolute top-1/2 left-[80%] transform -translate-x-1/2 -translate-y-1/2 w-[25%] h-[60%] z-20"
-                            whileInView={{
-                              y: [0, 15, 0],
-                              rotateY: [0, 8, 0],
-                              rotateX: [0, 5, 0],
-                            }}
-                            transition={{
-                              repeat: Number.POSITIVE_INFINITY,
-                              duration: 8,
-                              ease: "easeInOut",
-                              delay: 1,
-                            }}
-                          >
-                            <div className="relative w-full h-full rounded-3xl overflow-hidden border-8 border-gray-800 shadow-2xl">
-                              <ProjectImage
-                                src={project.images?.[2] || project.image || "/placeholder.svg"}
-                                alt={project.title}
-                              />
-                            </div>
-                          </motion.div>
-
-                          {/* Decorative elements */}
-                          <div className="absolute inset-0 pointer-events-none">
-                            <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-xl"></div>
-                            <div className="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-gradient-to-r from-blue-500/20 to-indigo-500/20 blur-xl"></div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      // Web project - show in a creative browser mockup
-                      <div className="relative h-full w-full flex items-center justify-center p-8">
-                        <motion.div
-                          className="relative w-full max-w-3xl mx-auto aspect-video rounded-lg overflow-hidden shadow-2xl"
-                          whileHover={{ scale: 1.02 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <ProjectImage
-                            src={project.image || "/placeholder.svg"}
-                            alt={project.title}
-                          />
-                        </motion.div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Right side - Project info */}
-                  <div className="h-1/2 md:h-full md:w-2/5 p-4 sm:p-6 md:p-8 flex flex-col justify-center overflow-y-auto">
-                    <div className="space-y-6">
-                      <div>
-                        <h3
-                          className={`text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${project.color}`}
-                        >
-                          {project.title}
-                        </h3>
-                        <div className={`h-1 w-16 bg-gradient-to-r ${project.color} rounded-full mt-2 mb-4`}></div>
-                      </div>
-
-                      <div>
-                        <p className="text-gray-300 leading-relaxed">{project.description}</p>
-                        {project.credentials && (
-                          <div className="mt-3 p-3 bg-gray-800/80 border border-gray-700/50 rounded-md">
-                            <p className="text-sm font-medium text-gray-300 mb-1">Login Credentials:</p>
-                            <div className="flex flex-col space-y-1">
-                              <div className="flex items-center">
-                                <span className="text-xs text-gray-400 w-20">Username:</span>
-                                <span className="text-xs font-mono bg-gray-700/50 px-2 py-0.5 rounded text-green-400">
-                                  {project.credentials.username}
-                                </span>
-                              </div>
-                              <div className="flex items-center">
-                                <span className="text-xs text-gray-400 w-20">Password:</span>
-                                <span className="text-xs font-mono bg-gray-700/50 px-2 py-0.5 rounded text-green-400">
-                                  {project.credentials.password}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {project.tags.map((tag, tagIndex) => (
-                          <span
-                            key={tagIndex}
-                            className={`px-3 py-1 bg-gray-800/80 text-gray-300 rounded-full text-sm border border-gray-700/50 backdrop-blur-sm`}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="pt-4 flex space-x-4">
-                        {project.liveLink && (
-                          <Link
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`View ${project.title} live site`}
-                          >
-                            <Button
-                              className={`group bg-gradient-to-r ${project.color} hover:opacity-90 text-white relative overflow-hidden`}
-                            >
-                              <span className="relative z-10 flex items-center">
-                                View Live Site
-                                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                              </span>
-                              <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                            </Button>
-                          </Link>
-                        )}
-
-                        {/* GitHub button removed as requested */}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Project navigation dots */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {projects.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveProject(index)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  activeProject === index
-                    ? "bg-gradient-to-r from-purple-600 to-pink-600 scale-125"
-                    : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
-                }`}
-                aria-label={`Go to project ${index + 1}`}
-              />
-            ))}
-          </div>
+        <div className="mt-10 grid gap-6 md:mt-12 lg:grid-cols-2">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
         </div>
       </div>
     </section>

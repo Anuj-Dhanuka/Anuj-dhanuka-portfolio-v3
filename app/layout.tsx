@@ -13,15 +13,15 @@ export const metadata: Metadata = {
       ? "https://anujdhanuka.com"
       : "http://localhost:3004"
   ),
-  title: "Anuj Dhanuka | React & Firebase Expert | Full-Stack Developer",
+  title: "Anuj Dhanuka | Frontend & React Native Developer",
   description:
-    "Expert full-stack developer specializing in React, Firebase, WordPress, and Shopify solutions that deliver exceptional digital experiences and drive business growth.",
+    "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
   keywords:
-    "React developer, Firebase expert, WordPress developer, Shopify developer, full-stack developer, web development, mobile app development",
+    "Frontend developer, React Native developer, React developer, JavaScript developer, mobile app developer, web developer, Anuj Dhanuka",
   openGraph: {
-    title: "Anuj Dhanuka | React & Firebase Expert | Full-Stack Developer",
+    title: "Anuj Dhanuka | Frontend & React Native Developer",
     description:
-      "Expert full-stack developer specializing in React, Firebase, WordPress, and Shopify solutions that deliver exceptional digital experiences and drive business growth.",
+      "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
     url: "https://anujdhanuka.com",
     siteName: "Anuj Dhanuka Portfolio",
     images: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Anuj Dhanuka - Full-Stack Developer",
+        alt: "Anuj Dhanuka - Frontend & React Native Developer",
       },
     ],
     locale: "en_US",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anuj Dhanuka | React & Firebase Expert | Full-Stack Developer",
+    title: "Anuj Dhanuka | Frontend & React Native Developer",
     description:
-      "Expert full-stack developer specializing in React, Firebase, WordPress, and Shopify solutions that deliver exceptional digital experiences and drive business growth.",
+      "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -53,7 +53,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://anujdhanuka.com",
   },
-  generator: "v0.dev",
 };
 
 // ✅ Move viewport to separate export
