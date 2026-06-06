@@ -1,208 +1,184 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Smartphone, ShoppingBag, Globe, GitBranch, Zap, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import {
+  Bot,
+  Code2,
+  GitBranch,
+  MonitorSmartphone,
+  PenTool,
+  ShoppingBag,
+  Sparkles,
+} from "lucide-react"
+
+const skillGroups = [
+  {
+    title: "Frontend Development",
+    skills: ["React.js", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Responsive Development", "API Integration"],
+    Icon: Code2,
+  },
+  {
+    title: "Mobile Development",
+    skills: [
+      "React Native",
+      "Mobile UI Development",
+      "App Navigation",
+      "Cross-Device Compatibility",
+      "Performance Optimisation",
+    ],
+    Icon: MonitorSmartphone,
+  },
+  {
+    title: "Design-to-Code",
+    skills: [
+      "Figma-to-Code",
+      "Pixel-Accurate Development",
+      "Responsive Layouts",
+      "Visual Hierarchy",
+      "Interaction States",
+      "UI Refinement",
+    ],
+    Icon: PenTool,
+  },
+  {
+    title: "Platforms",
+    skills: ["WordPress", "Shopify", "Shopify Liquid", "Webflow", "Firebase"],
+    Icon: ShoppingBag,
+  },
+  {
+    title: "Development Workflow",
+    skills: [
+      "Git",
+      "GitHub",
+      "Analytics Implementation",
+      "Debugging",
+      "Code Review",
+      "Production Issue Resolution",
+    ],
+    Icon: GitBranch,
+  },
+]
+
+const aiTools = ["Claude", "Codex", "ChatGPT"]
 
 export function Skills() {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
-
-  const skillCategories = [
-    {
-      name: "Frontend Development",
-      icon: <Code className="h-6 w-6 text-purple-600" />,
-      color: "purple",
-      skills: [
-        { name: "React.js", level: 85 },
-        { name: "JavaScript", level: 90 },
-        { name: "HTML5/CSS3", level: 95 },
-        { name: "Tailwind CSS", level: 80 },
-        { name: "TypeScript", level: 70 },
-        { name: "Next.js", level: 75 },
-      ],
-    },
-    {
-      name: "Mobile Development",
-      icon: <Smartphone className="h-6 w-6 text-blue-600" />,
-      color: "blue",
-      skills: [
-        { name: "React Native", level: 80 },
-        { name: "Mobile UI Design", level: 75 },
-        { name: "App Performance", level: 70 },
-      ],
-    },
-    {
-      name: "E-commerce",
-      icon: <ShoppingBag className="h-6 w-6 text-green-600" />,
-      color: "green",
-      skills: [
-        { name: "Shopify", level: 85 },
-        { name: "Shopify Liquid", level: 75 },
-        { name: "E-commerce UX", level: 80 },
-      ],
-    },
-    {
-      name: "CMS",
-      icon: <Globe className="h-6 w-6 text-orange-600" />,
-      color: "orange",
-      skills: [
-        { name: "WordPress", level: 90 },
-        { name: "Theme Development", level: 80 },
-        { name: "Content Management", level: 75 },
-      ],
-    },
-    {
-      name: "Tools & Others",
-      icon: <GitBranch className="h-6 w-6 text-gray-600" />,
-      color: "gray",
-      skills: [
-        { name: "Git", level: 85 },
-        { name: "Responsive Design", level: 90 },
-        { name: "UI/UX Principles", level: 80 },
-        { name: "Performance Optimization", level: 75 },
-      ],
-    },
-  ]
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  }
-
   return (
-    <section id="skills" className="py-12 md:py-16 relative overflow-hidden">
-      {/* Simplified background with subtle gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-50/50 to-accent1-50/30 dark:from-brand-900/10 dark:to-accent1-900/10 z-0"></div>
-
-      {/* Subtle professional pattern overlay - optimized */}
+    <section id="skills" className="relative isolate overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24">
       <div
-        className="absolute inset-0 z-0 opacity-10 dark:opacity-5"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_14%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_86%_72%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_12%_14%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_86%_72%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
         style={{
-          backgroundImage: `linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-                      linear-gradient(180deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
+          backgroundImage:
+            "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
         }}
-      ></div>
+        aria-hidden="true"
+      />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-8"
-          initial={{ opacity: 0, y: 20 }}
+          className="mx-auto max-w-3xl text-center"
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
         >
-          <div className="inline-flex items-center px-4 py-1 rounded-full text-sm font-medium bg-brand-100 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 mb-3">
-            <Zap className="h-4 w-4 mr-2" />
-            Professional Skill Set
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
+            <Sparkles className="h-3.5 w-3.5" />
+            TECHNICAL SKILLS
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">Technical Skills</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">
-            Below is a comprehensive overview of my technical expertise and proficiency levels in various technologies
-          </p>
+          <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-4xl">
+            Skills Built Through Real Work
+          </h2>
+          <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
         </motion.div>
 
-        {/* Legend for skill levels - simplified */}
-        <div className="flex justify-center items-center gap-4 md:gap-8 mb-8 text-sm flex-wrap">
-          <div className="flex items-center">
-            <div className="w-10 h-2 bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-600 rounded-full mr-2"></div>
-            <span className="text-gray-600 dark:text-gray-400">Beginner</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-10 h-2 bg-gradient-to-r from-blue-400 to-blue-500 dark:from-blue-600 dark:to-blue-500 rounded-full mr-2"></div>
-            <span className="text-gray-600 dark:text-gray-400">Intermediate</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-10 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mr-2"></div>
-            <span className="text-gray-600 dark:text-gray-400">Advanced</span>
-          </div>
-        </div>
-
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.3,
-              },
-            },
-          }}
-        >
-          {skillCategories.slice(0, 3).map((category, categoryIndex) => (
-            <motion.div
-              key={categoryIndex}
-              className="bg-white dark:bg-gray-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                show: { opacity: 1, y: 0 },
-              }}
+        <div className="mt-10 grid gap-5 md:mt-12 md:grid-cols-2 xl:grid-cols-3">
+          {skillGroups.map(({ title, skills, Icon }, index) => (
+            <motion.article
+              key={title}
+              className="group relative overflow-hidden rounded-lg border border-purple-100 bg-white/92 p-5 shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_50px_rgba(124,58,237,0.08)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_1px_0_rgba(15,23,42,0.05),0_24px_60px_rgba(124,58,237,0.13)] dark:border-purple-800/35 dark:bg-gray-950/60 dark:hover:border-brand-700/70 sm:p-6"
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-70px" }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
             >
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 py-2 sm:py-3 px-3 sm:px-4">
-                <div className="flex items-center">
-                  <div className="p-1.5 sm:p-2 bg-white/20 rounded-lg mr-2 sm:mr-3">{category.icon}</div>
-                  <h3 className="text-base sm:text-lg font-bold text-white">{category.name}</h3>
+              <span
+                className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-600 to-accent1-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br from-brand-500/10 to-accent1-500/10 blur-2xl"
+                aria-hidden="true"
+              />
+              <div className="relative">
+                <div className="flex items-start justify-between gap-4">
+                  <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-50 to-accent1-50 text-brand-600 shadow-sm transition-transform duration-300 group-hover:scale-105 dark:from-brand-900/30 dark:to-accent1-900/20 dark:text-brand-300">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-gray-300 dark:text-gray-600">
+                    0{index + 1}
+                  </span>
                 </div>
-              </div>
-              <div className="p-3 sm:p-5">
-                <div className="space-y-2 sm:space-y-3">
-                  {category.skills.slice(0, 4).map((skill, skillIndex) => (
-                    <div
-                      key={skillIndex}
-                      onMouseEnter={() => setHoveredSkill(`${category.name}-${skill.name}`)}
-                      onMouseLeave={() => setHoveredSkill(null)}
-                      className="group"
+                <h3 className="mt-5 text-xl font-bold leading-tight text-gray-900 dark:text-white">{title}</h3>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-full border border-purple-100 bg-purple-50/70 px-2.5 py-1 text-xs font-semibold text-brand-700 transition-colors duration-300 group-hover:border-brand-100 group-hover:bg-brand-50 dark:border-purple-800/40 dark:bg-purple-900/20 dark:text-brand-300 dark:group-hover:bg-brand-900/20"
                     >
-                      <div className="flex justify-between mb-1">
-                        <span className="font-medium text-gray-700 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors text-sm flex items-center">
-                          <ChevronRight className="h-3 w-3 mr-1 text-purple-500" />
-                          {skill.name}
-                        </span>
-                        <span
-                          className={`text-xs ${
-                            hoveredSkill === `${category.name}-${skill.name}`
-                              ? `text-${category.color}-600 dark:text-${category.color}-400 font-medium`
-                              : "text-gray-500 dark:text-gray-400"
-                          } transition-colors`}
-                        >
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                        <div
-                          className={`h-2 rounded-full transition-all duration-1000 ${
-                            skill.level > 75
-                              ? "bg-gradient-to-r from-purple-500 to-pink-500"
-                              : skill.level > 50
-                                ? "bg-gradient-to-r from-blue-400 to-blue-500 dark:from-blue-600 dark:to-blue-500"
-                                : "bg-gradient-to-r from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-600"
-                          }`}
-                          style={{ width: `${skill.level}%` }}
-                        />
-                      </div>
-                    </div>
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
-        </motion.div>
+
+          <motion.article
+            className="group relative overflow-hidden rounded-lg border border-purple-100 bg-gradient-to-br from-white via-purple-50/70 to-pink-50/70 p-5 shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_50px_rgba(124,58,237,0.08)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_1px_0_rgba(15,23,42,0.05),0_24px_60px_rgba(124,58,237,0.13)] dark:border-purple-800/35 dark:from-gray-950/85 dark:via-purple-950/25 dark:to-pink-950/20 dark:hover:border-brand-700/70 sm:p-6"
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.5, delay: 0.32, ease: "easeOut" }}
+          >
+            <span
+              className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-600 to-accent1-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <div className="flex items-start justify-between gap-4">
+                <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-accent1-600 text-white shadow-lg shadow-purple-500/20 transition-transform duration-300 group-hover:scale-105">
+                  <Bot className="h-5 w-5" />
+                </span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-gray-300 dark:text-gray-600">
+                  06
+                </span>
+              </div>
+              <h3 className="mt-5 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                AI-Assisted Tools
+              </h3>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {aiTools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-full border border-purple-100 bg-white/80 px-2.5 py-1 text-xs font-semibold text-brand-700 dark:border-purple-800/40 dark:bg-purple-900/20 dark:text-brand-300"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-4 text-sm font-medium leading-6 text-gray-700 dark:text-gray-200">
+                I use AI tools to support research, debugging and development while keeping technical decisions and
+                final implementation under my control.
+              </p>
+            </div>
+          </motion.article>
+        </div>
       </div>
     </section>
   )

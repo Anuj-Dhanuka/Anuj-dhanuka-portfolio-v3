@@ -21,8 +21,8 @@ export function Footer() {
               Portfolio
             </Link>
             <p className="mt-4 text-gray-600 dark:text-gray-300 max-w-md">
-              Full-stack developer specializing in creating exceptional digital experiences through websites, mobile
-              apps, Shopify stores, and WordPress solutions.
+              Frontend and React Native developer building polished, responsive and product-focused web and mobile
+              experiences.
             </p>
             <div className="flex space-x-4 mt-6">
               <Link
@@ -83,14 +83,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-4">Services</h3>
+            <h3 className="font-semibold text-lg mb-4">Expertise</h3>
             <ul className="space-y-2">
               {[
-                { name: "Website Development", href: "#services" },
-                { name: "App Development", href: "#services" },
-                { name: "Shopify Development", href: "#services" },
-                { name: "WordPress Solutions", href: "#services" },
-                { name: "AI-Powered Development", href: "#ai-innovation" },
+                { name: "Frontend Development", href: "#skills" },
+                { name: "React Native", href: "#skills" },
+                { name: "Responsive UI", href: "#skills" },
+                { name: "AI-Assisted Development", href: "#skills" },
               ].map((service) => (
                 <li key={service.name}>
                   <Link
@@ -107,32 +106,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center">
+        <div className="border-t border-gray-200 dark:border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 flex justify-center text-center">
           <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-            © {new Date().getFullYear()} Your Portfolio. All rights reserved.
+            © 2026 Anuj Dhanuka. All rights reserved.
           </p>
-          <div className="mt-4 sm:mt-0">
-            <ul className="flex space-x-4 sm:space-x-6 text-xs sm:text-sm">
-              <li>
-                <Link
-                  href="/privacy-policy"
-                  className="text-gray-600 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400 transition-colors"
-                  aria-label="View privacy policy"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/terms-of-service"
-                  className="text-gray-600 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400 transition-colors"
-                  aria-label="View terms of service"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </footer>

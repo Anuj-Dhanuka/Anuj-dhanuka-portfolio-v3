@@ -5,14 +5,53 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, MapPin, Phone, Send } from "lucide-react"
+import { Code2, Link2, Mail, MapPin, Phone, Send, Sparkles } from "lucide-react"
 import { useState } from "react"
+
+const contactDetails = [
+  {
+    label: "Email",
+    value: "anujdhanuka2@gmail.com",
+    href: "mailto:anujdhanuka2@gmail.com",
+    Icon: Mail,
+  },
+  {
+    label: "Phone",
+    value: "+91 8978264705",
+    href: "tel:+918978264705",
+    Icon: Phone,
+  },
+  {
+    label: "Location",
+    value: "Gurugram, Haryana, India",
+    Icon: MapPin,
+  },
+]
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/anuj-dhanuka/",
+    Icon: Link2,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/Anuj-Dhanuka",
+    Icon: Code2,
+  },
+  {
+    label: "Email",
+    href: "mailto:anujdhanuka2@gmail.com",
+    Icon: Mail,
+  },
+]
 
 // Add this server action to handle email sending
 async function sendContactEmail(formData: {
   name: string
   phone: string
   email: string
+  subject: string
   message: string
 }) {
   try {
@@ -41,6 +80,7 @@ export function Contact() {
     name: "",
     phone: "",
     email: "",
+    subject: "",
     message: "",
   })
 
@@ -69,6 +109,7 @@ export function Contact() {
           name: "",
           phone: "",
           email: "",
+          subject: "",
           message: "",
         })
 
@@ -85,96 +126,129 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="relative isolate overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_14%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_86%_72%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_12%_14%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_86%_72%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mx-auto mb-9 max-w-3xl text-center md:mb-11"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Contact Information</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6"></div>
-          <p className="text-gray-600 dark:text-gray-300">
-            I'm currently open to new opportunities. Feel free to reach out to discuss how I can contribute to your
-            team.
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
+            <Sparkles className="h-3.5 w-3.5" />
+            GET IN TOUCH
+          </div>
+          <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-4xl">
+            Let&apos;s Build Something Meaningful
+          </h2>
+          <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-gray-600 dark:text-gray-300">
+            For frontend, React Native or software development opportunities, feel free to reach out through email or
+            LinkedIn.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-stretch xl:gap-8">
           <motion.div
-            className="space-y-8"
+            className="h-full"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Recruitment Information</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                I'm actively seeking roles in web development and software engineering. Available for interviews and
-                technical assessments at your convenience.
-              </p>
-            </div>
+            <div className="relative h-full overflow-hidden rounded-lg border border-purple-100 bg-white/90 p-5 shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_50px_rgba(124,58,237,0.08)] backdrop-blur dark:border-purple-800/35 dark:bg-gray-950/55 sm:p-6">
+              <span
+                className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-600 to-accent1-600"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br from-brand-500/10 to-accent1-500/10 blur-3xl"
+                aria-hidden="true"
+              />
 
-            <div className="space-y-4">
-              <div className="flex items-start space-x-4 group">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:scale-110 transition-transform">
-                  <Mail className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold">Email</h4>
+              <div className="relative">
+                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-accent1-600 dark:text-accent1-300">
+                  Contact Details
+                </p>
+                <h3 className="mt-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  Open to meaningful product work.
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                  Share a role, project, collaboration or product requirement. I&apos;ll reply with the next practical
+                  step.
+                </p>
+              </div>
+
+              <div className="relative mt-5 grid gap-3">
+                {contactDetails.map(({ label, value, href, Icon }) => {
+                  const content = (
+                    <>
+                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-50 to-accent1-50 text-brand-600 dark:from-brand-900/30 dark:to-accent1-900/20 dark:text-brand-300">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span>
+                        <span className="block text-sm font-bold text-gray-900 dark:text-white">{label}</span>
+                        <span className="mt-1 block text-sm font-medium text-gray-600 transition-colors group-hover:text-brand-700 dark:text-gray-300 dark:group-hover:text-brand-300">
+                          {value}
+                        </span>
+                      </span>
+                    </>
+                  )
+
+                  return href ? (
+                    <a
+                      key={label}
+                      href={href}
+                      className="group flex items-start gap-3 rounded-lg border border-purple-100 bg-purple-50/50 p-3.5 transition-all duration-300 hover:border-brand-200 hover:bg-white hover:shadow-[0_14px_35px_rgba(124,58,237,0.08)] dark:border-purple-800/35 dark:bg-purple-900/15 dark:hover:bg-gray-950/60"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <div
+                      key={label}
+                      className="group flex items-start gap-3 rounded-lg border border-purple-100 bg-purple-50/50 p-3.5 dark:border-purple-800/35 dark:bg-purple-900/15"
+                    >
+                      {content}
+                    </div>
+                  )
+                })}
+              </div>
+
+              <div className="relative mt-5 border-t border-purple-100 pt-5 dark:border-purple-800/35">
+                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-gray-400 dark:text-gray-500">
+                  Social Links
+                </p>
+                <div className="mt-4 flex flex-wrap gap-3">
+                {socialLinks.map(({ label, href, Icon }) => (
                   <a
-                    href="mailto:anujd973@gmail.com"
-                    className="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
-                    aria-label="Send email to anujd973@gmail.com"
+                    key={label}
+                    href={href}
+                    target={href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                    className="inline-flex h-11 items-center gap-2 rounded-lg border border-purple-100 bg-white px-4 text-sm font-bold text-brand-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50 dark:border-purple-800/40 dark:bg-gray-950/55 dark:text-brand-300 dark:hover:bg-brand-900/20"
                   >
-                    anujd973@gmail.com
+                    <Icon className="h-4 w-4" />
+                    {label}
                   </a>
+                ))}
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4 group">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:scale-110 transition-transform">
-                  <Phone className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold">Phone</h4>
-                  <a
-                    href="tel:+918978264705"
-                    className="text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
-                    aria-label="Call +91 8978264705"
-                  >
-                    +91 8978264705
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4 group">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:scale-110 transition-transform">
-                  <MapPin className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold">Location</h4>
-                  <p className="text-gray-600 dark:text-gray-300">Vizianagaram, Andhra Pradesh</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <h4 className="font-semibold mb-3">Work Preferences</h4>
-              <div className="flex flex-wrap gap-2">
-                <div className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-lg inline-block hover:scale-105 transition-transform">
-                  Available for immediate start
-                </div>
-                <div className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-4 py-2 rounded-lg inline-block hover:scale-105 transition-transform">
-                  Open to remote work
-                </div>
-                <div className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 px-4 py-2 rounded-lg inline-block hover:scale-105 transition-transform">
-                  Willing to relocate
-                </div>
-              </div>
             </div>
           </motion.div>
 
@@ -183,60 +257,85 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="pointer-events-auto"
+            className="pointer-events-auto h-full"
           >
             <form
-              className="space-y-4 sm:space-y-6 bg-white dark:bg-gray-900 p-4 sm:p-6 rounded-xl shadow-sm relative z-10 interactive-high"
+              className="interactive-high relative z-10 flex h-full flex-col space-y-4 rounded-lg border border-purple-100 bg-white/92 p-5 shadow-[0_1px_0_rgba(15,23,42,0.04),0_24px_70px_rgba(124,58,237,0.12)] backdrop-blur dark:border-purple-800/35 dark:bg-gray-950/65 sm:space-y-5 sm:p-6"
               onSubmit={handleSubmit}
             >
-              <div className="space-y-1 sm:space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
-                  Your Name
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  className="border-gray-300 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500 transition-colors pointer-events-auto interactive"
-                  required
-                />
+              <div>
+                <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Let&apos;s Connect</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300">
+                  Tell me what you&apos;re building or hiring for, and I&apos;ll get back with a clear response.
+                </p>
               </div>
 
-              <div className="space-y-1 sm:space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium">
-                  Phone Number
-                </label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  value={formState.phone}
-                  onChange={handleChange}
-                  type="tel"
-                  placeholder="+1 (123) 456-7890"
-                  className="border-gray-300 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500 transition-colors pointer-events-auto interactive"
-                  required
-                />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-1 sm:space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Full Name
+                  </label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formState.name}
+                    onChange={handleChange}
+                    placeholder="Enter your full name"
+                    className="interactive pointer-events-auto border-purple-100 bg-white focus:border-brand-500 focus:ring-brand-500 dark:border-purple-800/45 dark:bg-gray-950/50"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-1 sm:space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email Address
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="interactive pointer-events-auto border-purple-100 bg-white focus:border-brand-500 focus:ring-brand-500 dark:border-purple-800/45 dark:bg-gray-950/50"
+                    required
+                  />
+                </div>
               </div>
 
-              <div className="space-y-1 sm:space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email Address
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  type="email"
-                  placeholder="you@example.com"
-                  className="border-gray-300 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500 transition-colors pointer-events-auto interactive"
-                  required
-                />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-1 sm:space-y-2">
+                  <label htmlFor="phone" className="text-sm font-medium">
+                    Phone Number
+                  </label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    value={formState.phone}
+                    onChange={handleChange}
+                    type="tel"
+                    placeholder="Optional"
+                    className="interactive pointer-events-auto border-purple-100 bg-white focus:border-brand-500 focus:ring-brand-500 dark:border-purple-800/45 dark:bg-gray-950/50"
+                  />
+                </div>
+
+                <div className="space-y-1 sm:space-y-2">
+                  <label htmlFor="subject" className="text-sm font-medium">
+                    Subject
+                  </label>
+                  <Input
+                    id="subject"
+                    name="subject"
+                    value={formState.subject}
+                    onChange={handleChange}
+                    placeholder="Opportunity or project"
+                    className="interactive pointer-events-auto border-purple-100 bg-white focus:border-brand-500 focus:ring-brand-500 dark:border-purple-800/45 dark:bg-gray-950/50"
+                    required
+                  />
+                </div>
               </div>
 
-              <div className="space-y-1 sm:space-y-2">
+              <div className="flex-1 space-y-1 sm:space-y-2">
                 <label htmlFor="message" className="text-sm font-medium">
                   Message
                 </label>
@@ -245,15 +344,15 @@ export function Contact() {
                   name="message"
                   value={formState.message}
                   onChange={handleChange}
-                  placeholder="How can I help you?"
-                  className="min-h-[100px] sm:min-h-[120px] border-gray-300 dark:border-gray-700 focus:border-purple-500 focus:ring-purple-500 transition-colors pointer-events-auto interactive"
+                  placeholder="Tell me about the opportunity or project"
+                  className="interactive pointer-events-auto min-h-[130px] border-purple-100 bg-white focus:border-brand-500 focus:ring-brand-500 dark:border-purple-800/45 dark:bg-gray-950/50 lg:min-h-[150px]"
                   required
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-1.5 h-9 sm:h-10 relative overflow-hidden group"
+                className="group relative h-11 w-full overflow-hidden rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-4 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700"
                 disabled={isSubmitting}
               >
                 <span className="relative z-10 flex items-center">
@@ -276,8 +375,8 @@ export function Contact() {
                 </motion.div>
               )}
 
-              <p className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
-                I typically respond to all inquiries within 24 hours.
+              <p className="text-center text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+                I respond to professional enquiries within an hour.
               </p>
             </form>
           </motion.div>

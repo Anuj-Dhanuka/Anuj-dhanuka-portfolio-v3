@@ -18,6 +18,51 @@ export type ChartConfig = {
   )
 }
 
+type ChartPayload = {
+  color?: string
+  dataKey?: string | number
+  name?: string | number
+  payload?: (Record<string, unknown> & { fill?: string }) | undefined
+  value?: string | number
+}
+
+type ChartTooltipContentProps = React.ComponentProps<"div"> & {
+  active?: boolean
+  color?: string
+  formatter?: (
+    value: ChartPayload["value"],
+    name: ChartPayload["name"],
+    item: ChartPayload,
+    index: number,
+    payload: ChartPayload["payload"]
+  ) => React.ReactNode
+  hideIndicator?: boolean
+  hideLabel?: boolean
+  indicator?: "line" | "dot" | "dashed"
+  label?: React.ReactNode
+  labelClassName?: string
+  labelFormatter?: (
+    label: React.ReactNode,
+    payload: ChartPayload[]
+  ) => React.ReactNode
+  labelKey?: string
+  nameKey?: string
+  payload?: ChartPayload[]
+}
+
+type ChartLegendPayload = {
+  color?: string
+  dataKey?: string | number
+  value?: string | number
+}
+
+type ChartLegendContentProps = React.ComponentProps<"div"> & {
+  hideIcon?: boolean
+  nameKey?: string
+  payload?: ChartLegendPayload[]
+  verticalAlign?: "top" | "middle" | "bottom"
+}
+
 type ChartContextProps = {
   config: ChartConfig
 }
@@ -104,14 +149,7 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-    React.ComponentProps<"div"> & {
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      indicator?: "line" | "dot" | "dashed"
-      nameKey?: string
-      labelKey?: string
-    }
+  ChartTooltipContentProps
 >(
   (
     {
@@ -188,11 +226,11 @@ const ChartTooltipContent = React.forwardRef<
           {payload.map((item, index) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color || item.payload.fill || item.color
+            const indicatorColor = color || item.payload?.fill || item.color
 
             return (
               <div
-                key={item.dataKey}
+                key={`${item.dataKey ?? item.name ?? index}`}
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center"
@@ -260,11 +298,7 @@ const ChartLegend = RechartsPrimitive.Legend
 
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
+  ChartLegendContentProps
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
