@@ -201,7 +201,7 @@ const companyCards: {
     darkBg: false,
   },
   {
-    name: "PPCROY",
+    name: "PPCROY TECH SOLUTIONS",
     logo: "/logos/ppcroy-logo.svg",
     imageClassName: "h-5 max-w-[92px]",
     className:
