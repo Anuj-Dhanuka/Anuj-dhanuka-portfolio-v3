@@ -11,7 +11,7 @@ const faqs = [
   {
     question: "What roles are you currently open to?",
     answer:
-      "I'm open to Frontend Developer, React Developer, React Native Developer, Full-Stack Developer and Associate Software Engineer opportunities.\n\nMy strongest experience is in frontend and mobile development, and I'm also open to full-stack roles where I can contribute across the product while continuing to strengthen my backend expertise.",
+      "I'm open to Software Engineer, Frontend Developer, React Developer, React Native Developer and Full-Stack Developer opportunities.\n\nMy strongest experience is in frontend and mobile development, and I'm also open to full-stack roles where I can contribute across the product while continuing to strengthen my backend expertise.",
   },
   {
     question: "What are your strongest technical skills?",

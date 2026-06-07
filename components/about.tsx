@@ -69,8 +69,9 @@ export function About() {
 
               <div className="mt-6 max-w-2xl space-y-4 text-base leading-8 text-gray-600 dark:text-gray-300">
                 <p>
-                  I&apos;m a frontend and React Native developer with experience delivering 20+ client projects and
-                  contributing across ChefKart&apos;s customer app, internal dashboard and website.
+                  I&apos;m a Software Engineer and Frontend Developer with React.js and React Native experience,
+                  delivering 20+ client projects and contributing across ChefKart&apos;s customer app, internal
+                  dashboard and website.
                 </p>
                 <p>
                   I turn Figma designs and product requirements into polished, responsive interfaces with a strong focus

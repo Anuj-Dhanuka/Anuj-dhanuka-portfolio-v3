@@ -20,9 +20,9 @@ const siteJsonLd = {
       name: "Anuj Dhanuka",
       url: SITE_URL,
       image: `${SITE_URL}/anuj_profile_pic.png`,
-      jobTitle: "Frontend & React Native Developer",
+      jobTitle: "Software Engineer",
       description:
-        "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
+        "Software Engineer and Frontend Developer with React.js and React Native experience, delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
       worksFor: {
         "@type": "Organization",
         name: "ChefKart",
@@ -51,7 +51,7 @@ const siteJsonLd = {
       url: SITE_URL,
       name: "Anuj Dhanuka Portfolio",
       description:
-        "Portfolio of Anuj Dhanuka — frontend and React Native developer based in Gurugram, India.",
+        "Portfolio of Anuj Dhanuka — Software Engineer and Frontend Developer based in Gurugram, India, with React.js and React Native experience.",
       publisher: { "@id": PERSON_ID },
       inLanguage: "en-US",
     },
@@ -59,7 +59,7 @@ const siteJsonLd = {
       "@type": "ProfilePage",
       "@id": PROFILE_PAGE_ID,
       url: SITE_URL,
-      name: "Anuj Dhanuka — Frontend & React Native Developer",
+      name: "Anuj Dhanuka — Software Engineer & Frontend Developer",
       isPartOf: { "@id": WEBSITE_ID },
       about: { "@id": PERSON_ID },
       mainEntity: { "@id": PERSON_ID },
@@ -75,15 +75,15 @@ export const metadata: Metadata = {
       ? "https://anujdhanuka.com"
       : "http://localhost:3004"
   ),
-  title: "Anuj Dhanuka | Frontend & React Native Developer",
+  title: "Anuj Dhanuka | Software Engineer | Frontend Developer",
   description:
-    "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
+    "Software Engineer and Frontend Developer with React.js and React Native experience, delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
   keywords:
-    "Frontend developer, React Native developer, React developer, JavaScript developer, mobile app developer, web developer, Anuj Dhanuka",
+    "Software Engineer, Frontend Developer, React.js developer, React Native developer, JavaScript developer, mobile app developer, web developer, Anuj Dhanuka",
   openGraph: {
-    title: "Anuj Dhanuka | Frontend & React Native Developer",
+    title: "Anuj Dhanuka | Software Engineer | Frontend Developer",
     description:
-      "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
+      "Software Engineer and Frontend Developer with React.js and React Native experience, delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
     url: "https://anujdhanuka.com",
     siteName: "Anuj Dhanuka Portfolio",
     locale: "en_US",
@@ -91,9 +91,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anuj Dhanuka | Frontend & React Native Developer",
+    title: "Anuj Dhanuka | Software Engineer | Frontend Developer",
     description:
-      "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
+      "Software Engineer and Frontend Developer with React.js and React Native experience, delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
   },
   robots: {
     index: true,
