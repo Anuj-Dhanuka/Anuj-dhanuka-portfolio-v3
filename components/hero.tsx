@@ -375,7 +375,7 @@ function FloatingCompanyCard({
         <span className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg bg-gradient-to-b from-purple-500 to-pink-500" />
         <Image
           src={logo}
-          alt={`${name} logo`}
+          alt={`${name} — company where Anuj Dhanuka has worked as a developer`}
           width={124}
           height={36}
           className={`${imageClassName} w-auto object-contain`}
@@ -551,11 +551,13 @@ export function Hero() {
                 >
                   <Image
                     src="/anuj_profile_pic.png"
-                    alt="Anuj Dhanuka"
+                    alt="Anuj Dhanuka — Frontend and React Native developer based in Gurugram, India"
                     fill
                     className="object-cover"
                     priority
                     sizes="(max-width: 640px) 228px, (max-width: 768px) 278px, 318px"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQABIAEgAAD/2wBDAAQEBAQEBAYEBAYJBgYGCQwJCQkJDA8MDAwMDA8SDw8PDw8PEhISEhISEhIVFRUVFRUZGRkZGRwcHBwcHBwcHBz/2wBDAQQFBQcHBwwHBwwdFBAUHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/3QAEAAH/2gAMAwEAAhEDEQA/APV/iX8QtI0zWY9FE93Fc6IE1O5FvL5SyRjGIeD87HcDtYbcda9g8P65ZeJdEstf03d9mv4hNGHGGAPYgEjIPB5r8+fizGbj4l+IppXZma72deAsaKqge2BX2l8G4kh+HunRp91ZLnaOyj7RJgAdgOwr0UrSbM+a6SP/2Q=="
                   />
                 </motion.div>
               </div>

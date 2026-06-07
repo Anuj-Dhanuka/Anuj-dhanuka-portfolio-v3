@@ -1,24 +1,51 @@
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { Skills } from "@/components/skills"
-import { Experience } from "@/components/experience"
-import { Projects } from "@/components/projects"
-import { Education } from "@/components/education"
-import { Mentor } from "@/components/mentor"
-import { CTA } from "@/components/cta"
-import { FAQ } from "@/components/faq"
-import { Contact } from "@/components/contact"
-import { Footer } from "@/components/footer"
-import { BackToTop } from "@/components/back-to-top"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { LoadingWrapper } from "@/components/loading-wrapper"
 import { SectionWrapper } from "@/components/section-wrapper"
 import { StatsStrip } from "@/components/stats-strip"
 import { TechStrip } from "@/components/tech-strip"
-import { WhatIBring } from "@/components/what-i-bring"
-import { FeaturedProductWork } from "@/components/featured-product-work"
-import { RecognitionCertifications } from "@/components/recognition-certifications"
+import { About } from "@/components/about"
+import { Footer } from "@/components/footer"
+
+// Below-the-fold sections — server-rendered for SEO, JS chunk loaded lazily.
+const WhatIBring = dynamic(() =>
+  import("@/components/what-i-bring").then((m) => ({ default: m.WhatIBring })),
+)
+const Experience = dynamic(() =>
+  import("@/components/experience").then((m) => ({ default: m.Experience })),
+)
+const Projects = dynamic(() =>
+  import("@/components/projects").then((m) => ({ default: m.Projects })),
+)
+const FeaturedProductWork = dynamic(() =>
+  import("@/components/featured-product-work").then((m) => ({
+    default: m.FeaturedProductWork,
+  })),
+)
+const Skills = dynamic(() =>
+  import("@/components/skills").then((m) => ({ default: m.Skills })),
+)
+const RecognitionCertifications = dynamic(() =>
+  import("@/components/recognition-certifications").then((m) => ({
+    default: m.RecognitionCertifications,
+  })),
+)
+const Education = dynamic(() =>
+  import("@/components/education").then((m) => ({ default: m.Education })),
+)
+const Mentor = dynamic(() =>
+  import("@/components/mentor").then((m) => ({ default: m.Mentor })),
+)
+const CTA = dynamic(() => import("@/components/cta").then((m) => ({ default: m.CTA })))
+const FAQ = dynamic(() => import("@/components/faq").then((m) => ({ default: m.FAQ })))
+const Contact = dynamic(() =>
+  import("@/components/contact").then((m) => ({ default: m.Contact })),
+)
+const BackToTop = dynamic(() =>
+  import("@/components/back-to-top").then((m) => ({ default: m.BackToTop })),
+)
 
 export default function Home() {
   return (

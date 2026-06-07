@@ -42,7 +42,6 @@ export function Experience() {
         "Collaborate on production features from implementation through testing and release.",
       ],
       technologies: ["React Native", "React.js", "JavaScript", "Analytics", "Mobile UI", "Dashboard UI"],
-      companyUrl: "#",
       ctaLabel: "View Recognition",
       ctaUrl: recognitionUrl,
       isCurrent: true,
@@ -72,7 +71,6 @@ export function Experience() {
         "Managed multiple project requirements while maintaining delivery quality.",
       ],
       technologies: ["React.js", "JavaScript", "HTML5", "CSS3", "WordPress", "Shopify", "Webflow"],
-      companyUrl: "#",
       isCurrent: false,
       icons: [
         <Code key="code" className="h-5 w-5 text-blue-500" />,
@@ -100,7 +98,6 @@ export function Experience() {
         "Delivered additional features beyond the original project requirements.",
       ],
       technologies: ["React Native", "JavaScript", "Mobile UI", "Dynamic Content"],
-      companyUrl: "#",
       isCurrent: false,
       icons: [
         <Monitor key="monitor" className="h-5 w-5 text-pink-500" />,
@@ -252,31 +249,15 @@ export function Experience() {
                       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{item.position}</h3>
 
                       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                        {item.company === "PPCROY Tech Solutions" ? (
-                          <Link
-                            href={item.companyUrl}
-                            className={`font-medium flex items-center group ${
-                              item.color === 'purple'
-                                ? 'text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300'
-                                : item.color === 'blue'
-                                ? 'text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300'
-                                : 'text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300'
-                            }`}
-                          >
-                            {item.company}
-                            <ExternalLink className="h-3.5 w-3.5 ml-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                          </Link>
-                        ) : (
-                          <span className={`font-medium ${
-                            item.color === 'purple'
-                              ? 'text-purple-600 dark:text-purple-400'
-                              : item.color === 'blue'
-                              ? 'text-blue-600 dark:text-blue-400'
-                              : 'text-pink-600 dark:text-pink-400'
-                          }`}>
-                            {item.company}
-                          </span>
-                        )}
+                        <span className={`font-medium ${
+                          item.color === 'purple'
+                            ? 'text-purple-600 dark:text-purple-400'
+                            : item.color === 'blue'
+                            ? 'text-blue-600 dark:text-blue-400'
+                            : 'text-pink-600 dark:text-pink-400'
+                        }`}>
+                          {item.company}
+                        </span>
 
                         <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
                           <MapPin className="h-3.5 w-3.5 mr-1" />

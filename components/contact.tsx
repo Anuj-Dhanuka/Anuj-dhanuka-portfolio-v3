@@ -11,8 +11,8 @@ import { useState } from "react"
 const contactDetails = [
   {
     label: "Email",
-    value: "anujdhanuka2@gmail.com",
-    href: "mailto:anujdhanuka2@gmail.com",
+    value: "anujd973@gmail.com",
+    href: "mailto:anujd973@gmail.com",
     Icon: Mail,
   },
   {
@@ -41,7 +41,7 @@ const socialLinks = [
   },
   {
     label: "Email",
-    href: "mailto:anujdhanuka2@gmail.com",
+    href: "mailto:anujd973@gmail.com",
     Icon: Mail,
   },
 ]

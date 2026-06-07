@@ -6,35 +6,65 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
-const personJsonLd = {
+const SITE_URL = "https://anujdhanuka.com";
+const PERSON_ID = `${SITE_URL}/#person`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+const PROFILE_PAGE_ID = `${SITE_URL}/#webpage`;
+
+const siteJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Anuj Dhanuka",
-  url: "https://anujdhanuka.com",
-  image: "https://anujdhanuka.com/anuj_profile_pic.png",
-  jobTitle: "Frontend & React Native Developer",
-  description:
-    "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
-  worksFor: {
-    "@type": "Organization",
-    name: "ChefKart",
-  },
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "Satya Institute Of Technology And Management",
-  },
-  knowsAbout: [
-    "React.js",
-    "React Native",
-    "JavaScript",
-    "TypeScript",
-    "Frontend Development",
-    "Mobile App Development",
-    "Responsive Design",
-  ],
-  sameAs: [
-    "https://linkedin.com/in/anuj-dhanuka",
-    "https://github.com/Anuj-Dhanuka",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": PERSON_ID,
+      name: "Anuj Dhanuka",
+      url: SITE_URL,
+      image: `${SITE_URL}/anuj_profile_pic.png`,
+      jobTitle: "Frontend & React Native Developer",
+      description:
+        "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
+      worksFor: {
+        "@type": "Organization",
+        name: "ChefKart",
+      },
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "Satya Institute Of Technology And Management",
+      },
+      knowsAbout: [
+        "React.js",
+        "React Native",
+        "JavaScript",
+        "TypeScript",
+        "Frontend Development",
+        "Mobile App Development",
+        "Responsive Design",
+      ],
+      sameAs: [
+        "https://linkedin.com/in/anuj-dhanuka",
+        "https://github.com/Anuj-Dhanuka",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": WEBSITE_ID,
+      url: SITE_URL,
+      name: "Anuj Dhanuka Portfolio",
+      description:
+        "Portfolio of Anuj Dhanuka — frontend and React Native developer based in Gurugram, India.",
+      publisher: { "@id": PERSON_ID },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": PROFILE_PAGE_ID,
+      url: SITE_URL,
+      name: "Anuj Dhanuka — Frontend & React Native Developer",
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": PERSON_ID },
+      mainEntity: { "@id": PERSON_ID },
+      inLanguage: "en-US",
+    },
   ],
 };
 
@@ -56,14 +86,6 @@ export const metadata: Metadata = {
       "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
     url: "https://anujdhanuka.com",
     siteName: "Anuj Dhanuka Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Anuj Dhanuka - Frontend & React Native Developer",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -72,7 +94,6 @@ export const metadata: Metadata = {
     title: "Anuj Dhanuka | Frontend & React Native Developer",
     description:
       "Frontend and React Native developer with experience delivering 20+ client projects and contributing across ChefKart's customer app, internal dashboard and website.",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -108,7 +129,7 @@ export default function RootLayout({
         <meta name="uses-react" content="true" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
         />
       </head>
       <body className={`${inter.className} overflow-x-hidden`}>

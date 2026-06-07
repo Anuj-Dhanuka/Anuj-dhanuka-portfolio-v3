@@ -37,7 +37,7 @@ Single-page Next.js 15 portfolio using the **App Router**. All portfolio section
 
 - Path alias `@/*` maps to the repo root
 - Build errors are ignored (`ignoreBuildErrors: true` in `next.config.mjs`) — type errors won't block builds but should still be fixed
-- Image optimization is disabled (`unoptimized: true`) — suited for static export / cPanel deployment
+- Image optimization is **enabled** (Next.js default) — runs through Netlify's Next.js plugin, which auto-installs on deploy. All `<Image>` components get on-demand resizing, WebP/AVIF conversion, and lazy loading for free
 
 ### Forms
 
@@ -49,7 +49,9 @@ Contact form uses **react-hook-form** + **zod** for validation, submitting to `/
 
 ### Deployment
 
-Configured for **cPanel** deployment (`.cpanel.yml`). The build output is a static/Node.js export deployed to a shared hosting environment.
+Deployed via **Netlify** with the official Next.js plugin (auto-installed by Netlify on deploy — no manual `netlify.toml` needed). Netlify watches `master` and rebuilds on every push.
+
+A legacy `.cpanel.yml` file remains from a prior cPanel setup but is no longer used; safe to remove if it surfaces as a confusion source.
 
 ## Environment Variables
 

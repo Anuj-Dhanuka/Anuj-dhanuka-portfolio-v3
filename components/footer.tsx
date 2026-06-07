@@ -59,7 +59,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
+            <h2 className="font-semibold text-lg mb-4">Quick Links</h2>
             <ul className="space-y-2">
               {[
                 { name: "Home", href: "#home" },
@@ -83,7 +83,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-4">Expertise</h3>
+            <h2 className="font-semibold text-lg mb-4">Expertise</h2>
             <ul className="space-y-2">
               {[
                 { name: "Frontend Development", href: "#skills" },
