@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { BarChart3, CheckCircle, LayoutDashboard, Monitor, Smartphone } from "lucide-react"
+import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const productAreas = [
@@ -25,7 +26,7 @@ const productAreas = [
     Icon: Smartphone,
     image: {
       src: "/product-work/mobile-app-3d.png",
-      alt: "Modern 3D illustration of mobile app UI design",
+      alt: "ChefKart customer mobile application interface that Anuj Dhanuka contributes to",
       accent: "Mobile journeys",
     },
   },
@@ -48,7 +49,7 @@ const productAreas = [
     Icon: LayoutDashboard,
     image: {
       src: "/product-work/dashboard-3d.png",
-      alt: "Modern 3D illustration of dashboard UI and analytics",
+      alt: "ChefKart internal dashboard interface that Anuj Dhanuka contributes to",
       accent: "Workflow clarity",
     },
   },
@@ -70,7 +71,7 @@ const productAreas = [
     Icon: Monitor,
     image: {
       src: "/product-work/website-3d.png",
-      alt: "Modern 3D illustration of digital marketing and web experience",
+      alt: "ChefKart website interface that Anuj Dhanuka contributes to",
       accent: "Responsive web",
     },
   },
@@ -88,7 +89,13 @@ function ProductImage({
   return (
     <div className="overflow-hidden rounded-lg border border-purple-100 bg-white p-2 shadow-[0_24px_80px_rgba(124,58,237,0.22)] dark:border-purple-800/40 dark:bg-gray-950">
       <div className="relative aspect-[3/2] overflow-hidden rounded-md bg-gradient-to-br from-brand-50 via-white to-accent1-50">
-        <img src={image.src} alt={image.alt} className="h-full w-full object-cover" loading="lazy" />
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          sizes="(min-width: 1024px) 45vw, 90vw"
+          className="object-cover"
+        />
         <div
           className="absolute inset-0 bg-gradient-to-tr from-brand-500/10 via-transparent to-accent1-500/10"
           aria-hidden="true"

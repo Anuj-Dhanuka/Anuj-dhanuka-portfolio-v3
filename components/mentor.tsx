@@ -86,7 +86,7 @@ export function Mentor() {
                   <div className="relative aspect-square overflow-hidden rounded-md bg-gradient-to-br from-brand-50 to-accent1-50">
                     <Image
                       src="/anjneyulu-jadda-sir.png"
-                      alt="Anjaneyulu Jadda"
+                      alt="Anjaneyulu Jadda, founder of PPCROY and Anuj Dhanuka's mentor"
                       fill
                       sizes="170px"
                       className="object-cover object-center"

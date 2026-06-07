@@ -40,9 +40,26 @@ const faqs = [
   },
 ]
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer.replace(/\n\n/g, " "),
+    },
+  })),
+}
+
 export function FAQ() {
   return (
     <section id="faq" className="relative isolate overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_16%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_12%_16%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
         aria-hidden="true"
