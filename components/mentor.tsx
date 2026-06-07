@@ -48,8 +48,8 @@ export function Mentor() {
             <div className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
             <div className="mt-6 max-w-2xl space-y-4 text-base leading-8 text-gray-600 dark:text-gray-300">
               <p>
-                I have had the opportunity to learn under the guidance of Anjaneyulu Jadda, founder of PPCROY and
-                Scale Minds.
+                I have had the opportunity to learn under the guidance of Anjaneyulu Jadda, founder of
+                PPCROY TECH SOLUTIONS and Scale Minds.
               </p>
               <p>
                 His mentorship helped me strengthen my understanding of user-focused design, digital strategy,
@@ -86,7 +86,7 @@ export function Mentor() {
                   <div className="relative aspect-square overflow-hidden rounded-md bg-gradient-to-br from-brand-50 to-accent1-50">
                     <Image
                       src="/anjneyulu-jadda-sir.png"
-                      alt="Anjaneyulu Jadda, founder of PPCROY and Anuj Dhanuka's mentor"
+                      alt="Anjaneyulu Jadda, founder of PPCROY TECH SOLUTIONS and Anuj Dhanuka's mentor"
                       fill
                       sizes="170px"
                       className="object-cover object-center"

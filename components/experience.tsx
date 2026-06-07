@@ -55,7 +55,7 @@ export function Experience() {
     },
     {
       position: "Junior Web Developer",
-      company: "PPCROY",
+      company: "PPCROY TECH SOLUTIONS",
       location: "Remote",
       workMode: "Remote",
       type: "Full-time",
@@ -83,7 +83,7 @@ export function Experience() {
     },
     {
       position: "Associate Software Engineer Intern",
-      company: "Third Eye Lab",
+      company: "3rd Eye Lab",
       location: "Hyderabad",
       workMode: "Onsite",
       type: "Internship",

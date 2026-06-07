@@ -113,15 +113,67 @@ The site uses Next.js's file-based metadata convention for sitemap, robots, and 
 
 Site URL is hard-coded as `https://anujdhanuka.com` in sitemap/robots/JSON-LD. If the canonical domain ever changes, update all three.
 
-## Analytics
+## Search Console & Analytics — accounts, IDs, and what to do if anything migrates
 
-Google Analytics 4 is wired into `app/layout.tsx` via `next/script` with `strategy="afterInteractive"` (loads after page is interactive — no LCP impact).
+Everything below is live and verified as of 2026-06-07. If domain, Google account, or hosting changes, this section is the migration checklist.
 
-- **Measurement ID:** `G-Z31QZE55CS` (hard-coded; GA IDs are public so no env var needed)
-- **Production-only:** wrapped in `process.env.NODE_ENV === "production"` so localhost dev does not pollute the analytics
-- **Property:** Anuj Dhanuka Portfolio (linked to Search Console for combined search-query insights)
+### Google Search Console
+- **Property type:** URL prefix
+- **Property URL:** `https://anujdhanuka.com/`
+- **Ownership verified via:** HTML file at `public/googlefcb50a119eef10da.html` (must remain in repo permanently; Google re-checks periodically)
+- **Sitemap submitted:** `/sitemap.xml` — status Success, 10 URLs discovered
+- **Verification token (in the file):** `googlefcb50a119eef10da`
 
-To rotate the ID, edit `GA_MEASUREMENT_ID` at the top of `app/layout.tsx`.
+### Google Analytics 4
+- **Measurement ID:** `G-Z31QZE55CS` (hard-coded in `app/layout.tsx` as `GA_MEASUREMENT_ID`; GA IDs are public so no env var needed)
+- **Property name:** `Anuj Dhanuka Portfolio`
+- **Stream name:** `Portfolio Site`
+- **Stream URL:** `https://anujdhanuka.com`
+- **Enhanced measurement:** ON (auto-tracks page views, scrolls, outbound clicks, site search, form interactions, file downloads, video engagement)
+- **Implementation:** `app/layout.tsx` — two `<Script>` tags via `next/script` with `strategy="afterInteractive"` (no LCP impact)
+- **Production-only:** wrapped in `process.env.NODE_ENV === "production"` so localhost dev runs do not pollute analytics
+- **Verified live:** 2026-06-07 — Realtime report confirmed 1 active user from `anujdhanuka.com`
+
+### Search Console ↔ GA4 association
+- **Status:** Linked — Search Console property and GA4 property are associated
+- Where to check: GA4 Admin → Product Links → Search Console links
+- Search query data flows from Search Console into GA4 (Acquisition → Search Console reports)
+
+### Google account that owns everything
+- The Google account used to verify Search Console AND create the GA4 property MUST be the same account (or have admin access on both). Currently both are owned by the user's primary Google account.
+
+### Migration scenarios
+
+**If the canonical domain changes (e.g. `anujdhanuka.com` → `anuj.dev`):**
+1. Update `SITE_URL` constant in `app/layout.tsx` (and any other hard-coded URLs — `app/sitemap.ts`, `app/robots.ts`)
+2. In Search Console: add the new property (URL prefix), verify ownership (drop a new verification file in `public/`), submit sitemap
+3. In GA4: create a new data stream for the new domain (or update the existing stream's URL). Get a new Measurement ID if you create a new property; update `GA_MEASUREMENT_ID` constant
+4. Re-link Search Console ↔ GA4 for the new properties
+5. Set up 301 redirects from the old domain to the new one (Netlify `_redirects` file)
+6. Update OG image base URL, JSON-LD `@id` URLs (they reference the SITE_URL constant — should auto-update), `metadataBase` in layout.tsx
+7. Update LinkedIn Featured link, GitHub profile, Dev.to bio, etc.
+
+**If the Google account changes:**
+1. In Search Console: Admin → Users and Permissions → add the new account as Owner
+2. In GA4: Admin → Property Access Management → add the new account as Admin
+3. Old account can be removed afterwards
+4. No code changes needed
+
+**If you want to rotate the GA4 property** (e.g. create a fresh property and stop using the old one):
+1. Create new GA4 property + stream, copy the new `G-XXXXXXXXXX`
+2. Update `GA_MEASUREMENT_ID` constant in `app/layout.tsx`
+3. Re-link to Search Console
+4. Historical data in the old property is read-only; new data flows to the new one
+
+**If hosting moves off Netlify** (e.g. to Vercel or self-hosted):
+- The `next/script` GA4 setup works identically on any Next.js host
+- Make sure `NODE_ENV === "production"` is set in the new environment (most hosts do this by default)
+- Image optimization may need re-checking (Vercel handles `<Image>` natively; cPanel/static export breaks it)
+- Re-verify Search Console ownership at the new host (the verification file at `/googlefcb50a119eef10da.html` must still be reachable)
+
+**If you need to rotate the Search Console verification file:**
+- Don't delete the existing `public/googlefcb50a119eef10da.html` until the new method is verified
+- Add an alternate verification method first (DNS TXT record, or HTML meta tag in `app/layout.tsx` via `verification.google`) → verify → only then remove the old file
 
 ## HR / positioning audit history
 

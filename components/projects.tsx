@@ -101,7 +101,7 @@ const projects: Project[] = [
     category: "React Native Application",
     role: "React Native · JavaScript · Mobile UI · Dynamic Content",
     description:
-      "A mobile quiz application built during my internship at Third Eye Lab, featuring category-based questions, dynamic content loading and intuitive user flows.",
+      "A mobile quiz application built during my internship at 3rd Eye Lab, featuring category-based questions, dynamic content loading and intuitive user flows.",
     images: ["/levels-app-quiz.webp", "/levels-app-categories.webp", "/levels-app-login.webp"],
     type: "mobile",
     tags: ["React Native", "JavaScript", "Mobile UI", "Dynamic Content"],
