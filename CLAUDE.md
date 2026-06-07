@@ -113,6 +113,16 @@ The site uses Next.js's file-based metadata convention for sitemap, robots, and 
 
 Site URL is hard-coded as `https://anujdhanuka.com` in sitemap/robots/JSON-LD. If the canonical domain ever changes, update all three.
 
+## Analytics
+
+Google Analytics 4 is wired into `app/layout.tsx` via `next/script` with `strategy="afterInteractive"` (loads after page is interactive — no LCP impact).
+
+- **Measurement ID:** `G-Z31QZE55CS` (hard-coded; GA IDs are public so no env var needed)
+- **Production-only:** wrapped in `process.env.NODE_ENV === "production"` so localhost dev does not pollute the analytics
+- **Property:** Anuj Dhanuka Portfolio (linked to Search Console for combined search-query insights)
+
+To rotate the ID, edit `GA_MEASUREMENT_ID` at the top of `app/layout.tsx`.
+
 ## HR / positioning audit history
 
 This portfolio underwent a full HR-perspective audit. The following issues were **fixed** and should not regress:
