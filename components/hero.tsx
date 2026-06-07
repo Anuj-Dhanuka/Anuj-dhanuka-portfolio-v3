@@ -434,7 +434,7 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <span className="animate-pulse inline-block h-2 w-2 rounded-full bg-green-400 mr-2" />
-              FRONTEND & MOBILE DEVELOPER
+              SOFTWARE ENGINEER · FRONTEND DEVELOPER
             </motion.div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.08] text-white">
@@ -447,8 +447,9 @@ export function Hero() {
 
             <div className="max-w-2xl space-y-4 text-base leading-relaxed text-gray-100 sm:text-lg">
               <p>
-                I'm Anuj Dhanuka, a frontend and React Native developer focused on building
-                responsive, intuitive and production-ready interfaces for web and mobile products.
+                I'm Anuj Dhanuka, a Software Engineer and Frontend Developer working with
+                React.js and React Native to build responsive, intuitive and production-ready
+                interfaces for web and mobile products.
               </p>
               <p>
                 With experience delivering 20+ client projects and contributing across ChefKart's
@@ -551,7 +552,7 @@ export function Hero() {
                 >
                   <Image
                     src="/anuj_profile_pic.png"
-                    alt="Anuj Dhanuka — Frontend and React Native developer based in Gurugram, India"
+                    alt="Anuj Dhanuka — Software Engineer and Frontend Developer based in Gurugram, India"
                     fill
                     className="object-cover"
                     priority

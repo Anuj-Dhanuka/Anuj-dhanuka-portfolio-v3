@@ -21,8 +21,8 @@ export function Footer() {
               Portfolio
             </Link>
             <p className="mt-4 text-gray-600 dark:text-gray-300 max-w-md">
-              Frontend and React Native developer building polished, responsive and product-focused web and mobile
-              experiences.
+              Software Engineer and Frontend Developer working with React.js and React Native to build
+              polished, responsive and product-focused web and mobile experiences.
             </p>
             <div className="flex space-x-4 mt-6">
               <Link

@@ -61,10 +61,11 @@ A legacy `.cpanel.yml` file remains from a prior cPanel setup but is no longer u
 
 ## SEO & Metadata
 
-The site is positioned as **"Frontend & React Native Developer"** — keep all metadata, hero copy, and FAQ answers aligned with this positioning. Do NOT reintroduce "Full-Stack" or "Firebase Expert" framing in `app/layout.tsx` metadata; it conflicts with the rest of the site and was deliberately removed.
+The site is positioned as **"Software Engineer | Frontend Developer"** with React.js + React Native as the technologies surfaced in description copy. Keep all metadata, hero copy, OG card, and FAQ answers aligned with this positioning. Do NOT reintroduce "Full-Stack" or "Firebase Expert" framing in `app/layout.tsx` metadata.
 
-- Canonical title pattern: `Anuj Dhanuka | Frontend & React Native Developer`
-- Canonical description anchors: *"20+ client projects"*, *"ChefKart's customer app, internal dashboard and website"*
+- Canonical title pattern: `Anuj Dhanuka | Software Engineer | Frontend Developer`
+- Canonical description anchors: *"Software Engineer and Frontend Developer with React.js and React Native experience"*, *"20+ client projects"*, *"ChefKart's customer app, internal dashboard and website"*
+- JSON-LD `jobTitle` is **"Software Engineer"** (the formal title); the Frontend Developer + React.js/React Native specialty lives in `description` + `knowsAbout`
 - `app/layout.tsx` exports `metadata` (title, description, openGraph, twitter, robots, alternates) and a separate `viewport` export — do not merge these back together (Next.js 15 requires the split)
 - The `generator: "v0.dev"` field was removed from metadata — do not re-add it (it leaks AI-scaffolded origin into the HTML source)
 
