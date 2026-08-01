@@ -7,6 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 const GA_MEASUREMENT_ID = "G-Z31QZE55CS";
 
+const MATOMO_URL = "https://matamo.macxp24x7.com/";
+const MATOMO_SITE_ID = "21";
+
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 const SITE_URL = "https://anujdhanuka.com";
@@ -151,6 +154,22 @@ export default function RootLayout({
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+            <Script id="matomo-analytics" strategy="afterInteractive">
+              {`
+                var _paq = window._paq = window._paq || [];
+                _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+                _paq.push(["setCookieDomain", "*.anujdhanuka.com"]);
+                _paq.push(['trackPageView']);
+                _paq.push(['enableLinkTracking']);
+                (function() {
+                  var u="${MATOMO_URL}";
+                  _paq.push(['setTrackerUrl', u+'matomo.php']);
+                  _paq.push(['setSiteId', '${MATOMO_SITE_ID}']);
+                  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                  g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+                })();
               `}
             </Script>
           </>
