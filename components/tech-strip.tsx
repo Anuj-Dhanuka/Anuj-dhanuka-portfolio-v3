@@ -5,9 +5,10 @@ import { motion } from "framer-motion"
 import {
   SiReact, SiTypescript, SiJavascript, SiHtml5, SiCss,
   SiWordpress, SiShopify, SiWebflow, SiFirebase, SiSupabase, SiGit,
-  SiOpenai, SiVercel, SiAnthropic,
+  SiVercel, SiAnthropic,
 } from "react-icons/si"
 import { FiHeart } from "react-icons/fi"
+import { OpenAIIcon } from "@/components/icons/openai-icon"
 import type { IconType } from "react-icons"
 
 type TechItem = { name: string; Icon: IconType | null; color: string }
@@ -28,8 +29,8 @@ const primaryTech: TechItem[] = [
 ]
 
 const aiTools: TechItem[] = [
-  { name: "Claude",       Icon: SiAnthropic, color: "#D4A27F" },
-  { name: "OpenAI Codex", Icon: SiOpenai,    color: "#10A37F" },
+  { name: "Claude",       Icon: SiAnthropic,             color: "#D4A27F" },
+  { name: "OpenAI Codex", Icon: OpenAIIcon as IconType,  color: "#10A37F" },
   { name: "v0.dev",       Icon: SiVercel,    color: "#6366F1" },
   { name: "Lovable",      Icon: FiHeart,     color: "#EC4899" },
 ]

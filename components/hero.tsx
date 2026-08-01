@@ -5,12 +5,12 @@ import { motion } from "framer-motion"
 import { ArrowRight, Download, Heart } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { OpenAIIcon } from "@/components/icons/openai-icon"
 import {
   SiReact,
   SiTypescript,
   SiFirebase,
   SiTailwindcss,
-  SiOpenai,
   SiClaude,
   SiV0,
   SiHtml5,
@@ -80,7 +80,7 @@ const techIcons: {
   },
   {
     name: "OpenAI",
-    Icon: SiOpenai as IconComponent,
+    Icon: OpenAIIcon as IconComponent,
     color: "#19c37d",
     className: "right-[4px] bottom-[58px] sm:right-[6px] sm:bottom-[70px] md:right-[4px] md:bottom-[82px]",
     duration: 7.1,
