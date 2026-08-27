@@ -245,6 +245,7 @@ function FloatingTechIcon({
 }) {
   return (
     <motion.div
+      role="img"
       aria-label={`${name} icon`}
       className={`absolute z-30 ${className}`}
       initial={{ opacity: 0, scale: 0.6 }}
@@ -262,6 +263,7 @@ function FloatingTechIcon({
     >
       {isAI && (
         <motion.span
+          aria-hidden="true"
           className="absolute inset-[-7px] rounded-full"
           style={{ background: `radial-gradient(circle, ${color}50 0%, transparent 68%)` }}
           animate={{ opacity: [0, 0.85, 0], scale: [0.88, 1.5, 1.5] }}
@@ -269,6 +271,7 @@ function FloatingTechIcon({
         />
       )}
       <div
+        aria-hidden="true"
         className="relative h-12 w-12 sm:h-[54px] sm:w-[54px] md:h-[58px] md:w-[58px] rounded-full flex items-center justify-center"
         style={{
           background: `radial-gradient(circle at 38% 32%, ${color}30 0%, rgba(6,6,18,0.93) 68%)`,
@@ -303,6 +306,7 @@ function FloatingSecondaryIcon({
 }) {
   return (
     <motion.div
+      role="img"
       aria-label={`${name} icon`}
       className={`absolute z-30 ${className}`}
       initial={{ opacity: 0, scale: 0.6 }}
@@ -319,6 +323,7 @@ function FloatingSecondaryIcon({
       }}
     >
       <div
+        aria-hidden="true"
         className="h-[40px] w-[40px] sm:h-[44px] sm:w-[44px] md:h-[48px] md:w-[48px] rounded-full flex items-center justify-center"
         style={{
           background: `radial-gradient(circle at 38% 32%, ${color}25 0%, rgba(6,6,18,0.9) 70%)`,
@@ -418,11 +423,11 @@ export function Hero() {
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:flex lg:min-h-[calc(100vh-14rem)] lg:items-center lg:px-8">
-        <div className="flex w-full flex-col-reverse items-center gap-8 md:flex-row md:gap-12">
+        <div className="flex w-full flex-col-reverse items-center gap-2 md:flex-row md:gap-12">
 
           {/* Left: text */}
           <motion.div
-            className="flex-1 space-y-6 text-left mt-8 md:mt-0"
+            className="flex-1 space-y-6 text-left md:mt-0"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -505,7 +510,7 @@ export function Hero() {
 
           {/* Right: orbit visual */}
           <motion.div
-            className="flex-1 relative py-10 sm:py-8 md:py-0"
+            className="flex-1 relative py-4 sm:py-8 md:py-0"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -544,23 +549,19 @@ export function Hero() {
 
               {/* Profile image */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  className="relative z-20 h-[228px] w-[228px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40 sm:h-[278px] sm:w-[278px] md:h-[318px] md:w-[318px]"
-                  initial={{ y: 18, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.45, duration: 0.65 }}
-                >
+                <div className="relative z-20 h-[228px] w-[228px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40 sm:h-[278px] sm:w-[278px] md:h-[318px] md:w-[318px]">
                   <Image
                     src="/anuj_profile_pic.png"
                     alt="Anuj Dhanuka — Software Engineer and Frontend Developer based in Gurugram, India"
                     fill
                     className="object-cover"
                     priority
+                    fetchPriority="high"
                     sizes="(max-width: 640px) 228px, (max-width: 768px) 278px, 318px"
                     placeholder="blur"
                     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQABIAEgAAD/2wBDAAQEBAQEBAYEBAYJBgYGCQwJCQkJDA8MDAwMDA8SDw8PDw8PEhISEhISEhIVFRUVFRUZGRkZGRwcHBwcHBwcHBz/2wBDAQQFBQcHBwwHBwwdFBAUHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/3QAEAAH/2gAMAwEAAhEDEQA/APV/iX8QtI0zWY9FE93Fc6IE1O5FvL5SyRjGIeD87HcDtYbcda9g8P65ZeJdEstf03d9mv4hNGHGGAPYgEjIPB5r8+fizGbj4l+IppXZma72deAsaKqge2BX2l8G4kh+HunRp91ZLnaOyj7RJgAdgOwr0UrSbM+a6SP/2Q=="
                   />
-                </motion.div>
+                </div>
               </div>
 
               {/* Primary tech + AI icons — octagon outer ring */}
