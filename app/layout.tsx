@@ -133,6 +133,8 @@ export default function RootLayout({
           content="black-translucent"
         />
         <meta name="uses-react" content="true" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href={MATOMO_URL} crossOrigin="" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
