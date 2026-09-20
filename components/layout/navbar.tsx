@@ -138,19 +138,21 @@ export function Navbar() {
 
   // Updated nav links to match the new section order
   const navLinks = [
-    { name: "Home", href: "/#home" },
-    { name: "About", href: "/#about" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
     { name: "Skills", href: "/#skills" },
     { name: "Projects", href: "/projects" },
     { name: "Contact", href: "/#contact" },
   ]
 
-  const hasDarkHero = isHome || pathname === "/projects"
+  const hasDarkHero = isHome || pathname === "/about" || pathname === "/projects"
   const solidHeader = !hasDarkHero || scrolled
-  const isActive = (href: string) =>
-    href === "/projects"
-      ? pathname === "/projects" || pathname.startsWith("/projects/")
-      : isHome && activeSection === href.split("#")[1]
+  const isActive = (href: string) => {
+    const [route, section] = href.split("#")
+    if (section) return isHome && activeSection === section
+    if (route === "/") return isHome && activeSection === "home"
+    return pathname === route || pathname.startsWith(`${route}/`)
+  }
 
   const handleNavigation = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return

@@ -10,10 +10,10 @@ export function Education() {
       field: "Mechanical Engineering",
       institution: "Satya Institute Of Technology And Management",
       location: "Andhra Pradesh, India",
-      duration: "2019 - 2023",
+      duration: "Degree completed in 2023",
       graduationDate: "May 2023",
       description:
-        "Completed B.Tech in Mechanical Engineering with a focus on technical problem-solving and analytical thinking. Applied these skills to transition into software development.",
+        "Completed B.Tech in Mechanical Engineering in May 2023, building a foundation in technical problem-solving and analytical thinking that supported my transition into software development.",
       achievements: ["Technical Projects", "Problem Solving", "Analytical Thinking"],
       image: "/abstract-engineering-emblem.png",
       color: "purple",

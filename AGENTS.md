@@ -41,7 +41,10 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Add new indexable routes to `app/sitemap.ts`; keep API routes blocked in `app/robots.ts`.
 - Reuse `config/site.ts` for the canonical origin, contact details and social links.
 - Keep structured data consistent with visible content and escape serialized JSON-LD with `.replace(/</g, "\\u003c")`.
+- Use `ProfilePage` structured data with a `Person` as `mainEntity` for the dedicated About page; use the most specific schema type that matches each route.
 - Use semantic HTML and descriptive link text. Do not add keyword-stuffed or unsupported SEO claims.
+- Give long editorial pages a concise in-page navigation with real anchor links, descriptive labels and enough scroll offset for the fixed header.
+- Treat `docs/about-story.md` as the canonical source for Anuj's personal history, career chronology, credentials and future direction. Preserve its facts when updating public copy or structured data.
 
 ## Accessibility and interaction
 
@@ -102,6 +105,7 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 
 ## Current roadmap boundaries
 
-- Planned standalone pages: About, Experience and Contact.
+- Implemented standalone pages: About and Projects.
+- Planned standalone pages: Experience and Contact.
 - Individual project detail pages are intentionally deferred to a later version.
 - Update this file, the README and relevant docs whenever architecture, deployment, environment variables or required checks change.

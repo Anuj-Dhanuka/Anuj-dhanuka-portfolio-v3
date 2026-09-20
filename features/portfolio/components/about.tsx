@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { ArrowRight, ExternalLink, Layers3, MonitorSmartphone, PenTool, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { smoothScroll } from "@/utils/smooth-scroll"
+import { site } from "@/config/site"
 
 const capabilityCards = [
   {
@@ -78,14 +78,9 @@ export function About() {
             </div>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="#experience"
-                onClick={(event) => smoothScroll(event, "#experience")}
-                className="w-full sm:w-auto"
-                aria-label="Navigate to experience section"
-              >
+              <Link href="/about" className="w-full sm:w-auto" aria-label="Learn more about Anuj Dhanuka">
                 <Button className="h-11 w-full rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 transition-all duration-300 hover:from-brand-700 hover:to-accent1-700 sm:w-auto">
-                  Know More
+                  More About Me
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -94,7 +89,7 @@ export function About() {
                 variant="outline"
                 className="h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 shadow-sm backdrop-blur transition-all duration-300 hover:border-brand-300 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
               >
-                <Link href="https://linkedin.com/in/anuj-dhanuka" target="_blank" rel="noopener noreferrer">
+                <Link href={site.linkedIn} target="_blank" rel="noopener noreferrer">
                   Connect on LinkedIn
                   <ExternalLink className="h-4 w-4" />
                 </Link>

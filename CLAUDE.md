@@ -127,7 +127,7 @@ Everything below is live and verified as of 2026-06-07. If domain, Google accoun
 - **Property type:** URL prefix
 - **Property URL:** `https://anujdhanuka.com/`
 - **Ownership verified via:** HTML file at `public/googlefcb50a119eef10da.html` (must remain in repo permanently; Google re-checks periodically)
-- **Sitemap:** `/sitemap.xml` — currently contains the homepage and projects overview; resubmit after deployment when routes change
+- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About page and projects overview; resubmit after deployment when routes change
 - **Verification token (in the file):** `googlefcb50a119eef10da`
 
 ### Google Analytics 4

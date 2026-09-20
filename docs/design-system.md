@@ -29,7 +29,7 @@ utils/                       Browser/interaction helpers
 
 Keep page files focused on composition and route metadata. A feature may use shared UI, configuration and helpers. Shared UI must not import feature-specific content. Import modules directly: do not introduce barrel exports that mix client and server modules. Use `use client` only where interaction or browser APIs require it; keep static project content server-rendered.
 
-The portfolio sections can be reused in the upcoming About, Experience and Contact routes. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Individual project routes are intentionally deferred.
+The portfolio sections can be reused in the standalone About route and the upcoming Experience and Contact routes. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Individual project routes are intentionally deferred.
 
 ## Editing typography
 
@@ -78,6 +78,8 @@ Use semantic text roles for prose and headings. Use palette utilities for intent
 - Reuse the global navbar/footer from the root layout; do not render them again inside pages.
 - Keep important content and links in server-rendered HTML. Add real pages to the sitemap, not fragment links.
 - Keep structured data consistent with visible content. Do not claim ranking benefits from directory names or typography tokens.
+- Use a short, semantic in-page navigation for long story-led pages so visitors can scan the page and jump to its major sections.
+- Mark a dedicated personal About route as `ProfilePage` with the same `Person` entity used by the site-wide schema.
 - Verify typechecking, page rendering, metadata, local anchors and desktop/mobile appearance after changes.
 
 ## Sources informing the structure

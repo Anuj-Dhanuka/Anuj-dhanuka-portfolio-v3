@@ -60,7 +60,7 @@ export function Footer() {
             <ul className="space-y-2">
               {[
                 { name: "Home", href: "/#home" },
-                { name: "About", href: "/#about" },
+                { name: "About", href: "/about" },
                 { name: "Skills", href: "/#skills" },
                 { name: "Experience", href: "/#experience" },
                 { name: "Projects", href: "/projects" },
