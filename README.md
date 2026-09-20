@@ -1,121 +1,72 @@
-# Anuj Dhanuka — Portfolio
+# Anuj Dhanuka portfolio
 
-The source for **[anujdhanuka.com](https://anujdhanuka.com)** — a Next.js 16 portfolio showcasing my work as a Software Engineer and Frontend Developer.
+Source for [anujdhanuka.com](https://anujdhanuka.com), a Next.js 16 portfolio for Anuj Dhanuka’s frontend and React Native work.
 
-<p>
-  <a href="https://anujdhanuka.com"><img alt="Live site" src="https://img.shields.io/badge/Live-anujdhanuka.com-7c3aed?style=for-the-badge"></a>
-  <a href="https://linkedin.com/in/anuj-dhanuka"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Anuj%20Dhanuka-0a66c2?style=for-the-badge&logo=linkedin"></a>
-  <img alt="Built with Next.js" src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs">
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=for-the-badge&logo=typescript">
-  <img alt="Tailwind v4" src="https://img.shields.io/badge/Tailwind-v4-06b6d4?style=for-the-badge&logo=tailwindcss">
-</p>
+## Stack
 
-## About
+- Next.js App Router, React 19 and strict TypeScript
+- Tailwind CSS with shared design and typography tokens
+- Framer Motion with user reduced-motion preferences
+- Zod validation and Resend email delivery
+- Vitest, ESLint and Prettier
+- Optional Google Analytics and Matomo page/event tracking
 
-I'm Anuj — Software Engineer at **ChefKart**, focused on frontend and React Native development. This portfolio aggregates:
+## Local development
 
-- Live product work at ChefKart (customer mobile app, internal dashboard, website)
-- 20+ client projects delivered at PPCROY TECH SOLUTIONS
-- React Native and React.js applications, certifications, and recognitions
-
-## Tech stack
-
-| Layer | Choice |
-|---|---|
-| Framework | **Next.js 16** (App Router, Server Components) |
-| Language | **TypeScript** |
-| Styling | **Tailwind CSS v4** (via `@tailwindcss/postcss`) |
-| UI primitives | **Radix UI** + **CVA** (57-component design system) |
-| Animation | **Framer Motion** |
-| Forms | **react-hook-form** + **zod** |
-| Email delivery | **Resend** |
-| Hosting | **Netlify** (with the official Next.js plugin) |
-| Analytics | **Google Analytics 4** (via `next/script`, `afterInteractive`) |
-| Icons | **Lucide** + **react-icons** |
-
-## SEO & metadata foundation
-
-This isn't just a portfolio — it's also a working reference for shipping SEO-tight Next.js 16 sites.
-
-- **Linked JSON-LD `@graph`** — Person + WebSite + ProfilePage entities cross-referenced by `@id`
-- **FAQPage schema** auto-built from the FAQ section's data
-- **Programmatic OG + Twitter cards** generated at build time via `next/og` — no static `og-image.png` to maintain
-- **Favicon stack** — `app/icon.svg` (48×48 vector), `app/apple-icon.png` (180×180), `public/favicon.ico` (16/32/48 multi-size PNG-in-ICO fallback)
-- **`app/sitemap.ts`** auto-generates `/sitemap.xml`; **`app/robots.ts`** declares crawl rules + sitemap location
-- **Schema.org validator** clean (0 errors, 0 warnings)
-- **Google Search Console** verified, sitemap submitted, indexing requested
-
-## Performance
-
-- **Image optimization** via Next.js Image + Netlify plugin (WebP/AVIF, responsive variants)
-- **Hero LCP tuning** — `priority` + precomputed `blurDataURL` for blur-up effect
-- **Lazy-loaded below-the-fold sections** via `next/dynamic` (SSR preserved for SEO)
-- **Font optimization** via `next/font/google` with `display: "swap"`
-
-## Sections
-
-- `hero.tsx` — landing with orbiting tech icons and floating company cards
-- `stats-strip.tsx` — animated count-up metrics
-- `tech-strip.tsx` — tech stack showcase
-- `about.tsx` — capability cards with stacked layout
-- `what-i-bring.tsx` — three core strengths
-- `experience.tsx` — alternating timeline of roles
-- `projects.tsx` — selected client + personal projects
-- `featured-product-work.tsx` — ChefKart product surfaces (tabs)
-- `skills.tsx` — grouped technical skills + AI tools
-- `recognition-certifications.tsx` — ChefKart RNR award, CCBP, Udemy certs
-- `education.tsx`, `mentor.tsx` — credentials and mentorship
-- `cta.tsx`, `faq.tsx`, `contact.tsx`, `footer.tsx`
-
-## Project structure
-
-```
-app/
-  api/contact/route.ts          # Contact form → Resend
-  layout.tsx                    # Root layout + JSON-LD graph + GA4
-  page.tsx                      # Single route: stacks all section components
-  opengraph-image.tsx           # Auto-generated OG card
-  twitter-image.tsx             # Re-exports OG image for Twitter
-  icon.svg / apple-icon.png     # Favicon convention files
-  sitemap.ts / robots.ts        # Auto-generated /sitemap.xml + /robots.txt
-components/
-  ui/                           # Radix-based design system primitives
-  *.tsx                         # Feature section components
-public/
-  Projects_images/, logos/, Recognizations/, product-work/
-  favicon.ico, googl...html     # Favicon fallback, GSC verification
-```
-
-## Run locally
+Use Node.js 22 and npm. This repository intentionally keeps one lockfile.
 
 ```bash
-npm install
-npm run dev          # localhost:3000
+npm ci
+cp .env.example .env.local
+npm run dev
 ```
 
-Other scripts:
+Open `http://localhost:3000`. A Resend key is needed only for a successful contact-form delivery; pages and production builds do not require it.
+
+## Environment
+
+| Variable                        | Required         | Purpose                                                 |
+| ------------------------------- | ---------------- | ------------------------------------------------------- |
+| `RESEND_API_KEY`                | Contact delivery | Server-only Resend credential                           |
+| `RESEND_FROM_EMAIL`             | No               | Verified sender; defaults to Resend’s onboarding sender |
+| `CONTACT_TO_EMAIL`              | No               | Contact-form recipient                                  |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | No               | Google Analytics measurement ID                         |
+| `NEXT_PUBLIC_MATOMO_URL`        | No               | Matomo installation URL                                 |
+| `NEXT_PUBLIC_MATOMO_SITE_ID`    | No               | Matomo site ID                                          |
+
+Never commit `.env.local` or production credentials.
+
+## Quality checks
 
 ```bash
-npm run build        # production build
-npm run start        # production server
-npm run lint         # ESLint
+npm run check          # format, lint, typecheck, tests and production build
+npm run test:coverage  # coverage for contact and server utilities
+npm run lint:fix
+npm run format
 ```
 
-## Environment variables
+GitHub Actions runs the same `npm run check` gate for pull requests and pushes to `main`. Dependabot checks npm and GitHub Actions dependencies.
 
-| Variable | Purpose |
-|---|---|
-| `RESEND_API_KEY` | Required for the `/api/contact` endpoint to deliver form submissions |
+## Structure
 
-Create `.env.local` and set the key. Without it, the contact form will fail on submit.
+```text
+app/                 routes, metadata, recovery UI and API handlers
+components/layout/   global navigation and footer
+components/shared/   reusable composed sections and route states
+components/ui/       generic controls
+features/            feature UI, data, schemas and services
+config/              site, fonts, analytics and validated server env
+lib/server/          server-only logging and rate limiting
+styles/              shared design and typography tokens
+docs/                design-system and production decisions
+```
 
-## License & usage
+See [the design-system guide](docs/design-system.md) and [production-readiness notes](docs/production-readiness.md) for conventions, trust boundaries, deployment, and checklist scope.
 
-All code is provided for reference. Project content — copy, images, branding, projects shown — is © Anuj Dhanuka.
+## SEO
 
-## Connect
+The site includes unique route metadata, canonical URLs, Open Graph and Twitter images, linked JSON-LD, a sitemap, robots rules, semantic headings, and server-rendered portfolio content. Add any future public page to `app/sitemap.ts` and give it unique metadata.
 
-- **Portfolio:** [anujdhanuka.com](https://anujdhanuka.com)
-- **LinkedIn:** [linkedin.com/in/anuj-dhanuka](https://linkedin.com/in/anuj-dhanuka)
-- **Email:** [anujd973@gmail.com](mailto:anujd973@gmail.com)
-- **Location:** Gurugram, Haryana, India
+## License and content
+
+The code is available for reference. Portfolio copy, personal images, company references and project media are © Anuj Dhanuka.

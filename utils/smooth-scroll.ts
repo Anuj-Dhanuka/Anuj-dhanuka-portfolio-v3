@@ -1,19 +1,20 @@
 import type React from "react"
 
 export const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-  e.preventDefault()
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
 
   // Extract the target ID from the href
   const targetId = href.replace(/.*#/, "")
   const element = document.getElementById(targetId)
 
   if (element) {
+    e.preventDefault()
     // Get the navbar height for offset calculation
     const navbar = document.querySelector("header") as HTMLElement
     const navbarHeight = navbar ? navbar.offsetHeight : 80
 
     // Increased offset for better visibility
-    const scrollOffset = element.offsetTop - navbarHeight - 40 // Increased from 20px to 40px
+    const scrollOffset = element.getBoundingClientRect().top + window.scrollY - navbarHeight - 40 // Increased from 20px to 40px
 
     window.scrollTo({
       top: scrollOffset,

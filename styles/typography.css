@@ -1,0 +1,91 @@
+/* Visual roles are independent of the HTML heading level. */
+@layer components {
+  .type-hero,
+  .type-section,
+  .type-display,
+  .type-card,
+  .type-card-large,
+  .type-cta,
+  .type-nav-heading,
+  .heading-1,
+  .heading-2,
+  .heading-3 {
+    font-family: var(--font-heading);
+    font-weight: var(--type-weight-heading);
+    line-height: var(--type-leading-heading);
+  }
+  .type-hero,
+  .heading-1 {
+    font-size: var(--type-hero);
+    line-height: var(--type-leading-hero);
+  }
+  .type-section,
+  .heading-2 {
+    font-size: var(--type-section);
+    letter-spacing: var(--type-tracking-heading);
+  }
+  .type-display {
+    font-size: var(--type-display);
+    letter-spacing: var(--type-tracking-heading);
+  }
+  .type-card,
+  .heading-3 {
+    font-size: var(--type-card);
+  }
+  .type-card-large {
+    font-size: var(--type-card-large);
+  }
+  .type-cta {
+    font-size: var(--type-cta);
+  }
+  .type-nav-heading {
+    font-size: var(--type-nav-heading);
+    font-weight: 600;
+  }
+  .type-body,
+  .body-text {
+    font-size: var(--type-body);
+    font-weight: var(--type-weight-body);
+    line-height: var(--type-leading-body);
+  }
+  .type-lead {
+    font-size: var(--type-lead);
+    line-height: var(--type-leading-lead);
+  }
+  .type-cta-body {
+    font-size: var(--type-cta-body);
+    line-height: var(--type-leading-lead);
+  }
+  .type-small {
+    font-size: var(--type-small);
+    line-height: var(--type-leading-body);
+  }
+  .type-caption {
+    font-size: var(--type-caption);
+    line-height: 1.5;
+  }
+  .type-label {
+    font-size: var(--type-label);
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .copy-heading {
+    color: var(--text-heading);
+  }
+  .copy-body {
+    color: var(--text-body);
+  }
+  .copy-inverse {
+    color: var(--text-inverse);
+  }
+  .copy-inverse-body {
+    color: var(--text-inverse-body);
+  }
+  .hero-gradient-text {
+    background-image: linear-gradient(to right, var(--hero-gradient-start), var(--hero-gradient-end));
+    background-clip: text;
+    color: transparent;
+  }
+}

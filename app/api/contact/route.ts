@@ -1,47 +1,110 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
-// Initialize Resend with your API key
-// You'll need to add RESEND_API_KEY to your environment variables
-const resend = new Resend(process.env.RESEND_API_KEY)
+import { getServerEnv } from "@/config/env"
+import { createContactEmailHtml } from "@/features/contact/email"
+import { contactFormSchema, type ContactApiResponse } from "@/features/contact/schema"
+import { logError, logInfo } from "@/lib/server/logger"
+import { checkRateLimit, getClientIp } from "@/lib/server/rate-limit"
+
+const MAX_REQUEST_BYTES = 12_000
+const RATE_LIMIT = { limit: 5, windowMs: 60 * 60 * 1000 }
+
+function jsonResponse(
+  body: ContactApiResponse,
+  status: number,
+  requestId: string,
+  extraHeaders?: HeadersInit,
+) {
+  return NextResponse.json(body, {
+    status,
+    headers: {
+      "Cache-Control": "no-store",
+      "X-Request-Id": requestId,
+      ...extraHeaders,
+    },
+  })
+}
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json()
-    const { name, email, phone, subject, message } = body
+  const requestId = crypto.randomUUID()
+  const clientIp = getClientIp(request.headers)
 
-    // Validate the data
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+  try {
+    if (request.headers.get("sec-fetch-site") === "cross-site") {
+      return jsonResponse({ success: false, error: "Request origin is not allowed." }, 403, requestId)
     }
 
-    // Send email using Resend
-    const { data, error } = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>", // You can customize this after verifying your domain
-      to: "anujd973@gmail.com", // Your email address
-      subject: `Portfolio Contact: ${subject}`,
-      html: `
-        <h1>New Contact Form Submission</h1>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong> ${message}</p>
-        <hr />
-        <p>Submitted on: ${new Date().toLocaleString()}</p>
-      `,
-      // Add reply-to so you can directly reply to the sender
-      replyTo: email,
+    if (!request.headers.get("content-type")?.toLowerCase().includes("application/json")) {
+      return jsonResponse({ success: false, error: "Content-Type must be application/json." }, 415, requestId)
+    }
+
+    const rateLimit = checkRateLimit(`contact:${clientIp}`, RATE_LIMIT)
+    if (!rateLimit.allowed) {
+      const retryAfter = Math.max(1, Math.ceil((rateLimit.resetAt - Date.now()) / 1000))
+      return jsonResponse(
+        { success: false, error: "Too many messages were submitted. Please try again later." },
+        429,
+        requestId,
+        { "Retry-After": String(retryAfter) },
+      )
+    }
+
+    const declaredLength = Number(request.headers.get("content-length") || 0)
+    if (declaredLength > MAX_REQUEST_BYTES) {
+      return jsonResponse({ success: false, error: "Request is too large." }, 413, requestId)
+    }
+
+    const rawBody = await request.text()
+    if (new TextEncoder().encode(rawBody).byteLength > MAX_REQUEST_BYTES) {
+      return jsonResponse({ success: false, error: "Request is too large." }, 413, requestId)
+    }
+
+    let body: unknown
+    try {
+      body = JSON.parse(rawBody)
+    } catch {
+      return jsonResponse({ success: false, error: "Request body must contain valid JSON." }, 400, requestId)
+    }
+
+    const validation = contactFormSchema.safeParse(body)
+    if (!validation.success) {
+      return jsonResponse(
+        {
+          success: false,
+          error: "Please correct the highlighted fields.",
+          fieldErrors: validation.error.flatten().fieldErrors,
+        },
+        400,
+        requestId,
+      )
+    }
+
+    const contact = validation.data
+    if (contact.website) {
+      logInfo("contact.spam_honeypot", { requestId })
+      return jsonResponse({ success: true }, 200, requestId)
+    }
+
+    const { RESEND_API_KEY, RESEND_FROM_EMAIL, CONTACT_TO_EMAIL } = getServerEnv()
+    const resend = new Resend(RESEND_API_KEY)
+    const { error } = await resend.emails.send({
+      from: RESEND_FROM_EMAIL,
+      to: CONTACT_TO_EMAIL,
+      subject: `Portfolio Contact: ${contact.subject}`,
+      html: createContactEmailHtml(contact),
+      replyTo: contact.email,
     })
 
     if (error) {
-      console.error("Error sending email:", error)
-      return NextResponse.json({ error: "Failed to send email" }, { status: 500 })
+      logError("contact.email_failed", error, { requestId })
+      return jsonResponse({ success: false, error: "Unable to send your message right now." }, 502, requestId)
     }
 
-    return NextResponse.json({ success: true, messageId: data?.id })
+    logInfo("contact.email_sent", { requestId })
+    return jsonResponse({ success: true }, 200, requestId)
   } catch (error) {
-    console.error("Error processing contact form:", error)
-    return NextResponse.json({ error: "Failed to process contact form" }, { status: 500 })
+    logError("contact.unexpected_error", error, { requestId })
+    return jsonResponse({ success: false, error: "Unable to send your message right now." }, 500, requestId)
   }
 }
