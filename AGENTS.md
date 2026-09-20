@@ -105,7 +105,7 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 
 ## Current roadmap boundaries
 
-- Implemented standalone pages: About and Projects.
-- Planned standalone pages: Experience and Contact.
+- Implemented standalone pages: About, Experience and Projects.
+- Planned standalone page: Contact.
 - Individual project detail pages are intentionally deferred to a later version.
 - Update this file, the README and relevant docs whenever architecture, deployment, environment variables or required checks change.

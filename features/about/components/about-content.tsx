@@ -1,13 +1,14 @@
 import Link from "next/link"
-import { ArrowDown, ArrowUpRight, Award, Check, Sparkles, Trophy } from "lucide-react"
+import { ArrowUpRight, Award, Check, Sparkles, Trophy } from "lucide-react"
 
+import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
+import { site } from "@/config/site"
 import {
   certificates,
   futureFocus,
   journey,
   productSurfaces,
-  recognitionUrl,
   storyStrengths,
 } from "@/features/about/data/about"
 
@@ -21,32 +22,7 @@ const aboutSections = [
 export function AboutContent() {
   return (
     <>
-      <nav
-        aria-label="About page sections"
-        className="border-b border-brand-100 bg-white dark:border-brand-900/40 dark:bg-gray-950"
-      >
-        <div className="container mx-auto px-4 py-5 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <p className="type-label whitespace-nowrap text-brand-700 dark:text-brand-300">On this page</p>
-            <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:w-full lg:max-w-3xl">
-              {aboutSections.map(({ href, label }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="group flex min-h-11 items-center justify-between gap-2 rounded-xl border border-brand-100 bg-brand-50/55 px-3 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:border-brand-900/50 dark:bg-brand-950/20 dark:text-gray-200 dark:hover:border-brand-700 dark:hover:text-brand-300"
-                  >
-                    <span>{label}</span>
-                    <ArrowDown
-                      className="h-4 w-4 flex-none text-brand-500 transition-transform group-hover:translate-y-0.5 motion-reduce:transform-none"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <PageSectionNav items={aboutSections} ariaLabel="About page sections" />
 
       <section
         id="story-foundation"
@@ -254,7 +230,7 @@ export function AboutContent() {
               </ul>
 
               <LinkButton
-                href={recognitionUrl}
+                href={site.recognitionUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8"

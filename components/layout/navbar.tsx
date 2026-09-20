@@ -90,7 +90,7 @@ export function Navbar() {
     if (!isOpen) return
 
     const panel = menuPanelRef.current
-    const mediaQuery = window.matchMedia("(min-width: 768px)")
+    const mediaQuery = window.matchMedia("(min-width: 1024px)")
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
     const focusables = panel ? Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector)) : []
     const frame = requestAnimationFrame(() => focusables[0]?.focus())
@@ -141,11 +141,13 @@ export function Navbar() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Skills", href: "/#skills" },
+    { name: "Experience", href: "/experience" },
     { name: "Projects", href: "/projects" },
     { name: "Contact", href: "/#contact" },
   ]
 
-  const hasDarkHero = isHome || pathname === "/about" || pathname === "/projects"
+  const hasDarkHero =
+    isHome || pathname === "/about" || pathname === "/experience" || pathname === "/projects"
   const solidHeader = !hasDarkHero || scrolled
   const isActive = (href: string) => {
     const [route, section] = href.split("#")
@@ -197,7 +199,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <nav className="hidden lg:flex items-center space-x-2">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.name}
@@ -266,7 +268,7 @@ export function Navbar() {
           <button
             ref={menuButtonRef}
             className={cn(
-              "md:hidden p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500",
+              "lg:hidden p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500",
               solidHeader
                 ? "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
                 : "text-white hover:bg-white/10 dark:text-white dark:hover:bg-gray-800/30",
@@ -290,7 +292,7 @@ export function Navbar() {
             role="dialog"
             aria-modal="true"
             aria-label="Main navigation"
-            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -304,7 +306,7 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed top-0 right-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-gray-900 z-50 md:hidden flex flex-col shadow-xl overflow-y-auto"
+            className="fixed top-0 right-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-gray-900 z-50 lg:hidden flex flex-col shadow-xl overflow-y-auto"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

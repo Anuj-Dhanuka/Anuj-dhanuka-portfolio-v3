@@ -164,6 +164,3 @@ export const futureFocus = [
   "Artificial intelligence",
   "Machine learning",
 ] as const
-
-export const recognitionUrl =
-  "https://www.linkedin.com/posts/anuj-dhanuka_rewardsandrecognition-chefkart-reactnative-share-7463089455172845569-ML3k/?utm_source=share&utm_medium=member_desktop&rcm=ACoAACVInBQB17-NdeSfv3bpUy3ZdJaN7NgcWgI"

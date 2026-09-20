@@ -4,9 +4,8 @@ import { motion } from "framer-motion"
 import { Award, BookOpenCheck, ExternalLink, GraduationCap, Sparkles, Trophy } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { site } from "@/config/site"
 
-const recognitionUrl =
-  "https://www.linkedin.com/posts/anuj-dhanuka_rewardsandrecognition-chefkart-reactnative-share-7463089455172845569-ML3k/?utm_source=share&utm_medium=member_desktop&rcm=ACoAACVInBQB17-NdeSfv3bpUy3ZdJaN7NgcWgI"
 const reactJsCertificateUrl = "https://certificates.ccbp.in/intensive/react-js?id=PBLHJQRRRD"
 const reactNativeCertificateUrl = "https://www.udemy.com/certificate/UC-2ccd6fc5-ebdf-4674-8fa6-213dcb33765a/"
 
@@ -18,7 +17,7 @@ const items = [
     description:
       "Recognised in May 2026 for my contribution across ChefKart's customer-facing and internal digital product experiences.",
     cta: "View Recognition",
-    href: recognitionUrl,
+    href: site.recognitionUrl,
     Icon: Trophy,
     featured: true,
   },

@@ -29,7 +29,7 @@ utils/                       Browser/interaction helpers
 
 Keep page files focused on composition and route metadata. A feature may use shared UI, configuration and helpers. Shared UI must not import feature-specific content. Import modules directly: do not introduce barrel exports that mix client and server modules. Use `use client` only where interaction or browser APIs require it; keep static project content server-rendered.
 
-The portfolio sections can be reused in the standalone About route and the upcoming Experience and Contact routes. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Individual project routes are intentionally deferred.
+The portfolio sections can be reused in the standalone About and Experience routes and the upcoming Contact route. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Individual project routes are intentionally deferred.
 
 ## Editing typography
 
