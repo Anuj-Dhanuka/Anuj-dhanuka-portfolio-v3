@@ -61,7 +61,7 @@ export function Footer() {
               {[
                 { name: "Home", href: "/#home" },
                 { name: "About", href: "/about" },
-                { name: "Skills", href: "/#skills" },
+                { name: "Skills", href: "/skills" },
                 { name: "Experience", href: "/experience" },
                 { name: "Projects", href: "/projects" },
                 { name: "Contact", href: "/contact" },
@@ -83,10 +83,10 @@ export function Footer() {
             <h2 className="type-nav-heading mb-4">Expertise</h2>
             <ul className="space-y-2">
               {[
-                { name: "Frontend Development", href: "/#skills" },
-                { name: "React Native", href: "/#skills" },
-                { name: "Responsive UI", href: "/#skills" },
-                { name: "AI-Assisted Development", href: "/#skills" },
+                { name: "Frontend Development", href: "/skills#frontend-engineering" },
+                { name: "React Native", href: "/skills#mobile-development" },
+                { name: "Responsive UI", href: "/skills#design-to-code" },
+                { name: "AI-Assisted Development", href: "/skills#ai-assisted-workflow" },
               ].map((service) => (
                 <li key={service.name}>
                   <Link

@@ -111,7 +111,7 @@ The site uses Next.js's file-based metadata convention for sitemap, robots, and 
 
 | File                                 | Served at                                    | Purpose                                                                                                    |
 | ------------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `app/sitemap.ts`                     | `/sitemap.xml`                               | Lists the homepage and public project route; submit this URL in Search Console → Sitemaps                  |
+| `app/sitemap.ts`                     | `/sitemap.xml`                               | Lists the homepage and public routes; submit this URL in Search Console → Sitemaps                         |
 | `app/robots.ts`                      | `/robots.txt`                                | Allows everything except `/api/`; declares sitemap location                                                |
 | `app/layout.tsx` (`personJsonLd`)    | inline `<script type="application/ld+json">` | Schema.org Person markup — name, role, employer, skills, social links. Improves search snippet appearance. |
 | `public/googlefcb50a119eef10da.html` | `/googlefcb50a119eef10da.html`               | Google Search Console ownership verification — never delete                                                |
@@ -127,7 +127,7 @@ Everything below is live and verified as of 2026-06-07. If domain, Google accoun
 - **Property type:** URL prefix
 - **Property URL:** `https://anujdhanuka.com/`
 - **Ownership verified via:** HTML file at `public/googlefcb50a119eef10da.html` (must remain in repo permanently; Google re-checks periodically)
-- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About, Experience, Projects and Contact pages; resubmit after deployment when routes change
+- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About, Experience, Skills, Projects and Contact pages; resubmit after deployment when routes change
 - **Verification token (in the file):** `googlefcb50a119eef10da`
 
 ### Google Analytics 4
@@ -205,5 +205,4 @@ Open follow-ups noted for the candidate (not code changes — content/copy work)
 - Mechanical → Software career pivot not narrated in `components/about.tsx`
 - PPCROY `companyUrl: "#"` in `components/experience.tsx` (broken link)
 - GitHub surface area thin (only 1 public repo linked)
-- TypeScript / testing / state-management missing from `components/skills.tsx`
 - No disclosure that ChefKart product work is proprietary (would contextualize the lighter public portfolio)

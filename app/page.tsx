@@ -22,7 +22,7 @@ const FeaturedProductWork = dynamic(() =>
   })),
 )
 const Skills = dynamic(() =>
-  import("@/features/portfolio/components/skills").then((m) => ({ default: m.Skills })),
+  import("@/features/skills/components/skills-overview").then((m) => ({ default: m.SkillsOverview })),
 )
 const RecognitionCertifications = dynamic(() =>
   import("@/features/portfolio/components/recognition-certifications").then((m) => ({
@@ -80,7 +80,7 @@ export default function Home() {
         <SectionWrapper>
           <FeaturedProductWork />
         </SectionWrapper>
-        <SectionWrapper id="skills">
+        <SectionWrapper>
           <Skills />
         </SectionWrapper>
         <SectionWrapper id="recognition-learning">

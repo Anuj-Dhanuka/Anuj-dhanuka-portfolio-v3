@@ -1,7 +1,7 @@
 import Image from "next/image"
-import Link from "next/link"
 import { ArrowDown, ArrowUpRight } from "lucide-react"
 import { HeroBackground } from "@/components/shared/hero-background"
+import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { LinkButton } from "@/components/ui/link-button"
 import { projects } from "@/features/projects/data/projects"
 
@@ -12,25 +12,13 @@ export function ProjectsHero() {
   return (
     <section
       aria-labelledby="projects-hero-heading"
-      className="relative overflow-hidden pb-12 pt-20 text-white md:pb-14 md:pt-24 lg:min-h-[75svh] lg:pb-12 lg:pt-24"
+      className="relative overflow-hidden pb-12 pt-20 text-white md:pb-14 md:pt-24 lg:flex lg:min-h-[75svh] lg:items-center lg:pb-12 lg:pt-32"
     >
       <HeroBackground />
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container relative z-10 mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="grid w-full items-center gap-10 lg:grid-cols-2 lg:gap-10">
           <div className="min-w-0 text-left">
-            <nav aria-label="Breadcrumb" className="mb-5 text-xs text-brand-200/80">
-              <ol className="flex items-center gap-3">
-                <li>
-                  <Link href="/" className="transition-colors hover:text-white">
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li aria-current="page" className="font-medium text-white">
-                  Projects
-                </li>
-              </ol>
-            </nav>
+            <HeroBreadcrumb current="Projects" />
 
             <div className="space-y-5">
               <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200 backdrop-blur-sm">

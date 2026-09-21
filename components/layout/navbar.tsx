@@ -140,7 +140,7 @@ export function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Skills", href: "/#skills" },
+    { name: "Skills", href: "/skills" },
     { name: "Experience", href: "/experience" },
     { name: "Projects", href: "/projects" },
     { name: "Contact", href: "/contact" },
@@ -150,6 +150,7 @@ export function Navbar() {
     isHome ||
     pathname === "/about" ||
     pathname === "/experience" ||
+    pathname === "/skills" ||
     pathname === "/projects" ||
     pathname === "/contact"
   const solidHeader = !hasDarkHero || scrolled

@@ -1,8 +1,8 @@
 import Image from "next/image"
-import Link from "next/link"
 import { ArrowDown, ArrowUpRight, BriefcaseBusiness, MapPin } from "lucide-react"
 
 import { HeroBackground } from "@/components/shared/hero-background"
+import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { LinkButton } from "@/components/ui/link-button"
 import { aboutHighlights } from "@/features/about/data/about"
 
@@ -10,30 +10,15 @@ export function AboutHero() {
   return (
     <section
       aria-labelledby="about-hero-heading"
-      className="relative overflow-hidden pb-14 pt-20 text-white md:pb-16 md:pt-24 lg:min-h-[680px] lg:pb-20 lg:pt-28 xl:min-h-[720px]"
+      className="relative overflow-hidden pb-14 pt-20 text-white md:pb-16 md:pt-24 lg:flex lg:min-h-[680px] lg:items-center lg:pb-12 lg:pt-32 xl:min-h-[720px]"
     >
       <HeroBackground />
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <nav aria-label="Breadcrumb" className="mb-6 text-xs text-brand-200/80">
-          <ol className="flex items-center gap-3">
-            <li>
-              <Link
-                href="/"
-                className="transition-colors hover:text-white focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300"
-              >
-                Home
-              </Link>
-            </li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page" className="font-medium text-white">
-              About
-            </li>
-          </ol>
-        </nav>
-
+      <div className="container relative z-10 mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.75fr)] lg:gap-16">
           <div className="min-w-0">
+            <HeroBreadcrumb current="About" />
+
             <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200 backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-brand-300" aria-hidden="true" />
               My journey
