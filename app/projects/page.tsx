@@ -85,7 +85,7 @@ export default function ProjectsPage() {
           title="Have a web or mobile project in mind?"
           description="Let’s discuss how I can help turn your designs and product requirements into a responsive, usable experience."
           contactLabel="Get in touch"
-          contactHref="/#contact"
+          contactHref="/contact"
         />
       </main>
     </div>

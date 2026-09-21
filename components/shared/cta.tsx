@@ -18,7 +18,7 @@ export function CTA({
   title = "Looking for a Dedicated Developer to Join Your Team?",
   description = "I'm currently open to new opportunities where I can contribute my technical skills and problem-solving abilities. With experience in React, Next.js, and modern web technologies, I'm ready to make an impact on your team.",
   contactLabel = "Contact Me",
-  contactHref = "mailto:anujd973@gmail.com",
+  contactHref = "/contact",
   resumeLabel = "Download Resume",
   resumeHref = "/ANUJ_DHANUKA_RESUME.pdf",
 }: CTAProps = {}) {

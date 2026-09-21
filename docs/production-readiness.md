@@ -36,7 +36,7 @@ Authentication, authorization, database queries, transactions, payments, uploads
 2. Configure the variables in `.env.example` in the deployment platform.
 3. Use `npm run check` as the required build gate.
 4. Deploy with `npm run build` and `npm run start`, or use a platform with native Next.js App Router support.
-5. Verify `/`, `/about`, `/experience`, `/projects`, `/sitemap.xml`, `/robots.txt`, the 404 page and a real contact submission.
+5. Verify `/`, `/about`, `/experience`, `/projects`, `/contact`, `/sitemap.xml`, `/robots.txt`, the 404 page and a real contact submission.
 6. Confirm CSP and analytics endpoints after configuring a custom Matomo origin.
 
 ## Pull request evidence

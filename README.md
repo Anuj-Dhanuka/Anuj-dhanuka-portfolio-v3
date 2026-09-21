@@ -65,7 +65,9 @@ See [the design-system guide](docs/design-system.md) and [production-readiness n
 
 ## SEO
 
-The site includes unique route metadata, canonical URLs, Open Graph and Twitter images, linked JSON-LD, a sitemap, robots rules, semantic headings, and server-rendered portfolio content. Add any future public page to `app/sitemap.ts` and give it unique metadata.
+The public routes are `/`, `/about`, `/experience`, `/projects` and `/contact`. Each route includes unique metadata, a canonical URL, social images, relevant JSON-LD, semantic headings and server-rendered content, and each route is listed in the sitemap. The homepage and Contact page reuse the same contact form, validation and server delivery flow.
+
+Add future public pages to `app/sitemap.ts` and give each one unique metadata.
 
 ## License and content
 

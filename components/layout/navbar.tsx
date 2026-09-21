@@ -143,11 +143,15 @@ export function Navbar() {
     { name: "Skills", href: "/#skills" },
     { name: "Experience", href: "/experience" },
     { name: "Projects", href: "/projects" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Contact", href: "/contact" },
   ]
 
   const hasDarkHero =
-    isHome || pathname === "/about" || pathname === "/experience" || pathname === "/projects"
+    isHome ||
+    pathname === "/about" ||
+    pathname === "/experience" ||
+    pathname === "/projects" ||
+    pathname === "/contact"
   const solidHeader = !hasDarkHero || scrolled
   const isActive = (href: string) => {
     const [route, section] = href.split("#")

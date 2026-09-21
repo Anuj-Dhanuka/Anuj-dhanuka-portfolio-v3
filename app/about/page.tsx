@@ -77,7 +77,7 @@ export default function AboutPage() {
           title="Looking for a dedicated developer to join your team?"
           description="I’m open to opportunities where I can contribute thoughtful frontend execution, product awareness and dependable delivery across web and mobile experiences."
           contactLabel="Start a conversation"
-          contactHref="/#contact"
+          contactHref="/contact"
         />
       </main>
     </div>

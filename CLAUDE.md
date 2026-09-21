@@ -127,7 +127,7 @@ Everything below is live and verified as of 2026-06-07. If domain, Google accoun
 - **Property type:** URL prefix
 - **Property URL:** `https://anujdhanuka.com/`
 - **Ownership verified via:** HTML file at `public/googlefcb50a119eef10da.html` (must remain in repo permanently; Google re-checks periodically)
-- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About page, Experience page and projects overview; resubmit after deployment when routes change
+- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About, Experience, Projects and Contact pages; resubmit after deployment when routes change
 - **Verification token (in the file):** `googlefcb50a119eef10da`
 
 ### Google Analytics 4
@@ -204,7 +204,6 @@ Open follow-ups noted for the candidate (not code changes — content/copy work)
 - 4-year education gap (2015–2019) unexplained in `components/education.tsx`
 - Mechanical → Software career pivot not narrated in `components/about.tsx`
 - PPCROY `companyUrl: "#"` in `components/experience.tsx` (broken link)
-- "Reply within an hour" claim in `components/faq.tsx` and `components/contact.tsx` (overpromise)
 - GitHub surface area thin (only 1 public repo linked)
 - TypeScript / testing / state-management missing from `components/skills.tsx`
 - No disclosure that ChefKart product work is proprietary (would contextualize the lighter public portfolio)

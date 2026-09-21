@@ -6,6 +6,7 @@ export const site = {
   email: "anujd973@gmail.com",
   phoneDisplay: "+91 8978264705",
   phoneHref: "tel:+918978264705",
+  location: "Gurugram, Haryana, India",
   linkedIn: "https://linkedin.com/in/anuj-dhanuka",
   github: "https://github.com/Anuj-Dhanuka",
   instagram: "https://www.instagram.com/anuj_dhanuka/",

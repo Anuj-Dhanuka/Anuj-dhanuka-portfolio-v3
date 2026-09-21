@@ -12,11 +12,14 @@ components/
   ui/                        Generic controls and low-level UI primitives
   icons/                     Brand icons
 features/
+  contact/
+    components/              Shared contact section, route content and interactive form
+    data/                    Contact-page content; no React dependencies
   home/components/           Homepage-specific hero
   projects/
     components/              Project cards, hero and overview composition
     data/                    Typed project content; no React dependencies
-  portfolio/components/      About, experience, contact and other portfolio sections
+  portfolio/components/      Homepage portfolio sections and FAQ
 config/
   site.ts                    Canonical origin, author and site defaults
 styles/
@@ -29,7 +32,7 @@ utils/                       Browser/interaction helpers
 
 Keep page files focused on composition and route metadata. A feature may use shared UI, configuration and helpers. Shared UI must not import feature-specific content. Import modules directly: do not introduce barrel exports that mix client and server modules. Use `use client` only where interaction or browser APIs require it; keep static project content server-rendered.
 
-The portfolio sections can be reused in the standalone About and Experience routes and the upcoming Contact route. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Individual project routes are intentionally deferred.
+Portfolio content is reused across the standalone About, Experience and Contact routes where the same information appears on the homepage. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Individual project routes are intentionally deferred.
 
 ## Editing typography
 

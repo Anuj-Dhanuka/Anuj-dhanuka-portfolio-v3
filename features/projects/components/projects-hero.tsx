@@ -54,7 +54,7 @@ export function ProjectsHero() {
                   Explore my projects
                 </LinkButton>
                 <LinkButton
-                  href="/#contact"
+                  href="/contact"
                   variant="outlineInverse"
                   className="min-h-12 w-full px-6 py-3 text-base sm:w-auto"
                   icon={<ArrowUpRight className="h-4 w-4" />}

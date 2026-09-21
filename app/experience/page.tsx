@@ -78,7 +78,7 @@ export default function ExperiencePage() {
           title="Looking for a developer who can contribute across web and mobile?"
           description="I’m open to opportunities where I can bring React, React Native, product awareness and dependable cross-functional delivery to a team building useful digital products."
           contactLabel="Start a conversation"
-          contactHref="/#contact"
+          contactHref="/contact"
         />
       </main>
     </div>

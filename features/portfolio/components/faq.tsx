@@ -36,7 +36,7 @@ const faqs = [
   {
     question: "How can we discuss an opportunity?",
     answer:
-      "You can contact me through email or LinkedIn with the role, company details and a brief overview of the opportunity.\n\nI respond to professional enquiries within an hour.",
+      "You can use the contact page, email or LinkedIn to share the role, company details and a brief overview of the opportunity. A short message with the goal and relevant context is enough to begin.",
   },
 ]
 
@@ -135,7 +135,7 @@ export function FAQ() {
             asChild
             className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:opacity-95"
           >
-            <Link href="#contact">
+            <Link href="/contact">
               <Mail className="h-4 w-4" />
               Discuss an Opportunity
             </Link>

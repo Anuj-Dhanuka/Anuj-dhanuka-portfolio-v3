@@ -105,7 +105,7 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 
 ## Current roadmap boundaries
 
-- Implemented standalone pages: About, Experience and Projects.
-- Planned standalone page: Contact.
+- Implemented standalone pages: About, Experience, Projects and Contact.
+- Keep the homepage contact section and standalone Contact page on the same shared form, validation and contact-detail implementation.
 - Individual project detail pages are intentionally deferred to a later version.
 - Update this file, the README and relevant docs whenever architecture, deployment, environment variables or required checks change.

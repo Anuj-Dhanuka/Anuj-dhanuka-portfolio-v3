@@ -38,7 +38,7 @@ const Mentor = dynamic(() =>
 const CTA = dynamic(() => import("@/components/shared/cta").then((m) => ({ default: m.CTA })))
 const FAQ = dynamic(() => import("@/features/portfolio/components/faq").then((m) => ({ default: m.FAQ })))
 const Contact = dynamic(() =>
-  import("@/features/portfolio/components/contact").then((m) => ({ default: m.Contact })),
+  import("@/features/contact/components/contact-section").then((m) => ({ default: m.ContactSection })),
 )
 const BackToTop = dynamic(() =>
   import("@/components/layout/back-to-top").then((m) => ({ default: m.BackToTop })),
@@ -98,7 +98,7 @@ export default function Home() {
         <SectionWrapper id="faq">
           <FAQ />
         </SectionWrapper>
-        <SectionWrapper id="contact">
+        <SectionWrapper>
           <Contact />
         </SectionWrapper>
       </main>
