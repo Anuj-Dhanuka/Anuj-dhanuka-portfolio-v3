@@ -99,11 +99,11 @@ export function ContactForm() {
       aria-busy={isSubmitting}
     >
       <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-        <label htmlFor="website">Website</label>
+        <label htmlFor="form-check">Leave this field blank</label>
         <input
-          id="website"
-          name="website"
-          value={formState.website}
+          id="form-check"
+          name="formCheck"
+          value={formState.formCheck}
           onChange={handleChange}
           tabIndex={-1}
           autoComplete="off"

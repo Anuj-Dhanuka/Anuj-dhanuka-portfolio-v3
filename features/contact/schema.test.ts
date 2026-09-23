@@ -8,7 +8,7 @@ const validSubmission = {
   phone: "+91 98765 43210",
   subject: "React project",
   message: "I would like to discuss a frontend project.",
-  website: "",
+  formCheck: "",
 }
 
 describe("contactFormSchema", () => {

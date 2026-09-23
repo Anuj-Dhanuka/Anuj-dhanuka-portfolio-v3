@@ -49,7 +49,7 @@ describe("contact route", () => {
           phone: "",
           subject: "Hello",
           message: "Automated spam",
-          website: "https://spam.example",
+          formCheck: "filled-by-a-bot",
         }),
       ),
     )

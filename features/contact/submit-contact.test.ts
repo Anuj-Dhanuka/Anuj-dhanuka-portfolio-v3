@@ -8,7 +8,7 @@ const submission = {
   phone: "",
   subject: "Project enquiry",
   message: "I would like to discuss a frontend project.",
-  website: "",
+  formCheck: "",
 }
 
 describe("submitContactForm", () => {

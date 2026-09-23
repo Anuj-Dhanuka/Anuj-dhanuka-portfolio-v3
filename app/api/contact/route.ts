@@ -81,7 +81,7 @@ export async function POST(request: Request) {
     }
 
     const contact = validation.data
-    if (contact.website) {
+    if (contact.formCheck) {
       logInfo("contact.spam_honeypot", { requestId })
       return jsonResponse({ success: true }, 200, requestId)
     }

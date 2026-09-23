@@ -17,7 +17,7 @@ describe("contact email rendering", () => {
         phone: "",
         subject: "Project",
         message: "First line\n<img src=x onerror=alert(1)>",
-        website: "",
+        formCheck: "",
       },
       new Date("2026-01-01T00:00:00.000Z"),
     )

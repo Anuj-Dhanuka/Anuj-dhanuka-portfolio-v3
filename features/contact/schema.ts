@@ -20,7 +20,7 @@ export const contactFormSchema = z.object({
     "Subject must be a single line.",
   ),
   message: requiredText("Message", 3000),
-  website: z.string().max(200).default(""),
+  formCheck: z.string().max(200).default(""),
 })
 
 export type ContactFormData = z.infer<typeof contactFormSchema>
@@ -35,5 +35,5 @@ export const emptyContactForm: ContactFormData = {
   phone: "",
   subject: "",
   message: "",
-  website: "",
+  formCheck: "",
 }
