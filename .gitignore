@@ -29,6 +29,10 @@ yarn-error.log*
 
 # env files
 .env*
+!.env.example
+
+# test output
+/coverage/
 
 # vercel
 .vercel

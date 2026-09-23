@@ -1,27 +1,15 @@
+import { site } from "@/config/site"
 import type { MetadataRoute } from "next"
 
-const SITE_URL = "https://anujdhanuka.com"
+const SITE_URL = site.url
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date()
-
-  const sections = [
-    "",
-    "#about",
-    "#experience",
-    "#projects",
-    "#skills",
-    "#recognition-learning",
-    "#education",
-    "#mentor",
-    "#faq",
-    "#contact",
+  return [
+    { url: SITE_URL, changeFrequency: "monthly", priority: 1 },
+    { url: `${SITE_URL}/about`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/experience`, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/skills`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/projects`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/contact`, changeFrequency: "yearly", priority: 0.7 },
   ]
-
-  return sections.map((section) => ({
-    url: `${SITE_URL}/${section}`,
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: section === "" ? 1 : 0.7,
-  }))
 }

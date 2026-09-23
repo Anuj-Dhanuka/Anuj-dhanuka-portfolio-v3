@@ -1,6 +1,7 @@
+import { site } from "@/config/site"
 import type { MetadataRoute } from "next"
 
-const SITE_URL = "https://anujdhanuka.com"
+const SITE_URL = site.url
 
 export default function robots(): MetadataRoute.Robots {
   return {

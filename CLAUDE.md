@@ -36,12 +36,12 @@ Single-page Next.js 15 portfolio using the **App Router**. All portfolio section
 ### TypeScript
 
 - Path alias `@/*` maps to the repo root
-- Build errors are ignored (`ignoreBuildErrors: true` in `next.config.mjs`) — type errors won't block builds but should still be fixed
+- Type errors block production builds, and `npm run typecheck` is part of the CI gate
 - Image optimization is **enabled** (Next.js default) — runs through Netlify's Next.js plugin, which auto-installs on deploy. All `<Image>` components get on-demand resizing, WebP/AVIF conversion, and lazy loading for free
 
 ### Forms
 
-Contact form uses **react-hook-form** + **zod** for validation, submitting to `/api/contact`. Email delivery is via **Resend**.
+The contact form uses shared **Zod** validation on the client and server, submitting through the typed `/api/contact` service. Email delivery is via **Resend**.
 
 ### Animation
 
@@ -49,22 +49,27 @@ Contact form uses **react-hook-form** + **zod** for validation, submitting to `/
 
 ### Deployment
 
-Deployed via **Netlify** with the official Next.js plugin (auto-installed by Netlify on deploy — no manual `netlify.toml` needed). Netlify watches `master` and rebuilds on every push.
+Deployed via **Netlify** with the official Next.js plugin, which is auto-installed during deployment. The root `netlify.toml` excludes only generated Next.js compiler cache files from secret scanning; repository and deploy output scanning remain enabled. Netlify watches `master` and rebuilds on every push.
 
-A legacy `.cpanel.yml` file remains from a prior cPanel setup but is no longer used; safe to remove if it surfaces as a confusion source.
+The retired cPanel deployment file has been removed so the repository has one current deployment path.
 
 ## Environment Variables
 
-| Variable | Purpose |
-|---|---|
-| `RESEND_API_KEY` | Required for contact form email delivery |
+| Variable                        | Purpose                                  |
+| ------------------------------- | ---------------------------------------- |
+| `RESEND_API_KEY`                | Required for contact form email delivery |
+| `RESEND_FROM_EMAIL`             | Optional verified sender address         |
+| `CONTACT_TO_EMAIL`              | Optional recipient address               |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional Google Analytics measurement ID |
+| `NEXT_PUBLIC_MATOMO_URL`        | Optional Matomo installation URL         |
+| `NEXT_PUBLIC_MATOMO_SITE_ID`    | Optional Matomo site ID                  |
 
 ## SEO & Metadata
 
 The site is positioned as **"Software Engineer | Frontend Developer"** with React.js + React Native as the technologies surfaced in description copy. Keep all metadata, hero copy, OG card, and FAQ answers aligned with this positioning. Do NOT reintroduce "Full-Stack" or "Firebase Expert" framing in `app/layout.tsx` metadata.
 
 - Canonical title pattern: `Anuj Dhanuka | Software Engineer | Frontend Developer`
-- Canonical description anchors: *"Software Engineer and Frontend Developer with React.js and React Native experience"*, *"20+ client projects"*, *"ChefKart's customer app, internal dashboard and website"*
+- Canonical description anchors: _"Software Engineer and Frontend Developer with React.js and React Native experience"_, _"20+ client projects"_, _"ChefKart's customer app, internal dashboard and website"_
 - JSON-LD `jobTitle` is **"Software Engineer"** (the formal title); the Frontend Developer + React.js/React Native specialty lives in `description` + `knowsAbout`
 - `app/layout.tsx` exports `metadata` (title, description, openGraph, twitter, robots, alternates) and a separate `viewport` export — do not merge these back together (Next.js 15 requires the split)
 - The `generator: "v0.dev"` field was removed from metadata — do not re-add it (it leaks AI-scaffolded origin into the HTML source)
@@ -73,12 +78,12 @@ The site is positioned as **"Software Engineer | Frontend Developer"** with Reac
 
 The site uses Next.js's **file-based metadata convention** for icons — Next auto-emits the correct `<link>` tags from these files. Do not manually re-add an `icons: {...}` block in `app/layout.tsx`; it overrides the convention.
 
-| File | Size | Served at | Purpose |
-|---|---|---|---|
-| `app/icon.svg` | 48×48 (vector) | `/icon.svg?<hash>` | Modern browsers, Google Search favicon |
-| `app/apple-icon.png` | 180×180 | `/apple-icon.png?<hash>` | iOS / macOS Apple ecosystem, iMessage previews |
-| `public/favicon.ico` | 16/32/48 multi-size, PNG-embedded | `/favicon.ico` | Legacy browsers, Google crawler default probe |
-| `public/Anuj_favicon.svg` | 32×32 | `/Anuj_favicon.svg` | Original source SVG — kept as the master vector for regeneration |
+| File                      | Size                              | Served at                | Purpose                                                          |
+| ------------------------- | --------------------------------- | ------------------------ | ---------------------------------------------------------------- |
+| `app/icon.svg`            | 48×48 (vector)                    | `/icon.svg?<hash>`       | Modern browsers, Google Search favicon                           |
+| `app/apple-icon.png`      | 180×180                           | `/apple-icon.png?<hash>` | iOS / macOS Apple ecosystem, iMessage previews                   |
+| `public/favicon.ico`      | 16/32/48 multi-size, PNG-embedded | `/favicon.ico`           | Legacy browsers, Google crawler default probe                    |
+| `public/Anuj_favicon.svg` | 32×32                             | `/Anuj_favicon.svg`      | Original source SVG — kept as the master vector for regeneration |
 
 ### Regenerating the favicon stack from the source SVG
 
@@ -104,28 +109,30 @@ Google's favicon requirements: at least **48×48**, served at a stable URL, vali
 
 The site uses Next.js's file-based metadata convention for sitemap, robots, and structured data:
 
-| File | Served at | Purpose |
-|---|---|---|
-| `app/sitemap.ts` | `/sitemap.xml` | Lists homepage + all in-page section anchors; submit this URL in Search Console → Sitemaps |
-| `app/robots.ts` | `/robots.txt` | Allows everything except `/api/`; declares sitemap location |
-| `app/layout.tsx` (`personJsonLd`) | inline `<script type="application/ld+json">` | Schema.org Person markup — name, role, employer, skills, social links. Improves search snippet appearance. |
-| `public/googlefcb50a119eef10da.html` | `/googlefcb50a119eef10da.html` | Google Search Console ownership verification — never delete |
+| File                                 | Served at                                    | Purpose                                                                                                    |
+| ------------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `app/sitemap.ts`                     | `/sitemap.xml`                               | Lists the homepage and public routes; submit this URL in Search Console → Sitemaps                         |
+| `app/robots.ts`                      | `/robots.txt`                                | Allows everything except `/api/`; declares sitemap location                                                |
+| `app/layout.tsx` (`personJsonLd`)    | inline `<script type="application/ld+json">` | Schema.org Person markup — name, role, employer, skills, social links. Improves search snippet appearance. |
+| `public/googlefcb50a119eef10da.html` | `/googlefcb50a119eef10da.html`               | Google Search Console ownership verification — never delete                                                |
 
-Site URL is hard-coded as `https://anujdhanuka.com` in sitemap/robots/JSON-LD. If the canonical domain ever changes, update all three.
+The canonical site URL is defined once in `config/site.ts` and reused by metadata, sitemap, robots and JSON-LD.
 
 ## Search Console & Analytics — accounts, IDs, and what to do if anything migrates
 
 Everything below is live and verified as of 2026-06-07. If domain, Google account, or hosting changes, this section is the migration checklist.
 
 ### Google Search Console
+
 - **Property type:** URL prefix
 - **Property URL:** `https://anujdhanuka.com/`
 - **Ownership verified via:** HTML file at `public/googlefcb50a119eef10da.html` (must remain in repo permanently; Google re-checks periodically)
-- **Sitemap submitted:** `/sitemap.xml` — status Success, 10 URLs discovered
+- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About, Experience, Skills, Projects and Contact pages; resubmit after deployment when routes change
 - **Verification token (in the file):** `googlefcb50a119eef10da`
 
 ### Google Analytics 4
-- **Measurement ID:** `G-Z31QZE55CS` (hard-coded in `app/layout.tsx` as `GA_MEASUREMENT_ID`; GA IDs are public so no env var needed)
+
+- **Measurement ID:** configure `NEXT_PUBLIC_GA_MEASUREMENT_ID` in the deployment environment
 - **Property name:** `Anuj Dhanuka Portfolio`
 - **Stream name:** `Portfolio Site`
 - **Stream URL:** `https://anujdhanuka.com`
@@ -135,43 +142,50 @@ Everything below is live and verified as of 2026-06-07. If domain, Google accoun
 - **Verified live:** 2026-06-07 — Realtime report confirmed 1 active user from `anujdhanuka.com`
 
 ### Search Console ↔ GA4 association
+
 - **Status:** Linked — Search Console property and GA4 property are associated
 - Where to check: GA4 Admin → Product Links → Search Console links
 - Search query data flows from Search Console into GA4 (Acquisition → Search Console reports)
 
 ### Google account that owns everything
+
 - The Google account used to verify Search Console AND create the GA4 property MUST be the same account (or have admin access on both). Currently both are owned by the user's primary Google account.
 
 ### Migration scenarios
 
 **If the canonical domain changes (e.g. `anujdhanuka.com` → `anuj.dev`):**
-1. Update `SITE_URL` constant in `app/layout.tsx` (and any other hard-coded URLs — `app/sitemap.ts`, `app/robots.ts`)
+
+1. Update the canonical URL in `config/site.ts`
 2. In Search Console: add the new property (URL prefix), verify ownership (drop a new verification file in `public/`), submit sitemap
-3. In GA4: create a new data stream for the new domain (or update the existing stream's URL). Get a new Measurement ID if you create a new property; update `GA_MEASUREMENT_ID` constant
+3. In GA4: create a new data stream for the new domain (or update the existing stream's URL). Set its Measurement ID in `NEXT_PUBLIC_GA_MEASUREMENT_ID`
 4. Re-link Search Console ↔ GA4 for the new properties
 5. Set up 301 redirects from the old domain to the new one (Netlify `_redirects` file)
 6. Update OG image base URL, JSON-LD `@id` URLs (they reference the SITE_URL constant — should auto-update), `metadataBase` in layout.tsx
 7. Update LinkedIn Featured link, GitHub profile, Dev.to bio, etc.
 
 **If the Google account changes:**
+
 1. In Search Console: Admin → Users and Permissions → add the new account as Owner
 2. In GA4: Admin → Property Access Management → add the new account as Admin
 3. Old account can be removed afterwards
 4. No code changes needed
 
 **If you want to rotate the GA4 property** (e.g. create a fresh property and stop using the old one):
+
 1. Create new GA4 property + stream, copy the new `G-XXXXXXXXXX`
-2. Update `GA_MEASUREMENT_ID` constant in `app/layout.tsx`
+2. Update `NEXT_PUBLIC_GA_MEASUREMENT_ID` in the deployment environment
 3. Re-link to Search Console
 4. Historical data in the old property is read-only; new data flows to the new one
 
 **If hosting moves off Netlify** (e.g. to Vercel or self-hosted):
+
 - The `next/script` GA4 setup works identically on any Next.js host
 - Make sure `NODE_ENV === "production"` is set in the new environment (most hosts do this by default)
 - Image optimization may need re-checking (Vercel handles `<Image>` natively; cPanel/static export breaks it)
 - Re-verify Search Console ownership at the new host (the verification file at `/googlefcb50a119eef10da.html` must still be reachable)
 
 **If you need to rotate the Search Console verification file:**
+
 - Don't delete the existing `public/googlefcb50a119eef10da.html` until the new method is verified
 - Add an alternate verification method first (DNS TXT record, or HTML meta tag in `app/layout.tsx` via `verification.google`) → verify → only then remove the old file
 
@@ -184,12 +198,11 @@ This portfolio underwent a full HR-perspective audit. The following issues were 
 3. **Favicon missing from Google search** — added `app/icon.svg` (48×48), `app/apple-icon.png` (180×180), `public/favicon.ico` (multi-size)
 
 Open follow-ups noted for the candidate (not code changes — content/copy work):
+
 - LinkedIn recognition date alignment ("May 2026" badge vs Jan 2025 post ID)
 - "20+ client projects" — only 3 visible in portfolio
 - 4-year education gap (2015–2019) unexplained in `components/education.tsx`
 - Mechanical → Software career pivot not narrated in `components/about.tsx`
 - PPCROY `companyUrl: "#"` in `components/experience.tsx` (broken link)
-- "Reply within an hour" claim in `components/faq.tsx` and `components/contact.tsx` (overpromise)
 - GitHub surface area thin (only 1 public repo linked)
-- TypeScript / testing / state-management missing from `components/skills.tsx`
 - No disclosure that ChefKart product work is proprietary (would contextualize the lighter public portfolio)
