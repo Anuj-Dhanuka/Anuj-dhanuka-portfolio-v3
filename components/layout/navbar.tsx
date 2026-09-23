@@ -157,7 +157,7 @@ export function Navbar() {
   const isActive = (href: string) => {
     const [route, section] = href.split("#")
     if (section) return isHome && activeSection === section
-    if (route === "/") return isHome && activeSection === "home"
+    if (route === "/") return isHome
     return pathname === route || pathname.startsWith(`${route}/`)
   }
 
