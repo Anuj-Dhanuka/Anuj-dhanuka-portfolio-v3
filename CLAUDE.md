@@ -49,7 +49,7 @@ The contact form uses shared **Zod** validation on the client and server, submit
 
 ### Deployment
 
-Deployed via **Netlify** with the official Next.js plugin (auto-installed by Netlify on deploy — no manual `netlify.toml` needed). Netlify watches `master` and rebuilds on every push.
+Deployed via **Netlify** with the official Next.js plugin, which is auto-installed during deployment. The root `netlify.toml` excludes only generated Next.js compiler cache files from secret scanning; repository and deploy output scanning remain enabled. Netlify watches `master` and rebuilds on every push.
 
 The retired cPanel deployment file has been removed so the repository has one current deployment path.
 
