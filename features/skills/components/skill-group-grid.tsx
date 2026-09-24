@@ -24,7 +24,7 @@ export function SkillGroupGrid({ showDescriptions = true }: SkillGroupGridProps)
               <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-accent1-50 text-brand-700 shadow-sm dark:from-brand-900/35 dark:to-accent1-900/25 dark:text-brand-300">
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </span>
-              <span className="type-caption font-bold text-brand-300 dark:text-brand-700">
+              <span className="type-caption font-bold text-brand-700 dark:text-brand-300">
                 {String(index + 1).padStart(2, "0")}
               </span>
             </div>

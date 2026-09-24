@@ -247,6 +247,117 @@
   }
 }
 
+/* Keep the LCP path animation-only: these effects do not require client hydration. */
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-9px) scale(1.04);
+  }
+}
+
+@keyframes hero-float-secondary {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes hero-ai-pulse {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  45% {
+    opacity: 0.85;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes hero-orbit-clockwise {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hero-orbit-counter {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes hero-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes hero-gradient-shift {
+  0%,
+  100% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(24deg);
+  }
+}
+
+.hero-float,
+.hero-float-card {
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+.hero-float-secondary {
+  animation: hero-float-secondary 6s ease-in-out infinite;
+}
+
+.hero-ai-pulse {
+  animation: hero-ai-pulse 2.6s ease-out infinite;
+}
+
+.hero-orbit-clockwise {
+  animation: hero-orbit-clockwise 28s linear infinite;
+}
+
+.hero-orbit-counter {
+  animation: hero-orbit-counter 36s linear infinite;
+}
+
+.hero-glow {
+  animation: hero-glow 8s ease-in-out infinite;
+}
+
+.hero-gradient-shift {
+  animation: hero-gradient-shift 20s ease-in-out infinite;
+}
+
+/* Skip layout and paint for homepage sections until they approach the viewport. */
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+@media (max-width: 639px) {
+  /* The portrait remains prominent while nonessential mobile paint work stays small. */
+  .hero-float-secondary,
+  .hero-float-card,
+  .hero-glow {
+    display: none;
+  }
+}
+
 .animate-pulse-slow {
   animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -270,7 +381,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .skills-galaxy-ring {
+  .skills-galaxy-ring,
+  .hero-float,
+  .hero-float-card,
+  .hero-float-secondary,
+  .hero-ai-pulse,
+  .hero-orbit-clockwise,
+  .hero-orbit-counter,
+  .hero-glow,
+  .hero-gradient-shift {
     animation: none;
     will-change: auto;
   }

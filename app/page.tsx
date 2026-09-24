@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic"
 import { Hero } from "@/features/home/components/hero"
-import { ScrollProgress } from "@/components/layout/scroll-progress"
 import { SectionWrapper } from "@/components/layout/section-wrapper"
 import { StatsStrip } from "@/features/portfolio/components/stats-strip"
 import { TechStrip } from "@/features/portfolio/components/tech-strip"
@@ -50,7 +49,6 @@ export default function Home() {
       className="min-h-screen bg-white dark:bg-gray-950 overflow-hidden"
       style={{ backgroundColor: "#ffffff", backgroundImage: "none" }}
     >
-      <ScrollProgress />
       <main
         id="main-content"
         className="overflow-hidden bg-white dark:bg-gray-950"

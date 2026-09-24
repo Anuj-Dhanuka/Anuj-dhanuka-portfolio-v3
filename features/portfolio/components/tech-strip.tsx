@@ -1,7 +1,3 @@
-"use client"
-
-import { useState } from "react"
-import { motion } from "framer-motion"
 import {
   SiReact,
   SiTypescript,
@@ -79,7 +75,7 @@ function TechPill({ item, variant = "default" }: { item: TechItem; variant?: "de
           className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md border border-gray-100 transition-transform duration-300 group-hover:scale-105 dark:border-gray-800"
           style={{ backgroundColor: `${color}14` }}
         >
-          <Icon className="h-4 w-4 flex-shrink-0" style={{ color }} />
+          <Icon aria-hidden="true" className="h-4 w-4 flex-shrink-0" style={{ color }} />
         </span>
       )}
       <span className="whitespace-nowrap text-sm font-semibold leading-none text-gray-700 dark:text-gray-200">
@@ -104,7 +100,6 @@ function MarqueeTrack({
   reverse?: boolean
   variant?: "default" | "ai"
 }) {
-  const [paused, setPaused] = useState(false)
   const doubled = [...items, ...items]
 
   return (
@@ -116,17 +111,14 @@ function MarqueeTrack({
         </p>
       </div>
       <div
-        className="overflow-hidden py-2.5"
+        className="marquee-viewport overflow-hidden py-2.5"
         style={{ WebkitMaskImage: MASK, maskImage: MASK }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
       >
         <div
           data-marquee-track
           className="flex w-max items-center"
           style={{
             animation: `${reverse ? "marquee-reverse" : "marquee"} ${duration}s linear infinite`,
-            animationPlayState: paused ? "paused" : "running",
           }}
         >
           {doubled.map((item, i) => (
@@ -160,6 +152,9 @@ export function TechStrip() {
             animation-iteration-count: 1 !important;
           }
         }
+        .marquee-viewport:hover [data-marquee-track] {
+          animation-play-state: paused !important;
+        }
       `}</style>
 
       <section className="relative isolate overflow-hidden border-b border-purple-100/70 bg-white py-16 dark:border-purple-800/30 dark:bg-gray-900 md:py-24">
@@ -185,13 +180,7 @@ export function TechStrip() {
 
         <div className="relative z-10 flex flex-col gap-10">
           {/* ── Header ── */}
-          <motion.div
-            className="container mx-auto px-4 sm:px-6 lg:px-8"
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.55, ease: "easeOut" }}
-          >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-4xl text-center">
               <div className="mb-5 flex items-center justify-center gap-3">
                 <span className="h-px w-10 bg-gradient-to-r from-transparent to-purple-300" />
@@ -208,7 +197,7 @@ export function TechStrip() {
                 content platforms and AI-assisted workflows.
               </p>
             </div>
-          </motion.div>
+          </div>
 
           <div className="relative overflow-hidden border-y border-purple-100/80 bg-white/65 py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-sm dark:border-purple-800/30 dark:bg-gray-950/20">
             <div
@@ -224,13 +213,7 @@ export function TechStrip() {
               <MarqueeTrack items={primaryTech} duration={44} label="Build stack" />
 
               {/* ── AI section divider ── */}
-              <motion.div
-                className="px-4 sm:px-6 lg:px-0"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
+              <div className="px-4 sm:px-6 lg:px-0">
                 <div className="flex items-center gap-4">
                   <div className="h-px flex-1 bg-purple-100 dark:bg-purple-800/40" />
                   <p className="type-label whitespace-nowrap font-semibold uppercase tracking-[0.24em] text-accent1-600 dark:text-accent1-300">
@@ -238,7 +221,7 @@ export function TechStrip() {
                   </p>
                   <div className="h-px flex-1 bg-purple-100 dark:bg-purple-800/40" />
                 </div>
-              </motion.div>
+              </div>
 
               {/* ── AI tools strip (right) ── */}
               <MarqueeTrack items={aiItems} duration={30} label="Assistive tools" reverse variant="ai" />
