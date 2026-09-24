@@ -8,7 +8,6 @@ import { Footer } from "@/components/layout/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { NavigationAnalytics } from "@/components/analytics/navigation-analytics"
 import { analytics } from "@/config/analytics"
-import { MotionProvider } from "@/components/providers/motion-provider"
 
 const SITE_URL = site.url
 const PERSON_ID = `${SITE_URL}/#person`
@@ -117,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="uses-react" content="true" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        {analytics.googleMeasurementId && <link rel="preconnect" href="https://www.googletagmanager.com" />}
         {analytics.matomoUrl && <link rel="preconnect" href={analytics.matomoUrl} crossOrigin="" />}
         <script
           type="application/ld+json"
@@ -132,11 +131,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <MotionProvider>
-            <Navbar />
-            {children}
-            <Footer />
-          </MotionProvider>
+          <Navbar />
+          {children}
+          <Footer />
         </ThemeProvider>
         {process.env.NODE_ENV === "production" && analytics.googleMeasurementId && (
           <>

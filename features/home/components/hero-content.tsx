@@ -1,31 +1,17 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { ArrowRight, Download } from "lucide-react"
 import Link from "next/link"
 import { FaLinkedinIn } from "react-icons/fa"
 
 import { Button } from "@/components/ui/button"
 import { site } from "@/config/site"
-import { smoothScroll } from "@/utils/smooth-scroll"
 
 export function HeroContent() {
   return (
-    <motion.div
-      className="flex-1 space-y-6 text-left md:mt-0"
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <motion.div
-        className="inline-block rounded-full bg-purple-900/80 px-3 py-1 text-sm font-medium text-purple-200"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
+    <div className="flex-1 space-y-6 text-left md:mt-0">
+      <div className="inline-block rounded-full bg-purple-900/80 px-3 py-1 text-sm font-medium text-purple-200">
         <span className="mr-2 inline-block h-2 w-2 animate-pulse rounded-full bg-green-400" />
         SOFTWARE ENGINEER · FRONTEND DEVELOPER
-      </motion.div>
+      </div>
 
       <h1 className="type-hero text-white">
         I turn product ideas and designs into{" "}
@@ -46,12 +32,7 @@ export function HeroContent() {
 
       <div className="space-y-4 pt-2">
         <div className="flex flex-wrap gap-3 sm:gap-4">
-          <Link
-            href="#projects"
-            onClick={(event) => smoothScroll(event, "#projects")}
-            aria-label="Navigate to projects section"
-            className="w-full sm:w-auto"
-          >
+          <Link href="#projects" aria-label="Navigate to projects section" className="w-full sm:w-auto">
             <Button className="group relative h-10 w-full overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 hover:shadow-lg sm:h-12 sm:w-auto sm:px-6 sm:text-base">
               <span className="relative z-10 flex items-center">
                 View My Work{" "}
@@ -91,6 +72,6 @@ export function HeroContent() {
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </a>
       </div>
-    </motion.div>
+    </div>
   )
 }

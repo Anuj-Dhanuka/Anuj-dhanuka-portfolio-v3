@@ -5,7 +5,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Phone } from "lucide-react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { smoothScroll } from "@/utils/smooth-scroll"
 import { cn } from "@/lib/utils"
 import { site } from "@/config/site"
@@ -15,6 +14,7 @@ export function Navbar() {
   const isHome = pathname === "/"
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const [activeSection, setActiveSection] = useState("home")
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuPanelRef = useRef<HTMLDivElement>(null)
@@ -37,53 +37,64 @@ export function Navbar() {
   }, [isOpen])
 
   useEffect(() => {
+    let frame = 0
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        frame = 0
+        setScrolled(window.scrollY > 10)
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
+        setScrollProgress(scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0)
 
-      if (!isHome) return
+        if (!isHome) return
 
-      // Determine active section based on scroll position
-      const sections = document.querySelectorAll("section[id]")
-      const scrollPosition = window.scrollY + 100 // Offset for better UX
+        // Determine active section based on scroll position
+        const sections = document.querySelectorAll("section[id]")
+        const scrollPosition = window.scrollY + 100 // Offset for better UX
 
-      // Create an array to store all sections and their positions
-      const sectionPositions = Array.from(sections).map((section) => {
-        const sectionTop = (section as HTMLElement).offsetTop
-        const sectionHeight = section.clientHeight
-        const sectionId = section.getAttribute("id") || ""
+        // Create an array to store all sections and their positions
+        const sectionPositions = Array.from(sections).map((section) => {
+          const sectionTop = (section as HTMLElement).offsetTop
+          const sectionHeight = section.clientHeight
+          const sectionId = section.getAttribute("id") || ""
 
-        return {
-          id: sectionId,
-          top: section.getBoundingClientRect().top + window.scrollY,
-          bottom: sectionTop + sectionHeight,
+          return {
+            id: sectionId,
+            top: section.getBoundingClientRect().top + window.scrollY,
+            bottom: sectionTop + sectionHeight,
+          }
+        })
+
+        // Sort sections by their top position to ensure correct order
+        sectionPositions.sort((a, b) => a.top - b.top)
+
+        // Find the section that is currently in view with improved logic
+        let currentSection = "home" // Default to home
+
+        for (let i = 0; i < sectionPositions.length; i++) {
+          const { id, top } = sectionPositions[i]
+
+          // Use a smaller offset and check if we've scrolled past the section start
+          if (scrollPosition >= top - 80) {
+            currentSection = id
+          } else {
+            break
+          }
         }
+
+        setActiveSection((current) => (current === currentSection ? current : currentSection))
       })
-
-      // Sort sections by their top position to ensure correct order
-      sectionPositions.sort((a, b) => a.top - b.top)
-
-      // Find the section that is currently in view with improved logic
-      let currentSection = "home" // Default to home
-
-      for (let i = 0; i < sectionPositions.length; i++) {
-        const { id, top } = sectionPositions[i]
-
-        // Use a smaller offset and check if we've scrolled past the section start
-        if (scrollPosition >= top - 80) {
-          currentSection = id
-        } else {
-          break
-        }
-      }
-
-      setActiveSection((current) => (current === currentSection ? current : currentSection))
     }
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     // Initial call to set the active section on page load
     handleScroll()
 
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => {
+      if (frame) cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, [isHome])
 
   useEffect(() => {
@@ -126,16 +137,6 @@ export function Navbar() {
     }
   }, [isOpen])
 
-  // Add scroll animation logic
-  const { scrollY, scrollYProgress } = useScroll()
-  const navbarScale = useTransform(scrollY, [0, 100], [1, 0.98])
-  const navbarY = useTransform(scrollY, [0, 100], [0, -5])
-  const navbarShadow = useTransform(
-    scrollY,
-    [0, 100],
-    ["0px 0px 0px rgba(0,0,0,0)", "0px 10px 20px rgba(0,0,0,0.1)"],
-  )
-
   // Updated nav links to match the new section order
   const navLinks = [
     { name: "Home", href: "/" },
@@ -175,21 +176,15 @@ export function Navbar() {
       {/* Accessibility announcer for screen readers */}
       <div id="scroll-announcer" className="sr-only" aria-live="polite"></div>
 
-      <motion.header
+      <header
         className={cn(
           "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300",
           solidHeader ? "py-2 md:py-3" : "py-3 md:py-5",
           "flex items-center justify-center",
           solidHeader && "bg-white/95 dark:bg-gray-950/95",
         )}
-        initial={false}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
         style={{
-          opacity: 1,
-          scale: navbarScale,
-          y: navbarY,
-          boxShadow: solidHeader ? "0px 4px 20px rgba(0,0,0,0.1)" : navbarShadow,
+          boxShadow: solidHeader ? "0px 4px 20px rgba(0,0,0,0.1)" : undefined,
           backdropFilter: solidHeader ? "blur(12px)" : undefined,
         }}
       >
@@ -205,14 +200,8 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-2">
-            {navLinks.map((link, index) => (
-              <motion.div
-                key={link.name}
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 * index }}
-                whileHover={{ y: -2 }}
-              >
+            {navLinks.map((link) => (
+              <div key={link.name} className="transition-transform hover:-translate-y-0.5">
                 <Link
                   href={link.href}
                   onClick={(e) => handleNavigation(e, link.href)}
@@ -229,22 +218,15 @@ export function Navbar() {
                   {link.name}
 
                   {/* Animated underline effect on hover */}
-                  <motion.span
+                  <span
                     className={`absolute bottom-0 left-0 h-0.5 bg-white rounded-full w-0 group-hover:w-full transition-all duration-300 ${
                       isActive(link.href) ? "opacity-0" : "opacity-100"
                     }`}
-                    layoutId="navUnderline"
                   />
                 </Link>
-              </motion.div>
+              </div>
             ))}
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-              className="pl-1 lg:pl-2"
-            >
+            <div className="pl-1 transition-transform hover:scale-105 lg:pl-2">
               <Button
                 asChild
                 variant="outline"
@@ -266,7 +248,7 @@ export function Navbar() {
                   <span className="sm:hidden">Call</span>
                 </a>
               </Button>
-            </motion.div>
+            </div>
           </nav>
 
           {/* Mobile Navigation Toggle */}
@@ -286,110 +268,94 @@ export function Navbar() {
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile Navigation Menu - Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            ref={menuPanelRef}
-            id="mobile-navigation"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Main navigation"
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setIsOpen(false)}
-          />
-        )}
-      </AnimatePresence>
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          aria-hidden="true"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
 
       {/* Mobile Navigation Menu - Slide Panel */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="fixed top-0 right-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-gray-900 z-50 lg:hidden flex flex-col shadow-xl overflow-y-auto"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          >
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
-              <Link
-                href="/"
-                className="text-xl font-bold gradient-text"
-                onClick={(e) => handleNavigation(e, "/#home")}
-                aria-label="Go to home section"
-              >
-                Anuj Dhanuka
-              </Link>
-              <button
-                className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                onClick={() => setIsOpen(false)}
-                aria-label="Close menu"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+      {isOpen && (
+        <div
+          ref={menuPanelRef}
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Main navigation"
+          className="animate-slide-in-right fixed top-0 right-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-gray-900 z-50 lg:hidden flex flex-col shadow-xl overflow-y-auto motion-reduce:animate-none"
+        >
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+            <Link
+              href="/"
+              className="text-xl font-bold gradient-text"
+              onClick={(e) => handleNavigation(e, "/#home")}
+              aria-label="Go to home section"
+            >
+              Anuj Dhanuka
+            </Link>
+            <button
+              className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              onClick={() => setIsOpen(false)}
+              aria-label="Close menu"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
 
-            <div className="flex-1 overflow-y-auto py-4 px-4">
-              <nav className="flex flex-col space-y-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavigation(e, link.href)}
-                    className={cn(
-                      "py-3 px-4 rounded-md text-base font-medium transition-colors relative overflow-hidden",
-                      isActive(link.href)
-                        ? "text-white bg-purple-800 dark:bg-purple-600 shadow-md"
-                        : "text-gray-900 dark:text-gray-300 hover:text-white hover:bg-purple-700 dark:hover:text-white dark:hover:bg-purple-700",
-                    )}
-                    aria-current={isActive(link.href) ? "page" : undefined}
-                  >
-                    <span className="relative z-10">{link.name}</span>
-
-                    {/* Animated background on hover */}
-                    <motion.div
-                      className="absolute inset-0 bg-purple-600 -z-0"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </Link>
-                ))}
-              </nav>
-            </div>
-
-            <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-              <Button
-                asChild
-                variant="outline"
-                className="w-full border-2 border-purple-700 bg-white text-purple-900 hover:bg-purple-700 hover:text-white dark:border-purple-400 dark:bg-gray-800 dark:text-white dark:hover:bg-purple-600 px-4 py-2 h-12 rounded-lg group shadow-md text-base transition-all duration-300"
-              >
-                <a
-                  href={site.phoneHref}
-                  onClick={() => setIsOpen(false)}
-                  aria-label={`Call ${site.phoneDisplay}`}
-                  className="flex items-center justify-center font-semibold"
+          <div className="flex-1 overflow-y-auto py-4 px-4">
+            <nav className="flex flex-col space-y-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavigation(e, link.href)}
+                  className={cn(
+                    "py-3 px-4 rounded-md text-base font-medium transition-colors relative overflow-hidden",
+                    isActive(link.href)
+                      ? "text-white bg-purple-800 dark:bg-purple-600 shadow-md"
+                      : "text-gray-900 dark:text-gray-300 hover:text-white hover:bg-purple-700 dark:hover:text-white dark:hover:bg-purple-700",
+                  )}
+                  aria-current={isActive(link.href) ? "page" : undefined}
                 >
-                  <Phone className="h-5 w-5 mr-2 group-hover:rotate-12 transition-transform" />
-                  {site.phoneDisplay}
-                </a>
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  <span className="relative z-10">{link.name}</span>
+
+                  {/* Animated background on hover */}
+                  <span className="absolute inset-0 -z-0 -translate-x-full bg-purple-600 transition-transform duration-300 group-hover:translate-x-0" />
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+            <Button
+              asChild
+              variant="outline"
+              className="w-full border-2 border-purple-700 bg-white text-purple-900 hover:bg-purple-700 hover:text-white dark:border-purple-400 dark:bg-gray-800 dark:text-white dark:hover:bg-purple-600 px-4 py-2 h-12 rounded-lg group shadow-md text-base transition-all duration-300"
+            >
+              <a
+                href={site.phoneHref}
+                onClick={() => setIsOpen(false)}
+                aria-label={`Call ${site.phoneDisplay}`}
+                className="flex items-center justify-center font-semibold"
+              >
+                <Phone className="h-5 w-5 mr-2 group-hover:rotate-12 transition-transform" />
+                {site.phoneDisplay}
+              </a>
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Scroll Progress Indicator */}
-      <motion.div
+      <div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-pink-600 z-[60] origin-left"
         style={{
-          scaleX: scrollYProgress,
+          transform: `scaleX(${scrollProgress})`,
         }}
       />
     </>
