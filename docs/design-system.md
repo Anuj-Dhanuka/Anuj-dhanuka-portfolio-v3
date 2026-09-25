@@ -1,5 +1,7 @@
 # Project structure and design system
 
+For the complete visual reference—including the approved palette, typography scale, spacing, components, interaction states, imagery, motion, and accessibility rules—see [Portfolio visual identity guidelines](./brand-guidelines.md).
+
 This is a Next.js web application. React Native's component composition and separation of responsibilities apply, but routes, semantic HTML, CSS, metadata and server rendering follow Next.js conventions.
 
 ## Where code belongs
