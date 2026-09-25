@@ -25,6 +25,7 @@ The contact request is the only server-side mutation and the only boundary accep
 - Analytics loads only in production and only when its environment variables are configured.
 - The in-memory contact rate limiter is suitable for one long-running instance. Use a shared durable limiter such as a managed Redis store before horizontal or serverless scale where instances do not share memory.
 - Production errors are written as structured logs. Connect platform logs to the chosen alerting provider during deployment; external monitoring requires an account and credentials and cannot be completed in source code alone.
+- Netlify receives an explicit durable edge-cache policy for the static homepage and an immutable browser/CDN policy for the versioned homepage LCP portrait. Rename the portrait whenever its contents change so the immutable URL remains safe.
 
 ## Checklist scope
 

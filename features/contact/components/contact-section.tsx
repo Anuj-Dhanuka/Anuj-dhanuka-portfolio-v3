@@ -2,8 +2,9 @@ import { Sparkles } from "lucide-react"
 
 import { ContactDetails } from "@/features/contact/components/contact-details"
 import { ContactForm } from "@/features/contact/components/contact-form"
+import { DeferredContactForm } from "@/features/contact/components/deferred-contact-form"
 
-export function ContactSection() {
+export function ContactSection({ deferForm = false }: { deferForm?: boolean }) {
   return (
     <section
       id="contact"
@@ -48,7 +49,7 @@ export function ContactSection() {
             <ContactDetails />
           </div>
           <div className="order-1 h-full lg:order-2">
-            <ContactForm />
+            {deferForm ? <DeferredContactForm /> : <ContactForm />}
           </div>
         </div>
       </div>
