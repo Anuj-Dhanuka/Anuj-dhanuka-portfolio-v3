@@ -45,7 +45,7 @@ export function HeroContent() {
           <Button
             asChild
             variant="outline"
-            className="group h-10 w-full rounded-lg border-2 border-purple-300 bg-purple-900/30 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:border-purple-300 hover:bg-purple-700 hover:shadow-lg sm:h-12 sm:w-auto sm:px-6 sm:text-base"
+            className="group h-10 w-full rounded-lg border-2 border-purple-300 bg-purple-900/30 px-4 py-2 text-sm font-medium !text-white transition-all duration-300 hover:scale-105 hover:border-purple-300 hover:bg-purple-700 hover:!text-white hover:shadow-lg focus-visible:!text-white sm:h-12 sm:w-auto sm:px-6 sm:text-base"
           >
             <a
               href="/ANUJ_DHANUKA_RESUME.pdf"

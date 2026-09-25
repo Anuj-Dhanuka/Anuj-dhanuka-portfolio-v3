@@ -400,7 +400,7 @@ export function Hero() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative z-20 h-[228px] w-[228px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40 sm:h-[278px] sm:w-[278px] md:h-[318px] md:w-[318px]">
                   <Image
-                    src="/anuj-profile-636.jpg"
+                    src="/anuj-profile-400.jpg"
                     alt="Anuj Dhanuka — Software Engineer and Frontend Developer based in Gurugram, India"
                     fill
                     className="object-cover"

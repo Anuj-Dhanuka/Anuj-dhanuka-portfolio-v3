@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { useRef, useState } from "react"
-import { motion } from "framer-motion"
 import { Send } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -10,11 +9,46 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { analyticsEvents } from "@/config/analytics"
 import { site } from "@/config/site"
-import { contactFormSchema, emptyContactForm, type ContactFormData } from "@/features/contact/schema"
+import type { ContactFormData } from "@/features/contact/schema"
 import { submitContactForm } from "@/features/contact/submit-contact"
 import { trackEvent } from "@/lib/analytics"
 
 type ContactFieldErrors = Partial<Record<keyof ContactFormData, string>>
+
+const emptyContactForm: ContactFormData = {
+  name: "",
+  email: "",
+  phone: "",
+  subject: "",
+  message: "",
+  formCheck: "",
+}
+
+function validateContactForm(values: ContactFormData) {
+  const data = Object.fromEntries(
+    Object.entries(values).map(([key, value]) => [key, value.trim()]),
+  ) as ContactFormData
+  const errors: ContactFieldErrors = {}
+
+  if (!data.name) errors.name = "Name is required."
+  else if (data.name.length > 80) errors.name = "Name must be 80 characters or fewer."
+
+  if (!data.email) errors.email = "Email address is required."
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = "Enter a valid email address."
+  else if (data.email.length > 254) errors.email = "Email address is too long."
+
+  if (data.phone.length > 30) errors.phone = "Phone number is too long."
+  else if (data.phone && !/^[+\d().\-\s]+$/.test(data.phone)) errors.phone = "Enter a valid phone number."
+
+  if (!data.subject) errors.subject = "Subject is required."
+  else if (data.subject.length > 120) errors.subject = "Subject must be 120 characters or fewer."
+  else if (/[\r\n]/.test(data.subject)) errors.subject = "Subject must be a single line."
+
+  if (!data.message) errors.message = "Message is required."
+  else if (data.message.length > 3000) errors.message = "Message must be 3000 characters or fewer."
+
+  return { data, errors, valid: Object.keys(errors).length === 0 }
+}
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null
@@ -52,14 +86,9 @@ export function ContactForm() {
     setSubmitError("")
     setSubmitSuccess(false)
 
-    const validation = contactFormSchema.safeParse(formState)
-    if (!validation.success) {
-      const errors = validation.error.flatten().fieldErrors
-      setFieldErrors(
-        Object.fromEntries(
-          Object.entries(errors).map(([field, messages]) => [field, messages?.[0]]),
-        ) as ContactFieldErrors,
-      )
+    const validation = validateContactForm(formState)
+    if (!validation.valid) {
+      setFieldErrors(validation.errors)
       focusFirstInvalidField()
       return
     }
@@ -222,15 +251,13 @@ export function ContactForm() {
       </Button>
 
       {submitSuccess && (
-        <motion.div
+        <div
           className="rounded-md bg-green-50 p-2 text-center text-sm text-green-600 dark:bg-green-900/20 dark:text-green-400"
           role="status"
           aria-live="polite"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
         >
           Message sent successfully! I’ll get back to you soon.
-        </motion.div>
+        </div>
       )}
 
       {submitError && (

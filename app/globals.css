@@ -343,12 +343,6 @@
   animation: hero-gradient-shift 20s ease-in-out infinite;
 }
 
-/* Skip layout and paint for homepage sections until they approach the viewport. */
-.deferred-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 720px;
-}
-
 @media (max-width: 639px) {
   /* The portrait remains prominent while nonessential mobile paint work stays small. */
   .hero-float-secondary,

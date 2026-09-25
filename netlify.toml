@@ -1,2 +1,13 @@
 [build.environment]
   SECRETS_SCAN_OMIT_PATHS = ".netlify/.next/cache/**"
+
+[[headers]]
+  for = "/anuj-profile-400.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Netlify-CDN-Cache-Control = "public, durable, s-maxage=31536000"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Netlify-CDN-Cache-Control = "public, durable, s-maxage=31536000, stale-while-revalidate=86400"

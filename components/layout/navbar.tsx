@@ -15,7 +15,6 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [activeSection, setActiveSection] = useState("home")
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuPanelRef = useRef<HTMLDivElement>(null)
 
@@ -46,44 +45,6 @@ export function Navbar() {
         setScrolled(window.scrollY > 10)
         const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
         setScrollProgress(scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0)
-
-        if (!isHome) return
-
-        // Determine active section based on scroll position
-        const sections = document.querySelectorAll("section[id]")
-        const scrollPosition = window.scrollY + 100 // Offset for better UX
-
-        // Create an array to store all sections and their positions
-        const sectionPositions = Array.from(sections).map((section) => {
-          const sectionTop = (section as HTMLElement).offsetTop
-          const sectionHeight = section.clientHeight
-          const sectionId = section.getAttribute("id") || ""
-
-          return {
-            id: sectionId,
-            top: section.getBoundingClientRect().top + window.scrollY,
-            bottom: sectionTop + sectionHeight,
-          }
-        })
-
-        // Sort sections by their top position to ensure correct order
-        sectionPositions.sort((a, b) => a.top - b.top)
-
-        // Find the section that is currently in view with improved logic
-        let currentSection = "home" // Default to home
-
-        for (let i = 0; i < sectionPositions.length; i++) {
-          const { id, top } = sectionPositions[i]
-
-          // Use a smaller offset and check if we've scrolled past the section start
-          if (scrollPosition >= top - 80) {
-            currentSection = id
-          } else {
-            break
-          }
-        }
-
-        setActiveSection((current) => (current === currentSection ? current : currentSection))
       })
     }
 
@@ -95,7 +56,7 @@ export function Navbar() {
       if (frame) cancelAnimationFrame(frame)
       window.removeEventListener("scroll", handleScroll)
     }
-  }, [isHome])
+  }, [])
 
   useEffect(() => {
     if (!isOpen) return
@@ -156,8 +117,7 @@ export function Navbar() {
     pathname === "/contact"
   const solidHeader = !hasDarkHero || scrolled
   const isActive = (href: string) => {
-    const [route, section] = href.split("#")
-    if (section) return isHome && activeSection === section
+    const [route] = href.split("#")
     if (route === "/") return isHome
     return pathname === route || pathname.startsWith(`${route}/`)
   }
@@ -167,7 +127,6 @@ export function Navbar() {
     setIsOpen(false)
     if (isHome && href.includes("#")) {
       smoothScroll(event, href)
-      setActiveSection(href.split("#")[1])
     }
   }
 

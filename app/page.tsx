@@ -97,7 +97,7 @@ export default function Home() {
           <FAQ />
         </SectionWrapper>
         <SectionWrapper>
-          <Contact />
+          <Contact deferForm />
         </SectionWrapper>
       </main>
       <BackToTop />
