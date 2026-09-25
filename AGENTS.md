@@ -52,8 +52,12 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Give form controls visible labels, accessible validation messages and useful pending/success/error states.
 - Preserve keyboard navigation, visible focus styles, sensible focus order and focus containment for dialogs or menus.
 - Images need meaningful alt text unless decorative; decorative elements must be hidden from assistive technology.
-- Respect reduced-motion preferences through the shared `MotionProvider` and `motion-reduce` styles.
+- Respect reduced-motion preferences through Framer Motion viewport behavior and `motion-reduce` styles.
 - Maintain at least 44px touch targets for primary mobile controls and prevent fixed elements from covering content.
+- Treat the homepage animations as product behaviour, not disposable decoration. Preserve the two-direction technology marquee, its hover pause, the interactive stacking in the “Building With Purpose” cards, and the Experience timeline entrance/pulse effects.
+- The overlapping About cards must activate on pointer hover, keyboard focus and click. The active card must rise above its siblings as well as move visually.
+- Do not place `content-visibility: auto` on wrappers containing Framer Motion `whileInView`, Intersection Observer logic or CSS marquees. Skipped subtrees previously prevented the technology strip and Experience timeline from starting reliably.
+- When changing shared button variants or hero button classes, verify default, hover and keyboard-focus contrast. The hero “Download Resume” button must retain white text and icon against its purple background.
 
 ## Security and server boundaries
 
@@ -72,6 +76,12 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Avoid client-side fetching for static portfolio content and avoid converting full routes into Client Components.
 - Do not introduce a large library for a small interaction already covered by the platform or existing dependencies.
 - Keep builds independent of remote font downloads. The shared system font stack is defined in `styles/tokens.css`.
+- The mobile PageSpeed baseline reached 90 in September 2026. Treat 90+ as a regression floor while recognizing that lab scores vary with Netlify edge latency and Lighthouse conditions.
+- Preserve `/public/anuj-profile-400.jpg` as the homepage LCP asset unless replacing it with an equally small, correctly sized version. It is intentionally preloaded/high priority and served directly to avoid a cold image-transformation request.
+- Preserve the Netlify durable homepage cache policy and immutable policy for the versioned LCP portrait in `netlify.toml`. Rename the portrait URL whenever its contents change.
+- Keep the homepage contact form deferred until its section approaches the viewport, but keep contact copy and direct contact links server rendered. The dedicated Contact page should continue to render the shared form immediately.
+- Keep Zod as the authoritative server/API boundary. Do not reintroduce Zod into the browser contact-form bundle; client validation is intentionally lightweight and the server validates again.
+- Do not remove or weaken visible animations merely to improve a synthetic score. Optimize their implementation, client boundary and payload while preserving behaviour.
 
 ## Analytics and observability
 
@@ -97,6 +107,7 @@ npm run build
 - Run `npm run test:coverage` when changing contact or server utilities.
 - Run `npm audit --audit-level=moderate` after dependency changes.
 - For UI work, verify keyboard behaviour and mobile, tablet and desktop layouts. For route work, verify metadata, status codes, sitemap entries, loading, error and 404 states.
+- For animation or overlapping-card work, perform a real-browser verification: confirm marquee transforms change over time, About hover/focus changes the active stacking layer, and timeline items transition into view after scrolling.
 - Do not bypass a failing check. Fix the underlying issue or document why an external operational step cannot run locally.
 
 ## Checklist scope

@@ -11,19 +11,19 @@ npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
 
-There are no tests in this project.
+Additional required checks are `npm run format:check`, `npm run typecheck`, and `npm test`. The repository currently has Vitest coverage for contact validation, API boundaries and server utilities.
 
 ## Architecture
 
-Single-page Next.js 15 portfolio using the **App Router**. All portfolio sections render in `app/page.tsx` as a stack of full-width section components, each wrapped in `components/section-wrapper.tsx` for consistent padding/animation.
+Next.js 16 portfolio using the **App Router**. The homepage remains a composed landing page, with standalone About, Experience, Skills, Projects and Contact routes.
 
 ### Key structural points
 
-- **`app/page.tsx`** — assembles every section component in order; this is the only route
+- **`app/page.tsx`** — assembles the homepage sections in order
 - **`app/api/contact/route.ts`** — single POST endpoint; sends email via **Resend** (`RESEND_API_KEY` env var required)
 - **`app/layout.tsx`** — root layout with SEO metadata, theme provider, Inter font, and Open Graph/Twitter card tags
-- **`components/`** — feature section components (`hero.tsx`, `about.tsx`, `projects.tsx`, etc.) plus a large `ui/` subdirectory of Radix UI–based primitives
-- **`components/ui/`** — 57 Radix UI + CVA components; treat these as a design system; avoid modifying unless fixing a bug in the component itself
+- **`features/`** — domain components and data for home, About, Experience, Skills, Projects and Contact
+- **`components/ui/`** — shared Radix UI + CVA primitives; treat these as a design system and avoid modifying them for one-off page styling
 
 ### Styling
 
@@ -37,19 +37,38 @@ Single-page Next.js 15 portfolio using the **App Router**. All portfolio section
 
 - Path alias `@/*` maps to the repo root
 - Type errors block production builds, and `npm run typecheck` is part of the CI gate
-- Image optimization is **enabled** (Next.js default) — runs through Netlify's Next.js plugin, which auto-installs on deploy. All `<Image>` components get on-demand resizing, WebP/AVIF conversion, and lazy loading for free
+- Image optimization is enabled generally. The homepage LCP portrait is the deliberate exception: `/public/anuj-profile-400.jpg` is a small, directly served, preloaded asset that avoids a cold transformation request.
 
 ### Forms
 
-The contact form uses shared **Zod** validation on the client and server, submitting through the typed `/api/contact` service. Email delivery is via **Resend**.
+The contact API uses **Zod** as the authoritative validation boundary. Browser validation intentionally uses a lightweight equivalent so Zod is not shipped in the initial client bundle. The homepage defers the shared form until the visitor approaches the Contact section; the dedicated Contact page renders it immediately. Email delivery is via **Resend**.
 
 ### Animation
 
 **Framer Motion** is used for section entrance animations and interactive effects. Animations are typically triggered on scroll via Intersection Observer inside individual section components.
 
+Animation behaviour is part of the portfolio experience and must not be removed for synthetic performance gains:
+
+- The technology strip continuously scrolls in both directions and pauses on hover.
+- “Building With Purpose” cards activate on hover, focus and click; the active overlapping card must use the top stacking layer.
+- Experience timeline cards animate into view and retain their pulsing markers/background motion.
+- Hero orbit/background effects and CTA motion must continue to respect reduced-motion preferences.
+- Never apply `content-visibility: auto` to a wrapper containing these marquees, `whileInView` elements or Intersection Observer consumers; it previously froze the technology strip and timeline.
+- The hero “Download Resume” button must keep white text/icon in default, hover and focus states. The shared outline variant can otherwise override it with a dark foreground.
+
+For animation changes, verify behavior in a real browser by checking changing marquee transforms, About-card `z-index`/active state, and timeline opacity/transform after scrolling.
+
+## Performance baseline and protected optimizations
+
+- Mobile PageSpeed reached 90 in September 2026. Keep 90+ as the regression floor, while accounting for Lighthouse and Netlify edge variance.
+- Preserve the 400px/approximately 16 KB LCP portrait, direct high-priority preload, and the cache entries in `netlify.toml`.
+- Preserve the requestAnimationFrame-throttled/passive navbar scroll handling; do not restore layout reads across every section on each scroll event.
+- Preserve conditional analytics preconnects and production-only analytics loading.
+- Keep visual interactions intact. Prefer CSS animations or the smallest client boundary, but do not silently replace interactive behavior with static markup.
+
 ### Deployment
 
-Deployed via **Netlify** with the official Next.js plugin, which is auto-installed during deployment. The root `netlify.toml` excludes only generated Next.js compiler cache files from secret scanning; repository and deploy output scanning remain enabled. Netlify watches `master` and rebuilds on every push.
+Deployed via **Netlify** with the official Next.js plugin, which is auto-installed during deployment. The root `netlify.toml` contains secret-scanning configuration plus durable homepage caching and immutable caching for the versioned LCP portrait. Netlify watches `master` and rebuilds on every push.
 
 The retired cPanel deployment file has been removed so the repository has one current deployment path.
 
@@ -71,7 +90,7 @@ The site is positioned as **"Software Engineer | Frontend Developer"** with Reac
 - Canonical title pattern: `Anuj Dhanuka | Software Engineer | Frontend Developer`
 - Canonical description anchors: _"Software Engineer and Frontend Developer with React.js and React Native experience"_, _"20+ client projects"_, _"ChefKart's customer app, internal dashboard and website"_
 - JSON-LD `jobTitle` is **"Software Engineer"** (the formal title); the Frontend Developer + React.js/React Native specialty lives in `description` + `knowsAbout`
-- `app/layout.tsx` exports `metadata` (title, description, openGraph, twitter, robots, alternates) and a separate `viewport` export — do not merge these back together (Next.js 15 requires the split)
+- `app/layout.tsx` exports `metadata` (title, description, openGraph, twitter, robots, alternates) and a separate `viewport` export — do not merge these back together
 - The `generator: "v0.dev"` field was removed from metadata — do not re-add it (it leaks AI-scaffolded origin into the HTML source)
 
 ## Favicon stack
