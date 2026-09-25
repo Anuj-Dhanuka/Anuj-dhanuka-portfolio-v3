@@ -97,28 +97,28 @@ The site is positioned as **"Software Engineer | Frontend Developer"** with Reac
 
 The site uses Next.js's **file-based metadata convention** for icons — Next auto-emits the correct `<link>` tags from these files. Do not manually re-add an `icons: {...}` block in `app/layout.tsx`; it overrides the convention.
 
-| File                      | Size                              | Served at                | Purpose                                                          |
-| ------------------------- | --------------------------------- | ------------------------ | ---------------------------------------------------------------- |
-| `app/icon.svg`            | 48×48 (vector)                    | `/icon.svg?<hash>`       | Modern browsers, Google Search favicon                           |
-| `app/apple-icon.png`      | 180×180                           | `/apple-icon.png?<hash>` | iOS / macOS Apple ecosystem, iMessage previews                   |
-| `public/favicon.ico`      | 16/32/48 multi-size, PNG-embedded | `/favicon.ico`           | Legacy browsers, Google crawler default probe                    |
-| `public/Anuj_favicon.svg` | 32×32                             | `/Anuj_favicon.svg`      | Original source SVG — kept as the master vector for regeneration |
+| File                      | Size                              | Served at                | Purpose                                                         |
+| ------------------------- | --------------------------------- | ------------------------ | --------------------------------------------------------------- |
+| `app/icon.png`            | 512×512                           | `/icon.png?<hash>`       | Modern browsers, Google Search favicon                          |
+| `app/apple-icon.png`      | 180×180                           | `/apple-icon.png?<hash>` | iOS / macOS Apple ecosystem, iMessage previews                  |
+| `public/favicon.ico`      | 16/32/48 multi-size, PNG-embedded | `/favicon.ico`           | Legacy browsers, Google crawler default probe                   |
+| `public/Anuj_favicon.png` | 1024×1024                         | `/Anuj_favicon.png`      | Original square PNG — kept as the master asset for regeneration |
 
-### Regenerating the favicon stack from the source SVG
+### Regenerating the favicon stack from the source PNG
 
-If the master SVG (`public/Anuj_favicon.svg`) changes, regenerate the derived files using macOS `sips` (no extra tools needed):
+If the master PNG (`public/Anuj_favicon.png`) changes, regenerate the derived files using macOS `sips` (no extra tools needed):
 
 ```bash
-# 1. Regenerate app/icon.svg (same content, just bump display size to 48)
-#    — usually just edit width/height attributes to "48" on the master and copy.
+# 1. Regenerate the modern browser icon (512×512)
+sips --resampleHeightWidth 512 512 public/Anuj_favicon.png --out app/icon.png
 
 # 2. Regenerate apple-icon.png (180×180)
-sips -s format png -Z 180 public/Anuj_favicon.svg --out app/apple-icon.png
+sips --resampleHeightWidth 180 180 public/Anuj_favicon.png --out app/apple-icon.png
 
 # 3. Regenerate favicon.ico (16/32/48 multi-size PNG-in-ICO)
-sips -s format png -Z 16 public/Anuj_favicon.svg --out /tmp/fav-16.png
-sips -s format png -Z 32 public/Anuj_favicon.svg --out /tmp/fav-32.png
-sips -s format png -Z 48 public/Anuj_favicon.svg --out /tmp/fav-48.png
+sips --resampleHeightWidth 16 16 public/Anuj_favicon.png --out /tmp/fav-16.png
+sips --resampleHeightWidth 32 32 public/Anuj_favicon.png --out /tmp/fav-32.png
+sips --resampleHeightWidth 48 48 public/Anuj_favicon.png --out /tmp/fav-48.png
 # Then run the build-ico.mjs script (Node.js, no deps) to wrap PNGs into ICO container.
 ```
 
@@ -214,7 +214,7 @@ This portfolio underwent a full HR-perspective audit. The following issues were 
 
 1. **Title/meta vs hero mismatch** — fixed by aligning all metadata to "Frontend & React Native Developer"
 2. **`v0.dev` generator leak** — removed
-3. **Favicon missing from Google search** — added `app/icon.svg` (48×48), `app/apple-icon.png` (180×180), `public/favicon.ico` (multi-size)
+3. **Favicon missing from Google search** — added `app/icon.png` (512×512), `app/apple-icon.png` (180×180), `public/favicon.ico` (multi-size)
 
 Open follow-ups noted for the candidate (not code changes — content/copy work):
 
