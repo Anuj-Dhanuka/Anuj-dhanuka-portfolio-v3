@@ -4,13 +4,9 @@ import { ArrowUpRight, Award, Check, Sparkles, Trophy } from "lucide-react"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
 import { site } from "@/config/site"
-import {
-  certificates,
-  futureFocus,
-  journey,
-  productSurfaces,
-  storyStrengths,
-} from "@/features/about/data/about"
+import { futureFocus, journey, productSurfaces, storyStrengths } from "@/features/about/data/about"
+
+import { certificates } from "@/features/certifications/data/certifications"
 
 const aboutSections = [
   { href: "#story-foundation", label: "My approach" },

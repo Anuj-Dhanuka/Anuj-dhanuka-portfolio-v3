@@ -96,3 +96,9 @@ Use semantic text roles for prose and headings. Use palette utilities for intent
 - [React: Thinking in React](https://react.dev/learn/thinking-in-react): compose components around responsibilities and the data model.
 - [Tailwind theme variables](https://tailwindcss.com/docs/theme): define shared visual values and connect them to utilities.
 - [Google's developer SEO guide](https://developers.google.com/search/docs/fundamentals/get-started-developers): meaningful HTML, accessible content and descriptive metadata.
+
+Certificate data lives in `features/certifications/data/certifications.ts` and is reused by the Certifications page, About page and homepage highlights. The Certifications route is server rendered and lists only credentials with distinct certificate URLs documented in `docs/about-story.md`.
+
+Certificates are ordered by relevance to frontend and React Native roles: React JS, React Native, JavaScript, Node.js, databases, Flexbox, responsive websites, developer foundations and static websites. Homepage highlights import named certificate records so display order changes cannot redirect their links to another credential.
+
+The Certifications page uses a decorative, versioned WebP illustration with reserved dimensions in the hero’s right column; original issuer links live in the unified nine-card collection. All nine credentials use identical cards and outlined certificate links; relevance is expressed by their order. See [the product and design review](certifications-design-review.md) for research, acceptance criteria and the image-generation prompt.

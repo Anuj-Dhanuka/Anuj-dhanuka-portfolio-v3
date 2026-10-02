@@ -105,6 +105,7 @@ export function Navbar() {
     { name: "Skills", href: "/skills" },
     { name: "Experience", href: "/experience" },
     { name: "Projects", href: "/projects" },
+    { name: "Certifications", href: "/certifications" },
     { name: "Contact", href: "/contact" },
   ]
 
@@ -114,7 +115,8 @@ export function Navbar() {
     pathname === "/experience" ||
     pathname === "/skills" ||
     pathname === "/projects" ||
-    pathname === "/contact"
+    pathname === "/contact" ||
+    pathname === "/certifications"
   const solidHeader = !hasDarkHero || scrolled
   const isActive = (href: string) => {
     const [route] = href.split("#")
@@ -158,14 +160,14 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-2">
+          <nav className="hidden lg:flex items-center space-x-1">
             {navLinks.map((link) => (
               <div key={link.name} className="transition-transform hover:-translate-y-0.5">
                 <Link
                   href={link.href}
                   onClick={(e) => handleNavigation(e, link.href)}
                   className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors relative group",
+                    "px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors relative group",
                     isActive(link.href)
                       ? "text-white bg-purple-800 dark:bg-purple-600 shadow-md"
                       : solidHeader
