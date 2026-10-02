@@ -12,7 +12,6 @@ import { analytics } from "@/config/analytics"
 const SITE_URL = site.url
 const PERSON_ID = `${SITE_URL}/#person`
 const WEBSITE_ID = `${SITE_URL}/#website`
-const PROFILE_PAGE_ID = `${SITE_URL}/#webpage`
 
 const siteJsonLd = {
   "@context": "https://schema.org",
@@ -20,9 +19,9 @@ const siteJsonLd = {
     {
       "@type": "Person",
       "@id": PERSON_ID,
-      name: "Anuj Dhanuka",
-      url: SITE_URL,
-      image: `${SITE_URL}/anuj_profile_pic.png`,
+      name: site.author,
+      url: site.homeUrl,
+      image: `${SITE_URL}/anuj-profile-400.jpg`,
       jobTitle: "Software Engineer",
       description: site.description,
       worksFor: {
@@ -51,21 +50,11 @@ const siteJsonLd = {
     {
       "@type": "WebSite",
       "@id": WEBSITE_ID,
-      url: SITE_URL,
+      url: site.homeUrl,
       name: "Anuj Dhanuka Portfolio",
       description:
         "Portfolio of Anuj Dhanuka — Software Engineer and Frontend Developer based in Gurugram, India, with React.js and React Native experience.",
       publisher: { "@id": PERSON_ID },
-      inLanguage: site.locale,
-    },
-    {
-      "@type": "ProfilePage",
-      "@id": PROFILE_PAGE_ID,
-      url: SITE_URL,
-      name: "Anuj Dhanuka — Software Engineer & Frontend Developer",
-      isPartOf: { "@id": WEBSITE_ID },
-      about: { "@id": PERSON_ID },
-      mainEntity: { "@id": PERSON_ID },
       inLanguage: site.locale,
     },
   ],
@@ -74,14 +63,18 @@ const siteJsonLd = {
 // ✅ Separate metadata export
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  applicationName: site.name,
   title: site.title,
   description: site.description,
+  authors: [{ name: site.author, url: site.homeUrl }],
+  creator: site.author,
+  publisher: site.author,
   keywords:
     "Software Engineer, Frontend Developer, React.js developer, React Native developer, JavaScript developer, mobile app developer, web developer, Anuj Dhanuka",
   openGraph: {
     title: site.title,
     description: site.description,
-    url: site.url,
+    url: site.homeUrl,
     siteName: site.name,
     locale: "en_IN",
     type: "website",
@@ -96,7 +89,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: site.url,
+    canonical: site.homeUrl,
   },
 }
 

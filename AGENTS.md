@@ -39,6 +39,11 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Maintain one descriptive H1 per page and a logical H2/H3 hierarchy.
 - Keep important copy and links server rendered.
 - Add new indexable routes to `app/sitemap.ts`; keep API routes blocked in `app/robots.ts`.
+- Use only Next.js native `app/sitemap.ts` and `app/robots.ts`; do not add a second implementation or `next-sitemap`.
+- Sitemap entries must be canonical, indexable production pages only: currently `/`, `/about`, `/experience`, `/skills`, `/projects` and `/contact`. Exclude API, preview, localhost, redirect, noindex, debug and missing-page URLs.
+- Keep sitemap, canonical, Open Graph and page-schema URLs equivalent after URL normalization. `site.url` is the production origin without a trailing slash; `site.homeUrl` is the homepage canonical with `/`. Other public page URLs have no trailing slash. Next.js serializes root canonical/OG tags without `/`; this is the same normalized homepage URL. Do not change global trailing-slash routing solely for that serialization difference.
+- Do not add sitemap `priority` or `changefreq`. Maintain explicit `lastModified` date strings in `app/sitemap.ts` only for meaningful page content, structured-data or link changes; never derive them from request/build time or file modification times.
+- When adding or updating a public page, review its sitemap entry/date, confirm `/robots.txt` still references `${site.url}/sitemap.xml`, and verify the generated XML and metadata with a production build.
 - Reuse `config/site.ts` for the canonical origin, contact details and social links.
 - Keep structured data consistent with visible content and escape serialized JSON-LD with `.replace(/</g, "\\u003c")`.
 - Use `ProfilePage` structured data with a `Person` as `mainEntity` for the dedicated About page; use the most specific schema type that matches each route.

@@ -137,6 +137,16 @@ The site uses Next.js's file-based metadata convention for sitemap, robots, and 
 
 The canonical site URL is defined once in `config/site.ts` and reused by metadata, sitemap, robots and JSON-LD.
 
+### SEO and sitemap maintenance
+
+- Production origin: `https://anujdhanuka.com` (`site.url`). Homepage canonical: `https://anujdhanuka.com/` (`site.homeUrl`); other content routes have no trailing slash.
+- Next.js native `app/sitemap.ts` generates `/sitemap.xml`; `app/robots.ts` generates `/robots.txt`, allows public pages/assets, blocks `/api/`, and points to `https://anujdhanuka.com/sitemap.xml`. Do not create duplicate implementations or install `next-sitemap`.
+- The sitemap contains exactly `/`, `/about`, `/experience`, `/skills`, `/projects` and `/contact`. Include only canonical, indexable production pages; exclude localhost/preview domains, APIs, redirects, debug/404 routes and noindex pages.
+- Google ignores sitemap `priority` and `changefreq`; do not reintroduce them. Use the explicit `lastModified` date strings in `app/sitemap.ts`, updating only affected pages when meaningful content, structured data or links change. Do not use `new Date()` at build/request time or filesystem timestamps.
+- Initial dates: About/Experience/Skills use the 23 September 2026 page-content commit; Home/Projects/Contact use reviewed 2 October 2026 FAQ/schema/artwork changes. These are content dates, not sitemap creation dates.
+- Keep sitemap URLs equivalent to canonical, Open Graph and page-schema URLs after URL normalization. Next.js serializes root canonical/OG tags without `/` even when configured with `site.homeUrl`; both forms identify the same homepage. Keep existing slash-free routing for other pages. Add a sitemap entry and accurate content date when introducing an indexable page; individual project URLs remain deferred.
+- Run the required repository checks and inspect generated `/sitemap.xml`, `/robots.txt` and page metadata after SEO changes. See `docs/seo-audit.md` for verification scope and limitations.
+
 ## Search Console & Analytics — accounts, IDs, and what to do if anything migrates
 
 Everything below is live and verified as of 2026-06-07. If domain, Google account, or hosting changes, this section is the migration checklist.

@@ -1,8 +1,11 @@
+const siteOrigin = "https://anujdhanuka.com"
+
 export const site = {
   name: "Anuj Dhanuka Portfolio",
   author: "Anuj Dhanuka",
   locale: "en-IN",
-  url: "https://anujdhanuka.com",
+  url: siteOrigin,
+  homeUrl: new URL("/", siteOrigin).href,
   email: "anujd973@gmail.com",
   phoneDisplay: "+91 8978264705",
   phoneHref: "tel:+918978264705",

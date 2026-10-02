@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { HelpCircle, Mail } from "lucide-react"
 import { LuLinkedin } from "react-icons/lu"
 import Link from "next/link"
+import { site } from "@/config/site"
 
 const faqs = [
   {
@@ -111,7 +112,7 @@ export function FAQ() {
                   <AccordionTrigger className="px-5 py-5 text-left text-base font-semibold text-gray-900 hover:no-underline hover:text-brand-700 dark:text-white dark:hover:text-brand-300 sm:px-6">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="px-5 pb-5 sm:px-6">
+                  <AccordionContent forceMount className="px-5 pb-5 sm:px-6">
                     <div className="space-y-3 text-[15px] leading-7 copy-body">
                       {faq.answer.split("\n\n").map((paragraph, i) => (
                         <p key={i}>{paragraph}</p>
@@ -145,7 +146,7 @@ export function FAQ() {
             variant="outline"
             className="h-11 rounded-lg border-brand-200 bg-white px-5 text-brand-700 hover:bg-brand-50 hover:text-brand-800 dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300 dark:hover:bg-brand-900/30"
           >
-            <Link href="https://www.linkedin.com/in/anuj-dhanuka/" target="_blank" rel="noopener noreferrer">
+            <Link href={site.linkedIn} target="_blank" rel="noopener noreferrer">
               <LuLinkedin className="h-4 w-4" />
               Connect on LinkedIn
             </Link>

@@ -32,20 +32,23 @@ export function HeroContent() {
 
       <div className="space-y-4 pt-2">
         <div className="flex flex-wrap gap-3 sm:gap-4">
-          <Link href="#projects" aria-label="Navigate to projects section" className="w-full sm:w-auto">
-            <Button className="group relative h-10 w-full overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 hover:shadow-lg sm:h-12 sm:w-auto sm:px-6 sm:text-base">
+          <Button
+            asChild
+            className="group relative h-11 w-full overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 hover:shadow-lg sm:h-12 sm:w-auto sm:px-6 sm:text-base"
+          >
+            <Link href="#projects" aria-label="Navigate to projects section">
               <span className="relative z-10 flex items-center">
                 View My Work{" "}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
               <span className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            </Button>
-          </Link>
+            </Link>
+          </Button>
 
           <Button
             asChild
             variant="outline"
-            className="group h-10 w-full rounded-lg border-2 border-purple-300 bg-purple-900/30 px-4 py-2 text-sm font-medium !text-white transition-all duration-300 hover:scale-105 hover:border-purple-300 hover:bg-purple-700 hover:!text-white hover:shadow-lg focus-visible:!text-white sm:h-12 sm:w-auto sm:px-6 sm:text-base"
+            className="group h-11 w-full rounded-lg border-2 border-purple-300 bg-purple-900/30 px-4 py-2 text-sm font-medium !text-white transition-all duration-300 hover:scale-105 hover:border-purple-300 hover:bg-purple-700 hover:!text-white hover:shadow-lg focus-visible:!text-white sm:h-12 sm:w-auto sm:px-6 sm:text-base"
           >
             <a
               href="/ANUJ_DHANUKA_RESUME.pdf"

@@ -57,7 +57,7 @@ const skillsJsonLd = {
       "@type": "BreadcrumbList",
       "@id": `${url}/#breadcrumb`,
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+        { "@type": "ListItem", position: 1, name: "Home", item: site.homeUrl },
         { "@type": "ListItem", position: 2, name: "Skills", item: url },
       ],
     },

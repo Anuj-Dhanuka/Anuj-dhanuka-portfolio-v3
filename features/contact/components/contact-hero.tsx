@@ -1,10 +1,10 @@
-import { ArrowDown, Check, Mail, MapPin, MessageSquareText } from "lucide-react"
+import Image from "next/image"
+import { ArrowDown, Mail, MapPin } from "lucide-react"
 
 import { HeroBackground } from "@/components/shared/hero-background"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { LinkButton } from "@/components/ui/link-button"
 import { site } from "@/config/site"
-import { contactFocusAreas } from "@/features/contact/data/contact"
 
 export function ContactHero() {
   return (
@@ -58,43 +58,16 @@ export function ContactHero() {
             </div>
           </div>
 
-          <aside aria-labelledby="contact-focus-heading" className="relative mx-auto w-full max-w-[440px]">
-            <div
-              className="pointer-events-none absolute -inset-8 rounded-full bg-gradient-to-br from-brand-500/30 to-accent1-500/25 blur-3xl"
-              aria-hidden="true"
+          <div className="mx-auto hidden w-full max-w-[420px] lg:block xl:max-w-[440px]">
+            <Image
+              src="/contact-conversation-v1.webp"
+              alt="Two people starting a conversation"
+              width={560}
+              height={463}
+              sizes="(min-width: 1280px) 440px, 420px"
+              className="h-auto w-full"
             />
-            <div className="relative rounded-3xl border border-white/15 bg-white/[0.07] p-5 shadow-2xl shadow-black/35 backdrop-blur-sm sm:p-6">
-              <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-                <div>
-                  <p className="type-caption uppercase tracking-[0.14em] text-brand-200">Open to</p>
-                  <h2 id="contact-focus-heading" className="mt-1 text-lg font-bold text-white">
-                    Professional conversations
-                  </h2>
-                </div>
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/20 text-brand-200">
-                  <MessageSquareText className="h-5 w-5" aria-hidden="true" />
-                </span>
-              </div>
-
-              <ul className="mt-5 space-y-3">
-                {contactFocusAreas.map((area) => (
-                  <li
-                    key={area}
-                    className="flex items-start gap-3 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-gray-200"
-                  >
-                    <span className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-brand-500/20 text-brand-200">
-                      <Check className="h-3.5 w-3.5" aria-hidden="true" />
-                    </span>
-                    <span>{area}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="type-caption mt-5 text-gray-300">
-                A short message with the goal and relevant context is enough to begin.
-              </p>
-            </div>
-          </aside>
+          </div>
         </div>
       </div>
     </section>

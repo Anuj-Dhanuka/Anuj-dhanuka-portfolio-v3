@@ -3,6 +3,8 @@ import { RouteMessage } from "@/components/shared/route-message"
 
 export const metadata: Metadata = {
   title: "Page not found",
+  description: "The requested page could not be found on Anuj Dhanuka's portfolio.",
+  alternates: { canonical: null },
   robots: { index: false, follow: false },
 }
 

@@ -4,6 +4,20 @@ import { SectionWrapper } from "@/components/layout/section-wrapper"
 import { StatsStrip } from "@/features/portfolio/components/stats-strip"
 import { TechStrip } from "@/features/portfolio/components/tech-strip"
 import { About } from "@/features/portfolio/components/about"
+import { site } from "@/config/site"
+
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${site.url}/#webpage`,
+  url: site.homeUrl,
+  name: site.title,
+  description: site.description,
+  isPartOf: { "@id": `${site.url}/#website` },
+  about: { "@id": `${site.url}/#person` },
+  mainEntity: { "@id": `${site.url}/#person` },
+  inLanguage: site.locale,
+}
 
 // Below-the-fold sections — server-rendered for SEO, JS chunk loaded lazily.
 const WhatIBring = dynamic(() =>
@@ -49,12 +63,16 @@ export default function Home() {
       className="min-h-screen bg-white dark:bg-gray-950 overflow-hidden"
       style={{ backgroundColor: "#ffffff", backgroundImage: "none" }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd).replace(/</g, "\\u003c") }}
+      />
       <main
         id="main-content"
         className="overflow-hidden bg-white dark:bg-gray-950"
         style={{ backgroundColor: "#ffffff", backgroundImage: "none" }}
       >
-        <SectionWrapper id="home">
+        <SectionWrapper>
           <Hero />
         </SectionWrapper>
         <SectionWrapper>
@@ -63,16 +81,16 @@ export default function Home() {
         <SectionWrapper>
           <TechStrip />
         </SectionWrapper>
-        <SectionWrapper id="about">
+        <SectionWrapper>
           <About />
         </SectionWrapper>
         <SectionWrapper>
           <WhatIBring />
         </SectionWrapper>
-        <SectionWrapper id="experience">
+        <SectionWrapper>
           <Experience />
         </SectionWrapper>
-        <SectionWrapper id="projects">
+        <SectionWrapper>
           <Projects />
         </SectionWrapper>
         <SectionWrapper>
@@ -81,19 +99,19 @@ export default function Home() {
         <SectionWrapper>
           <Skills />
         </SectionWrapper>
-        <SectionWrapper id="recognition-learning">
+        <SectionWrapper>
           <RecognitionCertifications />
         </SectionWrapper>
-        <SectionWrapper id="education">
+        <SectionWrapper>
           <Education />
         </SectionWrapper>
-        <SectionWrapper id="mentor">
+        <SectionWrapper>
           <Mentor />
         </SectionWrapper>
         <SectionWrapper>
           <CTA />
         </SectionWrapper>
-        <SectionWrapper id="faq">
+        <SectionWrapper>
           <FAQ />
         </SectionWrapper>
         <SectionWrapper>
