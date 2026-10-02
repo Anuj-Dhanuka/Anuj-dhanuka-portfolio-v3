@@ -214,7 +214,7 @@ export function Navbar() {
           <button
             ref={menuButtonRef}
             className={cn(
-              "lg:hidden p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500",
+              "lg:hidden min-h-11 min-w-11 p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500",
               solidHeader
                 ? "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
                 : "text-white hover:bg-white/10 dark:text-white dark:hover:bg-gray-800/30",
@@ -258,7 +258,7 @@ export function Navbar() {
               Anuj Dhanuka
             </Link>
             <button
-              className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="min-h-11 min-w-11 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               onClick={() => setIsOpen(false)}
               aria-label="Close menu"
             >

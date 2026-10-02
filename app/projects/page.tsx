@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     url,
     type: "website",
     siteName: site.name,
+    locale: "en_IN",
     images: [
       {
         url: "/projects/opengraph-image",
@@ -56,8 +57,19 @@ const projectJsonLd = {
         ].map((project, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          name: project.title,
-          url: `${url}#project-${project.id}`,
+          item: {
+            "@type": "CreativeWork",
+            "@id": `${url}#project-${project.id}`,
+            name: project.title,
+            description: project.description,
+            url: `${url}#project-${project.id}`,
+            creator: { "@id": `${site.url}/#person` },
+            image: project.image
+              ? `${site.url}${project.image}`
+              : project.images?.map((image) => `${site.url}${image}`),
+            keywords: project.tags.join(", "),
+            sameAs: [project.liveLink, project.githubLink].filter(Boolean),
+          },
         })),
       },
     },
@@ -65,7 +77,7 @@ const projectJsonLd = {
       "@type": "BreadcrumbList",
       "@id": `${url}/#breadcrumb`,
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+        { "@type": "ListItem", position: 1, name: "Home", item: site.homeUrl },
         { "@type": "ListItem", position: 2, name: "Projects", item: url },
       ],
     },

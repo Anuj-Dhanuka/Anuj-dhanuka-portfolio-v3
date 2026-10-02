@@ -69,6 +69,12 @@ The public routes are `/`, `/about`, `/experience`, `/skills`, `/projects` and `
 
 Add future public pages to `app/sitemap.ts` and give each one unique metadata.
 
+Next.js native `app/sitemap.ts` serves `/sitemap.xml`; `app/robots.ts` serves `/robots.txt` and points to the production sitemap while blocking `/api/`. `config/site.ts` defines the origin (`site.url`) and slash-terminated homepage canonical (`site.homeUrl`); other public URLs omit the trailing slash. Keep sitemap, canonical, Open Graph and page-schema URLs equivalent after URL normalization. Next.js serializes root canonical/OG tags without `/`; both forms identify the same homepage, so existing route normalization is preserved.
+
+Sitemap entries use explicit content-update dates in `lastModified`, not request/build timestamps. Update only affected entries after meaningful content, structured-data or link changes. The initial About/Experience/Skills dates come from the 23 September 2026 content commit; Home/Projects/Contact reflect reviewed 2 October 2026 updates. Google ignores `priority` and `changefreq`, so neither is emitted. Add only canonical, indexable production pages and verify the XML after changes. Do not add another sitemap generator.
+
+See the [technical SEO audit](docs/seo-audit.md) for the route inventory, findings, completed fixes and verification limits.
+
 ## License and content
 
 The code is available for reference. Portfolio copy, personal images, company references and project media are © Anuj Dhanuka.
