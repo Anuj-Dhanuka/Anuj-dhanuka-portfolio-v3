@@ -2,6 +2,10 @@
 
 Audit date: 2 October 2026. Canonical origin: `https://anujdhanuka.com`.
 
+## Certifications integration — 3 October 2026
+
+The local portfolio now includes `/certifications` as its seventh public route, with nine certificate links shared with About and homepage highlights. The page has a unique title, description, canonical, Open Graph/Twitter image, CollectionPage/ItemList and BreadcrumbList structured data. Its sitemap entry uses `lastModified: "2026-10-03"`; the homepage date advances to the same date for its new link to the certificate collection. About also advances to 3 October for the shared certificate reorder, which prioritises frontend and mobile relevance. The sitemap whitelist test includes all seven routes. The six-route findings below describe the earlier audit and deployment, not this new local page.
+
 ## Sitemap follow-up — 2 October 2026
 
 The existing native `app/sitemap.ts` now emits only `url` and explicit `lastModified` values. `priority` and `changefreq` were removed because Google ignores them. No second sitemap, robots implementation, dependency or memory framework was added. Existing `app/robots.ts` continues to allow public routes/assets, block `/api/`, and reference `https://anujdhanuka.com/sitemap.xml`.

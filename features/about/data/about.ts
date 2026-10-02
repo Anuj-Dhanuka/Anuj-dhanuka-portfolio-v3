@@ -103,54 +103,6 @@ export const journey = [
   },
 ] as const
 
-export const certificates = [
-  {
-    title: "Build Your Own Responsive Website",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/responsive-website?id=FRAWHGBDJK",
-  },
-  {
-    title: "Build Your Own Static Website",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/static-website?id=BMBCYLKHFP",
-  },
-  {
-    title: "JavaScript Essentials",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/javascript-essentials?id=UCSRBZDAHH",
-  },
-  {
-    title: "React JS",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/react-js?id=PBLHJQRRRD",
-  },
-  {
-    title: "Node.js",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/node-js?id=VABNFYXANS",
-  },
-  {
-    title: "Introduction to Databases",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/introduction-to-databases?id=JEJEQHHSOF",
-  },
-  {
-    title: "Developer Foundations",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/developer-foundations?id=ESCFRTXSGJ",
-  },
-  {
-    title: "Responsive Web Design Using Flexbox",
-    issuer: "NxtWave CCBP",
-    href: "https://certificates.ccbp.in/intensive/flexbox?id=HCQEFVXZHT",
-  },
-  {
-    title: "React Native",
-    issuer: "Udemy · September 2024",
-    href: "https://www.udemy.com/certificate/UC-2ccd6fc5-ebdf-4674-8fa6-213dcb33765a/",
-  },
-] as const
-
 export const productSurfaces = [
   "Customer-facing React Native application",
   "Public website built with React and Next.js",

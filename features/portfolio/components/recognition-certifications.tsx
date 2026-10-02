@@ -6,8 +6,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { site } from "@/config/site"
 
-const reactJsCertificateUrl = "https://certificates.ccbp.in/intensive/react-js?id=PBLHJQRRRD"
-const reactNativeCertificateUrl = "https://www.udemy.com/certificate/UC-2ccd6fc5-ebdf-4674-8fa6-213dcb33765a/"
+import { reactJsCertificate, reactNativeCertificate } from "@/features/certifications/data/certifications"
+import { LinkButton } from "@/components/ui/link-button"
 
 const items = [
   {
@@ -28,7 +28,7 @@ const items = [
     description:
       "Completed structured React.js training covering component development, state management and modern frontend concepts.",
     cta: "View Certificate",
-    href: reactJsCertificateUrl,
+    href: reactJsCertificate.href,
     Icon: GraduationCap,
   },
   {
@@ -38,7 +38,7 @@ const items = [
     description:
       "Completed React Native training to strengthen practical mobile app development and implementation skills.",
     cta: "View Certificate",
-    href: reactNativeCertificateUrl,
+    href: reactNativeCertificate.href,
     Icon: BookOpenCheck,
   },
 ]
@@ -184,6 +184,11 @@ export function RecognitionCertifications() {
               </motion.article>
             ))}
           </div>
+        </div>
+        <div className="mt-8 text-center">
+          <LinkButton href="/certifications" variant="outline">
+            View all certifications
+          </LinkButton>
         </div>
       </div>
     </section>

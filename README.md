@@ -65,13 +65,15 @@ See [the design-system guide](docs/design-system.md) and [production-readiness n
 
 ## SEO
 
-The public routes are `/`, `/about`, `/experience`, `/skills`, `/projects` and `/contact`. Each route includes unique metadata, a canonical URL, social images, relevant JSON-LD, semantic headings and server-rendered content, and each route is listed in the sitemap. The homepage and Contact page reuse the same contact form, validation and server delivery flow.
+The public routes are `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications` and `/contact`. Each route includes unique metadata, a canonical URL, social images, relevant JSON-LD, semantic headings and server-rendered content, and each route is listed in the sitemap. The homepage and Contact page reuse the same contact form, validation and server delivery flow.
 
 Add future public pages to `app/sitemap.ts` and give each one unique metadata.
 
 Next.js native `app/sitemap.ts` serves `/sitemap.xml`; `app/robots.ts` serves `/robots.txt` and points to the production sitemap while blocking `/api/`. `config/site.ts` defines the origin (`site.url`) and slash-terminated homepage canonical (`site.homeUrl`); other public URLs omit the trailing slash. Keep sitemap, canonical, Open Graph and page-schema URLs equivalent after URL normalization. Next.js serializes root canonical/OG tags without `/`; both forms identify the same homepage, so existing route normalization is preserved.
 
-Sitemap entries use explicit content-update dates in `lastModified`, not request/build timestamps. Update only affected entries after meaningful content, structured-data or link changes. The initial About/Experience/Skills dates come from the 23 September 2026 content commit; Home/Projects/Contact reflect reviewed 2 October 2026 updates. Google ignores `priority` and `changefreq`, so neither is emitted. Add only canonical, indexable production pages and verify the XML after changes. Do not add another sitemap generator.
+Sitemap entries use explicit content-update dates in `lastModified`, not request/build timestamps. Update only affected entries after meaningful content, structured-data or link changes. The initial Experience/Skills dates come from the 23 September 2026 content commit; Projects/Contact reflect reviewed 2 October 2026 updates; Home/Certifications reflect the new Certifications page and homepage link added on 3 October 2026; About reflects the shared certificate reorder on that date. Google ignores `priority` and `changefreq`, so neither is emitted. Add only canonical, indexable production pages and verify the XML after changes. Do not add another sitemap generator.
+
+See the [Certifications design review](docs/certifications-design-review.md) for the research, visual hierarchy and generated artwork behind that page.
 
 See the [technical SEO audit](docs/seo-audit.md) for the route inventory, findings, completed fixes and verification limits.
 
