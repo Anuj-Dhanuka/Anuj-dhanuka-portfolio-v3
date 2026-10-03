@@ -37,9 +37,11 @@ Authentication, authorization, database queries, transactions, payments, uploads
 2. Configure the variables in `.env.example` in the deployment platform.
 3. Use `npm run check` as the required build gate.
 4. Deploy with `npm run build` and `npm run start`, or use a platform with native Next.js App Router support.
-5. Verify `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications`, `/contact`, `/sitemap.xml`, `/robots.txt`, the 404 page and a real contact submission.
+5. Verify `/`, `/about`, `/experience`, `/skills`, `/projects`, the reviewed `/projects/[slug]` routes and their OG images, `/certifications`, `/contact`, `/sitemap.xml`, `/robots.txt`, the 404 page and a real contact submission.
 6. Confirm CSP and analytics endpoints after configuring a custom Matomo origin.
 
 ## Pull request evidence
 
 Include a short description, relevant desktop/mobile screenshots for UI changes, configuration changes, and the output of `npm run check`. Keep unrelated product changes in separate pull requests.
+
+Project case studies are selected from static project records and generated at build time. Publication does not introduce an API, remote content fetch or mutation boundary. Only reviewed records enter the sitemap; unknown and listing-only project slugs use the existing 404 UI. See [project case-study validation](project-case-studies.md) for the current routes and operational build limitation.

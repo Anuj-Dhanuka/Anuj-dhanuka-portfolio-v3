@@ -64,9 +64,24 @@ function ProjectVisual({ project }: { project: Project }) {
   )
 }
 
-function ProjectLinks({ project }: { project: Project }) {
+export function ProjectLinks({
+  project,
+  includeCaseStudy = false,
+}: {
+  project: Project
+  includeCaseStudy?: boolean
+}) {
   return (
-    <div className="flex flex-col gap-3 sm:flex-row">
+    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      {includeCaseStudy && project.caseStudy && (
+        <LinkButton
+          href={`/projects/${project.caseStudy.slug}`}
+          variant="outline"
+          aria-label={`Read the ${project.title} case study`}
+        >
+          View case study
+        </LinkButton>
+      )}
       {project.liveLink && (
         <Button
           asChild
@@ -120,6 +135,8 @@ export function ProjectCard({
   const ProjectIcon = { business: BriefcaseBusiness, monitor: Monitor, mobile: Smartphone, store: Store }[
     project.icon
   ]
+  const description = compact ? (project.compactDescription ?? project.description) : project.description
+  const tags = compact ? project.tags.slice(0, 2) : project.tags
 
   return (
     <article
@@ -132,21 +149,31 @@ export function ProjectCard({
       />
       <ProjectVisual project={project} />
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className={`flex flex-1 flex-col ${compact ? "p-4" : "p-5"}`}>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="type-small font-semibold text-accent1-600 dark:text-accent1-300">
+            <p
+              className={`${compact ? "type-caption" : "type-small"} font-semibold text-accent1-600 dark:text-accent1-300`}
+            >
               {project.category}
             </p>
-            <h3 className="type-card-large mt-2 copy-heading">{project.title}</h3>
+            <h3
+              className={`${compact ? "text-lg font-bold leading-snug" : "type-card-large"} mt-2 copy-heading`}
+            >
+              {project.title}
+            </h3>
           </div>
-          <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-brand-100 bg-brand-50 text-brand-600 dark:border-brand-800/50 dark:bg-brand-900/25 dark:text-brand-300">
-            <ProjectIcon className="h-5 w-5" />
-          </span>
+          {!compact && (
+            <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-brand-100 bg-brand-50 text-brand-600 dark:border-brand-800/50 dark:bg-brand-900/25 dark:text-brand-300">
+              <ProjectIcon className="h-5 w-5" />
+            </span>
+          )}
         </div>
 
-        <p className="type-small mt-3 font-semibold text-brand-700 dark:text-brand-300">{project.role}</p>
-        <p className="type-small mt-3 copy-body">{project.description}</p>
+        {!compact && (
+          <p className="type-small mt-3 font-semibold text-brand-700 dark:text-brand-300">{project.role}</p>
+        )}
+        <p className={`${compact ? "type-caption" : "type-small"} mt-3 copy-body`}>{description}</p>
 
         {showContributions && (
           <div className="mt-4">
@@ -166,20 +193,59 @@ export function ProjectCard({
           </div>
         )}
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-purple-100 bg-purple-50/70 px-2.5 py-1 text-xs font-semibold text-brand-700 dark:border-purple-800/40 dark:bg-purple-900/20 dark:text-brand-300"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        {!compact && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-purple-100 bg-purple-50/70 px-2.5 py-1 text-xs font-semibold text-brand-700 dark:border-purple-800/40 dark:bg-purple-900/20 dark:text-brand-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
-        <div className="mt-auto pt-5">
-          <ProjectLinks project={project} />
-        </div>
+        {compact ? (
+          <div className="mt-auto pt-4">
+            {project.caseStudy && (
+              <LinkButton href={`/projects/${project.caseStudy.slug}`} variant="line" className="mb-2">
+                Read the {project.title} case study
+              </LinkButton>
+            )}
+            {project.liveLink ? (
+              <TrackedLink
+                eventName={analyticsEvents.projectViewed}
+                eventProperties={{ project: project.id, destination: "live" }}
+                aria-label={`View ${project.title} live project (opens in a new tab)`}
+                href={project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-700 transition-colors hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:text-accent1-300"
+              >
+                View Live Project
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </TrackedLink>
+            ) : project.githubLink ? (
+              <TrackedLink
+                eventName={analyticsEvents.projectViewed}
+                eventProperties={{ project: project.id, destination: "source" }}
+                aria-label={`View ${project.title} source code (opens in a new tab)`}
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-700 transition-colors hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:text-accent1-300"
+              >
+                View Source
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </TrackedLink>
+            ) : null}
+          </div>
+        ) : (
+          <div className="mt-auto pt-5">
+            <ProjectLinks project={project} includeCaseStudy />
+          </div>
+        )}
       </div>
     </article>
   )

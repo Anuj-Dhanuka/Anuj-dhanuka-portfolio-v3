@@ -37,7 +37,7 @@ utils/                       Browser/interaction helpers
 
 Keep page files focused on composition and route metadata. A feature may use shared UI, configuration and helpers. Shared UI must not import feature-specific content. Import modules directly: do not introduce barrel exports that mix client and server modules. Use `use client` only where interaction or browser APIs require it; keep static project content server-rendered.
 
-Portfolio content is reused across the standalone About, Experience, Skills and Contact routes where the same information appears on the homepage. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Individual project routes are intentionally deferred.
+Portfolio content is reused across the standalone About, Experience, Skills and Contact routes where the same information appears on the homepage. A folder alone does not create a public page: add an `app/.../page.tsx` only when that route is ready. Reviewed project routes use the static `/projects/[slug]` architecture; listing-only projects do not produce detail pages.
 
 ## Editing typography
 
@@ -102,3 +102,12 @@ Certificate data lives in `features/certifications/data/certifications.ts` and i
 Certificates are ordered by relevance to frontend and React Native roles: React JS, React Native, JavaScript, Node.js, databases, Flexbox, responsive websites, developer foundations and static websites. Homepage highlights import named certificate records so display order changes cannot redirect their links to another credential.
 
 The Certifications page uses a decorative, versioned WebP illustration with reserved dimensions in the hero’s right column; original issuer links live in the unified nine-card collection. All nine credentials use identical cards and outlined certificate links; relevance is expressed by their order. See [the product and design review](certifications-design-review.md) for research, acceptance criteria and the image-generation prompt.
+
+## Adding a project case study
+
+1. Edit the existing project record in `features/projects/data/projects.ts`. Keep card facts, tags, links and contributions there; do not add separate SEO/content copies. Confirm public-safe context, responsibility, implementation and a deliverable or verification destination before adding `caseStudy`.
+2. Add an explicit permanent lowercase slug, concise summary, context, responsibility, implementation notes, outcomes, dimensioned screenshot metadata and an explicit content date. Use only verified details. Omit unknown challenges, decisions, metrics and dates; publication is an editorial decision, not an automatic conversion of every card.
+3. `features/projects/project-details.ts` selects published records for static params, the sitemap and related-project links. `project-seo.ts` builds route metadata and schema referencing existing root entities. The server component in `features/projects/components/project-detail.tsx` renders the evidence with shared typography and page controls.
+4. Review affected listing/home/experience/skills sitemap dates when shared links change. Verify HTML, metadata, social images, normal link navigation, mobile/tablet/desktop layouts and unknown-slug 404s with a production build. Run the required repository checks.
+
+Mopedo and Levels App have reviewed case-study content. Rekha Maa Ki Rasoi and Rama Technical College remain listing-only until concrete implementation details are supplied. ChefKart remains in professional experience and product-work sections; publishing an employer case study requires specific public-safe evidence beyond an employment summary.

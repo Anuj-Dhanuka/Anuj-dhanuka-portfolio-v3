@@ -40,9 +40,9 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Keep important copy and links server rendered.
 - Add new indexable routes to `app/sitemap.ts`; keep API routes blocked in `app/robots.ts`.
 - Use only Next.js native `app/sitemap.ts` and `app/robots.ts`; do not add a second implementation or `next-sitemap`.
-- Sitemap entries must be canonical, indexable production pages only: currently `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications` and `/contact`. Exclude API, preview, localhost, redirect, noindex, debug and missing-page URLs.
+- Sitemap entries must be canonical, indexable production pages only: currently `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications`, `/contact` and reviewed `/projects/[slug]` case studies derived from project data. Exclude API, preview, localhost, redirect, noindex, debug and missing-page URLs.
 - Keep sitemap, canonical, Open Graph and page-schema URLs equivalent after URL normalization. `site.url` is the production origin without a trailing slash; `site.homeUrl` is the homepage canonical with `/`. Other public page URLs have no trailing slash. Next.js serializes root canonical/OG tags without `/`; this is the same normalized homepage URL. Do not change global trailing-slash routing solely for that serialization difference.
-- Do not add sitemap `priority` or `changefreq`. Maintain explicit `lastModified` date strings in `app/sitemap.ts` only for meaningful page content, structured-data or link changes; never derive them from request/build time or file modification times.
+- Do not add sitemap `priority` or `changefreq`. Maintain explicit `lastModified` date strings for meaningful page content, structured-data or link changes in `app/sitemap.ts` (reviewed case-study dates come from their project records); never derive them from request/build time or file modification times.
 - When adding or updating a public page, review its sitemap entry/date, confirm `/robots.txt` still references `${site.url}/sitemap.xml`, and verify the generated XML and metadata with a production build.
 - Reuse `config/site.ts` for the canonical origin, contact details and social links.
 - Keep structured data consistent with visible content and escape serialized JSON-LD with `.replace(/</g, "\\u003c")`.
@@ -123,5 +123,18 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 
 - Implemented standalone pages: About, Experience, Skills, Projects, Certifications and Contact.
 - Keep the homepage contact section and standalone Contact page on the same shared form, validation and contact-detail implementation.
-- Individual project detail pages are intentionally deferred to a later version.
+- Project detail pages use `app/projects/[slug]/page.tsx`; only reviewed records with `caseStudy` in `features/projects/data/projects.ts` are published. Currently Mopedo and Levels App are ready; the two WordPress projects remain listing-only pending specific implementation evidence. ChefKart remains professional product work, not a public case study.
 - Update this file, the README and relevant docs whenever architecture, deployment, environment variables or required checks change.
+
+## Project case-study architecture
+
+- Project records in `features/projects/data/projects.ts` are the canonical source for cards and detail content. `features/projects/project-details.ts` selects reviewed case studies, resolves explicit stable slugs, builds paths and ranks related projects by shared tags.
+- Routes and their programmatic OG images use `generateStaticParams`; unknown or listing-only slugs return 404. Keep the page and content components server rendered. Reuse the global layout, hero background, breadcrumb, in-page navigation, link buttons, tracked outbound links and CTA.
+- `features/projects/project-seo.ts` derives unique metadata and WebPage/CreativeWork/BreadcrumbList markup from each project. Reference the existing `/#person` and `/#website` entities through `config/site.ts`; do not duplicate Person definitions or hardcode another origin. Escape JSON-LD with the existing `<` replacement.
+- Extend only native `app/sitemap.ts`, deriving detail entries and explicit content dates from reviewed records. Review dates for listing/Home/Experience/Skills when shared links change; never use build timestamps. Robots already allows public case studies and must retain its production sitemap declaration.
+- To publish another project, first verify public-safe context, personal responsibility, concrete implementation and a deliverable or verification link. Add its optional `caseStudy` with a permanent lowercase slug, factual summary/context, implementation notes, outcomes, dimensioned screenshots and a meaningful content date. Missing challenge/decision/metric evidence is omitted, never invented. Do not add thin pages just to expose every card.
+- Keep screenshots below the fold with Next.js image defaults, accurate intrinsic dimensions and responsive sizes. Do not add galleries, client-side fetching, new fonts, dependencies or route-wide client boundaries without a real interaction requirement. Preserve homepage LCP/cache policies and animations.
+- Mopedo uses an art-directed server component in `features/projects/components/mopedo-project-detail.tsx`; its data, metadata, schema, routes and related-project logic still come from the shared case-study system. Levels App continues to use the generic detail component until its own reviewed redesign. Preserve this staged rollout instead of forcing the two pages back into one visual template.
+- Validate publication boundaries, related-project filtering, URL/entity consistency, generated HTML, HTTP 404 behavior, social images, sitemap and responsive/keyboard behavior alongside the required checks.
+
+- Mopedo is the reference quality standard for project case studies. Future pages should explain project context, specific ownership, technical implementation and engineering reasoning; include challenge/solution and outcomes only when verified. Minimize repetition, never fabricate metrics, and keep evidence server rendered. Reuse architecture and content principles rather than copying Mopedo’s narrative.

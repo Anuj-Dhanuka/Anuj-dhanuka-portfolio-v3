@@ -106,7 +106,7 @@ export const experienceRoles: readonly ExperienceRole[] = [
     accent: "pink",
     cta: {
       label: "View the Levels App project",
-      href: "/projects#project-levels-app",
+      href: "/projects/levels-app",
     },
   },
 ] as const

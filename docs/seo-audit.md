@@ -1,5 +1,9 @@
 # Technical SEO audit — Anuj Dhanuka Portfolio
 
+## Project architecture follow-up — 3 October 2026
+
+Reviewed `/projects/mopedo` and `/projects/levels-app` case studies now extend the public route inventory to nine canonical pages. Static routes, per-project social images, derived sitemap entries and server-rendered evidence replace the earlier deferred-detail decision for these two projects. The WordPress projects remain listing-only. See [the case-study engineering report](project-case-studies.md) for the implementation, content sources, current validation and build limitation. Historical findings below retain their original scope.
+
 Audit date: 2 October 2026. Canonical origin: `https://anujdhanuka.com`.
 
 ## Certifications integration — 3 October 2026
