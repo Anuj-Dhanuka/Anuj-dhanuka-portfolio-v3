@@ -59,10 +59,12 @@ const projectJsonLd = {
           position: index + 1,
           item: {
             "@type": "CreativeWork",
-            "@id": `${url}#project-${project.id}`,
+            "@id": project.caseStudy
+              ? `${url}/${project.caseStudy.slug}/#work`
+              : `${url}#project-${project.id}`,
             name: project.title,
             description: project.description,
-            url: `${url}#project-${project.id}`,
+            url: project.caseStudy ? `${url}/${project.caseStudy.slug}` : `${url}#project-${project.id}`,
             creator: { "@id": `${site.url}/#person` },
             image: project.image
               ? `${site.url}${project.image}`

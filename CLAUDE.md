@@ -21,7 +21,7 @@ Next.js 16 portfolio using the **App Router**. The homepage remains a composed l
 
 - **`app/page.tsx`** — assembles the homepage sections in order
 - **`app/api/contact/route.ts`** — single POST endpoint; sends email via **Resend** (`RESEND_API_KEY` env var required)
-- **`app/layout.tsx`** — root layout with SEO metadata, theme provider, Inter font, and Open Graph/Twitter card tags
+- **`app/layout.tsx`** — root layout with SEO metadata, theme provider, shared system font stack, and Open Graph/Twitter card tags
 - **`features/`** — domain components and data for home, About, Experience, Skills, Projects and Contact
 - **`components/ui/`** — shared Radix UI + CVA primitives; treat these as a design system and avoid modifying them for one-off page styling
 
@@ -141,10 +141,10 @@ The canonical site URL is defined once in `config/site.ts` and reused by metadat
 
 - Production origin: `https://anujdhanuka.com` (`site.url`). Homepage canonical: `https://anujdhanuka.com/` (`site.homeUrl`); other content routes have no trailing slash.
 - Next.js native `app/sitemap.ts` generates `/sitemap.xml`; `app/robots.ts` generates `/robots.txt`, allows public pages/assets, blocks `/api/`, and points to `https://anujdhanuka.com/sitemap.xml`. Do not create duplicate implementations or install `next-sitemap`.
-- The sitemap contains exactly `/`, `/about`, `/experience`, `/skills`, `/projects` and `/contact`. Include only canonical, indexable production pages; exclude localhost/preview domains, APIs, redirects, debug/404 routes and noindex pages.
+- The sitemap contains `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications`, `/contact` and reviewed case-study routes derived from project data. Include only canonical, indexable production pages; exclude localhost/preview domains, APIs, redirects, debug/404 routes and noindex pages.
 - Google ignores sitemap `priority` and `changefreq`; do not reintroduce them. Use the explicit `lastModified` date strings in `app/sitemap.ts`, updating only affected pages when meaningful content, structured data or links change. Do not use `new Date()` at build/request time or filesystem timestamps.
 - Initial dates: About/Experience/Skills use the 23 September 2026 page-content commit; Home/Projects/Contact use reviewed 2 October 2026 FAQ/schema/artwork changes. These are content dates, not sitemap creation dates.
-- Keep sitemap URLs equivalent to canonical, Open Graph and page-schema URLs after URL normalization. Next.js serializes root canonical/OG tags without `/` even when configured with `site.homeUrl`; both forms identify the same homepage. Keep existing slash-free routing for other pages. Add a sitemap entry and accurate content date when introducing an indexable page; individual project URLs remain deferred.
+- Keep sitemap URLs equivalent to canonical, Open Graph and page-schema URLs after URL normalization. Next.js serializes root canonical/OG tags without `/` even when configured with `site.homeUrl`; both forms identify the same homepage. Keep existing slash-free routing for other pages. Add a sitemap entry and accurate content date when introducing an indexable page; reviewed project URLs are derived from `caseStudyProjects`.
 - Run the required repository checks and inspect generated `/sitemap.xml`, `/robots.txt` and page metadata after SEO changes. See `docs/seo-audit.md` for verification scope and limitations.
 
 ## Search Console & Analytics — accounts, IDs, and what to do if anything migrates
@@ -156,7 +156,7 @@ Everything below is live and verified as of 2026-06-07. If domain, Google accoun
 - **Property type:** URL prefix
 - **Property URL:** `https://anujdhanuka.com/`
 - **Ownership verified via:** HTML file at `public/googlefcb50a119eef10da.html` (must remain in repo permanently; Google re-checks periodically)
-- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About, Experience, Skills, Projects and Contact pages; resubmit after deployment when routes change
+- **Sitemap:** `/sitemap.xml` — currently contains the homepage, About, Experience, Skills, Projects, Certifications, Contact and reviewed case-study pages; resubmit after deployment when routes change
 - **Verification token (in the file):** `googlefcb50a119eef10da`
 
 ### Google Analytics 4
@@ -235,3 +235,11 @@ Open follow-ups noted for the candidate (not code changes — content/copy work)
 - PPCROY `companyUrl: "#"` in `components/experience.tsx` (broken link)
 - GitHub surface area thin (only 1 public repo linked)
 - No disclosure that ChefKart product work is proprietary (would contextualize the lighter public portfolio)
+
+## Project detail pages
+
+`app/projects/[slug]/page.tsx` statically renders reviewed Mopedo and Levels App case studies. Their OG image route also generates static params. `features/projects/data/projects.ts` is the content source; its optional `caseStudy` controls publication. `project-details.ts` handles lookup, permanent slugs, paths and shared-tag related projects; `project-seo.ts` derives metadata and WebPage/CreativeWork/BreadcrumbList markup with references to the root Person/WebSite IDs. Reuse shared layout and controls; keep evidence and links in server HTML.
+
+The native sitemap derives only reviewed case studies and their explicit `lastModified` dates. Unknown and listing-only projects return 404. New case studies require verified, public-safe context, personal contributions and concrete implementation evidence; never invent challenges, outcomes, metrics or employer internals. WordPress projects currently remain listing-only. See the project-case-study instructions in `AGENTS.md` and the addition workflow in `docs/design-system.md`.
+
+Mopedo is the reference quality standard for project case studies. Future pages should explain project context, specific ownership, technical implementation and engineering reasoning; include challenge/solution and outcomes only when verified. Minimize repetition, never fabricate metrics, and keep evidence server rendered. Reuse architecture and content principles rather than copying Mopedo’s narrative.

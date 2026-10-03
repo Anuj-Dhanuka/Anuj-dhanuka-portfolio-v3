@@ -23,14 +23,14 @@ export function PageSectionNav({
       className="border-b border-brand-100 bg-white dark:border-brand-900/40 dark:bg-gray-950"
     >
       <div className="container mx-auto px-4 py-5 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-8">
           <p className="type-label whitespace-nowrap text-brand-700 dark:text-brand-300">{label}</p>
-          <ul className="grid grid-cols-2 gap-2 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none lg:w-full lg:max-w-3xl">
+          <ul className="grid grid-cols-2 gap-2 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none lg:grid-flow-row lg:grid-cols-5 lg:auto-cols-auto lg:flex-1">
             {items.map(({ href, label: itemLabel }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="group flex min-h-11 items-center justify-between gap-2 rounded-xl border border-brand-100 bg-brand-50/55 px-3 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:border-brand-900/50 dark:bg-brand-950/20 dark:text-gray-200 dark:hover:border-brand-700 dark:hover:text-brand-300"
+                  className="group flex min-h-11 items-center justify-between gap-2 rounded-xl border border-brand-100 bg-brand-50/55 px-3 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 sm:whitespace-nowrap sm:px-2 sm:text-xs lg:px-3 lg:text-sm dark:border-brand-900/50 dark:bg-brand-950/20 dark:text-gray-200 dark:hover:border-brand-700 dark:hover:text-brand-300"
                 >
                   <span>{itemLabel}</span>
                   <ArrowDown

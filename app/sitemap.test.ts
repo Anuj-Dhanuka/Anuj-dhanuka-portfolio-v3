@@ -5,7 +5,7 @@ import sitemap from "@/app/sitemap"
 afterEach(() => vi.useRealTimers())
 
 describe("public sitemap", () => {
-  it("contains only the seven canonical production pages without crawl-frequency hints", () => {
+  it("contains only public pages and reviewed case studies without crawl-frequency hints", () => {
     const entries = sitemap()
     const urls = entries.map((entry) => entry.url)
 
@@ -17,6 +17,8 @@ describe("public sitemap", () => {
       "https://anujdhanuka.com/projects",
       "https://anujdhanuka.com/certifications",
       "https://anujdhanuka.com/contact",
+      "https://anujdhanuka.com/projects/mopedo",
+      "https://anujdhanuka.com/projects/levels-app",
     ])
     expect(new Set(urls).size).toBe(entries.length)
     for (const entry of entries) {

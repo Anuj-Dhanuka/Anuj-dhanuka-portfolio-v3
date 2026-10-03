@@ -65,13 +65,13 @@ See [the design-system guide](docs/design-system.md) and [production-readiness n
 
 ## SEO
 
-The public routes are `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications` and `/contact`. Each route includes unique metadata, a canonical URL, social images, relevant JSON-LD, semantic headings and server-rendered content, and each route is listed in the sitemap. The homepage and Contact page reuse the same contact form, validation and server delivery flow.
+The public routes are `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications` and `/contact`, plus reviewed `/projects/mopedo` and `/projects/levels-app` case studies. Each route includes unique metadata, a canonical URL, social images, relevant JSON-LD, semantic headings and server-rendered content, and each route is listed in the sitemap. The homepage and Contact page reuse the same contact form, validation and server delivery flow.
 
 Add future public pages to `app/sitemap.ts` and give each one unique metadata.
 
 Next.js native `app/sitemap.ts` serves `/sitemap.xml`; `app/robots.ts` serves `/robots.txt` and points to the production sitemap while blocking `/api/`. `config/site.ts` defines the origin (`site.url`) and slash-terminated homepage canonical (`site.homeUrl`); other public URLs omit the trailing slash. Keep sitemap, canonical, Open Graph and page-schema URLs equivalent after URL normalization. Next.js serializes root canonical/OG tags without `/`; both forms identify the same homepage, so existing route normalization is preserved.
 
-Sitemap entries use explicit content-update dates in `lastModified`, not request/build timestamps. Update only affected entries after meaningful content, structured-data or link changes. The initial Experience/Skills dates come from the 23 September 2026 content commit; Projects/Contact reflect reviewed 2 October 2026 updates; Home/Certifications reflect the new Certifications page and homepage link added on 3 October 2026; About reflects the shared certificate reorder on that date. Google ignores `priority` and `changefreq`, so neither is emitted. Add only canonical, indexable production pages and verify the XML after changes. Do not add another sitemap generator.
+Sitemap entries use explicit content-update dates in `lastModified`, not request/build timestamps. Update only affected entries after meaningful content, structured-data or link changes. The initial Experience/Skills dates come from the 23 September 2026 content commit; Contact reflects reviewed 2 October 2026 updates; Projects/Experience/Skills reflect case-study links added on 3 October 2026; Home/Certifications reflect the new Certifications page and homepage link added on 3 October 2026; About reflects the shared certificate reorder on that date. Google ignores `priority` and `changefreq`, so neither is emitted. Add only canonical, indexable production pages and verify the XML after changes. Do not add another sitemap generator.
 
 See the [Certifications design review](docs/certifications-design-review.md) for the research, visual hierarchy and generated artwork behind that page.
 
@@ -80,3 +80,11 @@ See the [technical SEO audit](docs/seo-audit.md) for the route inventory, findin
 ## License and content
 
 The code is available for reference. Portfolio copy, personal images, company references and project media are © Anuj Dhanuka.
+
+## Project case studies
+
+`features/projects/data/projects.ts` drives listing cards and optional case studies. Only records with reviewed `caseStudy` content produce static `/projects/[slug]` pages, unique metadata, programmatic social images and derived sitemap entries. Unknown and listing-only slugs return 404. Related projects share recorded technologies; all core evidence remains server rendered.
+
+To add a case study, follow [the design-system workflow](docs/design-system.md#adding-a-project-case-study). Keep explicit slugs stable and publish only factual, public-safe implementation evidence. The WordPress projects remain listing-only; ChefKart remains professional product work. See [the engineering verification report](docs/project-case-studies.md) for readiness and validation limits.
+
+Mopedo is the reference quality standard for project case studies. Future pages should explain project context, specific ownership, technical implementation and engineering reasoning; include challenge/solution and outcomes only when verified. Minimize repetition, never fabricate metrics, and keep evidence server rendered. Reuse architecture and content principles rather than copying Mopedo’s narrative. See the [Mopedo source-evidence review](docs/project-case-studies.md#12-mopedo-source-evidence-review) for the verified implementation and remaining owner questions.
