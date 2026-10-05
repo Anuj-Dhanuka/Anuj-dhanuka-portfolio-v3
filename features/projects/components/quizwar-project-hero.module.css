@@ -1,17 +1,3 @@
-.caseStudy {
-  isolation: isolate;
-}
-
-/* Clip horizontally without creating a scroll ancestor for the section nav.
-   Scope the viewport override to Levels; the shared layout stays unchanged. */
-@supports (overflow: clip) {
-  :global(html):has(.caseStudy),
-  :global(body):has(.caseStudy) {
-    overflow-x: clip;
-    overflow-y: visible;
-  }
-}
-
 .phoneStage {
   position: relative;
   width: 100%;

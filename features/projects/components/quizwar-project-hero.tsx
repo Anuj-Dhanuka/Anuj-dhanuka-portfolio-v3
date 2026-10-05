@@ -3,15 +3,15 @@ import { HeroBackground } from "@/components/shared/hero-background"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { LinkButton } from "@/components/ui/link-button"
 import { ProjectLinks } from "@/features/projects/components/projects"
-import { LevelsPhone } from "@/features/projects/components/levels-phone"
+import { ProjectPhone } from "@/features/projects/components/project-phone"
 import type { CaseStudyProject } from "@/features/projects/project-details"
-import styles from "./levels-project.module.css"
+import styles from "./quizwar-project-hero.module.css"
 
-export function LevelsProjectHero({ project }: { project: CaseStudyProject }) {
+export function QuizWarProjectHero({ project }: { project: CaseStudyProject }) {
   const detail = project.caseStudy
-  const login = detail.screenshots.find((screen) => screen.src === "/levels-app-login.webp")
-  const categories = detail.screenshots.find((screen) => screen.src === "/levels-app-categories.webp")
-  const quiz = detail.screenshots.find((screen) => screen.src === "/levels-app-quiz.webp")
+  const login = detail.screenshots.find((screen) => screen.src === "/quizwar-login.webp")
+  const categories = detail.screenshots.find((screen) => screen.src === "/quizwar-categories.webp")
+  const quiz = detail.screenshots.find((screen) => screen.src === "/quizwar-quiz.webp")
 
   return (
     <header className="relative isolate overflow-hidden pb-14 pt-20 text-white md:pb-16 md:pt-24 lg:flex lg:min-h-[640px] lg:items-center lg:pb-12 lg:pt-32 xl:min-h-[680px]">
@@ -31,7 +31,7 @@ export function LevelsProjectHero({ project }: { project: CaseStudyProject }) {
             </div>
             <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200 backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-brand-300" aria-hidden="true" />
-              Delivered ahead of schedule
+              Independent React Native project
             </p>
             <h1 className="type-hero mt-5 max-w-3xl text-white">
               {project.title} — <span className="hero-gradient-text">React Native</span> Quiz App
@@ -40,7 +40,7 @@ export function LevelsProjectHero({ project }: { project: CaseStudyProject }) {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <ProjectLinks project={project} sourcePrimary />
               <LinkButton
-                href="#context"
+                href="#overview"
                 variant="outlineInverse"
                 className="min-h-12 w-full px-6 py-3 text-base sm:w-auto"
                 icon={<ArrowDown className="h-4 w-4" />}
@@ -67,17 +67,17 @@ export function LevelsProjectHero({ project }: { project: CaseStudyProject }) {
             <div className={styles.phoneStage} aria-hidden="true">
               {login && (
                 <div className={styles.phoneLeft}>
-                  <LevelsPhone screenshot={login} decorative hero />
+                  <ProjectPhone screenshot={login} decorative hero />
                 </div>
               )}
               {quiz && (
                 <div className={styles.phoneRight}>
-                  <LevelsPhone screenshot={quiz} decorative hero />
+                  <ProjectPhone screenshot={quiz} decorative hero />
                 </div>
               )}
               {categories && (
                 <div className={styles.phoneCenter}>
-                  <LevelsPhone screenshot={categories} decorative hero preload />
+                  <ProjectPhone screenshot={categories} decorative hero preload />
                 </div>
               )}
             </div>

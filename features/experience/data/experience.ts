@@ -93,10 +93,10 @@ export const experienceRoles: readonly ExperienceRole[] = [
     type: "Internship",
     duration: "April 2024 – June 2024",
     description:
-      "I developed the Levels App, a React Native quiz application with category-based questions, dynamically loaded content and clear mobile navigation.",
+      "I worked on mobile application interfaces using React Native CLI, JavaScript and Firebase during a two-month onsite internship.",
     responsibilities: [
       "Developed mobile application screens using React Native CLI and JavaScript.",
-      "Implemented category-based quiz flows and dynamic question loading.",
+      "Built practical experience in mobile user flows and application navigation.",
       "Applied Firebase and Git fundamentals while working in an onsite development environment.",
       "Completed the assigned project ahead of schedule and delivered additional features beyond the initial requirements.",
     ],
@@ -105,8 +105,8 @@ export const experienceRoles: readonly ExperienceRole[] = [
     isCurrent: false,
     accent: "pink",
     cta: {
-      label: "View the Levels App project",
-      href: "/projects/levels-app",
+      label: "Review the internship experience",
+      href: "/experience#role-third-eye-lab",
     },
   },
 ] as const

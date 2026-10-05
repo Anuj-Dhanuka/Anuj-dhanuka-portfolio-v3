@@ -1,6 +1,8 @@
 # Project case-study engineering report
 
-Reviewed 3 October 2026. Changes are local; deployment and indexing are separate steps.
+Current migration reviewed 6 October 2026. Changes are local; deployment and indexing are separate steps.
+
+Current publication: Mopedo V2 and QuizWar V2. Sections 1–14 are historical implementation records and do not authorize republishing Levels App. Sections 15–20 document the final Mopedo and QuizWar evidence, presentation and freeze passes.
 
 ## 1. Architecture before
 
@@ -146,7 +148,7 @@ Reviewed 5 October 2026. The supplied HTML and screenshot are visual references.
 
 The composition now follows the reference: light two-column hero with three real app screenshots, compact six-link navigation, centered section headings, two-column context card, six ownership cards, three implementation/code cards, inset dark outcomes panel and login/category/quiz showcase. Header, footer and CTA components/props remain unchanged. Mopedo’s Continue exploring section is extracted into `MoreProjects` and reused exactly with Mopedo, Rekha Maa Ki Rasoi and Rama Technical College on Levels; Mopedo retains its original three cards. Listing-only cards remain external destinations, not case-study publication.
 
-Code excerpts are contiguous source lines from [Levels App revision 6bcf151](https://github.com/Anuj-Dhanuka/levels-app/tree/6bcf15136f214ff74166da8c18b1359edf44de2c): category state selection in `src/screens/HomeScreen/index.js`, question extraction/dispatch in `src/store/actions/QuestionDataAction.js`, and reusable button layout styles in `src/components/buttons/Button.js`. Each excerpt links to its original file and lines. This establishes source provenance, not a runtime correctness or production-quality claim. No remote source fetching happens in the portfolio application; excerpts live in the canonical project record. Levels’ explicit content date advances to `2026-10-05` for the source evidence and new project links. No other route gains content changes requiring a date advance.
+Code excerpts are contiguous source lines from the formerly reviewed Levels App revision: category state selection in `src/screens/HomeScreen/index.js`, question extraction/dispatch in `src/store/actions/QuestionDataAction.js`, and reusable button layout styles in `src/components/buttons/Button.js`. Each excerpt links to its original file and lines. This establishes source provenance, not a runtime correctness or production-quality claim. No remote source fetching happens in the portfolio application; excerpts live in the canonical project record. Levels’ explicit content date advances to `2026-10-05` for the source evidence and new project links. No other route gains content changes requiring a date advance.
 
 Shared metadata, canonicals, Open Graph/Twitter images, WebPage/CreativeWork/BreadcrumbList schema and escaped JSON-LD remain intact. Crawlable summary, semantic headings, dossier facts, real anchor links and linked evidence support answer extraction without invented FAQ/schema claims or ranking guarantees. No dependency, remote font, CDN script, server mutation or route-wide client boundary is added.
 
@@ -166,4 +168,108 @@ Reviewed 6 October 2026. Anuj confirms that he independently created Mopedo’s 
 
 The public case study now reflects that ownership in its hero summary, responsibility and scope facts, contribution list, interface walkthrough and delivery outcomes. The technology list contains runtime and development tools only. Engineering decisions remain limited to source-observable implementation effects because the original selection rationale for React Router and styled-components remains unknown. No business, traffic, conversion, user or performance metrics are claimed.
 
-This owner-evidence refinement freezes Mopedo V2 as the portfolio’s reference case study. Future case-study work should prioritize Levels App. Do not add speculative SEO/AEO/GEO copy or unverified backend, API, booking, ordering, authentication, payment or database capabilities to Mopedo.
+This owner-evidence refinement freezes Mopedo V2 as the portfolio’s React/web reference case study. Do not add speculative SEO/AEO/GEO copy or unverified backend, API, booking, ordering, authentication, payment or database capabilities to Mopedo.
+
+## 17. QuizWar Phase 1 migration — 6 October 2026
+
+Levels App is no longer a public portfolio project because company/client ownership and publication rights are intentionally treated conservatively. Do not recreate `/projects/levels-app` without explicit owner approval. It is absent from static generation and the sitemap and returns 404, without a redirect. QuizWar and Levels are separate projects; never describe QuizWar as a renamed Levels project or associate its source with 3rd Eye Lab.
+
+QuizWar is the portfolio’s independent React Native project, with canonical route `/projects/quizwar` and source `https://github.com/Anuj-Dhanuka/QuizWar`. The central project record drives Home, Projects, related cards, metadata, schema, sitemap and social artwork. Mopedo V2 content and metadata remain frozen; only its data-derived related card changes. High-level internship employment, dates and technologies remain factual. Public About/FAQ/Experience copy no longer names the client project or exposes quiz implementation details; the internship CTA now links to its experience entry, including where Skills reuses it. The canonical private career story retains its historical facts.
+
+Baseline verification used public revision `d5615500727afef56425fd358202074c2eed79ab`: package.json, App.js, navigation, screen inventory, Redux store, auth context, API utilities, phone sign-in, game/dashboard screens and native Android/iOS configuration. Confirmed JavaScript and React Native CLI; Redux Toolkit and Redux Persist; React Navigation; Firebase Authentication, Firestore and Storage; category/game/result, dashboard/leaderboard, profile/settings areas and sound/haptic calls. These establish source presence, not runtime testing or production release claims. No app dates, delivery metrics or internship claims were imported.
+
+The baseline uses `project-detail.tsx` on the existing static route and SEO pipeline. It has overview, ownership, three concise capabilities, stack and tracked source links, shared related cards and CTA. No new dependencies, client components, global state, runtime fetching or dynamic rendering were introduced. All four retired Levels presentation files were removed. The owner explicitly confirmed that the three existing screenshots accurately show QuizWar and are theirs to publish, overriding the initial exclusion. The image bytes are reused under `/quizwar-login.webp`, `/quizwar-categories.webp` and `/quizwar-quiz.webp` with factual alt text, dimensions and below-fold detail-page loading. The former Levels asset paths are removed. A fresh screenshot capture may still be reviewed in Phase 2.
+
+Lightweight public-repository safety review: `android/app/google-services.json` contains Firebase client configuration, which is not automatically a secret. Verify Firestore and Storage rules, Authentication settings and Google/Firebase API restrictions in the owning account; no rules files were found in the reviewed repository tree, so deployed access controls are unverified. Android release configuration uses the checked-in debug keystore; review release signing before distribution. Auth context restores token/user values from AsyncStorage and API/dashboard code logs user/performance data; review storage and logging. No configuration values or credentials are copied into the portfolio. The QuizWar repository was not modified.
+
+The deep case-study optimization described here was completed in section 19. Improving the template README remains a separate repository task.
+
+Intentional remaining Levels occurrences: AGENTS.md, CLAUDE.md, README.md and design-system/SEO docs record retirement; this report retains historical implementation/validation records; docs/about-story.md retains canonical career history. Publication tests explicitly reject the retired slug. The word “levels” in certifications-design-review.md refers to certification levels, not the project. 3rd Eye Lab names, logo and high-level employment history remain in Home, About, Experience, Skills/FAQ and career documentation; none links that employer to QuizWar source.
+
+Validation: `npm run format:check`, `npm run lint`, `npm run typecheck` and `npm test` pass (7 files, 22 tests). `npm run build` was attempted in and outside the sandbox and retains the documented Turbopack/PostCSS worker-port restriction; `npm run build -- --webpack` passes and generates QuizWar and Mopedo plus their social images statically. No build configuration or required checks were bypassed or changed.
+
+Local production HTTP checks: QuizWar, Mopedo and Projects return 200; retired Levels page and its OG route return 404 with no redirect; unknown, alternative and listing-only project slugs also return 404. The retired page retains the shared noindex 404 UI. The local Next.js server logs internal `NoFallbackError` messages for excluded static slugs while returning the expected HTTP 404; the existing publication guard remains unchanged. QuizWar artwork returns 200 image/png and was visually inspected. Canonical, OG and schema URLs agree; Twitter uses QuizWar artwork and descriptions. Sitemap contains nine canonical pages with QuizWar dated `2026-10-06`, no Levels entry and no crawl-frequency hints. Robots still declares the production sitemap and blocks `/api/`. Important summary, stack, source and related links exist in server HTML. Generated public HTML contains no Levels references. Existing loading/error boundaries were inspected unchanged; an artificial production fault was not injected.
+
+Chrome checks covered QuizWar, Projects, Mopedo, Home, About, Experience and Skills at 320/375/768/1440/1920px (35 combinations): no horizontal overflow, one H1, valid section anchors and image alt attributes. A follow-up scroll check verified all QuizWar screenshots load at every width. Mobile/desktop full-page and dark screenshots were reviewed. Native Tab/Enter navigation reaches source and overview links with visible focus and approximately 112px anchor clearance. No runtime exceptions were reported. This is a responsive/keyboard review, not a full accessibility certification or a new PageSpeed measurement. No animations were changed. Dependencies and client boundaries remain unchanged; no deployment or QuizWar repository edits were performed.
+
+## 18. QuizWar hero restoration — 6 October 2026
+
+At the owner’s request, QuizWar restores the former three-phone hero composition: category selection centered above angled sign-in and quiz screenshots, purple/pink shared hero background, gradient React Native heading, pill eyebrow, technology badges, source CTA and responsive spacing/order. Copy remains QuizWar-specific; the eyebrow identifies an independent project rather than importing internship delivery claims. The overview anchor replaces the retired context anchor. The presentation uses `quizwar-project-hero.tsx`, a scoped CSS module and shared `project-phone.tsx` frames also reused below the fold. Center screenshot is preloaded; side hero images are eager, while showcase screenshots remain lazy. No global viewport override, new client boundary, dependencies or project content/metadata change is introduced. The existing migration content date remains 6 October 2026.
+
+Hero restoration validation: format, lint, strict TypeScript and all 22 tests pass. Production Webpack build passes; required default Turbopack attempts inside/outside the sandbox retain the documented PostCSS worker-port restriction. Chrome checks at 320/375/768/1440/1920px confirm all three hero images load proportionally, no document overflow, one H1, valid anchors and correct responsive ordering. Tab/Enter navigation retains visible focus and 112px overview clearance. Desktop/mobile screenshots were visually reviewed; dark styling and reduced-motion transition removal were checked. Phone hover changes the center transform, both homepage marquees move in opposite directions and hover pauses the targeted track, About hover/focus activates stacking layer 30, and timeline entrance changes opacity 0 to 1 after scrolling. No browser exceptions were reported. Local production checks retain QuizWar/Mopedo HTTP 200, Levels HTTP 404, correct canonical and sitemap/robots publication boundaries.
+
+## 19. QuizWar V2 source-evidence case study — 6 October 2026
+
+### Architecture reviewed and source revision
+
+QuizWar is an independent JavaScript application built with React Native 0.75 and the React Native CLI. The root composes Redux, Redux Persist, authentication and theme contexts, gesture handling and React Navigation. Authentication state selects either a sign-in/registration stack or an application stack; Home, Dashboard and Profile form its bottom tabs. Six Redux Toolkit slices separate account, performance, active category, game result, category and token state. Only `auth` and `userPerformance` are persisted through AsyncStorage.
+
+Firebase Authentication handles phone-number SMS and OTP confirmation. Firestore stores user, category, score and performance records. Firebase Storage receives profile images selected and cropped through the native picker. Shared `Apiutils` methods cover several data operations, while sign-in and registration screens also call Firebase directly; the page does not claim a fully centralized data layer. The game screen uses a shared local question bank, not category-specific questions fetched from Firestore.
+
+The reviewed public `main` revision is `d5615500727afef56425fd358202074c2eed79ab`. All public implementation evidence points to that exact SHA, file and line range. Git history shows staged additions for the home, categories, results, mobile feedback, Firebase/OTP and performance/dashboard work, but commit messages are not used as public claims.
+
+### Source verification table
+
+| Public claim                                      | Verified | Reviewed source                                            | Published wording                                                                        |
+| ------------------------------------------------- | -------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| React Native CLI application                      | Yes      | `package.json`, `android/`, `ios/`                         | React Native CLI quiz app with native Android and iOS project structures                 |
+| Redux Toolkit domains                             | Yes      | `src/store/store.js` and six slice files                   | Six slices separate account, performance, category, session, result and token concerns   |
+| Persisted state                                   | Yes      | `src/store/store.js`                                       | Only auth and user performance are persisted through AsyncStorage                        |
+| Authentication-aware navigation                   | Yes      | `src/Navigations/index.js`, `TabNavigator.js`, AuthContext | Signed-out and application stacks are selected from restored user state                  |
+| Firebase Authentication and OTP                   | Yes      | `SigninScreen`                                             | Phone-number SMS and OTP confirmation                                                    |
+| Firestore                                         | Yes      | `ApiUtils`, Signin, Registration, Result                   | User, category, score and performance records                                            |
+| Firebase Storage                                  | Yes      | `ApiUtils`, Registration, Edit Profile                     | Cropped profile-image upload and download URL                                            |
+| Timed quiz and scoring                            | Yes      | `GameScreen`                                               | Countdown, answer lock/feedback, score, speed/streak points and highest-score comparison |
+| Leaderboard                                       | Yes      | `DashboardScreen`                                          | Deterministic ordering by score, time, monthly points and total points                   |
+| Sound and haptics                                 | Yes      | common utilities, Game, Tabs, Settings                     | Preference-controlled native interaction feedback                                        |
+| App-store release, users or business impact       | No       | No supporting evidence                                     | Omitted                                                                                  |
+| TypeScript, REST API, push notifications or CI/CD | No       | No supporting implementation                               | Omitted                                                                                  |
+
+### Public page changes
+
+The concise baseline is replaced by a dedicated server component with project facts, answer-first overview, concrete ownership, five architecture cards, three observable engineering decisions, a source-backed timed-flow challenge, three real screenshots with captions, technical delivery outcomes and a public-source section. Five contextual “Inspect source” links use the pinned revision. The existing three-phone hero, global layout, CTA, related-project selection and purple/pink identity remain intact. Levels remains absent and returns 404 without redirecting to QuizWar.
+
+Metadata now resolves to `QuizWar — React Native Quiz App | Anuj Dhanuka`, with a unique answer-first description. Canonical and Open Graph URLs remain `https://anujdhanuka.com/projects/quizwar`; Twitter reuses the same description and generated image. Existing WebPage, CreativeWork and BreadcrumbList JSON-LD references the root Person/WebSite entities and matches visible content. The sitemap retains the explicit `2026-10-06` update date, and robots retains the production sitemap declaration and `/api/` exclusion.
+
+Clear entity relationships, descriptive headings and first-hand source evidence make the page easier for recruiters, clients and retrieval systems to understand. The content demonstrates mobile authentication, state persistence, navigation, Firebase data/storage work, timed application state, ranking, profiles and native feedback without promising citations or adding FAQ/AI-specific markup.
+
+### Performance and security review
+
+The change adds no dependency, route-wide Client Component, global state, runtime fetch, dynamic rendering, font or third-party script. Important content remains statically rendered. The only existing leaf client boundary used here is the tracked external link. Existing hero image behavior is preserved; interface screenshots remain dimensioned, responsive and lazy below the fold.
+
+The public QuizWar repository includes Android Firebase client configuration. No private credential candidate, rules file or iOS Firebase configuration file was found in the tracked tree. Firebase client configuration is not automatically a server secret, but the owner should verify Firestore rules, Storage rules, Authentication settings and API restrictions in Firebase/Google Cloud. The portfolio never exposes configuration values. The QuizWar repository was not modified.
+
+### Validation
+
+- `npm run format:check`, `npm run lint`, `npm run typecheck` and all 23 tests pass.
+- The required default `npm run build` was attempted inside and outside the sandbox and still encounters the documented Turbopack/PostCSS worker-port restriction. `npm run build -- --webpack` succeeds and statically generates both case studies and social images.
+- Production HTTP checks return 200 for QuizWar, Mopedo, Projects, QuizWar artwork, sitemap and robots. Levels, its artwork, an unknown slug and a listing-only slug return 404; HTML 404s retain `noindex`.
+- Returned QuizWar HTML has one H1, the factual summary and architecture, five pinned source links, a matching canonical/Open Graph URL, Twitter metadata and parsed WebPage/CreativeWork/BreadcrumbList schema. The root layout supplies the single Person and WebSite entities.
+- The sitemap has nine unique canonical production URLs, explicit dates and no priority/change-frequency hints. Levels is absent. Robots references `https://anujdhanuka.com/sitemap.xml` and blocks `/api/`.
+- Chrome checks at 320, 375, 640, 768, 1440 and 1920 pixels found no horizontal overflow, broken section targets or runtime exceptions. Every hero, interface and related-project image loaded after scrolling. Tab/Enter reached the Architecture anchor with a visible focus ring and approximately 112px fixed-header clearance. The case-study H1, architecture and five source links remain present with JavaScript disabled. Mobile, desktop, dark and social-image captures were visually reviewed.
+
+### Follow-ups
+
+- Replace the default QuizWar README with a project-specific setup, architecture and feature guide in a separate source-repository task.
+- Review the live Firebase rules, Authentication settings and API restrictions in their owning console.
+- Future React Native expertise or hire pages should link to this case study instead of duplicating it.
+
+## 20. QuizWar V2 final polish and freeze — 6 October 2026
+
+The final pass keeps the validated V2 architecture and visual composition. The hero now explains the product and ownership before the stack, while a separate concise metadata description retains the verified React Native, OTP, Redux Toolkit and Firebase signals. Responsibility wording is natural, and the overview label now introduces a descriptive heading instead of repeating “Project overview.” The overview stays product-focused; the five architecture cards retain their technical claims with shorter lead sentences. The engineering decisions, timed-flow challenge, three screenshots, technical delivery outcomes and five pinned evidence links remain intact. The challenge conclusion now describes the coordination between screen-local state, Redux and Firestore without self-promotional proof language. The full reviewed revision remains in canonical project data and every evidence URL; the source section displays its short form to reduce visual noise.
+
+No route, visual system, section count, dependency, Client Component, client request, global state, image-loading rule or dynamic-rendering behavior changed. No FAQ, AI-only summary, additional schema, acquisition copy, unsupported technology or metric was added. QuizWar remains static, server rendered and tied to public revision `d5615500727afef56425fd358202074c2eed79ab`.
+
+Final validation passes formatting, lint, strict TypeScript, all 23 tests, the Webpack production build and `git diff --check`. The required default Turbopack build was attempted both inside and outside the sandbox and retains the documented PostCSS worker-port error (`binding to a port: Operation not permitted`); the successful Webpack build confirms the application change. Production HTTP checks return 200 for QuizWar, Mopedo, the QuizWar social image, sitemap and robots, while Levels and an invalid project return 404. Generated HTML has one H1, the expected canonical/Open Graph/Twitter descriptions, escaped project JSON-LD and five revision-pinned evidence links. The sitemap has nine unique production URLs, keeps QuizWar dated `2026-10-06`, excludes Levels and emits no priority or change-frequency values.
+
+Chrome checks at 320, 375, 640, 768, 1440 and 1920 pixels found no horizontal overflow, broken anchors, broken or unloaded images, or runtime exceptions after the lazy images settled. Heading order remains logical. Keyboard Tab reaches Architecture with a visible focus ring; Enter places the section about 112 pixels below the fixed header. With JavaScript disabled, the H1, architecture content and five source links remain present. Final mobile and desktop captures were visually reviewed.
+
+QuizWar V2 is now frozen as the reference React Native/mobile case study. Mopedo remains the React/web benchmark, and Levels remains intentionally excluded. Do not repeatedly rewrite QuizWar for SEO. Reopen it only for new factual evidence, a reviewed source change, Search Console findings, an accessibility defect or substantive user feedback. Future commercial and search expansion belongs on dedicated React Native expertise and hire-intent pages that link to QuizWar as evidence.
+
+Remaining follow-ups are separate work:
+
+1. Professional QuizWar README.
+2. Firebase public-repository security review, including live rules, Authentication settings and API restrictions.
+3. ChefKart professional case study, subject to public-safe evidence and owner approval.
+4. `/expertise/react-native`.
+5. `/hire-react-native-developer`.

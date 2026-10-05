@@ -7,7 +7,7 @@ import { projects } from "@/features/projects/data/projects"
 
 export function ProjectsHero() {
   const webProject = projects.find((project) => project.id === "mopedo")!
-  const mobileProject = projects.find((project) => project.id === "levels-app")!
+  const mobileProject = projects.find((project) => project.id === "quizwar")!
 
   return (
     <section
@@ -102,15 +102,15 @@ export function ProjectsHero() {
               </div>
             </a>
             <a
-              href="#project-levels-app"
+              href="#project-quizwar"
               className="absolute bottom-[13%] right-[1%] block w-[24%] overflow-hidden rounded-[1.4rem] border-[4px] border-gray-700 bg-gray-950 shadow-2xl shadow-black/60 transition-transform hover:z-30 hover:-translate-y-1 focus-visible:z-30 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-300"
-              aria-label="Explore the Levels mobile app project"
+              aria-label="Explore the QuizWar mobile app project"
             >
               <Image
                 src={mobileProject.images![0]}
-                alt="Levels App quiz question with multiple-choice answers"
-                width={292}
-                height={600}
+                alt="QuizWar quiz question with multiple-choice answers"
+                width={720}
+                height={1600}
                 sizes="125px"
                 className="h-auto w-full"
               />

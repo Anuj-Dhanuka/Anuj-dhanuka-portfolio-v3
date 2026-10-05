@@ -1,16 +1,26 @@
+export type ProjectEvidence = {
+  label: string
+  file: string
+  startLine: number
+  endLine: number
+}
+
 export type ProjectCaseStudy = {
   slug: string
   lastModified: string
   summary: string
+  metaDescription?: string
   context: string
   responsibility: string
+  sourceRevision?: string
   implementation: {
     title: string
     description: string
+    evidence?: ProjectEvidence
     source?: { file: string; revision: string; startLine: number; endLine: number; code: string }
   }[]
-  decisions?: { title: string; description: string }[]
-  challenge?: { title: string; problem: string; approach: string }
+  decisions?: { title: string; description: string; evidence?: ProjectEvidence }[]
+  challenge?: { title: string; problem: string; approach: string; evidence?: ProjectEvidence }
   outcomes: string[]
   experienceHref?: string
   screenshots: { src: string; alt: string; width: number; height: number; title?: string; caption?: string }[]
@@ -225,116 +235,152 @@ export const projects: Project[] = [
     imageFit: "cover",
   },
   {
-    id: "levels-app",
+    id: "quizwar",
+    images: ["/quizwar-quiz.webp", "/quizwar-categories.webp", "/quizwar-login.webp"],
+    title: "QuizWar",
+    category: "React Native Quiz App",
+    role: "React Native CLI · JavaScript · Redux Toolkit · Firebase",
+    description:
+      "QuizWar is an independent React Native quiz application with category-based gameplay, phone-number authentication and user performance tracking backed by Firebase.",
+    compactDescription:
+      "An independent React Native quiz application with category-based gameplay and performance tracking.",
+    type: "mobile",
+    tags: [
+      "React Native CLI",
+      "JavaScript",
+      "Redux Toolkit",
+      "Redux Persist",
+      "React Navigation",
+      "Firebase Authentication",
+      "Firestore",
+      "Firebase Storage",
+    ],
+    githubLink: "https://github.com/Anuj-Dhanuka/QuizWar",
+    contributions: [
+      "Implemented phone-number sign-in, OTP confirmation and registration with user and performance records.",
+      "Built category selection, timed questions, answer feedback and a results view with score and point calculations.",
+      "Connected user performance to a ranked dashboard with pull-to-refresh.",
+      "Built profile editing, cropped image uploads and settings for sound and haptic feedback.",
+    ],
+    accent: "from-brand-600 to-accent1-600",
+    icon: "mobile",
     caseStudy: {
-      slug: "levels-app",
-      lastModified: "2026-10-05",
+      slug: "quizwar",
+      lastModified: "2026-10-06",
       summary:
-        "Levels App is a React Native quiz application I built during my internship at 3rd Eye Lab. I implemented the mobile screens, category-based quiz flows and dynamic question loading using React Native and JavaScript.",
+        "QuizWar is an independent React Native mobile quiz app I built with OTP authentication, category-based gameplay, user profiles and performance tracking.",
+      metaDescription:
+        "QuizWar is Anuj Dhanuka’s independent React Native project with OTP authentication, Redux Toolkit state and Firebase-backed profiles and performance tracking.",
       context:
-        "This application was developed during my onsite internship at 3rd Eye Lab in Hyderabad, from April to June 2024. It applied my web-development foundation to mobile interfaces, with category-based questions and dynamically loaded quiz content.",
-      responsibility: "Mobile screens, category selection and quiz-question flows",
-      experienceHref: "/experience#role-third-eye-lab",
+        "Players sign in with a phone number, complete a profile and choose a quiz category. A timed multiple-choice flow leads to results, accumulated points and a ranked performance dashboard. Players can also edit their profile and photo, then control sound and haptic feedback in Settings.",
+      responsibility: "Independent React Native application development",
+      sourceRevision: "d5615500727afef56425fd358202074c2eed79ab",
       implementation: [
         {
-          title: "Category-based quiz flows",
+          title: "Application composition and persisted state",
           description:
-            "I implemented category selection and the quiz-question flows, connecting subject selection with the question-and-answer experience.",
-          source: {
-            file: "src/screens/HomeScreen/index.js",
-            revision: "6bcf15136f214ff74166da8c18b1359edf44de2c",
-            startLine: 146,
-            endLine: 148,
-            code: `const handleCategory = (id) => {
-  setActiveCategory(id);
-};`,
+            "Six Redux Toolkit slices separate accounts, performance, active category, game results, categories and token state. The app root provides that store alongside authentication, theme, gestures and navigation. Redux Persist stores only auth and userPerformance through AsyncStorage; the other four slices stay outside that whitelist.",
+          evidence: { label: "State persistence", file: "src/store/store.js", startLine: 1, endLine: 42 },
+        },
+        {
+          title: "Authentication-aware navigation",
+          description:
+            "React Navigation switches between Sign In / Registration and the application stack after AuthContext restores the stored user identity. Home, Dashboard and Profile are bottom tabs; Categories, Game, Result, Settings and Edit Profile sit in the surrounding stack.",
+          evidence: {
+            label: "Navigation structure",
+            file: "src/Navigations/index.js",
+            startLine: 41,
+            endLine: 105,
           },
         },
         {
-          title: "Dynamic question loading",
+          title: "Firebase-backed accounts and data",
           description:
-            "I added dynamic question-loading behaviour for the quiz content. This was part of the assigned mobile application work alongside building its screens and navigation.",
-          source: {
-            file: "src/store/actions/QuestionDataAction.js",
-            revision: "6bcf15136f214ff74166da8c18b1359edf44de2c",
-            startLine: 11,
-            endLine: 17,
-            code: `const querySnapshot = await ApiUtils.getQuestionData(whereClause)
-const questions = [];
-querySnapshot.forEach(doc => {
-  questions.push({ id: doc.id, ...doc.data() });
-});
-dispatch({type: ADD_QUESTION_DATA, payload: questions})
-return questions;`,
+            "Firebase Authentication requests the SMS code and confirms the OTP, while a Firestore lookup sends new accounts to registration. Firestore stores categories, profiles and performance data, and Firebase Storage holds profile media. These operations live partly in shared Apiutils methods and partly in the sign-in and registration screens.",
+          evidence: {
+            label: "Phone authentication",
+            file: "src/screens/SigninScreen/index.js",
+            startLine: 88,
+            endLine: 145,
           },
         },
         {
-          title: "Reusable mobile screens",
+          title: "Quiz sessions and performance",
           description:
-            "I built the application screens using React Native and JavaScript, created reusable screens and implemented clear navigation. The internship also gave me practical experience with React Native CLI, Firebase and Git in an onsite development environment.",
-          source: {
-            file: "src/components/buttons/Button.js",
-            revision: "6bcf15136f214ff74166da8c18b1359edf44de2c",
-            startLine: 87,
-            endLine: 92,
-            code: `defaultButtonStyle: {
-  borderRadius: normalize(15),
-  justifyContent: "center",
-  alignItems: "center",
-  alignSelf: "stretch",
-},`,
+            "GameScreen keeps the question index, countdown, answer feedback and score in local state, then writes the session summary into Redux. It calculates points from correct answers, speed and login streaks, updates completed quizzes and level, and flags a score update when the result improves the score or its tie-break time.",
+          evidence: {
+            label: "Scoring and performance",
+            file: "src/screens/GameScreen/index.js",
+            startLine: 123,
+            endLine: 205,
           },
+        },
+        {
+          title: "Profile images and native feedback",
+          description:
+            "Edit Profile crops a selected image, uploads it to Firebase Storage and saves its download URL with the Firestore and Redux profile. Settings control whether game answers and tab interactions trigger native sounds and haptic feedback.",
         },
       ],
+      decisions: [
+        {
+          title: "Keep durable state separate from a quiz session",
+          description:
+            "The persistence whitelist retains account and performance data across app launches. Category selection and game results have their own slices, while the current question and transition state live in GameScreen. This gives the saved account and the in-progress quiz different storage lifetimes.",
+        },
+        {
+          title: "Use tabs for destinations and a stack for flows",
+          description:
+            "Home, Dashboard and Profile are peer destinations in the tab navigator. Quiz and account-editing screens are stack routes above them. The signed-out route tree contains only sign-in and registration, keeping that flow separate from the application screens.",
+        },
+        {
+          title: "Order the leaderboard with explicit tie-breakers",
+          description:
+            "Dashboard sorts fetched performance records by highest score descending, stored completion time ascending, monthly points descending and total points descending. It then finds the signed-in user’s position in that ordered list. Pull-to-refresh fetches the records again.",
+        },
+      ],
+      challenge: {
+        title: "Coordinating a timed question flow with saved results",
+        problem:
+          "A question can advance after an answer or after its ten-second interval expires. The screen must coordinate answer feedback, progress, score and the final summary, then pass the session into the results and performance views.",
+        approach:
+          "GameScreen schedules an answer transition after one second and also advances on the timer. The transition resets answer feedback and countdown progress. At completion, the summary dispatches game and performance updates; ResultScreen reads those slices, writes performance through Apiutils and writes the score when its update flag is set. The completed flow coordinates screen-local state, shared Redux state and persisted Firestore data across the quiz and results screens.",
+        evidence: {
+          label: "Results persistence",
+          file: "src/screens/ResultScreen/index.js",
+          startLine: 45,
+          endLine: 89,
+        },
+      },
       outcomes: [
-        "Completed the assigned project ahead of schedule.",
-        "Delivered additional features beyond the original requirements.",
-        "The linked GitHub repository and screenshots provide evidence of the application work.",
+        "Built an independent mobile application spanning account onboarding, timed quiz gameplay, score and point tracking, a ranked dashboard, profile editing and image uploads.",
+        "The public source includes React Native 0.75, React 18, CLI run scripts, an Android Gradle project and an iOS Xcode project. The application code and both native project structures are available for inspection in the public repository.",
       ],
       screenshots: [
         {
-          src: "/levels-app-login.webp",
-          title: "Login screen",
-          alt: "Levels App login screen",
+          src: "/quizwar-login.webp",
+          title: "Sign in",
+          caption: "Phone-number entry starts the SMS and OTP authentication flow.",
+          alt: "QuizWar phone-number sign-in screen",
           width: 720,
           height: 1600,
         },
         {
-          src: "/levels-app-categories.webp",
-          title: "Category selection",
-          alt: "Levels App category-selection screen",
+          src: "/quizwar-categories.webp",
+          title: "Categories",
+          caption: "Category selection stores the active category before opening the game.",
+          alt: "QuizWar quiz category-selection screen",
           width: 720,
           height: 1600,
         },
         {
-          src: "/levels-app-quiz.webp",
-          title: "Quiz questions",
-          alt: "Levels App quiz question with multiple-choice answers",
+          src: "/quizwar-quiz.webp",
+          title: "Quiz",
+          caption: "A countdown, score and answer options share one timed question screen.",
+          alt: "QuizWar timed quiz question with multiple-choice answers",
           width: 720,
           height: 1600,
         },
       ],
     },
-    title: "Levels App",
-    category: "React Native Application",
-    role: "React Native · JavaScript · Mobile UI · Dynamic Content",
-    description:
-      "A mobile quiz application built during my internship at 3rd Eye Lab, featuring category-based questions, dynamic content loading and intuitive user flows.",
-    compactDescription:
-      "A React Native quiz app with category-based questions, dynamic content and clear mobile user flows.",
-    images: ["/levels-app-quiz.webp", "/levels-app-categories.webp", "/levels-app-login.webp"],
-    type: "mobile",
-    tags: ["React Native", "JavaScript", "Mobile UI", "Dynamic Content"],
-    githubLink: "https://github.com/Anuj-Dhanuka/levels-app",
-    contributions: [
-      "Built the application screens using React Native.",
-      "Implemented category selection and quiz-question flows.",
-      "Added dynamic question-loading behaviour.",
-      "Created reusable screens and clear navigation.",
-      "Completed the project ahead of schedule.",
-      "Delivered additional features beyond the original requirements.",
-    ],
-    accent: "from-brand-600 to-accent1-600",
-    icon: "mobile",
   },
 ]

@@ -37,9 +37,12 @@ function ProjectVisual({ project }: { project: Project }) {
             >
               <Image
                 src={image}
-                alt={`${project.title} screen ${index + 1}`}
-                width={292}
-                height={600}
+                alt={
+                  project.caseStudy?.screenshots.find((screen) => screen.src === image)?.alt ??
+                  `${project.title} screen ${index + 1}`
+                }
+                width={project.caseStudy?.screenshots.find((screen) => screen.src === image)?.width ?? 292}
+                height={project.caseStudy?.screenshots.find((screen) => screen.src === image)?.height ?? 600}
                 className="h-full w-full object-cover"
               />
             </div>

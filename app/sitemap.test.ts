@@ -18,7 +18,7 @@ describe("public sitemap", () => {
       "https://anujdhanuka.com/certifications",
       "https://anujdhanuka.com/contact",
       "https://anujdhanuka.com/projects/mopedo",
-      "https://anujdhanuka.com/projects/levels-app",
+      "https://anujdhanuka.com/projects/quizwar",
     ])
     expect(new Set(urls).size).toBe(entries.length)
     for (const entry of entries) {
