@@ -94,7 +94,7 @@ Reviewed 3 October 2026. Mopedo is the reference quality standard for future cas
 
 ### Evidence and publication limits
 
-The existing record documents Anuj’s frontend ownership. A local search found the portfolio screenshot but no Mopedo application checkout or source link. Inspection of Anuj’s public GitHub repositories located [mopedo-web-app](https://github.com/Anuj-Dhanuka/mopedo-web-app). The review used source revision `0533af7`; both this public URL and the unchanged [live demo](https://mopedo.netlify.app/) returned HTTP 200. The README is a generic Vite template, so it supplies no requirements, delivery history or impact evidence. Live-link reachability does not prove every interaction or that the deployment uses the reviewed revision.
+The record documents Anuj’s owner-confirmed interface-design, frontend-development and Netlify-deployment ownership. The public [mopedo-web-app](https://github.com/Anuj-Dhanuka/mopedo-web-app) repository remains the technical source of truth. The review used source revision `0533af7`; the owner confirms that the current [live demo](https://mopedo.netlify.app/) corresponds to that reviewed implementation, and both destinations returned HTTP 200. The README is a generic Vite template, so it supplies no requirements, delivery history or impact evidence.
 
 | Published detail                                                        | Source at the reviewed revision                                             |
 | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- |
@@ -105,10 +105,10 @@ The existing record documents Anuj’s frontend ownership. A local search found 
 | Shared service card styles with explicit JSX content                    | `src/pages/ServicesPage/ServicesCards/index.jsx`                            |
 | Alternating service rows stack at 768px; second row uses column-reverse | `src/pages/ServicesPage/ServiceDetails/index.jsx`                           |
 | Route-aware navigation, local menu state and close/scroll behavior      | `src/components/Header/index.jsx`                                           |
-| Hero CTA buttons have no click handlers                                 | `src/pages/HomePage/components/HomePageHeroSection/index.jsx`               |
+| Demo CTA elements establish visual hierarchy without a backend flow     | `src/pages/HomePage/components/HomePageHeroSection/index.jsx`               |
 | Screenshot appearance and intrinsic dimensions                          | `public/Projects_images/Mopedo.webp` (2880 × 1520)                          |
 
-“Single-page application” previously obscured the four client-side routes. Copy now names those views. Source CSS uses desktop defaults and narrower-screen overrides; the case study no longer calls it mobile-first. Service content is explicit JSX, so it does not claim a data-driven service renderer. Product marketing text in the source mentions AI, GPS and ordering, but that does not verify implementation of those systems; none is presented as Anuj’s engineering work.
+“Single-page application” previously obscured the four client-side routes. Copy now names those views. Source CSS uses desktop defaults and narrower-screen overrides; the case study does not call it mobile-first. Service content is explicit JSX, so it does not claim a data-driven service renderer. Mopedo is owner-confirmed as a frontend demo with no backend or external API; product-marketing references in the source do not establish implemented AI, GPS, booking or ordering systems and are not presented as Anuj’s engineering work.
 
 ### Content and architecture changes
 
@@ -131,9 +131,6 @@ Metadata and JSON-LD continue deriving from the same data, with centralized orig
 
 ### Owner input still needed
 
-- Did you create the visual design, or implement a supplied design? Which parts were yours?
-- Did you deploy and configure the Netlify site? Does the current demo correspond to revision `0533af7`?
-- Were the hero CTA buttons intentionally placeholders, or is there a later implementation with working destinations?
 - What specific constraint or alternative led you to choose React Router and styled-components?
 - Are there recorded usability or performance measurements, with their method and date, that can be published?
 
@@ -156,3 +153,17 @@ Shared metadata, canonicals, Open Graph/Twitter images, WebPage/CreativeWork/Bre
 A Levels-scoped CSS module changes viewport horizontal clipping from `hidden` to `clip` while this page is present. This avoids a scroll ancestor that prevents CSS sticky positioning, without changing the global header/footer or other routes. The compact section bar uses native scrollable links, 44px targets and visible keyboard focus; anchor offsets account for both navigation bars. Phone layering is decorative and static, so content and operation do not depend on hover or motion.
 
 Validation for this composition: format, lint, strict TypeScript and all 21 tests pass; the production Webpack build passes. Required default Turbopack was attempted inside and outside the sandbox and remains blocked by the known PostCSS worker-port restriction. Chrome verifies 320/375/768/1440/1920px with no document overflow, all hero/showcase images loaded proportionally, six valid anchors, visible Tab focus, Enter navigation and light/dark layouts. Both pages render their expected three distinct other projects. All 21 checked original Levels content strings remain in production HTML with one descriptive H1. Canonical/OG URLs match, JSON-LD contains the existing Person/WebSite and project WebPage/CreativeWork/BreadcrumbList entities, unknown/listing-only detail routes remain 404, Levels artwork returns 200 PNG, and the nine-entry sitemap/robots declaration remain production-only. Homepage browser regression checks confirm both marquees move and pause on hover, About hover/focus selects stacking layer 30, and timeline items enter from opacity 0 to 1 after scrolling. Local screenshots are saved under `/private/tmp/levels-stitch-final-{desktop,mobile,dark}.png`.
+
+## 15. Mopedo V2 source evidence
+
+Reviewed 6 October 2026. Mopedo now links each technical implementation note to an exact file and line range at reviewed source revision `0533af7`. The evidence covers the four-route shared page shell, responsive service-row styling and header navigation state. These links make the implementation claims independently inspectable while keeping the case-study copy and source references in the existing typed project record.
+
+The visual design, route architecture, metadata and schema pipeline remain unchanged. The refinement adds no dependency, image, dynamic fetch, route-wide client boundary or new JavaScript feature; it reuses the existing tracked-link component already present on project pages. The Mopedo content date advances to 6 October 2026 so the derived sitemap records the evidence update.
+
+## 16. Mopedo owner-evidence freeze
+
+Reviewed 6 October 2026. Anuj confirms that he independently created Mopedo’s complete visual/interface design, implemented its React frontend, configured Netlify and deployed the reviewed implementation. Mopedo was intentionally scoped as a frontend demo; its CTA elements communicate visual hierarchy rather than a production booking or ordering flow, and no backend or external API was part of the project.
+
+The public case study now reflects that ownership in its hero summary, responsibility and scope facts, contribution list, interface walkthrough and delivery outcomes. The technology list contains runtime and development tools only. Engineering decisions remain limited to source-observable implementation effects because the original selection rationale for React Router and styled-components remains unknown. No business, traffic, conversion, user or performance metrics are claimed.
+
+This owner-evidence refinement freezes Mopedo V2 as the portfolio’s reference case study. Future case-study work should prioritize Levels App. Do not add speculative SEO/AEO/GEO copy or unverified backend, API, booking, ordering, authentication, payment or database capabilities to Mopedo.

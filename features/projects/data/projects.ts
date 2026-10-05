@@ -90,27 +90,81 @@ export const projects: Project[] = [
     id: "mopedo",
     caseStudy: {
       slug: "mopedo",
-      lastModified: "2026-10-03",
+      lastModified: "2026-10-06",
       summary:
-        "Mopedo is a React website for bike taxi, food delivery and goods delivery. I built its frontend in JavaScript, with responsive layouts and client-side navigation.",
+        "Mopedo is a responsive React web application for bike taxi, food delivery and goods delivery. I designed its interface and built the frontend from scratch, including its responsive layouts and client-side navigation.",
       context:
         "The interface needed to explain three different service categories as parts of one product. Visitors needed both a short service overview and space to read each offering in detail, with layouts that accommodate the text and images on smaller screens.",
-      responsibility: "Frontend components, service sections and responsive layouts",
+      responsibility: "Interface design, React frontend development and responsive implementation",
       implementation: [
         {
           title: "Page composition and routing",
           description:
             "App.jsx places a shared Header and Footer around React Router routes for Home, About, Services and Contact. Each page composes its own section components; the homepage imports separate hero, features, how-it-works and CTA sections. Vite provides the development and build scripts.",
+          source: {
+            file: "src/App.jsx",
+            revision: "0533af7ca89afc32d98da85b0702a428f20432cf",
+            startLine: 17,
+            endLine: 26,
+            code: `<AppContainer>
+  <Header />
+  <Routes>
+    <Route path="/" element={<HomePage />} />
+    <Route path="/about" element={<AboutPage />} />
+    <Route path="/contact" element={<ContactUsPage />} />
+    <Route path="/services" element={<ServicesPage />} />
+  </Routes>
+  <Footer />
+</AppContainer>`,
+          },
         },
         {
           title: "Component-scoped styling",
           description:
             "The JSX files define their layouts with styled-components. Service cards share ServiceCard and IconWrapper styles, while the detail sections use ServiceRow, ServiceContent and ServiceImage. Media queries at 768px and 480px adjust layout, spacing and text size; index.css supplies the global reset.",
+          source: {
+            file: "src/pages/ServicesPage/ServiceDetails/index.jsx",
+            revision: "0533af7ca89afc32d98da85b0702a428f20432cf",
+            startLine: 153,
+            endLine: 170,
+            code: `const ServiceRow = styled.div\`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+
+    &:nth-child(2) {
+      flex-direction: column-reverse;
+    }
+  }
+\`;`,
+          },
         },
         {
           title: "Navigation state",
           description:
             "Header uses useLocation to mark the current route and useState to toggle the narrow-screen menu. Selecting a navigation link closes that menu and calls the scroll-to-top helper. The same header component serves all four routes.",
+          source: {
+            file: "src/components/Header/index.jsx",
+            revision: "0533af7ca89afc32d98da85b0702a428f20432cf",
+            startLine: 5,
+            endLine: 15,
+            code: `function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };`,
+          },
         },
       ],
       decisions: [
@@ -133,8 +187,8 @@ export const projects: Project[] = [
           "At 768px and below, ServiceRow switches to a column. Its second-row selector uses column-reverse so the food-delivery image appears first, matching the other two services without a separate mobile component.",
       },
       outcomes: [
-        "Delivered Home, About, Services and Contact views in one React application, with shared navigation, service overview cards and detailed service sections.",
-        "Inspect the interface through the live demo and the implementation through the public source. The homepage’s Get Started and Learn More buttons have no click handlers in the reviewed source; they establish visual CTA placement, not a verified booking or ordering flow.",
+        "Designed and delivered a frontend demo spanning Home, About, Services and Contact views, with shared navigation, service presentation patterns and responsive layouts.",
+        "Configured and deployed the completed React application through Netlify. The public demo presents the interface and its intentional visual CTA hierarchy, while the public repository makes the frontend implementation inspectable.",
       ],
       screenshots: [
         {
@@ -143,26 +197,28 @@ export const projects: Project[] = [
           width: 2880,
           height: 1520,
           caption:
-            "The desktop homepage places the introduction and Get Started / Learn More buttons beside a rider illustration. Its top navigation links to Home, About, Services and Contact. Open the demo to inspect the remaining sections and narrow-screen layout.",
+            "I designed and implemented the interface from scratch around a shared visual system for the three services. The desktop homepage places the introduction and demo CTAs beside a rider illustration, with navigation to Home, About, Services and Contact.",
         },
       ],
     },
     title: "Mopedo",
     category: "React Web Application",
-    role: "React.js · JavaScript · styled-components · Responsive Design",
+    role: "React.js · JavaScript · styled-components · React Router · Vite",
     description:
-      "A responsive React website with Home, About, Services and Contact views for a mobility platform offering bike taxi, food delivery and goods-delivery services.",
-    compactDescription: "A responsive React application for mobility and delivery services.",
+      "A responsive frontend demo I designed and developed in React, with Home, About, Services and Contact views for bike taxi, food delivery and goods-delivery services.",
+    compactDescription: "A responsive React frontend demo I designed, developed and deployed.",
     image: "/Projects_images/Mopedo.webp",
     type: "web",
-    tags: ["React.js", "JavaScript", "styled-components", "React Router", "Vite", "Responsive Design"],
+    tags: ["React.js", "JavaScript", "styled-components", "React Router", "Vite"],
     liveLink: "https://mopedo.netlify.app/",
     githubLink: "https://github.com/Anuj-Dhanuka/mopedo-web-app",
     contributions: [
+      "Designed the website interface from initial concept through the final UI.",
       "Implemented the Home, About, Services and Contact page components.",
       "Built the shared header, footer and configurable banner.",
       "Created service overview cards and image-and-text detail sections.",
       "Adapted layouts and navigation for smaller screens using media queries and menu state.",
+      "Configured and deployed the completed frontend through Netlify.",
     ],
     accent: "from-brand-600 to-accent2-600",
     icon: "monitor",
