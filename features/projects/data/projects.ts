@@ -4,12 +4,16 @@ export type ProjectCaseStudy = {
   summary: string
   context: string
   responsibility: string
-  implementation: { title: string; description: string }[]
+  implementation: {
+    title: string
+    description: string
+    source?: { file: string; revision: string; startLine: number; endLine: number; code: string }
+  }[]
   decisions?: { title: string; description: string }[]
   challenge?: { title: string; problem: string; approach: string }
   outcomes: string[]
   experienceHref?: string
-  screenshots: { src: string; alt: string; width: number; height: number; caption?: string }[]
+  screenshots: { src: string; alt: string; width: number; height: number; title?: string; caption?: string }[]
 }
 
 export type Project = {
@@ -168,7 +172,7 @@ export const projects: Project[] = [
     id: "levels-app",
     caseStudy: {
       slug: "levels-app",
-      lastModified: "2026-10-03",
+      lastModified: "2026-10-05",
       summary:
         "Levels App is a React Native quiz application I built during my internship at 3rd Eye Lab. I implemented the mobile screens, category-based quiz flows and dynamic question loading using React Native and JavaScript.",
       context:
@@ -180,16 +184,50 @@ export const projects: Project[] = [
           title: "Category-based quiz flows",
           description:
             "I implemented category selection and the quiz-question flows, connecting subject selection with the question-and-answer experience.",
+          source: {
+            file: "src/screens/HomeScreen/index.js",
+            revision: "6bcf15136f214ff74166da8c18b1359edf44de2c",
+            startLine: 146,
+            endLine: 148,
+            code: `const handleCategory = (id) => {
+  setActiveCategory(id);
+};`,
+          },
         },
         {
           title: "Dynamic question loading",
           description:
             "I added dynamic question-loading behaviour for the quiz content. This was part of the assigned mobile application work alongside building its screens and navigation.",
+          source: {
+            file: "src/store/actions/QuestionDataAction.js",
+            revision: "6bcf15136f214ff74166da8c18b1359edf44de2c",
+            startLine: 11,
+            endLine: 17,
+            code: `const querySnapshot = await ApiUtils.getQuestionData(whereClause)
+const questions = [];
+querySnapshot.forEach(doc => {
+  questions.push({ id: doc.id, ...doc.data() });
+});
+dispatch({type: ADD_QUESTION_DATA, payload: questions})
+return questions;`,
+          },
         },
         {
           title: "Reusable mobile screens",
           description:
             "I built the application screens using React Native and JavaScript, created reusable screens and implemented clear navigation. The internship also gave me practical experience with React Native CLI, Firebase and Git in an onsite development environment.",
+          source: {
+            file: "src/components/buttons/Button.js",
+            revision: "6bcf15136f214ff74166da8c18b1359edf44de2c",
+            startLine: 87,
+            endLine: 92,
+            code: `defaultButtonStyle: {
+  borderRadius: normalize(15),
+  justifyContent: "center",
+  alignItems: "center",
+  alignSelf: "stretch",
+},`,
+          },
         },
       ],
       outcomes: [
@@ -199,18 +237,26 @@ export const projects: Project[] = [
       ],
       screenshots: [
         {
-          src: "/levels-app-quiz.webp",
-          alt: "Levels App quiz question with multiple-choice answers",
+          src: "/levels-app-login.webp",
+          title: "Login screen",
+          alt: "Levels App login screen",
           width: 720,
           height: 1600,
         },
         {
           src: "/levels-app-categories.webp",
+          title: "Category selection",
           alt: "Levels App category-selection screen",
           width: 720,
           height: 1600,
         },
-        { src: "/levels-app-login.webp", alt: "Levels App login screen", width: 720, height: 1600 },
+        {
+          src: "/levels-app-quiz.webp",
+          title: "Quiz questions",
+          alt: "Levels App quiz question with multiple-choice answers",
+          width: 720,
+          height: 1600,
+        },
       ],
     },
     title: "Levels App",

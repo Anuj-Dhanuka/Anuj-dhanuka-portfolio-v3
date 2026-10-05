@@ -25,7 +25,7 @@ export function PageSectionNav({
       <div className="container mx-auto px-4 py-5 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-8">
           <p className="type-label whitespace-nowrap text-brand-700 dark:text-brand-300">{label}</p>
-          <ul className="grid grid-cols-2 gap-2 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none lg:grid-flow-row lg:grid-cols-5 lg:auto-cols-auto lg:flex-1">
+          <ul className="grid grid-cols-2 gap-2 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none lg:flex-1">
             {items.map(({ href, label: itemLabel }) => (
               <li key={href}>
                 <Link

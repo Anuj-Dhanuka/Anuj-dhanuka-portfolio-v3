@@ -67,9 +67,11 @@ function ProjectVisual({ project }: { project: Project }) {
 export function ProjectLinks({
   project,
   includeCaseStudy = false,
+  sourcePrimary = false,
 }: {
   project: Project
   includeCaseStudy?: boolean
+  sourcePrimary?: boolean
 }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -103,8 +105,12 @@ export function ProjectLinks({
       {project.githubLink && (
         <Button
           asChild
-          variant="outline"
-          className="h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
+          variant={sourcePrimary ? "default" : "outline"}
+          className={
+            sourcePrimary
+              ? "h-12 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-6 text-base text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700"
+              : "h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
+          }
         >
           <TrackedLink
             eventName={analyticsEvents.projectViewed}
@@ -208,12 +214,16 @@ export function ProjectCard({
 
         {compact ? (
           <div className="mt-auto pt-4">
-            {project.caseStudy && (
-              <LinkButton href={`/projects/${project.caseStudy.slug}`} variant="line" className="mb-2">
-                Read the {project.title} case study
+            {project.caseStudy ? (
+              <LinkButton
+                href={`/projects/${project.caseStudy.slug}`}
+                variant="line"
+                className="min-h-11"
+                icon={<ArrowUpRight className="h-4 w-4" />}
+              >
+                View case study
               </LinkButton>
-            )}
-            {project.liveLink ? (
+            ) : project.liveLink ? (
               <TrackedLink
                 eventName={analyticsEvents.projectViewed}
                 eventProperties={{ project: project.id, destination: "live" }}
@@ -221,9 +231,9 @@ export function ProjectCard({
                 href={project.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-700 transition-colors hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:text-accent1-300"
+                className="inline-flex min-h-11 items-center gap-2 border-b-2 border-brand-500 py-2 text-sm font-semibold text-brand-700 transition-colors hover:border-accent1-600 hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:border-accent1-400 dark:hover:text-accent1-300"
               >
-                View Live Project
+                View website
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </TrackedLink>
             ) : project.githubLink ? (
@@ -234,9 +244,9 @@ export function ProjectCard({
                 href={project.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-700 transition-colors hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:text-accent1-300"
+                className="inline-flex min-h-11 items-center gap-2 border-b-2 border-brand-500 py-2 text-sm font-semibold text-brand-700 transition-colors hover:border-accent1-600 hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:border-accent1-400 dark:hover:text-accent1-300"
               >
-                View Source
+                View source
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </TrackedLink>
             ) : null}

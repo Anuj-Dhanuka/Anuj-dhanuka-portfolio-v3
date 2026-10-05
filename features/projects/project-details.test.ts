@@ -3,7 +3,7 @@ import { projects } from "@/features/projects/data/projects"
 import {
   caseStudyProjects,
   getCaseStudyProject,
-  getRelatedProjects,
+  getMoreProjects,
   projectPath,
 } from "@/features/projects/project-details"
 import { projectJsonLd, projectMetadata } from "@/features/projects/project-seo"
@@ -47,15 +47,26 @@ describe("project publication boundaries", () => {
     }
   })
 
-  it("recommends only other published projects with shared technologies", () => {
+  it("shows three other projects without publishing listing-only case studies", () => {
+    expect(getMoreProjects("mopedo").map((project) => project.id)).toEqual([
+      "levels-app",
+      "rekha-maa-ki-rasoi",
+      "rama-technical-college",
+    ])
+    expect(getMoreProjects("levels-app").map((project) => project.id)).toEqual([
+      "mopedo",
+      "rekha-maa-ki-rasoi",
+      "rama-technical-college",
+    ])
     for (const project of caseStudyProjects) {
-      const related = getRelatedProjects(project)
-      expect(related.length).toBeGreaterThan(0)
-      for (const candidate of related) {
-        expect(candidate.id).not.toBe(project.id)
-        expect(candidate.tags.some((tag) => project.tags.includes(tag))).toBe(true)
+      const moreProjects = getMoreProjects(project.id)
+      expect(moreProjects).toHaveLength(3)
+      expect(new Set(moreProjects.map((item) => item.id)).size).toBe(3)
+      expect(moreProjects.some((item) => item.id === project.id)).toBe(false)
+      for (const item of moreProjects.filter((candidate) => !candidate.caseStudy)) {
+        expect(getCaseStudyProject(item.id)).toBeUndefined()
+        expect(item.liveLink).toBeTruthy()
       }
     }
-    expect(getRelatedProjects({ ...caseStudyProjects[0], tags: ["Unrelated technology"] })).toEqual([])
   })
 })
