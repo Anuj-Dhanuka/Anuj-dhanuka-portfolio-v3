@@ -1,4 +1,15 @@
-export function HeroBackground() {
+export function HeroBackground({ tone = "inverse" }: { tone?: "inverse" | "default" }) {
+  if (tone === "default") {
+    return (
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-brand-50 via-white to-accent1-50/60 dark:from-brand-950/30 dark:via-gray-950 dark:to-accent1-950/20"
+        aria-hidden="true"
+      >
+        <div className="absolute inset-0 opacity-40 [background-image:radial-gradient(var(--color-brand-200)_1px,transparent_1px)] [background-size:28px_28px] dark:opacity-10" />
+        <div className="absolute right-0 top-1/4 h-80 w-80 rounded-full bg-brand-300/20 blur-3xl dark:bg-brand-600/15" />
+      </div>
+    )
+  }
   return (
     <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden="true">
       <div

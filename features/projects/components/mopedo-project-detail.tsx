@@ -16,9 +16,9 @@ import { HeroBackground } from "@/components/shared/hero-background"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
-import { ProjectCard, ProjectLinks } from "@/features/projects/components/projects"
-import { projects, type Project } from "@/features/projects/data/projects"
+import { ProjectLinks } from "@/features/projects/components/projects"
 import type { CaseStudyProject } from "@/features/projects/project-details"
+import { MoreProjects } from "@/features/projects/components/more-projects"
 import { MopedoEngineeringNotes } from "@/features/projects/components/mopedo-engineering-notes"
 
 const services = [
@@ -58,14 +58,9 @@ const deliveryHighlights = [
   },
 ] as const
 
-const moreProjectOrder = ["levels-app", "rekha-maa-ki-rasoi", "rama-technical-college"] as const
-
 export function MopedoProjectDetail({ project }: { project: CaseStudyProject }) {
   const detail = project.caseStudy
   const screenshot = detail.screenshots[0]
-  const moreProjects = moreProjectOrder
-    .map((projectId) => projects.find((item) => item.id === projectId))
-    .filter((item): item is Project => Boolean(item))
 
   return (
     <article>
@@ -434,41 +429,7 @@ export function MopedoProjectDetail({ project }: { project: CaseStudyProject }) 
         </div>
       </section>
 
-      {moreProjects.length > 0 && (
-        <section
-          aria-labelledby="related-heading"
-          className="relative isolate overflow-hidden border-t border-brand-100 bg-white py-16 dark:border-brand-900/40 dark:bg-gray-950"
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-white via-brand-50/30 to-accent1-50/35 dark:from-gray-950 dark:via-brand-950/10 dark:to-accent1-950/10"
-          />
-
-          <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-4xl text-center">
-              <p className="type-label text-brand-700 dark:text-brand-300">Continue exploring</p>
-              <h2 id="related-heading" className="type-section mt-4 copy-heading">
-                More projects across web, mobile and business websites.
-              </h2>
-              <p className="type-body mx-auto mt-5 max-w-3xl copy-body">
-                Explore more work across React Native and WordPress, from mobile application flows to
-                responsive business websites.
-              </p>
-            </div>
-
-            <div className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
-              {moreProjects.map((item) => (
-                <ProjectCard key={item.id} project={item} compact showContributions={false} />
-              ))}
-            </div>
-            <div className="mt-6 flex justify-center">
-              <LinkButton href="/projects" variant="line" icon={<ArrowUpRight className="h-4 w-4" />}>
-                Back to all projects
-              </LinkButton>
-            </div>
-          </div>
-        </section>
-      )}
+      <MoreProjects currentProjectId={project.id} />
     </article>
   )
 }

@@ -14,15 +14,12 @@ export function projectPath(project: CaseStudyProject): `/projects/${string}` {
   return `/projects/${project.caseStudy.slug}`
 }
 
-export function getRelatedProjects(project: CaseStudyProject): CaseStudyProject[] {
-  return caseStudyProjects
-    .filter((candidate) => candidate.id !== project.id)
-    .map((candidate) => ({
-      project: candidate,
-      sharedTags: candidate.tags.filter((tag) => project.tags.includes(tag)).length,
-    }))
-    .filter((candidate) => candidate.sharedTags > 0)
-    .sort((left, right) => right.sharedTags - left.sharedTags)
-    .slice(0, 2)
-    .map((candidate) => candidate.project)
+const moreProjectOrder = ["mopedo", "levels-app", "rekha-maa-ki-rasoi", "rama-technical-college"] as const
+
+export function getMoreProjects(currentProjectId: string): Project[] {
+  return moreProjectOrder
+    .filter((projectId) => projectId !== currentProjectId)
+    .map((projectId) => projects.find((project) => project.id === projectId))
+    .filter((project): project is Project => project !== undefined)
+    .slice(0, 3)
 }
