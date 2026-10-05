@@ -13,9 +13,11 @@ import {
 } from "lucide-react"
 
 import { HeroBackground } from "@/components/shared/hero-background"
+import { TrackedLink } from "@/components/analytics/tracked-link"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
+import { analyticsEvents } from "@/config/analytics"
 import { ProjectLinks } from "@/features/projects/components/projects"
 import type { CaseStudyProject } from "@/features/projects/project-details"
 import { MoreProjects } from "@/features/projects/components/more-projects"
@@ -51,8 +53,8 @@ const deliveryHighlights = [
     accent: "bg-brand-100 text-brand-700 dark:bg-brand-900/60 dark:text-brand-200",
   },
   {
-    label: "Verification",
-    title: "Inspect the interface and source",
+    label: "Live deployment",
+    title: "Netlify demo and public source",
     Icon: MousePointer2,
     accent: "bg-accent1-100 text-accent1-700 dark:bg-accent1-900/50 dark:text-accent1-200",
   },
@@ -127,8 +129,10 @@ export function MopedoProjectDetail({ project }: { project: CaseStudyProject }) 
               <dd className="type-small mt-2 max-w-sm text-white">{detail.responsibility}</dd>
             </div>
             <div>
-              <dt className="type-label text-brand-200">Project format</dt>
-              <dd className="type-small mt-2 text-white">React application · Four page views</dd>
+              <dt className="type-label text-brand-200">Project scope</dt>
+              <dd className="type-small mt-2 text-white">
+                Frontend demo · Four routed views · Netlify deployment
+              </dd>
             </div>
             <div>
               <dt className="type-label text-brand-200">Built with</dt>
@@ -143,6 +147,7 @@ export function MopedoProjectDetail({ project }: { project: CaseStudyProject }) 
           { href: "#context", label: "Project context" },
           { href: "#contribution", label: "My contribution" },
           { href: "#implementation", label: "How it was built" },
+          { href: "#decisions", label: "Engineering decisions" },
           { href: "#screenshots", label: "The interface" },
           { href: "#outcome", label: "What I delivered" },
         ]}
@@ -228,7 +233,7 @@ export function MopedoProjectDetail({ project }: { project: CaseStudyProject }) 
             <div>
               <p className="type-label mb-4 text-brand-300">02 / My contribution</p>
               <h2 id="contribution-heading" className="type-section max-w-md text-white">
-                My frontend responsibilities.
+                My project responsibilities.
               </h2>
             </div>
             <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -286,6 +291,24 @@ export function MopedoProjectDetail({ project }: { project: CaseStudyProject }) 
                   </div>
                   <h3 className="type-card mt-5 copy-heading">{item.title}</h3>
                   <p className="type-small mt-3 copy-body">{item.description}</p>
+                  {item.source && project.githubLink && (
+                    <TrackedLink
+                      href={`${project.githubLink}/blob/${item.source.revision}/${item.source.file}#L${item.source.startLine}-L${item.source.endLine}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      eventName={analyticsEvents.projectViewed}
+                      eventProperties={{
+                        project: project.id,
+                        destination: "source",
+                        file: item.source.file,
+                      }}
+                      aria-label={`Inspect ${item.source.file} source for ${item.title} (opens in a new tab)`}
+                      className="type-caption mt-5 inline-flex min-h-11 items-center gap-2 self-start font-semibold text-brand-700 underline underline-offset-4 hover:text-accent1-700 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:text-accent1-300"
+                    >
+                      Inspect source
+                      <ArrowUpRight className="h-4 w-4 flex-none" aria-hidden="true" />
+                    </TrackedLink>
+                  )}
                 </article>
               )
             })}
