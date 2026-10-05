@@ -56,8 +56,8 @@ const capabilities = [
     title: "React Native mobile apps",
     description:
       "Category-based navigation, dynamic content and reusable screens built around clear mobile user flows.",
-    example: "Explore Levels App",
-    href: "#project-levels-app",
+    example: "Explore QuizWar",
+    href: "#project-quizwar",
   },
   {
     Icon: Store,
@@ -87,7 +87,7 @@ const approach = [
 ]
 
 export function ProjectsOverview() {
-  const projectOrder = ["mopedo", "rekha-maa-ki-rasoi", "rama-technical-college", "levels-app"]
+  const projectOrder = ["mopedo", "rekha-maa-ki-rasoi", "rama-technical-college", "quizwar"]
   const orderedProjects = projectOrder
     .map((projectId) => projects.find((project) => project.id === projectId))
     .filter((project): project is (typeof projects)[number] => Boolean(project))

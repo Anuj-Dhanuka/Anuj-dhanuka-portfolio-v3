@@ -4,7 +4,7 @@ import { projectPath, type CaseStudyProject } from "@/features/projects/project-
 
 export function projectMetadata(project: CaseStudyProject): Metadata {
   const title = `${project.title} — ${project.category} | ${site.author}`
-  const description = project.caseStudy.summary
+  const description = project.caseStudy.metaDescription ?? project.caseStudy.summary
   const path = projectPath(project)
   const image = {
     url: `${path}/opengraph-image`,
@@ -40,7 +40,7 @@ export function projectJsonLd(project: CaseStudyProject) {
         "@id": `${url}/#webpage`,
         url,
         name: `${project.title} — project case study`,
-        description: project.caseStudy.summary,
+        description: project.caseStudy.metaDescription ?? project.caseStudy.summary,
         isPartOf: { "@id": `${site.url}/#website` },
         author: { "@id": `${site.url}/#person` },
         mainEntity: { "@id": `${url}/#work` },

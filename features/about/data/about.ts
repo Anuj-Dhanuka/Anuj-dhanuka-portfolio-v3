@@ -78,7 +78,7 @@ export const journey = [
     period: "Apr – Jun 2024",
     title: "First professional React Native experience",
     description:
-      "After many interviews, I moved from the Visakhapatnam region to Hyderabad for a two-month onsite internship at 3rd Eye Lab. I worked with React Native CLI, Firebase and Git while building the Levels mobile quiz app.",
+      "After many interviews, I moved from the Visakhapatnam region to Hyderabad for a two-month onsite internship at 3rd Eye Lab. I worked with React Native CLI, Firebase and Git while developing mobile application interfaces.",
     proof: "Completed the assigned project ahead of schedule and delivered additional features",
     skills: ["React Native CLI", "Firebase", "Git", "Onsite collaboration"],
     Icon: Building2,

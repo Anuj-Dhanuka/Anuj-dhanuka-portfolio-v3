@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { CTA } from "@/components/shared/cta"
-import { LevelsProjectDetail } from "@/features/projects/components/levels-project-detail"
+import { QuizWarProjectDetail } from "@/features/projects/components/quizwar-project-detail"
 import { MopedoProjectDetail } from "@/features/projects/components/mopedo-project-detail"
 import { caseStudyProjects, getCaseStudyProject } from "@/features/projects/project-details"
 import { projectJsonLd, projectMetadata } from "@/features/projects/project-seo"
@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {project.caseStudy.slug === "mopedo" ? (
           <MopedoProjectDetail project={project} />
         ) : (
-          <LevelsProjectDetail project={project} />
+          <QuizWarProjectDetail project={project} />
         )}
         <CTA
           title="Want to discuss similar frontend or mobile work?"
