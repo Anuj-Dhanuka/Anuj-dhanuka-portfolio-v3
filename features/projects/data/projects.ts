@@ -51,26 +51,125 @@ export const projects: Project[] = [
     id: "rekha-maa-ki-rasoi",
     title: "Rekha Maa Ki Rasoi",
     category: "Food Business Website",
-    role: "WordPress · Responsive Design · UI Customisation",
+    role: "UI/UX Design · WordPress · Elementor · Responsive Design",
     description:
-      "A warm and approachable WordPress website I created for my mother's homemade food business to give the brand a professional online presence and make its services easier for customers to discover.",
+      "An end-to-end WordPress and Elementor website for a homemade-food business idea, covering UI/UX, content, responsive design and live delivery.",
     compactDescription:
-      "A responsive WordPress website for a homemade food business, designed to make its services easy to explore.",
+      "An end-to-end WordPress and Elementor business website covering UI/UX, content and responsive delivery.",
     type: "business",
     image: "/Projects_images/Rekha_maa_ki_rasoi.webp",
-    tags: ["WordPress", "Responsive Design", "UI Customisation"],
+    tags: ["UI/UX Design", "WordPress", "Elementor", "Responsive Design", "Information Architecture"],
     liveLink: "https://rekhamaakirasoi.com/",
     contributions: [
-      "Planned the website structure around customer needs.",
-      "Created the visual direction and page layouts.",
-      "Built and customised the website using WordPress.",
-      "Organised services and business information clearly.",
-      "Optimised the experience for mobile and desktop devices.",
-      "Designed the interface to feel personal, trustworthy and welcoming.",
+      "Structured the one-page customer journey and recurring enquiry paths.",
+      "Created the visual direction, brand treatment, copy and original food photography.",
+      "Built responsive desktop and mobile layouts with WordPress and Elementor.",
+      "Configured the domain, hosting, forms, plugins and live deployment.",
     ],
     accent: "from-brand-600 to-accent1-600",
     icon: "store",
     imageFit: "cover",
+    caseStudy: {
+      slug: "rekha-maa-ki-rasoi",
+      lastModified: "2026-10-09",
+      summary:
+        "Rekha Maa Ki Rasoi began as a homemade-food business idea proposed by my mother. We shaped the meal plans and pricing together, and I turned the idea into a live digital experience by owning its information architecture, visual direction, copy, responsive design and WordPress/Elementor delivery.",
+      metaDescription:
+        "Rekha Maa Ki Rasoi is a responsive WordPress and Elementor website designed and delivered by Anuj Dhanuka, covering UI/UX, content and deployment.",
+      context:
+        "My mother proposed the homemade-food business idea, and we shaped the meal plans and pricing together. The website needed to make that early offering understandable: who it was for, what each plan included, how ordering worked and where to enquire. I took ownership of the digital experience from that requirement through design, implementation and publication.",
+      responsibility: "End-to-end website design, implementation and delivery",
+      implementation: [
+        {
+          title: "Theme foundation and Elementor",
+          description:
+            "I used a premium WordPress theme as the technical and design foundation, then built and customized the business-specific page structure, visual treatment and content in Elementor.",
+        },
+        {
+          title: "Responsive page construction",
+          description:
+            "I created the desktop and mobile layouts in Elementor, adapting columns, plan cards, typography, imagery, navigation and enquiry controls for narrower screens.",
+        },
+        {
+          title: "Publishing and operations",
+          description:
+            "I handled the WordPress and theme setup, forms and plugins, domain and hosting configuration, and deployment of the current live website.",
+        },
+      ],
+      decisions: [
+        {
+          title: "Use a warm but structured visual identity",
+          description:
+            "I selected a dark-teal base, warm yellow accents and the typography. The dark base gives the long page a consistent frame, while the accents and original food photographs keep the offering visible and approachable.",
+        },
+        {
+          title: "Put plan comparison in the main journey",
+          description:
+            "Daily, weekly and monthly options, with standard and premium meal choices, appear before the ordering process. Visitors can compare commitment, inclusions and price before contacting the business.",
+        },
+        {
+          title: "Answer trust and practical questions before enquiry",
+          description:
+            "Benefits, audience fit, ordering steps, menu details, food imagery and FAQs appear before the final booking area. A testimonial-style interface section supports the page sequence, but its demo content is not used as business evidence in this case study.",
+        },
+        {
+          title: "Repeat the action path at decision points",
+          description:
+            "Variants of the same enquiry goal appear near the proposition, plans and booking content, so visitors do not need to return to a single action placed only at the end of the page.",
+        },
+      ],
+      outcomes: [
+        "Designed and published a responsive single-page website that explains the food-service idea, presents plan options and guides visitors toward enquiry.",
+        "Delivered the visual direction, brand treatment, written content, original food photography, WordPress/Elementor implementation, forms, plugins, domain, hosting and deployment.",
+        "After launch, the website generated inbound customer enquiries through its call and contact paths; no lead or sales total is claimed.",
+      ],
+      screenshots: [
+        {
+          src: "/Projects_images/Rekha_maa_ki_rasoi.webp",
+          title: "Hero",
+          caption:
+            "The opening view introduces the homemade-food proposition and places plan and contact actions alongside original food imagery.",
+          alt: "Rekha Maa Ki Rasoi homepage hero with food imagery and tiffin enquiry actions",
+          width: 2878,
+          height: 1526,
+        },
+        {
+          src: "/project-case-studies/rekha/pricing-2026.jpg",
+          title: "Pricing plans",
+          caption:
+            "The plan section lets visitors compare daily, weekly and monthly commitments before enquiring.",
+          alt: "Rekha Maa Ki Rasoi audience and meal-plan pricing sections",
+          width: 1440,
+          height: 1200,
+        },
+        {
+          src: "/project-case-studies/rekha/booking-2026.jpg",
+          title: "Booking and direct contact",
+          caption:
+            "The final conversion area combines a structured enquiry form with direct contact options.",
+          alt: "Rekha Maa Ki Rasoi booking form and direct contact section",
+          width: 1440,
+          height: 1400,
+        },
+        {
+          src: "/project-case-studies/rekha/mobile-hero-2026.jpg",
+          title: "Mobile hero",
+          caption:
+            "The opening composition stacks its message, actions and food imagery for a phone viewport.",
+          alt: "Rekha Maa Ki Rasoi mobile homepage hero with enquiry actions and food imagery",
+          width: 390,
+          height: 900,
+        },
+        {
+          src: "/project-case-studies/rekha/mobile-booking-2026.jpg",
+          title: "Mobile booking",
+          caption: "Form controls stack into one readable column with a full-width callback action.",
+          alt: "Rekha Maa Ki Rasoi mobile booking form",
+          width: 390,
+          height: 1800,
+        },
+      ],
+    },
   },
   {
     id: "rama-technical-college",

@@ -12,7 +12,11 @@ import { site } from "@/config/site"
 
 describe("project publication boundaries", () => {
   it("publishes only reviewed case studies with unique stable slugs", () => {
-    expect(caseStudyProjects.map(projectPath)).toEqual(["/projects/mopedo", "/projects/quizwar"])
+    expect(caseStudyProjects.map(projectPath)).toEqual([
+      "/projects/rekha-maa-ki-rasoi",
+      "/projects/mopedo",
+      "/projects/quizwar",
+    ])
     expect(new Set(caseStudyProjects.map(projectPath)).size).toBe(caseStudyProjects.length)
     for (const project of caseStudyProjects) {
       expect(project.caseStudy.slug).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
@@ -44,6 +48,25 @@ describe("project publication boundaries", () => {
     expect(project?.caseStudy.screenshots.every((image) => image.src.startsWith("/quizwar-"))).toBe(true)
     expect(JSON.stringify(project)).not.toMatch(/levels|3rd Eye|internship|2024|ahead of schedule/i)
     expect(projects.some((item) => item.id === "levels-app")).toBe(false)
+  })
+
+  it("publishes the WordPress case study with conservative owner-verified claims", () => {
+    const project = getCaseStudyProject("rekha-maa-ki-rasoi")
+    const serialized = JSON.stringify(project)
+
+    expect(project?.liveLink).toBe("https://rekhamaakirasoi.com/")
+    expect(project?.caseStudy.lastModified).toBe("2026-10-09")
+    expect(project?.caseStudy.screenshots).toHaveLength(5)
+    expect(serialized).toMatch(/WordPress/)
+    expect(serialized).toMatch(/Elementor/)
+    expect(serialized).toMatch(/premium WordPress theme/)
+    expect(serialized).toMatch(/inbound customer enquiries/)
+    expect(serialized).not.toMatch(/4\.3|March 2026|custom CSS architecture|custom JavaScript|custom PHP/i)
+
+    const graph = projectJsonLd(project!)["@graph"]
+    expect(
+      graph.some((entity) => ["Review", "AggregateRating", "LocalBusiness"].includes(entity["@type"])),
+    ).toBe(false)
   })
 
   it("keeps metadata, breadcrumbs and work entities on the same production URL", () => {
@@ -108,6 +131,11 @@ describe("project publication boundaries", () => {
     expect(getMoreProjects("quizwar").map((project) => project.id)).toEqual([
       "mopedo",
       "rekha-maa-ki-rasoi",
+      "rama-technical-college",
+    ])
+    expect(getMoreProjects("rekha-maa-ki-rasoi").map((project) => project.id)).toEqual([
+      "mopedo",
+      "quizwar",
       "rama-technical-college",
     ])
     for (const project of caseStudyProjects) {

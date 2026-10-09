@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 import { ImageResponse } from "next/og"
 import { notFound } from "next/navigation"
 import { site } from "@/config/site"
@@ -14,6 +16,12 @@ export function generateStaticParams() {
 export default async function ProjectImage({ params }: { params: Promise<{ slug: string }> }) {
   const project = getCaseStudyProject((await params).slug)
   if (!project) notFound()
+  const rekhaImage =
+    project.caseStudy.slug === "rekha-maa-ki-rasoi"
+      ? `data:image/jpeg;base64,${(
+          await readFile(join(process.cwd(), "public/project-case-studies/rekha/og-food-2026.jpg"))
+        ).toString("base64")}`
+      : undefined
   return new ImageResponse(
     <div
       style={{
@@ -31,9 +39,32 @@ export default async function ProjectImage({ params }: { params: Promise<{ slug:
       <div style={{ display: "flex", fontSize: 24, letterSpacing: 5, color: "#e9d5ff" }}>
         PROJECT CASE STUDY
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-        <div style={{ fontSize: 78, fontWeight: 800, lineHeight: 1.1 }}>{project.title}</div>
-        <div style={{ fontSize: 32, color: "#f5d0fe" }}>{project.role}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 44 }}>
+        <div style={{ display: "flex", flex: 1, flexDirection: "column", gap: 20 }}>
+          <div style={{ fontSize: 72, fontWeight: 800, lineHeight: 1.08 }}>{project.title}</div>
+          <div style={{ fontSize: 30, color: "#f5d0fe" }}>{project.role}</div>
+        </div>
+        {rekhaImage && (
+          <div
+            style={{
+              display: "flex",
+              width: 420,
+              height: 265,
+              overflow: "hidden",
+              border: "8px solid rgba(255,255,255,0.16)",
+              borderRadius: 24,
+              boxShadow: "0 24px 60px rgba(0,0,0,0.35)",
+            }}
+          >
+            <img
+              src={rekhaImage}
+              alt=""
+              width="420"
+              height="265"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+            />
+          </div>
+        )}
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26 }}>
         <span>{site.author}</span>
