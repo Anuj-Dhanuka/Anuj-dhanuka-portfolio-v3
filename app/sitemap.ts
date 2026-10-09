@@ -9,13 +9,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // October 3 adds Certifications, its homepage link and the shared certificate order on About.
   // Reviewed case studies and their links on Projects/Experience/Skills also ship October 3.
   // October 6 replaces the public mobile project, removes client-project exposure,
-  // and deepens QuizWar with reviewed mobile engineering evidence.
+  // and deepens QuizWar with reviewed mobile engineering evidence. October 9 publishes
+  // the reviewed Rekha Maa Ki Rasoi UI/UX and WordPress business-website case study.
   return [
-    { url: site.homeUrl, lastModified: "2026-10-06" },
+    { url: site.homeUrl, lastModified: "2026-10-09" },
     { url: `${site.url}/about`, lastModified: "2026-10-06" },
     { url: `${site.url}/experience`, lastModified: "2026-10-06" },
     { url: `${site.url}/skills`, lastModified: "2026-10-06" },
-    { url: `${site.url}/projects`, lastModified: "2026-10-06" },
+    { url: `${site.url}/projects`, lastModified: "2026-10-09" },
     { url: `${site.url}/certifications`, lastModified: "2026-10-03" },
     { url: `${site.url}/contact`, lastModified: "2026-10-02" },
     ...caseStudyProjects.map((project) => ({
