@@ -9,7 +9,8 @@ type HeroBreadcrumbProps = {
 export function HeroBreadcrumb({ current, parents = [], tone = "inverse" }: HeroBreadcrumbProps) {
   const items = [...parents, { label: current, href: null }]
   const itemClassName = "inline-flex min-h-11 min-w-0 items-center sm:min-h-0"
-  const linkClassName = `inline-flex min-h-11 items-center transition-colors focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 sm:min-h-0 ${tone === "inverse" ? "hover:text-white focus-visible:ring-brand-300" : "hover:text-brand-700 focus-visible:ring-brand-500 dark:hover:text-brand-200"}`
+  // Keep spacing text-sized; expand mobile hit areas without widening the flex items.
+  const linkClassName = `relative inline-flex min-h-11 min-w-0 items-center transition-colors after:absolute after:inset-y-0 after:left-0 after:min-w-11 after:w-full after:content-[''] focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 sm:min-h-0 md:after:hidden ${tone === "inverse" ? "hover:text-white focus-visible:ring-brand-300" : "hover:text-brand-700 focus-visible:ring-brand-500 dark:hover:text-brand-200"}`
 
   return (
     <nav

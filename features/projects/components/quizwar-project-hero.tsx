@@ -86,6 +86,26 @@ export function QuizWarProjectHero({ project }: { project: CaseStudyProject }) {
             </p>
           </div>
         </div>
+        <dl className="mt-10 grid gap-6 border-t border-white/15 pt-7 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+          <div>
+            <dt className="type-label text-brand-200">Project type</dt>
+            <dd className="type-small mt-2 text-white">Independent mobile application</dd>
+          </div>
+          <div>
+            <dt className="type-label text-brand-200">My responsibility</dt>
+            <dd className="type-small mt-2 text-white">{detail.responsibility}</dd>
+          </div>
+          <div>
+            <dt className="type-label text-brand-200">Native structure</dt>
+            <dd className="type-small mt-2 text-white">Android Gradle + iOS Xcode projects</dd>
+          </div>
+          <div>
+            <dt className="type-label text-brand-200">Core stack</dt>
+            <dd className="type-small mt-2 text-white">
+              JavaScript · React Native CLI · Redux Toolkit · Firebase
+            </dd>
+          </div>
+        </dl>
       </div>
     </header>
   )
