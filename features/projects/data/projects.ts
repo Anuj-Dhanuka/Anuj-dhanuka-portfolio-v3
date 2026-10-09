@@ -266,7 +266,7 @@ export const projects: Project[] = [
     icon: "mobile",
     caseStudy: {
       slug: "quizwar",
-      lastModified: "2026-10-06",
+      lastModified: "2026-10-09",
       summary:
         "QuizWar is an independent React Native mobile quiz app I built with OTP authentication, category-based gameplay, user profiles and performance tracking.",
       metaDescription:
@@ -277,15 +277,15 @@ export const projects: Project[] = [
       sourceRevision: "d5615500727afef56425fd358202074c2eed79ab",
       implementation: [
         {
-          title: "Application composition and persisted state",
+          title: "State & persistence",
           description:
-            "Six Redux Toolkit slices separate accounts, performance, active category, game results, categories and token state. The app root provides that store alongside authentication, theme, gestures and navigation. Redux Persist stores only auth and userPerformance through AsyncStorage; the other four slices stay outside that whitelist.",
+            "Redux Persist stores only auth and userPerformance through AsyncStorage; the other four slices stay outside that whitelist.\n\nSix Redux Toolkit slices separate accounts, performance, active category, game results, categories and token state. The app root provides that store alongside authentication, theme, gestures and navigation.",
           evidence: { label: "State persistence", file: "src/store/store.js", startLine: 1, endLine: 42 },
         },
         {
-          title: "Authentication-aware navigation",
+          title: "Authentication & navigation",
           description:
-            "React Navigation switches between Sign In / Registration and the application stack after AuthContext restores the stored user identity. Home, Dashboard and Profile are bottom tabs; Categories, Game, Result, Settings and Edit Profile sit in the surrounding stack.",
+            "React Navigation switches between Sign In / Registration and the application stack after AuthContext restores the stored user identity.\n\nHome, Dashboard and Profile are bottom tabs; Categories, Game, Result, Settings and Edit Profile sit in the surrounding stack.",
           evidence: {
             label: "Navigation structure",
             file: "src/Navigations/index.js",
@@ -294,9 +294,9 @@ export const projects: Project[] = [
           },
         },
         {
-          title: "Firebase-backed accounts and data",
+          title: "Firebase services",
           description:
-            "Firebase Authentication requests the SMS code and confirms the OTP, while a Firestore lookup sends new accounts to registration. Firestore stores categories, profiles and performance data, and Firebase Storage holds profile media. These operations live partly in shared Apiutils methods and partly in the sign-in and registration screens.",
+            "Firebase Authentication requests the SMS code and confirms the OTP, while a Firestore lookup sends new accounts to registration.\n\nFirestore stores categories, profiles and performance data, and Firebase Storage holds profile media. These operations live partly in shared Apiutils methods and partly in the sign-in and registration screens.",
           evidence: {
             label: "Phone authentication",
             file: "src/screens/SigninScreen/index.js",
@@ -305,20 +305,15 @@ export const projects: Project[] = [
           },
         },
         {
-          title: "Quiz sessions and performance",
+          title: "Quiz & scoring",
           description:
-            "GameScreen keeps the question index, countdown, answer feedback and score in local state, then writes the session summary into Redux. It calculates points from correct answers, speed and login streaks, updates completed quizzes and level, and flags a score update when the result improves the score or its tie-break time.",
+            "GameScreen keeps the question index, countdown, answer feedback and score in local state, then writes the session summary into Redux.\n\nIt calculates points from correct answers, speed and login streaks, updates completed quizzes and level, and flags a score update when the result improves the score or its tie-break time.",
           evidence: {
             label: "Scoring and performance",
             file: "src/screens/GameScreen/index.js",
             startLine: 123,
             endLine: 205,
           },
-        },
-        {
-          title: "Profile images and native feedback",
-          description:
-            "Edit Profile crops a selected image, uploads it to Firebase Storage and saves its download URL with the Firestore and Redux profile. Settings control whether game answers and tab interactions trigger native sounds and haptic feedback.",
         },
       ],
       decisions: [

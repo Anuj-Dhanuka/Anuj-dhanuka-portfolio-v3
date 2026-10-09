@@ -111,7 +111,7 @@ export function ProjectLinks({
           variant={sourcePrimary ? "default" : "outline"}
           className={
             sourcePrimary
-              ? "h-12 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-6 text-base text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700"
+              ? "h-12 rounded-lg bg-white px-6 text-base font-semibold text-brand-900 shadow-lg shadow-brand-950/25 hover:bg-brand-50 hover:text-brand-950 focus-visible:ring-white focus-visible:ring-offset-brand-900"
               : "h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
           }
         >
