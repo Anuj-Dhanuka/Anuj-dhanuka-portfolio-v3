@@ -56,7 +56,7 @@ describe("project publication boundaries", () => {
 
     expect(project?.liveLink).toBe("https://rekhamaakirasoi.com/")
     expect(project?.caseStudy.lastModified).toBe("2026-10-09")
-    expect(project?.caseStudy.screenshots).toHaveLength(5)
+    expect(project?.caseStudy.screenshots).toHaveLength(7)
     expect(serialized).toMatch(/WordPress/)
     expect(serialized).toMatch(/Elementor/)
     expect(serialized).toMatch(/premium WordPress theme/)
