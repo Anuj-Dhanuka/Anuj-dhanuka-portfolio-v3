@@ -1,8 +1,8 @@
 # Project case-study engineering report
 
-Current migration reviewed 6 October 2026. Changes are local; deployment and indexing are separate steps.
+Current migration reviewed 9 October 2026. Changes are local; deployment and indexing are separate steps.
 
-Current publication: Mopedo V2 and QuizWar V2. Sections 1–14 are historical implementation records and do not authorize republishing Levels App. Sections 15–20 document the final Mopedo and QuizWar evidence, presentation and freeze passes.
+Current publication: Mopedo V2, QuizWar V2 and Rekha Maa Ki Rasoi. Sections 1–14 are historical implementation records and do not authorize republishing Levels App. Sections 15–20 document the final Mopedo and QuizWar evidence, presentation and freeze passes. Section 21 records the reviewed Rekha Maa Ki Rasoi publication.
 
 ## 1. Architecture before
 
@@ -273,3 +273,17 @@ Remaining follow-ups are separate work:
 3. ChefKart professional case study, subject to public-safe evidence and owner approval.
 4. `/expertise/react-native`.
 5. `/hire-react-native-developer`.
+
+## 21. Rekha Maa Ki Rasoi benchmark case study — 9 October 2026
+
+Rekha Maa Ki Rasoi is now the portfolio's reference UI/UX + WordPress/Elementor + small-business website case study at `/projects/rekha-maa-ki-rasoi`. It uses the existing reviewed-project record, static route, metadata/schema helpers, generated social-image route, sitemap derivation, related-project selection and tracked outbound-link abstraction. A dedicated server component presents the project-specific customer journey, design decisions, responsive evidence, implementation transparency, interface captures and delivery outcome. Rama Technical College remains listing-only, Levels remains excluded and the frozen Mopedo and QuizWar content is unchanged.
+
+Owner-confirmed facts establish the publication boundary. The homemade-food idea was proposed by Anuj's mother, and they shaped the meal plans and pricing together. Anuj owned the digital execution: information architecture, section structure, visual direction, palette, typography, brand treatment, favicon, copy, original food photography, desktop/mobile design, WordPress/theme/Elementor setup, forms/plugins, domain, hosting and deployment. The current live implementation is his work and generated inbound customer enquiries. No enquiry, order, revenue or conversion count is claimed.
+
+Implementation copy explicitly records the premium WordPress theme as the foundation customized through Elementor. It does not claim custom CSS, JavaScript, PHP, custom-theme development, formal user research or an original SEO strategy. The uncertain month is omitted. The live site's testimonial content and 4.3-star display are placeholder/demo content: the case study does not present them as reviews, outcomes or structured rating data. Portfolio schema remains WebPage, CreativeWork and BreadcrumbList linked to the existing Person and WebSite entities; it adds no LocalBusiness, Restaurant, Review or AggregateRating node.
+
+The interface evidence uses five captures of the current live site: desktop hero, audience/pricing, booking/contact, mobile hero and mobile booking. All assets have explicit intrinsic dimensions and factual alt text. The hero image is prioritized for the route; below-fold images use Next.js defaults. The implementation adds no package, global state, route-wide client boundary, runtime fetch or dynamic rendering. Core evidence and the live-site link remain in static/server HTML.
+
+The page's answer-first summary and distinct sections make the ownership and delivery chain explicit without FAQ stuffing or AI-specific markup. Metadata resolves to `Rekha Maa Ki Rasoi — Food Business Website | Anuj Dhanuka`; the canonical is `https://anujdhanuka.com/projects/rekha-maa-ki-rasoi`. The explicit content date is `2026-10-09`. The project becomes the third benchmark alongside Mopedo for React/web engineering and QuizWar for React Native/mobile engineering.
+
+Validation passes formatting, lint, strict TypeScript, all 24 tests, `git diff --check` and the Webpack production build. The required default Turbopack build was attempted inside and outside the sandbox and retains the previously documented PostCSS worker-port failure at the unchanged QuizWar CSS module. Local production checks return 200 for Rekha Maa Ki Rasoi, Mopedo, QuizWar, the Rekha social image, sitemap and robots; Levels and an invalid slug return 404. Generated HTML has one H1, the answer-first ownership evidence, live URL, enquiry outcome, canonical/Open Graph/Twitter metadata and no testimonial rating, uncertain month, custom-code claim or rating/review/business schema. The sitemap contains ten canonical routes with the Rekha entry dated `2026-10-09`, and robots retains the production sitemap declaration. Browser captures at 320, 375, 640, 768, 1024, 1440 and 1920 pixels plus full-page mobile and desktop reviews show the intended responsive flow. The live external site returned HTTP 200 on 9 October 2026.

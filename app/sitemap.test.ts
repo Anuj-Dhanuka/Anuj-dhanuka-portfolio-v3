@@ -17,6 +17,7 @@ describe("public sitemap", () => {
       "https://anujdhanuka.com/projects",
       "https://anujdhanuka.com/certifications",
       "https://anujdhanuka.com/contact",
+      "https://anujdhanuka.com/projects/rekha-maa-ki-rasoi",
       "https://anujdhanuka.com/projects/mopedo",
       "https://anujdhanuka.com/projects/quizwar",
     ])

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import { CTA } from "@/components/shared/cta"
 import { QuizWarProjectDetail } from "@/features/projects/components/quizwar-project-detail"
 import { MopedoProjectDetail } from "@/features/projects/components/mopedo-project-detail"
+import { RekhaProjectDetail } from "@/features/projects/components/rekha-project-detail"
 import { caseStudyProjects, getCaseStudyProject } from "@/features/projects/project-details"
 import { projectJsonLd, projectMetadata } from "@/features/projects/project-seo"
 
@@ -32,12 +33,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <main id="main-content">
         {project.caseStudy.slug === "mopedo" ? (
           <MopedoProjectDetail project={project} />
+        ) : project.caseStudy.slug === "rekha-maa-ki-rasoi" ? (
+          <RekhaProjectDetail project={project} />
         ) : (
           <QuizWarProjectDetail project={project} />
         )}
         <CTA
-          title="Want to discuss similar frontend or mobile work?"
-          description="Get in touch to discuss a role, a product interface or a website project."
+          title="Want to discuss a product interface or business website?"
+          description="Get in touch to discuss a frontend role, responsive interface or end-to-end website project."
           contactLabel="Get in touch"
         />
       </main>
