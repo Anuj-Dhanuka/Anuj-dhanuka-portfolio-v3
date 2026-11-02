@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import { CTA } from "@/components/shared/cta"
 import { QuizWarProjectDetail } from "@/features/projects/components/quizwar-project-detail"
 import { MopedoProjectDetail } from "@/features/projects/components/mopedo-project-detail"
+import { RamaProjectDetail } from "@/features/projects/components/rama-project-detail"
 import { RekhaProjectDetail } from "@/features/projects/components/rekha-project-detail"
 import { caseStudyProjects, getCaseStudyProject } from "@/features/projects/project-details"
 import { projectJsonLd, projectMetadata } from "@/features/projects/project-seo"
@@ -35,6 +36,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <MopedoProjectDetail project={project} />
         ) : project.caseStudy.slug === "rekha-maa-ki-rasoi" ? (
           <RekhaProjectDetail project={project} />
+        ) : project.caseStudy.slug === "rama-technical-college" ? (
+          <RamaProjectDetail project={project} />
         ) : (
           <QuizWarProjectDetail project={project} />
         )}

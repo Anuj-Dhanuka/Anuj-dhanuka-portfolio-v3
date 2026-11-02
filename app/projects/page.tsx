@@ -51,10 +51,7 @@ const projectJsonLd = {
       breadcrumb: { "@id": `${url}/#breadcrumb` },
       mainEntity: {
         "@type": "ItemList",
-        itemListElement: [
-          ...projects.filter((project) => project.id === "mopedo"),
-          ...projects.filter((project) => project.id !== "mopedo"),
-        ].map((project, index) => ({
+        itemListElement: projects.map((project, index) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {

@@ -4,6 +4,7 @@ import { site } from "@/config/site"
 import Script from "next/script"
 import "./globals.css"
 import { Navbar } from "@/components/layout/navbar"
+import { projectNavItems } from "@/features/projects/project-nav"
 import { Footer } from "@/components/layout/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { NavigationAnalytics } from "@/components/analytics/navigation-analytics"
@@ -124,7 +125,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Navbar />
+          <Navbar projects={projectNavItems} />
           {children}
           <Footer />
         </ThemeProvider>

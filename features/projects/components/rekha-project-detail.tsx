@@ -23,9 +23,41 @@ import { TrackedLink } from "@/components/analytics/tracked-link"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { analyticsEvents } from "@/config/analytics"
 import { MoreProjects } from "@/features/projects/components/more-projects"
-import { RekhaResponsiveShowcase } from "@/features/projects/components/rekha-responsive-showcase"
+import { ResponsiveShowcase } from "@/features/projects/components/responsive-showcase"
 import { RekhaProjectHero } from "@/features/projects/components/rekha-project-hero"
 import type { CaseStudyProject } from "@/features/projects/project-details"
+
+// Both tabs compare the same pricing section on the live site.
+const responsiveViews = {
+  desktop: {
+    category: "Desktop · 1440px",
+    title: "Plans compared side by side.",
+    description:
+      "On wide screens the pricing section uses the full width, so visitors can compare every plan without scrolling between them.",
+    points: [
+      "Three plan cards sit in one row",
+      "The most popular plan is highlighted in the centre",
+      "The Standard and Premium switch sits above all plans",
+      "Every plan keeps its own booking action",
+    ],
+    tags: ["Multi-column grid", "Side-by-side comparison"],
+    chip: "3 columns",
+  },
+  mobile: {
+    category: "Mobile · 390px",
+    title: "One readable column on phones.",
+    description:
+      "On phones the same content keeps its order and reflows into a single column, without a separate mobile page.",
+    points: [
+      "Plan cards stack at full width",
+      "Headings, spacing and text scale down together",
+      "Booking buttons stay full width and easy to tap",
+      "A sticky bar keeps the enquiry action within reach",
+    ],
+    tags: ["Single column", "Touch-friendly actions"],
+    chip: "1 column",
+  },
+}
 
 const sharedDecisions = [
   { title: "Business idea", description: "Proposed by my mother", Icon: Lightbulb },
@@ -439,7 +471,15 @@ export function RekhaProjectDetail({ project }: { project: CaseStudyProject }) {
         </div>
       </section>
 
-      <RekhaResponsiveShowcase desktop={pricing} mobile={[mobilePricing, mobilePlans]} />
+      <ResponsiveShowcase
+        label="04 / Responsive design"
+        description="The same pricing section on two screens. The content and its order stay fixed; only the layout changes."
+        desktop={pricing}
+        mobile={[mobilePricing, mobilePlans]}
+        views={responsiveViews}
+        desktopLabel="Pricing section"
+        mobileCaptions={["Screen 1: section start", "Screen 2: plans continue"]}
+      />
 
       <section
         id="implementation"

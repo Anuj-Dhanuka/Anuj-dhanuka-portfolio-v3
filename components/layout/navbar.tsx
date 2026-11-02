@@ -8,8 +8,13 @@ import { Menu, X, Phone } from "lucide-react"
 import { smoothScroll } from "@/utils/smooth-scroll"
 import { cn } from "@/lib/utils"
 import { site } from "@/config/site"
+import {
+  DesktopProjectsMenu,
+  MobileProjectsMenu,
+  type ProjectNavItem,
+} from "@/components/layout/projects-nav"
 
-export function Navbar() {
+export function Navbar({ projects }: { projects: ProjectNavItem[] }) {
   const pathname = usePathname()
   const isHome = pathname === "/"
   const [isOpen, setIsOpen] = useState(false)
@@ -64,8 +69,10 @@ export function Navbar() {
     const panel = menuPanelRef.current
     const mediaQuery = window.matchMedia("(min-width: 1024px)")
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    const focusables = panel ? Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector)) : []
-    const frame = requestAnimationFrame(() => focusables[0]?.focus())
+    // Re-queried on each Tab because the projects accordion adds and removes links.
+    const getFocusables = () =>
+      panel ? Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector)) : []
+    const frame = requestAnimationFrame(() => getFocusables()[0]?.focus())
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -74,6 +81,7 @@ export function Navbar() {
         return
       }
 
+      const focusables = getFocusables()
       if (event.key !== "Tab" || focusables.length === 0) return
       const first = focusables[0]
       const last = focusables[focusables.length - 1]
@@ -161,32 +169,56 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <div key={link.name} className="transition-transform hover:-translate-y-0.5">
-                <Link
-                  href={link.href}
-                  onClick={(e) => handleNavigation(e, link.href)}
+            {navLinks.map((link) =>
+              link.href === "/projects" ? (
+                // Projects keeps its link to /projects and adds a hover/disclosure dropdown of case studies.
+                <div
+                  key={link.name}
                   className={cn(
-                    "px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors relative group",
+                    // The pill stays highlighted while the pointer is inside the dropdown, which is a descendant.
+                    "flex items-center rounded-md pr-1 transition-colors",
                     isActive(link.href)
                       ? "text-white bg-purple-800 dark:bg-purple-600 shadow-md"
                       : solidHeader
                         ? "copy-heading hover:text-white hover:bg-purple-700 dark:hover:text-white dark:hover:bg-purple-700"
-                        : "text-white hover:text-white hover:bg-purple-700/90 dark:text-white dark:hover:bg-purple-700",
+                        : "text-white hover:bg-purple-700/90 dark:hover:bg-purple-700",
                   )}
-                  aria-current={isActive(link.href) ? "page" : undefined}
                 >
-                  {link.name}
-
-                  {/* Animated underline effect on hover */}
-                  <span
-                    className={`absolute bottom-0 left-0 h-0.5 bg-white rounded-full w-0 group-hover:w-full transition-all duration-300 ${
-                      isActive(link.href) ? "opacity-0" : "opacity-100"
-                    }`}
+                  <DesktopProjectsMenu
+                    items={projects}
+                    pathname={pathname}
+                    isActive={isActive(link.href)}
+                    onNavigate={handleNavigation}
+                    linkClassName="pl-2 xl:pl-3 py-2 rounded-md text-sm font-medium"
                   />
-                </Link>
-              </div>
-            ))}
+                </div>
+              ) : (
+                <div key={link.name} className="transition-transform hover:-translate-y-0.5">
+                  <Link
+                    href={link.href}
+                    onClick={(e) => handleNavigation(e, link.href)}
+                    className={cn(
+                      "px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors relative group",
+                      isActive(link.href)
+                        ? "text-white bg-purple-800 dark:bg-purple-600 shadow-md"
+                        : solidHeader
+                          ? "copy-heading hover:text-white hover:bg-purple-700 dark:hover:text-white dark:hover:bg-purple-700"
+                          : "text-white hover:text-white hover:bg-purple-700/90 dark:text-white dark:hover:bg-purple-700",
+                    )}
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                  >
+                    {link.name}
+
+                    {/* Animated underline effect on hover */}
+                    <span
+                      className={`absolute bottom-0 left-0 h-0.5 bg-white rounded-full w-0 group-hover:w-full transition-all duration-300 ${
+                        isActive(link.href) ? "opacity-0" : "opacity-100"
+                      }`}
+                    />
+                  </Link>
+                </div>
+              ),
+            )}
             <div className="pl-1 transition-transform hover:scale-105 lg:pl-2">
               <Button
                 asChild
@@ -231,16 +263,15 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Navigation Menu - Overlay */}
+      {/* Mobile navigation: a focused sheet above a blurred overlay that also covers the header. */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 z-[55] bg-gray-950/50 backdrop-blur-[2px] lg:hidden"
           aria-hidden="true"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Mobile Navigation Menu - Slide Panel */}
       {isOpen && (
         <div
           ref={menuPanelRef}
@@ -248,19 +279,19 @@ export function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label="Main navigation"
-          className="animate-slide-in-right fixed top-0 right-0 bottom-0 w-[80%] max-w-[300px] bg-white dark:bg-gray-900 z-50 lg:hidden flex flex-col shadow-xl overflow-y-auto motion-reduce:animate-none"
+          className="animate-slide-in-right fixed bottom-0 right-0 top-0 z-[56] flex w-[88%] max-w-sm flex-col rounded-l-3xl bg-white shadow-2xl motion-reduce:animate-none dark:bg-gray-950 lg:hidden"
         >
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+          <div className="flex items-center justify-between gap-3 px-5 pb-4 pt-5">
             <Link
               href="/"
-              className="text-xl font-bold gradient-text"
+              className="min-w-0"
               onClick={(e) => handleNavigation(e, "/#home")}
               aria-label="Go to home section"
             >
-              Anuj Dhanuka
+              <span className="block text-xl font-bold gradient-text">Anuj Dhanuka</span>
             </Link>
             <button
-              className="min-h-11 min-w-11 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
               onClick={() => setIsOpen(false)}
               aria-label="Close menu"
             >
@@ -268,46 +299,54 @@ export function Navbar() {
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto py-4 px-4">
-            <nav className="flex flex-col space-y-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavigation(e, link.href)}
-                  className={cn(
-                    "py-3 px-4 rounded-md text-base font-medium transition-colors relative overflow-hidden",
-                    isActive(link.href)
-                      ? "text-white bg-purple-800 dark:bg-purple-600 shadow-md"
-                      : "text-gray-900 dark:text-gray-300 hover:text-white hover:bg-purple-700 dark:hover:text-white dark:hover:bg-purple-700",
-                  )}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                >
-                  <span className="relative z-10">{link.name}</span>
+          <div className="mx-5 h-px bg-gray-100 dark:bg-gray-800" />
 
-                  {/* Animated background on hover */}
-                  <span className="absolute inset-0 -z-0 -translate-x-full bg-purple-600 transition-transform duration-300 group-hover:translate-x-0" />
-                </Link>
-              ))}
-            </nav>
-          </div>
+          <nav className="flex-1 overflow-y-auto px-5 py-2" aria-label="Pages">
+            <ul className="divide-y divide-gray-100 dark:divide-gray-800">
+              {navLinks.map((link) => {
+                const active = isActive(link.href)
+                const linkClassName = cn(
+                  "flex min-h-12 flex-1 items-center text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500",
+                  active
+                    ? "text-brand-700 dark:text-brand-300"
+                    : "text-gray-800 hover:text-brand-700 dark:text-gray-200 dark:hover:text-brand-300",
+                )
 
-          <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-            <Button
-              asChild
-              variant="outline"
-              className="w-full border-2 border-purple-700 bg-white text-purple-900 hover:bg-purple-700 hover:text-white dark:border-purple-400 dark:bg-gray-800 dark:text-white dark:hover:bg-purple-600 px-4 py-2 h-12 rounded-lg group shadow-md text-base transition-all duration-300"
+                return (
+                  <li key={link.name}>
+                    {link.href === "/projects" ? (
+                      <MobileProjectsMenu
+                        items={projects}
+                        pathname={pathname}
+                        onNavigate={handleNavigation}
+                        linkClassName={linkClassName}
+                      />
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={(e) => handleNavigation(e, link.href)}
+                        className={linkClassName}
+                        aria-current={active ? "page" : undefined}
+                      >
+                        {link.name}
+                      </Link>
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+
+          <div className="border-t border-gray-100 px-5 pb-6 pt-4 dark:border-gray-800">
+            <a
+              href={site.phoneHref}
+              onClick={() => setIsOpen(false)}
+              aria-label={`Call ${site.phoneDisplay}`}
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border-2 border-purple-700 text-base font-semibold text-purple-900 transition-colors hover:bg-purple-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:border-purple-400 dark:text-white dark:hover:bg-purple-600"
             >
-              <a
-                href={site.phoneHref}
-                onClick={() => setIsOpen(false)}
-                aria-label={`Call ${site.phoneDisplay}`}
-                className="flex items-center justify-center font-semibold"
-              >
-                <Phone className="h-5 w-5 mr-2 group-hover:rotate-12 transition-transform" />
-                {site.phoneDisplay}
-              </a>
-            </Button>
+              <Phone className="h-5 w-5" aria-hidden="true" />
+              {site.phoneDisplay}
+            </a>
           </div>
         </div>
       )}

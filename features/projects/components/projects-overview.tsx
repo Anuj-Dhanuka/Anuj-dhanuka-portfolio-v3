@@ -87,11 +87,6 @@ const approach = [
 ]
 
 export function ProjectsOverview() {
-  const projectOrder = ["mopedo", "rekha-maa-ki-rasoi", "rama-technical-college", "quizwar"]
-  const orderedProjects = projectOrder
-    .map((projectId) => projects.find((project) => project.id === projectId))
-    .filter((project): project is (typeof projects)[number] => Boolean(project))
-
   return (
     <>
       <ProjectsHero />
@@ -104,7 +99,7 @@ export function ProjectsOverview() {
         <SelectedWorkHeader />
         <div className="container mx-auto mt-12 px-4 sm:px-6 md:mt-16 lg:px-8">
           <div className="grid w-full items-stretch gap-x-8 gap-y-16 md:grid-cols-2 md:gap-y-20 lg:gap-x-10">
-            {orderedProjects.map((project) => (
+            {projects.map((project) => (
               <ProjectCard key={project.id} project={project} showContributions={false} />
             ))}
           </div>

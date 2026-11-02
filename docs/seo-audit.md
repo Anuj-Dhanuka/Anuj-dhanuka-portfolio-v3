@@ -2,7 +2,7 @@
 
 ## Project architecture follow-up — 3 October 2026
 
-Published `/projects/mopedo`, `/projects/quizwar` and `/projects/rekha-maa-ki-rasoi` pages extend the public route inventory to ten canonical pages. Static routes, per-project social images, derived sitemap entries and server-rendered evidence replace the earlier deferred-detail decision for these reviewed projects. Rama Technical College remains listing-only. See [the case-study engineering report](project-case-studies.md) for implementation, content sources, validation and evidence boundaries. Levels App was removed on 6 October 2026; its former route returns 404 without a redirect. Historical findings below retain their original scope.
+Published `/projects/mopedo`, `/projects/quizwar`, `/projects/rekha-maa-ki-rasoi` and `/projects/rama-technical-college` pages extend the public route inventory to eleven canonical pages. Static routes, per-project social images, derived sitemap entries and server-rendered evidence replace the earlier deferred-detail decision for these reviewed projects. Rama Technical College was published on 2 November 2026. See [the case-study engineering report](project-case-studies.md) for implementation, content sources, validation and evidence boundaries. Levels App was removed on 6 October 2026; its former route returns 404 without a redirect. Historical findings below retain their original scope.
 
 Audit date: 2 October 2026. Canonical origin: `https://anujdhanuka.com`.
 

@@ -19,14 +19,9 @@ export function projectPath(project: CaseStudyProject): `/projects/${string}` {
   return `/projects/${project.caseStudy.slug}`
 }
 
-const moreProjectOrder = ["mopedo", "quizwar", "rekha-maa-ki-rasoi", "rama-technical-college"] as const
-
+// Follows the shared display order of the projects array.
 export function getMoreProjects(currentProjectId: string): Project[] {
-  return moreProjectOrder
-    .filter((projectId) => projectId !== currentProjectId)
-    .map((projectId) => projects.find((project) => project.id === projectId))
-    .filter((project): project is Project => project !== undefined)
-    .slice(0, 3)
+  return projects.filter((project) => project.id !== currentProjectId).slice(0, 3)
 }
 
 export function projectEvidenceUrl(project: CaseStudyProject, evidence: ProjectEvidence) {
