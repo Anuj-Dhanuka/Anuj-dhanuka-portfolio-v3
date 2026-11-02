@@ -1,16 +1,9 @@
 import { projects, type Project } from "@/features/projects/data/projects"
 import { Button } from "@/components/ui/button"
 import { LinkButton } from "@/components/ui/link-button"
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  Code2,
-  ExternalLink,
-  Monitor,
-  Smartphone,
-  Store,
-} from "lucide-react"
+import { ArrowUpRight, BriefcaseBusiness, ExternalLink, Monitor, Smartphone, Store } from "lucide-react"
 import Image from "next/image"
+import { FiGithub } from "react-icons/fi"
 import { TrackedLink } from "@/components/analytics/tracked-link"
 import { analyticsEvents } from "@/config/analytics"
 
@@ -71,26 +64,31 @@ export function ProjectLinks({
   project,
   includeCaseStudy = false,
   sourcePrimary = false,
+  size = "default",
 }: {
   project: Project
   includeCaseStudy?: boolean
   sourcePrimary?: boolean
+  // "sm" sizes the buttons for the narrow Continue exploring cards; the parent must be a size container.
+  size?: "default" | "sm"
 }) {
+  const small = size === "sm"
+  const sizing = small ? "h-10 min-h-10 min-w-0 gap-1.5 whitespace-nowrap px-2 py-0" : "h-11 px-5"
+
+  // Fixed order everywhere: live project, case study, then the GitHub repository.
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-      {includeCaseStudy && project.caseStudy && (
-        <LinkButton
-          href={`/projects/${project.caseStudy.slug}`}
-          variant="outline"
-          aria-label={`Read the ${project.title} case study`}
-        >
-          View case study
-        </LinkButton>
-      )}
+    <div
+      className={
+        // One equal-width row when the card is wide enough, otherwise stacked full-width buttons.
+        small
+          ? "grid gap-2 @min-[18rem]:auto-cols-fr @min-[18rem]:grid-flow-col"
+          : "flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+      }
+    >
       {project.liveLink && (
         <Button
           asChild
-          className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700"
+          className={`${sizing} rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700`}
         >
           <TrackedLink
             eventName={analyticsEvents.projectViewed}
@@ -100,10 +98,20 @@ export function ProjectLinks({
             target="_blank"
             rel="noopener noreferrer"
           >
-            View Live Project
+            {small ? "Live" : "View Live Project"}
             <ExternalLink className="h-4 w-4" />
           </TrackedLink>
         </Button>
+      )}
+      {includeCaseStudy && project.caseStudy && (
+        <LinkButton
+          href={`/projects/${project.caseStudy.slug}`}
+          variant="outline"
+          className={small ? sizing : undefined}
+          aria-label={`Read the ${project.title} case study`}
+        >
+          {small ? "Case study" : "View case study"}
+        </LinkButton>
       )}
       {project.githubLink && (
         <Button
@@ -112,19 +120,19 @@ export function ProjectLinks({
           className={
             sourcePrimary
               ? "h-12 rounded-lg bg-white px-6 text-base font-semibold text-brand-900 shadow-lg shadow-brand-950/25 hover:bg-brand-50 hover:text-brand-950 focus-visible:ring-white focus-visible:ring-offset-brand-900"
-              : "h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
+              : `${sizing} rounded-lg border-purple-200 bg-white text-brand-700 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20`
           }
         >
           <TrackedLink
             eventName={analyticsEvents.projectViewed}
             eventProperties={{ project: project.id, destination: "source" }}
-            aria-label={`View ${project.title} source code (opens in a new tab)`}
+            aria-label={`View the ${project.title} GitHub repository (opens in a new tab)`}
             href={project.githubLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            View Source
-            <Code2 className="h-4 w-4" />
+            <FiGithub className="h-4 w-4" aria-hidden="true" />
+            {small ? "GitHub" : "GitHub Repo"}
           </TrackedLink>
         </Button>
       )}
@@ -135,16 +143,20 @@ export function ProjectLinks({
 export function ProjectCard({
   project,
   compact = false,
+  brief = false,
   showContributions = true,
 }: {
   project: Project
   compact?: boolean
+  // Full-size card with only the stack, a one-line summary and links; the case study carries the detail.
+  brief?: boolean
   showContributions?: boolean
 }) {
   const ProjectIcon = { business: BriefcaseBusiness, monitor: Monitor, mobile: Smartphone, store: Store }[
     project.icon
   ]
-  const description = compact ? (project.compactDescription ?? project.description) : project.description
+  const description =
+    compact || brief ? (project.compactDescription ?? project.description) : project.description
   const tags = compact ? project.tags.slice(0, 2) : project.tags
 
   return (
@@ -202,7 +214,7 @@ export function ProjectCard({
           </div>
         )}
 
-        {!compact && (
+        {!compact && !brief && (
           <div className="mt-4 flex flex-wrap gap-2">
             {tags.map((tag) => (
               <span
@@ -216,43 +228,8 @@ export function ProjectCard({
         )}
 
         {compact ? (
-          <div className="mt-auto pt-4">
-            {project.caseStudy ? (
-              <LinkButton
-                href={`/projects/${project.caseStudy.slug}`}
-                variant="line"
-                className="min-h-11"
-                icon={<ArrowUpRight className="h-4 w-4" />}
-              >
-                View case study
-              </LinkButton>
-            ) : project.liveLink ? (
-              <TrackedLink
-                eventName={analyticsEvents.projectViewed}
-                eventProperties={{ project: project.id, destination: "live" }}
-                aria-label={`View ${project.title} live project (opens in a new tab)`}
-                href={project.liveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 border-b-2 border-brand-500 py-2 text-sm font-semibold text-brand-700 transition-colors hover:border-accent1-600 hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:border-accent1-400 dark:hover:text-accent1-300"
-              >
-                View website
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </TrackedLink>
-            ) : project.githubLink ? (
-              <TrackedLink
-                eventName={analyticsEvents.projectViewed}
-                eventProperties={{ project: project.id, destination: "source" }}
-                aria-label={`View ${project.title} source code (opens in a new tab)`}
-                href={project.githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 border-b-2 border-brand-500 py-2 text-sm font-semibold text-brand-700 transition-colors hover:border-accent1-600 hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:text-brand-300 dark:hover:border-accent1-400 dark:hover:text-accent1-300"
-              >
-                View source
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </TrackedLink>
-            ) : null}
+          <div className="@container mt-auto pt-4">
+            <ProjectLinks project={project} includeCaseStudy size="sm" />
           </div>
         ) : (
           <div className="mt-auto pt-5">
@@ -296,14 +273,13 @@ export function Projects() {
           <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
           <p className="type-body mt-6 copy-body">
             Explore my work across React, React Native and WordPress, from business websites to mobile
-            applications. Each project includes the technologies used, my contributions and a link to the live
-            site or source code.
+            applications. Each card is a quick overview; open the case study for the full story.
           </p>
         </div>
 
         <div className="mt-10 grid gap-6 md:mt-12 lg:grid-cols-2">
           {projects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+            <ProjectCard key={project.title} project={project} brief showContributions={false} />
           ))}
         </div>
 

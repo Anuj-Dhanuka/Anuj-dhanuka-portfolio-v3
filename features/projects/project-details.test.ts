@@ -13,9 +13,10 @@ import { site } from "@/config/site"
 describe("project publication boundaries", () => {
   it("publishes only reviewed case studies with unique stable slugs", () => {
     expect(caseStudyProjects.map(projectPath)).toEqual([
-      "/projects/rekha-maa-ki-rasoi",
-      "/projects/mopedo",
       "/projects/quizwar",
+      "/projects/mopedo",
+      "/projects/rekha-maa-ki-rasoi",
+      "/projects/rama-technical-college",
     ])
     expect(new Set(caseStudyProjects.map(projectPath)).size).toBe(caseStudyProjects.length)
     for (const project of caseStudyProjects) {
@@ -66,6 +67,30 @@ describe("project publication boundaries", () => {
     const graph = projectJsonLd(project!)["@graph"]
     expect(
       graph.some((entity) => ["Review", "AggregateRating", "LocalBusiness"].includes(entity["@type"])),
+    ).toBe(false)
+  })
+
+  it("publishes the freelance homepage case study within its owner-confirmed scope", () => {
+    const project = getCaseStudyProject("rama-technical-college")
+    const serialized = JSON.stringify(project)
+
+    expect(project?.liveLink).toBe("https://rtceindia.in/")
+    expect(project?.caseStudy.lastModified).toBe("2026-11-02")
+    expect(project?.caseStudy.screenshots).toHaveLength(7)
+    expect(serialized).toMatch(/homepage/)
+    expect(serialized).toMatch(/Elementor/)
+    expect(serialized).toMatch(/v0/)
+    expect(serialized).toMatch(/ChatGPT/)
+    expect(serialized).not.toMatch(/complete website|custom CSS|custom JavaScript|custom PHP|2,000\+|85%/i)
+    // The work was subcontracted through a friend; the college is never framed as a direct client.
+    expect(serialized).toMatch(/through (a|my) friend/)
+    expect(serialized).not.toMatch(/referral|client approved|college supplied|came to me/i)
+
+    const graph = projectJsonLd(project!)["@graph"]
+    expect(
+      graph.some((entity) =>
+        ["Review", "AggregateRating", "EducationalOrganization"].includes(entity["@type"]),
+      ),
     ).toBe(false)
   })
 
@@ -122,9 +147,11 @@ describe("project publication boundaries", () => {
     expect(projectEvidenceUrl(getCaseStudyProject("mopedo")!, evidence[0])).toBeUndefined()
   })
 
-  it("shows three other projects without publishing listing-only case studies", () => {
-    expect(getMoreProjects("mopedo").map((project) => project.id)).toEqual([
+  it("shows three other projects on every case study", () => {
+    // Shared display order: QuizWar, Mopedo, Rekha Maa Ki Rasoi, Rama Technical College.
+    expect(projects.map((project) => project.id)).toEqual([
       "quizwar",
+      "mopedo",
       "rekha-maa-ki-rasoi",
       "rama-technical-college",
     ])
@@ -133,10 +160,20 @@ describe("project publication boundaries", () => {
       "rekha-maa-ki-rasoi",
       "rama-technical-college",
     ])
-    expect(getMoreProjects("rekha-maa-ki-rasoi").map((project) => project.id)).toEqual([
-      "mopedo",
+    expect(getMoreProjects("mopedo").map((project) => project.id)).toEqual([
       "quizwar",
+      "rekha-maa-ki-rasoi",
       "rama-technical-college",
+    ])
+    expect(getMoreProjects("rekha-maa-ki-rasoi").map((project) => project.id)).toEqual([
+      "quizwar",
+      "mopedo",
+      "rama-technical-college",
+    ])
+    expect(getMoreProjects("rama-technical-college").map((project) => project.id)).toEqual([
+      "quizwar",
+      "mopedo",
+      "rekha-maa-ki-rasoi",
     ])
     for (const project of caseStudyProjects) {
       const moreProjects = getMoreProjects(project.id)

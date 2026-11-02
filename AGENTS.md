@@ -123,7 +123,7 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 
 - Implemented standalone pages: About, Experience, Skills, Projects, Certifications and Contact.
 - Keep the homepage contact section and standalone Contact page on the same shared form, validation and contact-detail implementation.
-- Project detail pages use `app/projects/[slug]/page.tsx`; only reviewed records with `caseStudy` in `features/projects/data/projects.ts` are published. Mopedo V2, QuizWar V2 and Rekha Maa Ki Rasoi are published; Rama Technical College remains listing-only pending specific implementation evidence. ChefKart remains professional product work, not a public case study.
+- Project detail pages use `app/projects/[slug]/page.tsx`; only reviewed records with `caseStudy` in `features/projects/data/projects.ts` are published. Mopedo V2, QuizWar V2, Rekha Maa Ki Rasoi and Rama Technical College are published. Rama's scope is the homepage only, and its v0 (ideas only) and ChatGPT (content formatting) use is disclosed deliberately. ChefKart remains professional product work, not a public case study.
 - Update this file, the README and relevant docs whenever architecture, deployment, environment variables or required checks change.
 
 ## Project case-study architecture

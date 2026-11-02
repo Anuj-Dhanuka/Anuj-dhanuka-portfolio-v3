@@ -6,46 +6,33 @@ import type { CaseStudyProject } from "@/features/projects/project-details"
 
 type Screenshot = CaseStudyProject["caseStudy"]["screenshots"][number]
 
-// Mirrors the homepage "Product experience" section: pill tabs, copy on the left, staged visual on the right.
-// Both tabs compare the same pricing section, so the layout change is the only variable.
-const views = [
-  {
-    id: "desktop",
-    tabLabel: "Desktop",
-    Icon: Monitor,
-    category: "Desktop · 1440px",
-    title: "Plans compared side by side.",
-    description:
-      "On wide screens the pricing section uses the full width, so visitors can compare every plan without scrolling between them.",
-    points: [
-      "Three plan cards sit in one row",
-      "The most popular plan is highlighted in the centre",
-      "The Standard and Premium switch sits above all plans",
-      "Every plan keeps its own booking action",
-    ],
-    tags: ["Multi-column grid", "Side-by-side comparison"],
-    chip: "3 columns",
-  },
-  {
-    id: "mobile",
-    tabLabel: "Mobile",
-    Icon: Smartphone,
-    category: "Mobile · 390px",
-    title: "One readable column on phones.",
-    description:
-      "On phones the same content keeps its order and reflows into a single column, without a separate mobile page.",
-    points: [
-      "Plan cards stack at full width",
-      "Headings, spacing and text scale down together",
-      "Booking buttons stay full width and easy to tap",
-      "A sticky bar keeps the enquiry action within reach",
-    ],
-    tags: ["Single column", "Touch-friendly actions"],
-    chip: "1 column",
-  },
+export type ShowcaseView = {
+  category: string
+  title: string
+  description: string
+  points: readonly string[]
+  tags: readonly string[]
+  chip: string
+}
+
+const tabs = [
+  { id: "desktop", tabLabel: "Desktop", Icon: Monitor },
+  { id: "mobile", tabLabel: "Mobile", Icon: Smartphone },
 ] as const
 
-function Stage({ id, chip, screenshots }: { id: string; chip: string; screenshots: readonly Screenshot[] }) {
+function Stage({
+  id,
+  chip,
+  screenshots,
+  desktopLabel,
+  mobileCaptions,
+}: {
+  id: string
+  chip: string
+  screenshots: readonly Screenshot[]
+  desktopLabel: string
+  mobileCaptions: readonly [string, string]
+}) {
   const [screenshot] = screenshots
   const isMobile = id === "mobile"
 
@@ -64,7 +51,7 @@ function Stage({ id, chip, screenshots }: { id: string; chip: string; screenshot
       />
 
       {isMobile ? (
-        // Two consecutive phone screens: the plans keep stacking as the visitor scrolls.
+        // Two consecutive phone screens of the same section, as the visitor scrolls.
         <div className="relative z-10 flex items-start justify-center gap-4 sm:gap-6">
           {screenshots.map((screen, index) => (
             <div
@@ -81,9 +68,7 @@ function Stage({ id, chip, screenshots }: { id: string; chip: string; screenshot
                   className="h-auto w-full"
                 />
               </div>
-              <p className="type-caption mt-3 text-center font-semibold copy-body">
-                {index === 0 ? "Screen 1: section start" : "Screen 2: plans continue"}
-              </p>
+              <p className="type-caption mt-3 text-center font-semibold copy-body">{mobileCaptions[index]}</p>
             </div>
           ))}
         </div>
@@ -108,7 +93,7 @@ function Stage({ id, chip, screenshots }: { id: string; chip: string; screenshot
                 className="h-auto w-full"
               />
             </div>
-            <p className="type-label mt-3 px-2 pb-1 text-brand-600 dark:text-brand-300">Pricing section</p>
+            <p className="type-label mt-3 px-2 pb-1 text-brand-600 dark:text-brand-300">{desktopLabel}</p>
           </div>
         </div>
       )}
@@ -123,12 +108,24 @@ function Stage({ id, chip, screenshots }: { id: string; chip: string; screenshot
   )
 }
 
-export function RekhaResponsiveShowcase({
+// Mirrors the homepage "Product experience" section: pill tabs, copy on the left, staged visual on the right.
+// Both tabs compare the same section of the live site, so the layout change is the only variable.
+export function ResponsiveShowcase({
+  label,
+  description,
   desktop,
   mobile,
+  views,
+  desktopLabel,
+  mobileCaptions,
 }: {
+  label: string
+  description: string
   desktop: Screenshot
   mobile: readonly [Screenshot, Screenshot]
+  views: { desktop: ShowcaseView; mobile: ShowcaseView }
+  desktopLabel: string
+  mobileCaptions: readonly [string, string]
 }) {
   return (
     <section
@@ -154,7 +151,7 @@ export function RekhaResponsiveShowcase({
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
             <Monitor className="h-3.5 w-3.5" aria-hidden="true" />
-            04 / Responsive design
+            {label}
           </p>
           <h2 id="responsive-heading" className="type-section copy-heading">
             One hierarchy, adapted for desktop and mobile.
@@ -163,16 +160,13 @@ export function RekhaResponsiveShowcase({
             className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500"
             aria-hidden="true"
           />
-          <p className="type-body mt-6 copy-body">
-            The same pricing section on two screens. The content and its order stay fixed; only the layout
-            changes.
-          </p>
+          <p className="type-body mt-6 copy-body">{description}</p>
         </div>
 
-        <Tabs defaultValue={views[0].id} className="mt-8 w-full">
+        <Tabs defaultValue={tabs[0].id} className="mt-8 w-full">
           <div className="overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <TabsList className="inline-flex h-auto min-w-max gap-3 bg-transparent p-0 copy-body">
-              {views.map(({ id, tabLabel, Icon }) => (
+              {tabs.map(({ id, tabLabel, Icon }) => (
                 <TabsTrigger
                   key={id}
                   value={id}
@@ -185,48 +179,58 @@ export function RekhaResponsiveShowcase({
             </TabsList>
           </div>
 
-          {views.map(({ id, category, title, description, points, tags, chip }) => (
-            <TabsContent key={id} value={id} className="mt-8">
-              <article className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-                <div className="order-2 lg:order-1">
-                  <p className="type-label text-accent1-600 dark:text-accent1-300">{category}</p>
-                  <h3 className="type-section mt-3 copy-heading">{title}</h3>
-                  <p className="type-body mt-5 max-w-2xl copy-body">{description}</p>
+          {tabs.map(({ id }) => {
+            const { category, title, description, points, tags, chip } = views[id]
 
-                  <p className="mt-8 text-2xl font-bold copy-heading">What changes</p>
-                  <ul className="mt-4 space-y-3">
-                    {points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex gap-3 text-base leading-7 text-gray-700 dark:text-gray-300"
-                      >
-                        <CheckCircle
-                          className="mt-1 h-5 w-5 flex-shrink-0 text-brand-600 dark:text-brand-300"
-                          aria-hidden="true"
-                        />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
+            return (
+              <TabsContent key={id} value={id} className="mt-8">
+                <article className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+                  <div className="order-2 lg:order-1">
+                    <p className="type-label text-accent1-600 dark:text-accent1-300">{category}</p>
+                    <h3 className="type-section mt-3 copy-heading">{title}</h3>
+                    <p className="type-body mt-5 max-w-2xl copy-body">{description}</p>
 
-                  <ul className="mt-7 flex flex-wrap gap-2" aria-label="Layout traits">
-                    {tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="rounded-full border border-purple-100 bg-purple-50/70 px-2.5 py-1 text-xs font-semibold text-brand-700 dark:border-purple-800/40 dark:bg-purple-900/20 dark:text-brand-300"
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                    <p className="mt-8 text-2xl font-bold copy-heading">What changes</p>
+                    <ul className="mt-4 space-y-3">
+                      {points.map((point) => (
+                        <li
+                          key={point}
+                          className="flex gap-3 text-base leading-7 text-gray-700 dark:text-gray-300"
+                        >
+                          <CheckCircle
+                            className="mt-1 h-5 w-5 flex-shrink-0 text-brand-600 dark:text-brand-300"
+                            aria-hidden="true"
+                          />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                <div className="order-1 lg:order-2">
-                  <Stage id={id} chip={chip} screenshots={id === "mobile" ? mobile : [desktop]} />
-                </div>
-              </article>
-            </TabsContent>
-          ))}
+                    <ul className="mt-7 flex flex-wrap gap-2" aria-label="Layout traits">
+                      {tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="rounded-full border border-purple-100 bg-purple-50/70 px-2.5 py-1 text-xs font-semibold text-brand-700 dark:border-purple-800/40 dark:bg-purple-900/20 dark:text-brand-300"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="order-1 lg:order-2">
+                    <Stage
+                      id={id}
+                      chip={chip}
+                      screenshots={id === "mobile" ? mobile : [desktop]}
+                      desktopLabel={desktopLabel}
+                      mobileCaptions={mobileCaptions}
+                    />
+                  </div>
+                </article>
+              </TabsContent>
+            )
+          })}
         </Tabs>
       </div>
     </section>
