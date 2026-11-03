@@ -64,13 +64,13 @@ Homepage portrait/cache policy, deferred contact form, animations, analytics and
 
 ## 9. Project content readiness
 
-| Project                             | Detail page                    | Evidence quality                                                                          | Missing information                                                            |
-| ----------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Levels App                          | Implemented                    | Documented internship, specific quiz flows, screenshots and public source                 | Specific additional features, challenge/solution details and measured outcomes |
-| Mopedo                              | Implemented                    | Public source, shared page shell, routing, scoped styles and mobile row-ordering approach | Design provenance, deployment ownership and measured outcomes                  |
-| Rekha Maa Ki Rasoi                  | Listing-only                   | Website purpose, broad WordPress responsibilities and screenshot                          | Concrete customisation/implementation details and delivery challenges          |
-| Rama Technical College of Education | Implemented (2 November 2026)  | Owner-confirmed homepage scope, workflow, live-site captures and Elementor page styles    | Measured enquiry or admission outcomes                                         |
-| ChefKart product work               | Existing professional sections | Public-safe roles and product surfaces already documented                                 | A focused, public-safe engineering case study with specific approved evidence  |
+| Project                             | Detail page                         | Evidence quality                                                                               | Missing information                                                            |
+| ----------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Levels App                          | Implemented                         | Documented internship, specific quiz flows, screenshots and public source                      | Specific additional features, challenge/solution details and measured outcomes |
+| Mopedo                              | Implemented                         | Public source, shared page shell, routing, scoped styles and mobile row-ordering approach      | Design provenance, deployment ownership and measured outcomes                  |
+| Rekha Maa Ki Rasoi                  | Listing-only                        | Website purpose, broad WordPress responsibilities and screenshot                               | Concrete customisation/implementation details and delivery challenges          |
+| Rama Technical College of Education | Implemented (2 November 2026)       | Owner-confirmed homepage scope, workflow, live-site captures and Elementor page styles         | Measured enquiry or admission outcomes                                         |
+| ChefKart product work               | Implemented at /experience/chefkart | Source-verified wallet/cashback, Book by Dish, city pages, operations and contribution figures | Approved business metrics and redacted visuals                                 |
 
 ## 10. Technical validation
 

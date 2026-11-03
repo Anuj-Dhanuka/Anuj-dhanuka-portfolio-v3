@@ -1,9 +1,8 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { FaqSection } from "@/components/shared/faq-section"
 import { Button } from "@/components/ui/button"
-import { HelpCircle, Mail } from "lucide-react"
+import { Mail } from "lucide-react"
 import { LuLinkedin } from "react-icons/lu"
 import Link from "next/link"
 import { site } from "@/config/site"
@@ -41,97 +40,15 @@ const faqs = [
   },
 ]
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer.replace(/\n\n/g, " "),
-    },
-  })),
-}
-
 export function FAQ() {
   return (
-    <section id="faq" className="relative isolate overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_16%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_12%_16%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="mx-auto max-w-3xl text-center"
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-        >
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
-            <HelpCircle className="h-3.5 w-3.5" />
-            Recruitment Information
-          </div>
-          <h2 className="type-section copy-heading">Frequently Asked Questions</h2>
-          <p className="type-body mt-4 copy-body">
-            Key information for recruiters, hiring managers and technology leaders evaluating my experience
-            and suitability for frontend, mobile and full-stack development roles.
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="mx-auto mt-12 max-w-4xl"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, delay: 0.05, ease: "easeOut" }}
-        >
-          <div className="rounded-2xl border border-purple-100 bg-white/90 shadow-[0_20px_60px_rgba(124,58,237,0.10)] backdrop-blur dark:border-purple-800/40 dark:bg-gray-950/60 dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="border-purple-100/70 last:border-b-0 dark:border-purple-800/30"
-                >
-                  <AccordionTrigger className="px-5 py-5 text-left text-base font-semibold text-gray-900 hover:no-underline hover:text-brand-700 dark:text-white dark:hover:text-brand-300 sm:px-6">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent forceMount className="px-5 pb-5 sm:px-6">
-                    <div className="space-y-3 text-[15px] leading-7 copy-body">
-                      {faq.answer.split("\n\n").map((paragraph, i) => (
-                        <p key={i}>{paragraph}</p>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-3 sm:flex-row"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-        >
+    <FaqSection
+      items={faqs}
+      title="Frequently Asked Questions"
+      description="Key information for recruiters, hiring managers and technology leaders evaluating my experience and suitability for frontend, mobile and full-stack development roles."
+      jsonLd
+      actions={
+        <>
           <Button
             asChild
             className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:opacity-95"
@@ -151,8 +68,8 @@ export function FAQ() {
               Connect on LinkedIn
             </Link>
           </Button>
-        </motion.div>
-      </div>
-    </section>
+        </>
+      }
+    />
   )
 }

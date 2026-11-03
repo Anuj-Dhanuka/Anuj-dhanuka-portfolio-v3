@@ -31,16 +31,34 @@ type LinkButtonProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href
   }
 
 const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
-  ({ children, className, icon, variant, ...props }, ref) => (
-    <Link ref={ref} className={cn(linkButtonVariants({ variant }), className)} {...props}>
-      <span>{children}</span>
-      {icon ? (
-        <span className="flex shrink-0" aria-hidden="true">
-          {icon}
-        </span>
-      ) : null}
-    </Link>
-  ),
+  ({ children, className, icon, variant, href, ...props }, ref) => {
+    const classes = cn(linkButtonVariants({ variant }), className)
+    const content = (
+      <>
+        <span>{children}</span>
+        {icon ? (
+          <span className="flex shrink-0" aria-hidden="true">
+            {icon}
+          </span>
+        ) : null}
+      </>
+    )
+
+    // File downloads need a plain anchor: client-side navigation would intercept the request.
+    if (props.download !== undefined && typeof href === "string") {
+      return (
+        <a ref={ref} href={href} className={classes} {...props}>
+          {content}
+        </a>
+      )
+    }
+
+    return (
+      <Link ref={ref} href={href} className={classes} {...props}>
+        {content}
+      </Link>
+    )
+  },
 )
 
 LinkButton.displayName = "LinkButton"

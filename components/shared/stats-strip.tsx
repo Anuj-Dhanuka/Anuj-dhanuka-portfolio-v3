@@ -1,4 +1,9 @@
-const stats = [
+import type { ReactNode } from "react"
+
+export type Stat = { value: string | number; suffix?: string; label: string }
+
+// Homepage defaults; other pages pass their own four figures.
+const defaultStats: Stat[] = [
   { value: 2, suffix: "+", label: "Years Experience" },
   { value: 3, suffix: "", label: "Employers Worked With" },
   { value: 20, suffix: "+", label: "Projects Delivered" },
@@ -24,9 +29,20 @@ function Dot({ pos }: { pos: Corner }) {
   )
 }
 
-export function StatsStrip() {
+export function StatsStrip({
+  stats = defaultStats,
+  footnote,
+  ariaLabel,
+  size = "default",
+}: {
+  stats?: readonly Stat[]
+  footnote?: ReactNode
+  ariaLabel?: string
+  // "compact" suits pages where the strip supports a story rather than leading the page.
+  size?: "default" | "compact"
+} = {}) {
   return (
-    <section className="relative z-20 bg-white dark:bg-gray-900">
+    <section aria-label={ariaLabel} className="relative z-20 bg-white dark:bg-gray-900">
       <div className="relative overflow-visible bg-white py-12 dark:bg-gray-900 md:py-16">
         {/* Subtle brand wash */}
         <div className="absolute inset-0 bg-gradient-to-r from-purple-50/40 via-transparent to-pink-50/40 dark:from-purple-950/20 dark:via-transparent dark:to-pink-950/20 pointer-events-none" />
@@ -54,11 +70,13 @@ export function StatsStrip() {
                       <Dot pos="br" />
                     </>
                   )}
-                  <span className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-pink-500 leading-none tabular-nums whitespace-nowrap">
+                  <span
+                    className={`${size === "compact" ? "text-3xl md:text-4xl" : "text-4xl md:text-5xl"} font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-pink-500 leading-none tabular-nums whitespace-nowrap`}
+                  >
                     {stat.value}
-                    {stat.suffix}
+                    {stat.suffix ?? ""}
                   </span>
-                  <span className="mt-3 text-[11px] tracking-[0.18em] lg:tracking-[0.2em] uppercase font-semibold text-gray-400 dark:text-gray-500 leading-relaxed whitespace-nowrap">
+                  <span className="mt-3 text-[11px] tracking-[0.18em] lg:tracking-[0.2em] uppercase font-semibold text-gray-500 dark:text-gray-400 leading-relaxed whitespace-nowrap">
                     {stat.label}
                   </span>
                 </div>
@@ -91,11 +109,13 @@ export function StatsStrip() {
                     {isLeft && isTop && <Dot pos="bl" />}
                     {!isLeft && isTop && <Dot pos="br" />}
 
-                    <span className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-pink-500 leading-none tabular-nums whitespace-nowrap">
+                    <span
+                      className={`${size === "compact" ? "text-3xl" : "text-4xl"} font-extrabold bg-clip-text text-transparent bg-gradient-to-br from-purple-600 to-pink-500 leading-none tabular-nums whitespace-nowrap`}
+                    >
                       {stat.value}
-                      {stat.suffix}
+                      {stat.suffix ?? ""}
                     </span>
-                    <span className="mt-3 max-w-[9rem] text-[10px] tracking-[0.16em] uppercase font-semibold text-gray-400 dark:text-gray-500 leading-relaxed sm:max-w-none sm:text-[11px] sm:tracking-[0.2em]">
+                    <span className="mt-3 max-w-[9rem] text-[10px] tracking-[0.16em] uppercase font-semibold text-gray-500 dark:text-gray-400 leading-relaxed sm:max-w-none sm:text-[11px] sm:tracking-[0.2em]">
                       {stat.label}
                     </span>
                   </div>
@@ -104,6 +124,12 @@ export function StatsStrip() {
             </div>
           </div>
         </div>
+
+        {footnote && (
+          <div className="container relative z-10 mx-auto mt-5 px-4 text-center sm:px-6 lg:px-8">
+            {footnote}
+          </div>
+        )}
       </div>
     </section>
   )

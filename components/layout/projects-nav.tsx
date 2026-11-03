@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useId, useRef, useState, type MouseEvent } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ChevronDown } from "lucide-react"
 
@@ -12,40 +11,13 @@ import { cn } from "@/lib/utils"
 export type ProjectNavItem = {
   id: string
   title: string
-  category: string
-  summary: string
   href: string
-  image: string
-  // Portrait phone screens are shown whole; website captures are cropped from the top.
-  fit: "cover" | "contain"
 }
 
 // Hover intent: a short open delay avoids flicker when the pointer crosses the nav; the longer close
 // delay lets the pointer travel diagonally into the panel without it collapsing.
 const OPEN_DELAY = 120
 const CLOSE_DELAY = 250
-
-function ProjectThumb({ item, className }: { item: ProjectNavItem; className: string }) {
-  return (
-    <span
-      className={cn(
-        "relative flex-none overflow-hidden rounded-lg ring-1 ring-black/5 dark:ring-white/10",
-        item.fit === "contain"
-          ? "bg-gradient-to-br from-brand-100 to-accent1-100 dark:from-brand-950 dark:to-accent1-950"
-          : "bg-gray-100 dark:bg-gray-800",
-        className,
-      )}
-    >
-      <Image
-        src={item.image}
-        alt=""
-        fill
-        sizes="96px"
-        className={item.fit === "contain" ? "object-contain p-1" : "object-cover object-top"}
-      />
-    </span>
-  )
-}
 
 export function DesktopProjectsMenu({
   items,
@@ -137,59 +109,45 @@ export function DesktopProjectsMenu({
 
       {open && (
         // The top padding bridges the gap under the header so the pointer can reach the panel.
-        <div id={panelId} className="absolute left-1/2 top-full z-50 w-[40rem] -translate-x-1/2 pt-3">
-          <div className="overflow-hidden rounded-2xl border border-purple-100 bg-white text-left shadow-[0_28px_80px_rgba(76,29,149,0.18)] animate-in fade-in-0 slide-in-from-top-1 duration-200 motion-reduce:animate-none dark:border-purple-800/40 dark:bg-gray-950">
-            <div className="h-1 bg-gradient-to-r from-brand-600 to-accent1-600" aria-hidden="true" />
-            <div className="flex items-baseline justify-between px-5 pt-4">
-              <p className="type-label text-brand-700 dark:text-brand-300">Selected projects</p>
-              <p className="type-caption copy-body">{items.length} case studies</p>
-            </div>
-
-            <ul className="grid grid-cols-2 gap-1 p-3">
-              {items.map((item) => {
-                const current = pathname === item.href
-                return (
-                  <li key={item.id}>
-                    <Link
-                      href={item.href}
-                      onClick={(event) => navigate(event, item.href)}
-                      aria-current={current ? "page" : undefined}
-                      className={cn(
-                        "group flex gap-3 rounded-xl p-2.5 transition-colors hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:hover:bg-brand-950/40",
-                        current && "bg-brand-50 dark:bg-brand-950/40",
-                      )}
-                    >
-                      <ProjectThumb item={item} className="h-16 w-24" />
-                      <span className="min-w-0">
-                        <span className="block text-xs font-semibold text-accent1-600 dark:text-accent1-300">
-                          {item.category}
-                        </span>
-                        <span className="mt-0.5 block text-sm font-semibold copy-heading group-hover:text-brand-700 dark:group-hover:text-brand-300">
-                          {item.title}
-                        </span>
-                        <span className="mt-1 line-clamp-2 text-xs leading-5 copy-body">{item.summary}</span>
-                      </span>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-
-            <div className="flex items-center justify-between gap-4 border-t border-purple-100 bg-brand-50/50 px-5 py-3 dark:border-purple-800/40 dark:bg-brand-950/20">
-              <p className="type-caption copy-body">React, React Native and WordPress work</p>
+        // A plain list of names, one per line; the current page is brand-coloured, never filled.
+        <div id={panelId} className="absolute left-1/2 top-full z-50 w-max min-w-56 -translate-x-1/2 pt-3">
+          <ul className="overflow-hidden rounded-lg border border-purple-100 bg-white py-2 text-left shadow-[0_18px_45px_rgba(76,29,149,0.14)] animate-in fade-in-0 slide-in-from-top-1 duration-200 motion-reduce:animate-none dark:border-purple-800/40 dark:bg-gray-950">
+            {items.map((item) => {
+              const current = pathname === item.href
+              return (
+                <li key={item.id}>
+                  <Link
+                    href={item.href}
+                    onClick={(event) => navigate(event, item.href)}
+                    aria-current={current ? "page" : undefined}
+                    className={cn(
+                      "block whitespace-nowrap px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-500",
+                      current
+                        ? "font-semibold text-brand-700 dark:text-brand-300"
+                        : "copy-heading hover:text-brand-700 dark:hover:text-brand-300",
+                    )}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              )
+            })}
+            {/* Last row, under a rule: the full Projects page. */}
+            <li className="mt-2 border-t border-purple-100 pt-2 dark:border-purple-800/40">
               <Link
                 href="/projects"
                 onClick={(event) => navigate(event, "/projects")}
-                className="group inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-accent1-600 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:text-brand-300 dark:hover:text-accent1-300"
+                aria-current={pathname === "/projects" ? "page" : undefined}
+                className="group flex items-center gap-1.5 whitespace-nowrap px-4 py-2 text-sm font-semibold text-brand-700 transition-colors hover:text-accent1-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-500 dark:text-brand-300 dark:hover:text-accent1-300"
               >
                 View all projects
                 <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
                   aria-hidden="true"
                 />
               </Link>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       )}
     </div>

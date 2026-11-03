@@ -1,5 +1,3 @@
-import { site } from "@/config/site"
-
 export type ExperienceAccent = "purple" | "blue" | "pink"
 export type ExperienceRoleId = "chefkart" | "ppcroy" | "third-eye-lab"
 
@@ -50,9 +48,9 @@ export const experienceRoles: readonly ExperienceRole[] = [
     isCurrent: true,
     accent: "purple",
     cta: {
-      label: "View ChefKart recognition",
-      href: site.recognitionUrl,
-      external: true,
+      label: "Read the ChefKart case study",
+      href: "/experience/chefkart",
+      external: false,
     },
   },
   {
