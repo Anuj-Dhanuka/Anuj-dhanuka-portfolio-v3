@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
 import { Hero } from "@/features/home/components/hero"
 import { SectionWrapper } from "@/components/layout/section-wrapper"
-import { StatsStrip } from "@/features/portfolio/components/stats-strip"
+import { StatsStrip } from "@/components/shared/stats-strip"
 import { TechStrip } from "@/features/portfolio/components/tech-strip"
 import { About } from "@/features/portfolio/components/about"
 import { site } from "@/config/site"

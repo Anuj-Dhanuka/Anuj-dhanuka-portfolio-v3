@@ -133,7 +133,6 @@ export function ExperienceRoleCard({ role }: { role: ExperienceRole }) {
             <div className="mt-auto pt-7">
               <LinkButton
                 href={role.cta.href}
-                variant="line"
                 target={role.cta.external ? "_blank" : undefined}
                 rel={role.cta.external ? "noopener noreferrer" : undefined}
                 icon={<ArrowUpRight className="h-4 w-4" />}

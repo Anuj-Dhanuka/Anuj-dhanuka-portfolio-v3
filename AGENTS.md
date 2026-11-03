@@ -123,7 +123,7 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 
 - Implemented standalone pages: About, Experience, Skills, Projects, Certifications and Contact.
 - Keep the homepage contact section and standalone Contact page on the same shared form, validation and contact-detail implementation.
-- Project detail pages use `app/projects/[slug]/page.tsx`; only reviewed records with `caseStudy` in `features/projects/data/projects.ts` are published. Mopedo V2, QuizWar V2, Rekha Maa Ki Rasoi and Rama Technical College are published. Rama's scope is the homepage only, and its v0 (ideas only) and ChatGPT (content formatting) use is disclosed deliberately. ChefKart remains professional product work, not a public case study.
+- Project detail pages use `app/projects/[slug]/page.tsx`; only reviewed records with `caseStudy` in `features/projects/data/projects.ts` are published. Mopedo V2, QuizWar V2, Rekha Maa Ki Rasoi and Rama Technical College are published. Rama's scope is the homepage only, and its v0 (ideas only) and ChatGPT (content formatting) use is disclosed deliberately. ChefKart has a verified professional case study at `/experience/chefkart` (not a project route); keep its publication boundary in `CLAUDE.md`.
 - Update this file, the README and relevant docs whenever architecture, deployment, environment variables or required checks change.
 
 ## Project case-study architecture
@@ -149,3 +149,13 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 - Rekha Maa Ki Rasoi is the reference UI/UX + WordPress/Elementor business-website case study. The business idea originated with Anuj's mother; they shaped the meal plans and pricing together, while Anuj owned the digital execution end to end: information architecture, visual direction, brand treatment, copy, original food photography, responsive layouts, WordPress/Elementor implementation, forms/plugins, domain, hosting and deployment. A premium WordPress theme was the foundation and was customized for the business; do not claim custom CSS, JavaScript, PHP or custom-theme development. The live site generated inbound enquiries, but no numeric lead, order, revenue or conversion claim is verified. Its testimonials and 4.3-star rating are placeholder/demo content and must never be presented as factual evidence. Use 2026 only if a project year is needed; March is unverified.
 
 - Case-study benchmarks: Mopedo is the React/web engineering reference; QuizWar is the React Native/mobile engineering reference; Rekha Maa Ki Rasoi is the UI/UX + WordPress/Elementor + small-business website reference. Keep all three factual, server rendered and distinct in purpose.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
