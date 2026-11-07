@@ -106,6 +106,11 @@ export const experienceRoles: readonly ExperienceRole[] = [
     achievement: "Completed ahead of schedule with additional features",
     isCurrent: false,
     accent: "pink",
+    cta: {
+      label: "Read the 3rd Eye Lab experience",
+      href: "/experience/third-eye-lab",
+      external: false,
+    },
   },
 ] as const
 
