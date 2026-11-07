@@ -189,7 +189,7 @@ const companyCards: {
   {
     name: "ChefKart",
     logo: "/logos/chefkart-logo.webp",
-    imageClassName: "h-6 max-w-[112px]",
+    imageClassName: "h-7 max-w-[132px]",
     className: "right-[18px] top-[104px] sm:right-[22px] sm:top-[120px] md:right-[28px] md:top-[132px]",
     duration: 6.2,
     delay: 0.9,
@@ -198,7 +198,7 @@ const companyCards: {
   {
     name: "PPCROY TECH SOLUTIONS",
     logo: "/logos/ppcroy-logo.svg",
-    imageClassName: "h-5 max-w-[92px]",
+    imageClassName: "h-6 max-w-[116px]",
     className:
       "right-[18px] bottom-[115px] sm:right-[22px] sm:bottom-[128px] md:right-[28px] md:bottom-[140px]",
     duration: 7,
@@ -208,7 +208,7 @@ const companyCards: {
   {
     name: "3rd Eye Lab",
     logo: "/logos/3rd-eye-lab-logo.png",
-    imageClassName: "h-6 max-w-[130px]",
+    imageClassName: "h-7 max-w-[150px]",
     className: "left-[52px] bottom-[90px] sm:left-[68px] sm:bottom-[100px] md:left-[84px] md:bottom-[110px]",
     duration: 7.4,
     delay: 1.3,
@@ -341,7 +341,7 @@ function FloatingCompanyCard({
     >
       <div
         className={[
-          "relative flex h-9 sm:h-10 min-w-[104px] items-center justify-center overflow-hidden rounded-lg border px-3 pl-4 backdrop-blur-sm",
+          "relative flex h-10 sm:h-11 min-w-[112px] items-center justify-center overflow-hidden rounded-lg border px-3 pl-4 backdrop-blur-sm",
           darkBg
             ? "border-white/12 bg-neutral-900/90 shadow-[0_8px_28px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.06)]"
             : "border-white/20 bg-white/95 shadow-[0_8px_32px_rgba(0,0,0,0.32),inset_0_1px_0_rgba(255,255,255,0.95)]",
@@ -401,7 +401,7 @@ export function Hero() {
                 <div className="relative z-20 h-[228px] w-[228px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40 sm:h-[278px] sm:w-[278px] md:h-[318px] md:w-[318px]">
                   <Image
                     src="/anuj-profile-400.jpg"
-                    alt="Anuj Dhanuka — Software Engineer and Frontend Developer based in Gurugram, India"
+                    alt="Anuj Dhanuka — Software Engineer and Frontend Developer based in Vizianagaram, India"
                     fill
                     className="object-cover"
                     priority

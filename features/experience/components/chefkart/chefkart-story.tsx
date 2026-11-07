@@ -23,51 +23,14 @@ import {
   homeCardLift,
   homeFeatureCard,
   homeIconTile,
-} from "@/features/experience/components/chefkart/chefkart-styles"
+} from "@/features/experience/components/experience-card-styles"
+import { StepChain } from "@/features/experience/components/step-chain"
 import { cn } from "@/lib/utils"
 
 const customerIcons = { search: Search, new: Download, returning: RefreshCw }
 const entryIcons = [Globe, Smartphone]
 // Same icon per product as the hero diagram, so the visual language carries through the page.
 const productIcons = [Smartphone, Globe, CreditCard, LayoutDashboard]
-
-// Phones: a stack of bordered rows (step cards). From sm up: arrow-linked chips that wrap.
-// On the tinted feature card the chips turn white so they still stand out.
-function StepChain({ steps, onTint = false }: { steps: readonly string[]; onTint?: boolean }) {
-  return (
-    <>
-      <ol
-        className={cn(
-          "divide-y divide-purple-100 overflow-hidden rounded-lg border border-purple-100 dark:divide-purple-800/30 dark:border-purple-800/30 sm:hidden",
-          onTint ? "bg-white/80 dark:bg-gray-950/45" : "bg-purple-50/55 dark:bg-purple-950/20",
-        )}
-      >
-        {steps.map((step) => (
-          <li key={step} className="type-small px-3 py-2.5 font-semibold copy-heading">
-            {step}
-          </li>
-        ))}
-      </ol>
-      <ol className="hidden flex-wrap items-center gap-x-1.5 gap-y-2 sm:flex">
-        {steps.map((step, index) => (
-          <li key={step} className="flex items-center gap-1.5">
-            {index > 0 && <ArrowRight className="h-3.5 w-3.5 text-brand-500" aria-hidden="true" />}
-            <span
-              className={cn(
-                "type-small rounded-lg border px-2.5 py-1.5 font-semibold copy-heading",
-                onTint
-                  ? "border-purple-100 bg-white/80 dark:border-purple-800/40 dark:bg-gray-950/45"
-                  : "border-brand-100 bg-brand-50/70 dark:border-brand-900/50 dark:bg-brand-950/30",
-              )}
-            >
-              {step}
-            </span>
-          </li>
-        ))}
-      </ol>
-    </>
-  )
-}
 
 // Step count beside a lane name; only shown with the phone step cards.
 function StepCount({ count }: { count: number }) {

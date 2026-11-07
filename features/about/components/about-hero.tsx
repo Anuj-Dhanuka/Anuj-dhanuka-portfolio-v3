@@ -89,11 +89,11 @@ export function AboutHero() {
                 <div className="absolute inset-x-5 bottom-5 z-20 flex flex-wrap gap-2">
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-gray-950/70 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">
                     <BriefcaseBusiness className="h-3.5 w-3.5 text-brand-300" aria-hidden="true" />
-                    Software Engineer at ChefKart
+                    Previously Software Engineer at ChefKart
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-gray-950/70 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">
                     <MapPin className="h-3.5 w-3.5 text-accent1-300" aria-hidden="true" />
-                    Gurugram, India
+                    Vizianagaram, India
                   </span>
                 </div>
               </div>

@@ -85,7 +85,7 @@ export function ExperienceHero() {
                 {experienceRoles.map((role, index) => (
                   <div
                     key={role.id}
-                    className={`grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3 rounded-2xl border p-3 sm:grid-cols-[80px_minmax(0,1fr)] sm:gap-4 sm:p-4 ${
+                    className={`grid grid-cols-[96px_minmax(0,1fr)] items-center gap-3 rounded-2xl border p-3 sm:grid-cols-[128px_minmax(0,1fr)] sm:gap-4 sm:p-4 ${
                       index === 0
                         ? "border-brand-300/35 bg-gradient-to-r from-brand-500/20 to-accent1-500/15"
                         : "border-white/10 bg-black/20"
@@ -93,16 +93,16 @@ export function ExperienceHero() {
                   >
                     <span
                       className={cn(
-                        "flex h-12 w-[72px] items-center justify-center rounded-xl border p-2.5 sm:h-14 sm:w-20",
+                        "flex h-14 w-24 items-center justify-center rounded-xl border px-2.5 sm:w-32 sm:px-3",
                         logoSurfaceStyles[role.id],
                       )}
                     >
                       <Image
                         src={role.logo}
                         alt=""
-                        width={160}
-                        height={56}
-                        className="h-auto max-h-full w-full object-contain"
+                        width={200}
+                        height={60}
+                        className="h-6 w-auto max-w-full object-contain sm:h-7"
                       />
                     </span>
                     <span className="min-w-0">

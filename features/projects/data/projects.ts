@@ -9,6 +9,8 @@ export type ProjectCaseStudy = {
   slug: string
   lastModified: string
   summary: string
+  // Search title when the default "name — category | author" runs past ~60 characters.
+  metaTitle?: string
   metaDescription?: string
   context: string
   responsibility: string
@@ -197,6 +199,9 @@ export const projects: Project[] = [
     caseStudy: {
       slug: "mopedo",
       lastModified: "2026-10-06",
+      // Search-only description; the frozen case-study content is unchanged.
+      metaDescription:
+        "Mopedo is a responsive React web app for bike taxi, food and goods delivery. I designed its interface and built the frontend from scratch.",
       summary:
         "Mopedo is a responsive React web application for bike taxi, food delivery and goods delivery. I designed its interface and built the frontend from scratch, including its responsive layouts and client-side navigation.",
       context:
@@ -497,6 +502,7 @@ export const projects: Project[] = [
       lastModified: "2026-11-02",
       summary:
         "A freelance project I took on through a friend, who handled the college directly. I designed and built the homepage for a vocational training institute in Kushinagar, Uttar Pradesh, turning its courses, credentials and student information into one page that guides students and parents to enquire.",
+      metaTitle: "Rama Technical College Homepage | Anuj Dhanuka",
       metaDescription:
         "Rama Technical College of Education homepage designed and built by Anuj Dhanuka in WordPress and Elementor: a freelance, responsive education website.",
       context:

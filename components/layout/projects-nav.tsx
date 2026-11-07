@@ -19,13 +19,24 @@ export type ProjectNavItem = {
 const OPEN_DELAY = 120
 const CLOSE_DELAY = 250
 
+// The same link + disclosure menu serves Projects and Experience; label, href and the closing
+// "view all" row default to Projects.
+type MenuTarget = {
+  label?: string
+  href?: string
+  allLabel?: string
+}
+
 export function DesktopProjectsMenu({
   items,
   pathname,
   linkClassName,
   isActive,
   onNavigate,
-}: {
+  label = "Projects",
+  href = "/projects",
+  allLabel = "View all projects",
+}: MenuTarget & {
   items: ProjectNavItem[]
   pathname: string
   linkClassName: string
@@ -79,12 +90,12 @@ export function DesktopProjectsMenu({
       }}
     >
       <Link
-        href="/projects"
-        onClick={(event) => navigate(event, "/projects")}
+        href={href}
+        onClick={(event) => navigate(event, href)}
         className={cn(linkClassName, "pr-1.5 xl:pr-2")}
-        aria-current={pathname === "/projects" ? "page" : undefined}
+        aria-current={pathname === href ? "page" : undefined}
       >
-        Projects
+        {label}
       </Link>
       <button
         ref={buttonRef}
@@ -95,7 +106,7 @@ export function DesktopProjectsMenu({
         }}
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={open ? "Hide projects" : "Show projects"}
+        aria-label={open ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`}
         className={cn(
           "ml-0.5 flex h-8 w-6 items-center justify-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500",
           isActive || open ? "text-current" : "text-current opacity-80 hover:opacity-100",
@@ -132,15 +143,15 @@ export function DesktopProjectsMenu({
                 </li>
               )
             })}
-            {/* Last row, under a rule: the full Projects page. */}
+            {/* Last row, under a rule: the section's full page. */}
             <li className="mt-2 border-t border-purple-100 pt-2 dark:border-purple-800/40">
               <Link
-                href="/projects"
-                onClick={(event) => navigate(event, "/projects")}
-                aria-current={pathname === "/projects" ? "page" : undefined}
+                href={href}
+                onClick={(event) => navigate(event, href)}
+                aria-current={pathname === href ? "page" : undefined}
                 className="group flex items-center gap-1.5 whitespace-nowrap px-4 py-2 text-sm font-semibold text-brand-700 transition-colors hover:text-accent1-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-500 dark:text-brand-300 dark:hover:text-accent1-300"
               >
-                View all projects
+                {allLabel}
                 <ArrowRight
                   className="h-4 w-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
                   aria-hidden="true"
@@ -159,7 +170,9 @@ export function MobileProjectsMenu({
   pathname,
   onNavigate,
   linkClassName,
-}: {
+  label = "Projects",
+  href = "/projects",
+}: Omit<MenuTarget, "allLabel"> & {
   items: ProjectNavItem[]
   pathname: string
   onNavigate: (event: MouseEvent<HTMLAnchorElement>, href: string) => void
@@ -174,19 +187,19 @@ export function MobileProjectsMenu({
       {/* The label navigates and the chevron only toggles, so a tap never does both. */}
       <div className="flex items-center">
         <Link
-          href="/projects"
-          onClick={(event) => onNavigate(event, "/projects")}
+          href={href}
+          onClick={(event) => onNavigate(event, href)}
           className={linkClassName}
-          aria-current={pathname === "/projects" ? "page" : undefined}
+          aria-current={pathname === href ? "page" : undefined}
         >
-          Projects
+          {label}
         </Link>
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls={listId}
-          aria-label={open ? "Hide projects" : "Show projects"}
+          aria-label={open ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`}
           className="-mr-2 flex h-11 w-11 items-center justify-center text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:text-gray-400"
         >
           <ChevronDown

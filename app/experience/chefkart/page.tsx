@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 
 import { CTA } from "@/components/shared/cta"
 import { site } from "@/config/site"
@@ -58,7 +59,8 @@ const chefkartJsonLd = {
       description: chefkartPage.description,
       url,
       author: { "@id": `${site.url}/#person` },
-      datePublished: chefkartPage.lastModified,
+      about: { "@type": "Organization", name: "ChefKart" },
+      datePublished: chefkartPage.published,
       dateModified: chefkartPage.lastModified,
       image: `${site.url}${chefkartPage.path}/opengraph-image`,
       keywords: chefkartHero.stack.join(", "),
@@ -90,7 +92,17 @@ export default function ChefkartExperiencePage() {
           description={chefkartClosing.cta}
           contactLabel="Let’s talk"
           resumeLabel="View my résumé"
-        />
+        >
+          {/* Links the two experience case studies to each other. */}
+          <p className="type-small mt-8 font-semibold text-white">
+            <Link
+              href="/experience/ppcroy"
+              className="underline decoration-white/40 underline-offset-4 hover:decoration-white focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              Read about my PPCROY client experience
+            </Link>
+          </p>
+        </CTA>
       </main>
     </div>
   )

@@ -8,7 +8,7 @@ import {
   homeCard,
   homeCardLift,
   homeIconTile,
-} from "@/features/experience/components/chefkart/chefkart-styles"
+} from "@/features/experience/components/experience-card-styles"
 import { chefkartPhotos, chefkartRole } from "@/features/experience/data/chefkart"
 import { cn } from "@/lib/utils"
 

@@ -7,6 +7,8 @@ export type ExperienceRole = {
   company: string
   logo: string
   logoAlt: string
+  // PPCROY's white-and-yellow wordmark needs a dark tile to stay readable.
+  logoOnDark?: boolean
   location: string
   workMode: "Onsite" | "Remote"
   type: "Full-time" | "Internship"
@@ -34,18 +36,18 @@ export const experienceRoles: readonly ExperienceRole[] = [
     location: "Gurugram, Haryana",
     workMode: "Onsite",
     type: "Full-time",
-    duration: "December 2025 – Present",
+    duration: "December 2025 – October 2026",
     description:
-      "I contribute across ChefKart’s customer mobile application, public website, internal operations dashboard and payment platform, building interfaces used by customers and internal teams.",
+      "I contributed across ChefKart’s customer mobile application, public website, internal operations dashboard and payment platform, building interfaces used by customers and internal teams.",
     responsibilities: [
-      "Build and improve React Native journeys for bookings, visits, wallets, payments, refunds, cancellations and party services.",
-      "Contribute to React and Next.js interfaces across the public website, payment platform and internal operations dashboard.",
-      "Implement product analytics for meaningful customer actions and support frontend debugging, UI quality and responsive behaviour.",
-      "Collaborate with backend engineers, designers and product managers from requirement discussion through testing and release.",
+      "Built and improved React Native journeys for bookings, visits, wallets, payments, refunds, cancellations and party services.",
+      "Contributed to React and Next.js interfaces across the public website, payment platform and internal operations dashboard.",
+      "Implemented product analytics for meaningful customer actions and supported frontend debugging, UI quality and responsive behaviour.",
+      "Collaborated with backend engineers, designers and product managers from requirement discussion through testing and release.",
     ],
     technologies: ["React Native", "React.js", "Next.js", "JavaScript", "Analytics", "Product UI"],
     achievement: "Recognised in Technology & Engineering · May 2026",
-    isCurrent: true,
+    isCurrent: false,
     accent: "purple",
     cta: {
       label: "Read the ChefKart case study",
@@ -55,10 +57,11 @@ export const experienceRoles: readonly ExperienceRole[] = [
   },
   {
     id: "ppcroy",
-    position: "Junior Web Developer",
+    position: "Associate Full Stack Developer",
     company: "PPCROY TECH SOLUTIONS",
     logo: "/logos/ppcroy-logo.svg",
     logoAlt: "PPCROY Tech Solutions logo",
+    logoOnDark: true,
     location: "Remote",
     workMode: "Remote",
     type: "Full-time",
@@ -76,8 +79,9 @@ export const experienceRoles: readonly ExperienceRole[] = [
     isCurrent: false,
     accent: "blue",
     cta: {
-      label: "View selected client projects",
-      href: "/projects#selected-work",
+      label: "Read the PPCROY experience",
+      href: "/experience/ppcroy",
+      external: false,
     },
   },
   {
@@ -102,10 +106,6 @@ export const experienceRoles: readonly ExperienceRole[] = [
     achievement: "Completed ahead of schedule with additional features",
     isCurrent: false,
     accent: "pink",
-    cta: {
-      label: "Review the internship experience",
-      href: "/experience#role-third-eye-lab",
-    },
   },
 ] as const
 

@@ -14,7 +14,13 @@ import {
   type ProjectNavItem,
 } from "@/components/layout/projects-nav"
 
-export function Navbar({ projects }: { projects: ProjectNavItem[] }) {
+export function Navbar({
+  projects,
+  experience,
+}: {
+  projects: ProjectNavItem[]
+  experience: ProjectNavItem[]
+}) {
   const pathname = usePathname()
   const isHome = pathname === "/"
   const [isOpen, setIsOpen] = useState(false)
@@ -117,6 +123,12 @@ export function Navbar({ projects }: { projects: ProjectNavItem[] }) {
     { name: "Contact", href: "/contact" },
   ]
 
+  // Items that open a dropdown of their detail pages, keyed by the item's href.
+  const navMenus: Record<string, { items: ProjectNavItem[]; allLabel: string }> = {
+    "/experience": { items: experience, allLabel: "View all experience" },
+    "/projects": { items: projects, allLabel: "View all projects" },
+  }
+
   const hasDarkHero =
     isHome ||
     pathname === "/about" ||
@@ -170,8 +182,8 @@ export function Navbar({ projects }: { projects: ProjectNavItem[] }) {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
             {navLinks.map((link) =>
-              link.href === "/projects" ? (
-                // Projects keeps its link to /projects and adds a hover/disclosure dropdown of case studies.
+              navMenus[link.href] ? (
+                // Experience and Projects keep their page link and add a hover/disclosure dropdown of detail pages.
                 <div
                   key={link.name}
                   className={cn(
@@ -185,7 +197,10 @@ export function Navbar({ projects }: { projects: ProjectNavItem[] }) {
                   )}
                 >
                   <DesktopProjectsMenu
-                    items={projects}
+                    items={navMenus[link.href].items}
+                    label={link.name}
+                    href={link.href}
+                    allLabel={navMenus[link.href].allLabel}
                     pathname={pathname}
                     isActive={isActive(link.href)}
                     onNavigate={handleNavigation}
@@ -314,9 +329,11 @@ export function Navbar({ projects }: { projects: ProjectNavItem[] }) {
 
                 return (
                   <li key={link.name}>
-                    {link.href === "/projects" ? (
+                    {navMenus[link.href] ? (
                       <MobileProjectsMenu
-                        items={projects}
+                        items={navMenus[link.href].items}
+                        label={link.name}
+                        href={link.href}
                         pathname={pathname}
                         onNavigate={handleNavigation}
                         linkClassName={linkClassName}

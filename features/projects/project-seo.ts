@@ -3,7 +3,7 @@ import { site } from "@/config/site"
 import { projectPath, type CaseStudyProject } from "@/features/projects/project-details"
 
 export function projectMetadata(project: CaseStudyProject): Metadata {
-  const title = `${project.title} — ${project.category} | ${site.author}`
+  const title = project.caseStudy.metaTitle ?? `${project.title} — ${project.category} | ${site.author}`
   const description = project.caseStudy.metaDescription ?? project.caseStudy.summary
   const path = projectPath(project)
   const image = {

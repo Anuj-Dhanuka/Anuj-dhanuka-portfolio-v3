@@ -1,5 +1,5 @@
 // Homepage card language ("What I Bring"): violet border, soft violet shadow, brand icon tile and a
-// thin brand→accent bar along the top. Shared so every reworked ChefKart section feels like home.
+// thin brand→accent bar along the top. Shared so every experience case-study section feels like home.
 export const homeCard =
   "rounded-lg border border-purple-100 bg-white/90 shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_45px_rgba(124,58,237,0.07)] backdrop-blur-sm dark:border-purple-800/30 dark:bg-gray-950/55 dark:shadow-none"
 

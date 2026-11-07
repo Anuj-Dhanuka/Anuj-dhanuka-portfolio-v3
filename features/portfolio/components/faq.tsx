@@ -21,7 +21,7 @@ const faqs = [
   {
     question: "What professional and production experience do you have?",
     answer:
-      "My experience spans mobile application development, client project delivery and live product development.\n\nAt ChefKart, I contribute across the customer mobile application, internal dashboard and website. Previously, I delivered 20+ client projects at PPCROY TECH SOLUTIONS and worked with React Native during my internship at 3rd Eye Lab.",
+      "My experience spans mobile application development, client project delivery and live product development.\n\nMost recently, at ChefKart (December 2025 – October 2026), I contributed across the customer mobile application, internal dashboard and website. Before that, I delivered 20+ client projects at PPCROY TECH SOLUTIONS and worked with React Native during my internship at 3rd Eye Lab.",
   },
   {
     question: "How do you approach development requirements?",
