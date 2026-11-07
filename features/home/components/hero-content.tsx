@@ -31,6 +31,16 @@ export function HeroContent() {
       </div>
 
       <div className="space-y-4 pt-2">
+        <p className="type-small inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-white sm:rounded-full">
+          <span className="h-2 w-2 flex-none rounded-full bg-success-400" aria-hidden="true" />
+          <span className="font-semibold">{site.availability}</span>
+          <span className="hidden text-white/50 sm:inline" aria-hidden="true">
+            ·
+          </span>
+          {/* Phones: its own line, aligned under the text after the dot. */}
+          <span className="basis-full pl-4 text-purple-100 sm:basis-auto sm:pl-0">{site.openTo}</span>
+        </p>
+
         <div className="flex flex-wrap gap-3 sm:gap-4">
           <Button
             asChild
