@@ -235,7 +235,7 @@ Open follow-ups noted for the candidate (not code changes — content/copy work)
 - Mechanical → Software career pivot not narrated in `components/about.tsx`
 - PPCROY `companyUrl: "#"` in `components/experience.tsx` (broken link)
 - GitHub surface area thin (only 1 public repo linked)
-- No disclosure that ChefKart product work is proprietary (would contextualize the lighter public portfolio)
+- ~~No disclosure that ChefKart product work is proprietary~~ — done 7 November 2026: notes on the ChefKart case study (Contribution section) and the Projects page
 
 ## Project detail pages
 

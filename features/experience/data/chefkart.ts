@@ -690,7 +690,7 @@ export const chefkartPrinciples = [
 export const chefkartEvidenceHeader = {
   label: "Contribution",
   title: "Contribution evidence",
-  intro: "Where my code stands today in each of ChefKart’s four repositories.",
+  intro: "Where my code stands in each of ChefKart’s four repositories.",
 }
 
 // One card per repository: a headline figure, the ownership share where published, then the rest.
@@ -741,6 +741,10 @@ export const chefkartEvidence = {
     { value: "1,065", label: "Distinct files introduced across the three main products" },
   ],
 } as const
+
+// Explains the lighter public portfolio: the employer owns the code and internal tools.
+export const chefkartProprietaryNote =
+  "ChefKart’s code and internal tools are proprietary, so this case study describes the work and its decisions without sharing source code or internal screens."
 
 export const chefkartStatsMethodology =
   "Current ownership was calculated with git blame on the development branches across non-blank TypeScript, JavaScript, React, CSS, SCSS and HTML source lines. Generated and vendor code was excluded, and multiple Git identities belonging to the same developer were consolidated. These numbers measure current surviving source ownership, not every line ever added. They are supporting evidence of scope; the product journeys and engineering decisions above are the more important measure of the work."

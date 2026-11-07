@@ -1,3 +1,5 @@
+import { site } from "@/config/site"
+
 // Content for /experience/ppcroy, from the owner's copy (7 November 2026).
 // Role, dates and location follow the resume (updated 7 November 2026) and the Experience page. Selected work stays empty
 // until the owner supplies verified projects; never invent client names, outcomes or metrics.
@@ -412,12 +414,8 @@ export const ppcroyClosing = {
   paragraphs: [
     "I understand stakeholders and business goals, and I turn ideas into polished, responsive experiences. I'm looking for frontend roles where I can build with React, React Native, Next.js and TypeScript.",
   ],
-  // Owner-supplied; conflicts with the ChefKart "Present" record elsewhere until the owner confirms.
-  availability: [
-    "Immediate joiner",
-    "Based in Vizianagaram, Andhra Pradesh",
-    "Open to opportunities across India",
-  ],
+  // Same wording as the homepage and Contact page, from the shared site config.
+  availability: [site.availability, `Based in ${site.location}`, site.openTo],
   contactLabel: "Discuss a frontend opportunity",
   resumeLabel: "Download my resume",
   linkedInLabel: "Connect on LinkedIn",

@@ -11,6 +11,7 @@ import {
 import {
   chefkartEvidence,
   chefkartEvidenceHeader,
+  chefkartProprietaryNote,
   chefkartStatsMethodology,
 } from "@/features/experience/data/chefkart"
 import { cn } from "@/lib/utils"
@@ -123,6 +124,7 @@ export function ChefkartContribution() {
               >
                 <p className="type-label text-brand-700 dark:text-brand-300">How this was measured</p>
                 <p className="type-small mt-2 copy-body">{chefkartStatsMethodology}</p>
+                <p className="type-small mt-2 copy-body">{chefkartProprietaryNote}</p>
               </div>
             </div>
           </div>
