@@ -58,7 +58,7 @@ The required `npm run build` was attempted, including outside the sandbox, but T
 | Deployment   | Netlify cache headers in netlify.toml; security headers/CSP in next.config.mjs; Node 22 CI quality gate                                                      |
 | URLs         | Origin/contact/social identity centralized in config/site.ts; environment variables do not select the canonical origin                                       |
 | Analytics    | Optional production GA and Matomo; afterInteractive scripts; centralized navigation and interaction tracking                                                 |
-| Recovery     | app/loading.tsx, error.tsx, global-error.tsx, not-found.tsx; no project detail pages by design                                                               |
+| Recovery     | app/error.tsx, global-error.tsx, not-found.tsx (root loading.tsx removed 7 November 2026); no project detail pages by design                                 |
 
 Static pages contain prerendered Client Component HTML as well as Server Component HTML. A `use client` directive does not by itself make content unavailable to crawlers. Likewise, the homepage's dynamic imports do not prove that all below-the-fold JavaScript waits until scrolling; only the deferred contact form explicitly waits for an Intersection Observer threshold. These distinctions were checked against generated HTML and the [Next.js metadata documentation](https://nextjs.org/docs/app/getting-started/metadata-and-og-images).
 

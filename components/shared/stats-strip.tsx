@@ -76,7 +76,7 @@ export function StatsStrip({
                     {stat.value}
                     {stat.suffix ?? ""}
                   </span>
-                  <span className="mt-3 text-[11px] tracking-[0.18em] lg:tracking-[0.2em] uppercase font-semibold text-gray-500 dark:text-gray-400 leading-relaxed whitespace-nowrap">
+                  <span className="mt-3 text-[11px] tracking-[0.18em] lg:tracking-[0.2em] uppercase font-semibold text-gray-500 dark:text-gray-400 leading-relaxed lg:whitespace-nowrap">
                     {stat.label}
                   </span>
                 </div>

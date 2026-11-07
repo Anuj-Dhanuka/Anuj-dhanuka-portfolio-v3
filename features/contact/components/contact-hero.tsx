@@ -52,10 +52,18 @@ export function ContactHero() {
               </LinkButton>
             </div>
 
-            <div className="mt-8 flex items-center gap-2 border-t border-white/10 pt-6 text-sm text-brand-100">
-              <MapPin className="h-4 w-4 flex-none text-accent1-300" aria-hidden="true" />
-              Based in {site.location}
-            </div>
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/10 pt-6 text-sm text-brand-100">
+              <li className="flex items-center gap-2">
+                <span className="h-2 w-2 flex-none rounded-full bg-success-400" aria-hidden="true" />
+                <span>
+                  <span className="font-semibold text-white">{site.availability}</span> · {site.openTo}
+                </span>
+              </li>
+              <li className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 flex-none text-accent1-300" aria-hidden="true" />
+                Based in {site.location}
+              </li>
+            </ul>
           </div>
 
           <div className="mx-auto hidden w-full max-w-[420px] lg:block xl:max-w-[440px]">

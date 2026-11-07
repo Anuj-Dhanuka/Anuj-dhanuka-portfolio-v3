@@ -294,15 +294,16 @@ export function PpcroyPlatforms() {
 // A staircase from the first conversation to launch: on extra-large screens each step stands on a bar
 // that rises and deepens towards a full brand-gradient finish; smaller screens get a vertical list with a
 // progress bar that fills step by step. The bars are decorative; the numbered list carries the content.
-// Brand palette steps from pale to deep, finishing on the signature gradient.
+// Brand palette steps from pale to deep in light mode, and from deep to bright in dark mode, so the
+// staircase always climbs steadily to the signature gradient.
 const stairTones = [
-  "bg-brand-100 dark:bg-brand-900/40",
-  "bg-brand-200 dark:bg-brand-900/70",
+  "bg-brand-100 dark:bg-brand-900/50",
+  "bg-brand-200 dark:bg-brand-900",
   "bg-brand-300 dark:bg-brand-800",
   "bg-brand-400 dark:bg-brand-700",
-  "bg-brand-500",
-  "bg-brand-600",
-  "bg-brand-700 dark:bg-brand-500",
+  "bg-brand-500 dark:bg-brand-600",
+  "bg-brand-600 dark:bg-brand-500",
+  "bg-brand-700 dark:bg-brand-400",
   "bg-gradient-to-r from-brand-600 to-accent1-600",
 ]
 
@@ -319,13 +320,18 @@ export function PpcroyProcess() {
       title={ppcroyProcess.title}
     >
       <Reveal delay={0.05}>
-        <div className="mt-12 flex items-center gap-3 sm:gap-4">
+        {/* Phones stack the two ends with a short dashed link; wider screens run them along one line. */}
+        <div className="mt-12 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4">
           <span className="type-small inline-flex flex-none items-center gap-2 rounded-full border border-brand-100 bg-white px-3 py-1.5 font-semibold copy-heading shadow-sm dark:border-brand-800/40 dark:bg-gray-950">
             <MessagesSquare className="h-4 w-4 text-brand-600 dark:text-brand-300" aria-hidden="true" />
             {ppcroyProcess.from}
           </span>
           <span
-            className="relative h-px flex-1 border-t border-dashed border-brand-300 dark:border-brand-700"
+            className="ml-5 h-4 border-l border-dashed border-brand-300 dark:border-brand-700 sm:hidden"
+            aria-hidden="true"
+          />
+          <span
+            className="relative hidden h-px flex-1 border-t border-dashed border-brand-300 dark:border-brand-700 sm:block"
             aria-hidden="true"
           >
             <ArrowRight className="absolute -right-1 -top-2 h-4 w-4 text-brand-400" />

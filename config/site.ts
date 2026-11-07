@@ -10,6 +10,9 @@ export const site = {
   phoneDisplay: "+91 8978264705",
   phoneHref: "tel:+918978264705",
   location: "Vizianagaram, Andhra Pradesh, India",
+  // Shown on the homepage hero, Contact page and default closing CTA; ChefKart role ended 31 October 2026.
+  availability: "Available to join immediately",
+  openTo: "Open to roles across India",
   linkedIn: "https://linkedin.com/in/anuj-dhanuka",
   github: "https://github.com/Anuj-Dhanuka",
   instagram: "https://www.instagram.com/anuj_dhanuka/",

@@ -64,6 +64,7 @@ For animation changes, verify behavior in a real browser by checking changing ma
 - Preserve the 400px/approximately 16 KB LCP portrait, direct high-priority preload, and the cache entries in `netlify.toml`.
 - Preserve the requestAnimationFrame-throttled/passive navbar scroll handling; do not restore layout reads across every section on each scroll event.
 - Preserve conditional analytics preconnects and production-only analytics loading.
+- Do not add a root `app/loading.tsx`. Every route is static, and a root loading boundary streamed each page as a placeholder plus the footer, with the real content in a hidden block after the footer (removed 7 November 2026). Use a segment-level `loading.tsx` only for a genuinely slow dynamic route.
 - Keep visual interactions intact. Prefer CSS animations or the smallest client boundary, but do not silently replace interactive behavior with static markup.
 
 ### Deployment
