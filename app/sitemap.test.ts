@@ -15,6 +15,7 @@ describe("public sitemap", () => {
       "https://anujdhanuka.com/experience",
       "https://anujdhanuka.com/experience/chefkart",
       "https://anujdhanuka.com/experience/ppcroy",
+      "https://anujdhanuka.com/experience/third-eye-lab",
       "https://anujdhanuka.com/skills",
       "https://anujdhanuka.com/projects",
       "https://anujdhanuka.com/certifications",
