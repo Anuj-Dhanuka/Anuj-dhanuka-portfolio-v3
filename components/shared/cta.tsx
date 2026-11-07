@@ -1,14 +1,16 @@
 import Link from "next/link"
+import type { ReactNode } from "react"
 import { Button } from "@/components/ui/button"
 import { Download, Mail } from "lucide-react"
 
 type CTAProps = {
   title?: string
-  description?: string
+  description?: string | readonly string[]
   contactLabel?: string
   contactHref?: string
   resumeLabel?: string
   resumeHref?: string
+  children?: ReactNode
 }
 
 export function CTA({
@@ -18,7 +20,10 @@ export function CTA({
   contactHref = "/contact",
   resumeLabel = "Download Resume",
   resumeHref = "/ANUJ_DHANUKA_RESUME.pdf",
+  children,
 }: CTAProps = {}) {
+  const paragraphs = typeof description === "string" ? [description] : description
+
   return (
     <section aria-labelledby="shared-cta-heading" className="relative overflow-hidden py-20">
       <div
@@ -37,7 +42,13 @@ export function CTA({
           <h2 id="shared-cta-heading" className="type-cta mb-4 text-white md:mb-6">
             {title}
           </h2>
-          <p className="type-cta-body mx-auto mb-8 max-w-3xl text-white/90 md:mb-10">{description}</p>
+          <div className="mx-auto mb-8 max-w-3xl space-y-4 md:mb-10">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph} className="type-cta-body text-white/90">
+                {paragraph}
+              </p>
+            ))}
+          </div>
 
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button
@@ -61,6 +72,8 @@ export function CTA({
               </a>
             </Button>
           </div>
+
+          {children}
         </div>
       </div>
     </section>

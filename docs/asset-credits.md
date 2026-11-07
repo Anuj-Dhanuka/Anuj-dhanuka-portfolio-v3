@@ -16,3 +16,8 @@ Free-licence stock photos, resized and encoded as WebP on 3 November 2026. Each 
 - `public/experience/chefkart/product-team.webp` (1400 × 933): AI-generated with Figma's image generator (gpt-image-2.5-flare) on 3 November 2026 for this page; not real people or ChefKart staff.
 
 The payments, city-page and operations visuals are original SVG wireframe illustrations in `features/experience/components/chefkart/chefkart-illustrations.tsx`. They are labelled on the page as illustrations, not real ChefKart screens, and contain no ChefKart data, prices or branding.
+
+## PPCROY experience page (`/experience/ppcroy`)
+
+- `public/experience/ppcroy/client-websites.webp` (1280 × 960): AI-generated with Figma's image generator (gpt-image-2.5-flare) on 7 November 2026 for the page hero, shown without a caption at the owner's request; not real client websites.
+- `public/experience/ppcroy/web-delivery-desk.webp` (1280 × 960): AI-generated with Figma's image generator (gpt-image-2.5-flare) on 7 November 2026 for this page, shown without a caption at the owner's request; not a real PPCROY client project or website. Replace it with real, permitted project screenshots when available.

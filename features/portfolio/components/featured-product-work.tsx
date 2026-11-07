@@ -13,7 +13,7 @@ const productAreas = [
     title: "Building clear and dependable customer journeys.",
     technologies: ["React Native", "JavaScript", "Analytics", "Mobile UI"],
     description:
-      "I develop and improve mobile experiences that help customers complete important service-related actions with confidence.",
+      "I developed and improved mobile experiences that helped customers complete important service-related actions with confidence.",
     contributions: [
       "Booking and visit-detail experiences",
       "Wallet and payment journeys",
@@ -37,7 +37,7 @@ const productAreas = [
     title: "Improving tools used by internal teams.",
     technologies: ["React.js", "JavaScript", "Dashboard UI", "Responsive Design"],
     description:
-      "I contribute to internal dashboard interfaces by improving structure, consistency, usability and the presentation of operational information.",
+      "I contributed to internal dashboard interfaces by improving structure, consistency, usability and the presentation of operational information.",
     contributions: [
       "Dashboard module redesigns",
       "Responsive web interfaces",
@@ -60,7 +60,7 @@ const productAreas = [
     title: "Supporting a consistent experience across web touchpoints.",
     technologies: ["React.js", "JavaScript", "HTML", "CSS"],
     description:
-      "I contribute to website improvements that maintain visual consistency and support ChefKart's broader customer experience.",
+      "I contributed to website improvements that maintained visual consistency and supported ChefKart's broader customer experience.",
     contributions: [
       "Responsive frontend implementation",
       "UI refinement",
@@ -152,8 +152,8 @@ export function FeaturedProductWork() {
             </h2>
             <div className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
             <p className="type-body mt-6 copy-body">
-              At ChefKart, I work across customer-facing and internal products where clarity, usability and
-              reliable frontend execution directly support customer actions and business operations.
+              At ChefKart, I worked across customer-facing and internal products where clarity, usability and
+              reliable frontend execution directly supported customer actions and business operations.
             </p>
           </motion.div>
         </div>

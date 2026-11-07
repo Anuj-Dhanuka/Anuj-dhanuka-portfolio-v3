@@ -93,10 +93,10 @@ export const journey = [
     Icon: BriefcaseBusiness,
   },
   {
-    period: "Dec 2025 – Present",
+    period: "Dec 2025 – Oct 2026",
     title: "Growing through product engineering at ChefKart",
     description:
-      "I contribute to ChefKart’s React Native customer app, React and Next.js website, internal operations dashboard and payment platform. I launch features and services while collaborating with backend engineers, designers and product managers under direct guidance from the co-founder and CTO.",
+      "I contributed to ChefKart’s React Native customer app, React and Next.js website, internal operations dashboard and payment platform. I launched features and services while collaborating with backend engineers, designers and product managers under direct guidance from the co-founder and CTO.",
     proof: "Recognised in Technology & Engineering · May 2026",
     skills: ["React Native", "React", "Next.js", "Product delivery", "Cross-functional collaboration"],
     Icon: Rocket,

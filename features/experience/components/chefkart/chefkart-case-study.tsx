@@ -21,11 +21,7 @@ import {
   OperationsIllustration,
   PaymentsIllustration,
 } from "@/features/experience/components/chefkart/chefkart-illustrations"
-import {
-  AccentBar,
-  homeCard,
-  homeFeatureCard,
-} from "@/features/experience/components/chefkart/chefkart-styles"
+import { AccentBar, homeCard, homeFeatureCard } from "@/features/experience/components/experience-card-styles"
 import type {
   CaseStudyBlock,
   CaseStudyDecision,

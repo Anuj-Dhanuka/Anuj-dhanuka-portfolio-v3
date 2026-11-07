@@ -46,13 +46,20 @@ export function ExperienceRoleCard({ role }: { role: ExperienceRole }) {
       <div className="grid lg:grid-cols-[minmax(280px,0.72fr)_minmax(0,1.28fr)]">
         <div className="border-b border-brand-100 bg-brand-50/45 p-6 dark:border-brand-900/45 dark:bg-brand-950/10 sm:p-8 lg:border-b-0 lg:border-r">
           <div className="flex items-start justify-between gap-4">
-            <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-brand-100 bg-white p-3 shadow-sm dark:border-brand-900/50">
+            {/* Wordmark logos are wide, so the tile is too: a readable 32px-tall logo on its own colour. */}
+            <span
+              className={`flex h-16 items-center justify-center rounded-2xl border px-5 shadow-sm ${
+                role.logoOnDark
+                  ? "border-white/10 bg-[#0d111d]"
+                  : "border-brand-100 bg-white dark:border-brand-900/50"
+              }`}
+            >
               <Image
                 src={role.logo}
                 alt={role.logoAlt}
-                width={100}
-                height={100}
-                className="max-h-full w-full object-contain"
+                width={200}
+                height={60}
+                className="h-8 w-auto max-w-[170px] object-contain"
               />
             </span>
             {role.isCurrent ? (

@@ -7,7 +7,7 @@ import {
   homeCardLift,
   homeFeatureCard,
   homeIconTile,
-} from "@/features/experience/components/chefkart/chefkart-styles"
+} from "@/features/experience/components/experience-card-styles"
 import { chefkartBring, chefkartBringHeader, chefkartClosing } from "@/features/experience/data/chefkart"
 import { cn } from "@/lib/utils"
 

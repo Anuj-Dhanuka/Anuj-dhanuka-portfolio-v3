@@ -87,7 +87,7 @@ export function ExperienceContent() {
             </p>
           </div>
 
-          <div className="mx-auto mt-12 grid max-w-6xl gap-8 md:mt-16">
+          <div className="mt-12 grid gap-8 md:mt-16">
             {experienceRoles.map((role) => (
               <ExperienceRoleCard key={role.id} role={role} />
             ))}
@@ -102,13 +102,13 @@ export function ExperienceContent() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
-            <p className="type-label text-brand-700 dark:text-brand-300">Current product scope</p>
+            <p className="type-label text-brand-700 dark:text-brand-300">Product scope at ChefKart</p>
             <h2 id="product-scope-heading" className="type-section mt-4 copy-heading">
-              Contributing across customer journeys and the systems that support them.
+              Contributing across customer journeys and the systems that supported them.
             </h2>
             <p className="type-body mx-auto mt-5 max-w-3xl copy-body">
-              At ChefKart, my frontend work spans four connected product surfaces rather than a single screen
-              or platform.
+              At ChefKart, my frontend work spanned four connected product surfaces rather than a single
+              screen or platform.
             </p>
           </div>
 

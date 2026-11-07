@@ -55,7 +55,7 @@ To deepen his mobile development knowledge after the internship, he completed a 
 
 ## Developing design judgment and delivery breadth
 
-In October 2024, Anuj joined PPCROY TECH SOLUTIONS as a Junior Web Developer. This role expanded his skills beyond implementation and helped him develop a stronger understanding of UI/UX principles, visual hierarchy, typography, brand guidelines, responsive design and the structure required for production-quality websites.
+In October 2024, Anuj joined PPCROY TECH SOLUTIONS as an Associate Full Stack Developer. This role expanded his skills beyond implementation and helped him develop a stronger understanding of UI/UX principles, visual hierarchy, typography, brand guidelines, responsive design and the structure required for production-quality websites.
 
 Anjaneyulu Jadda, founder of PPCROY TECH SOLUTIONS, became an important mentor. His guidance helped Anuj learn how to distinguish effective design from weak design, approach a project strategically, decide which sections a website needs and connect typography, branding and usability with business goals.
 

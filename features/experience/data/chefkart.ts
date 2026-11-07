@@ -6,13 +6,15 @@
 
 export const chefkartPage = {
   path: "/experience/chefkart",
-  lastModified: "2026-11-03",
-  title: "ChefKart Engineering Case Study — Anuj Dhanuka",
+  published: "2026-11-03",
+  lastModified: "2026-11-07",
+  // Under ~60 characters with the stack recruiters search for; descriptions stay under ~160.
+  title: "ChefKart Case Study: React Native & Next.js | Anuj Dhanuka",
   description:
-    "How Anuj Dhanuka built direct app and web-led customer journeys across discovery, serviceability, booking, payments, fulfilment, performance and internal operations at ChefKart.",
+    "How Anuj Dhanuka built ChefKart’s app and website booking journeys, from discovery and payments to performance and internal operations tools.",
   ogTitle: "Multiple entry points, one service journey: my engineering work at ChefKart",
   ogDescription:
-    "An end-to-end frontend case study covering direct mobile-app journeys, web acquisition, serviceability, payments, bookings and the internal tools used to fulfil them.",
+    "A frontend case study of ChefKart’s app journeys, web acquisition, payments, bookings and the internal tools used to fulfil them.",
 }
 
 export const chefkartHero = {
@@ -22,7 +24,7 @@ export const chefkartHero = {
   intro:
     "Customers could arrive in different ways. Some discovered ChefKart through a Google search and a city page. Others opened the mobile app directly, selected their location and checked which services were available nearby.",
   lede: "I helped build these customer paths and the operational systems behind them across ChefKart’s React Native app, Next.js website, payment application and internal operations dashboard.",
-  meta: "Gurugram · Onsite · December 2025 – Present",
+  meta: "Gurugram · Onsite · December 2025 – October 2026",
   stack: ["React Native", "Next.js", "TypeScript", "Redux", "Razorpay", "SSR", "REST APIs"],
 }
 
@@ -735,7 +737,7 @@ export const chefkartEvidence = {
   ],
   combined: [
     { value: "461", label: "Authored commits across four repositories" },
-    { value: "107,794", label: "Currently surviving source lines" },
+    { value: "107,794", label: "Surviving source lines" },
     { value: "1,065", label: "Distinct files introduced across the three main products" },
   ],
 } as const
@@ -777,33 +779,33 @@ export const chefkartFaqHeader = {
 // Every answer restates something the page already shows; nothing here is new evidence.
 export const chefkartFaq = [
   {
-    question: "What is your role at ChefKart?",
+    question: "What was your role at ChefKart?",
     answer:
-      "I’m an Associate Software Engineer, working there since December 2025. I build the customer app, the website, the payment application and the dashboard the operations team uses every day.",
+      "I was an Associate Software Engineer from December 2025 to October 2026. I built the customer app, the website, the payment application and the dashboard the operations team used every day.",
   },
   {
-    question: "What have you built there?",
+    question: "What did you build there?",
     answer:
       "Six pieces of work are covered on this page: the payment layer every service uses (including Quick Buy), Book by Dish, city pages, Cooks Near Me, party bookings and the operations team’s tools.",
   },
   {
-    question: "Which technologies do you work with?",
+    question: "Which technologies did you work with?",
     answer:
       "React Native for the app, Next.js and React for the website and dashboard, and TypeScript throughout. Also Redux, Razorpay, server-side rendering, REST APIs, caching and analytics.",
   },
   {
     question: "Is it only front-end screens?",
     answer:
-      "No. I also handle what happens when things go wrong, such as an unclear payment, no internet or a failed request. I make caching and rendering decisions too, and build tools for the operations team.",
+      "No. I also handled what happens when things go wrong, such as an unclear payment, no internet or a failed request. I made caching and rendering decisions too, and built tools for the operations team.",
   },
   {
     question: "How much of the code is yours?",
     answer:
-      "I’m the #1 contributor on both the app (out of 18) and the website (out of 13). Across four repositories, that’s 461 commits and 107,794 lines of my code still in use. The Contribution section shows how this was measured.",
+      "I was the #1 contributor on both the app (out of 18) and the website (out of 13). Across four repositories, that’s 461 commits and 107,794 lines of my code still in use. The Contribution section shows how this was measured.",
   },
   {
     question: "Are you open to new opportunities?",
     answer:
-      "Yes. I’m based in Gurugram, Haryana, and open to frontend and React Native opportunities where I can own a product journey from start to finish.",
+      "Yes. My last day at ChefKart was 31 October 2026. I’m based in Vizianagaram, Andhra Pradesh, can join immediately, and I’m open to frontend and React Native opportunities across India where I can own a product journey from start to finish.",
   },
 ]

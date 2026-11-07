@@ -4,6 +4,7 @@ import { site } from "@/config/site"
 import Script from "next/script"
 import "./globals.css"
 import { Navbar } from "@/components/layout/navbar"
+import { experienceNavItems } from "@/features/experience/experience-nav"
 import { projectNavItems } from "@/features/projects/project-nav"
 import { Footer } from "@/components/layout/footer"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -25,10 +26,6 @@ const siteJsonLd = {
       image: `${SITE_URL}/anuj-profile-400.jpg`,
       jobTitle: "Software Engineer",
       description: site.description,
-      worksFor: {
-        "@type": "Organization",
-        name: "ChefKart",
-      },
       alumniOf: {
         "@type": "CollegeOrUniversity",
         name: "Satya Institute Of Technology And Management",
@@ -54,7 +51,7 @@ const siteJsonLd = {
       url: site.homeUrl,
       name: "Anuj Dhanuka Portfolio",
       description:
-        "Portfolio of Anuj Dhanuka — Software Engineer and Frontend Developer based in Gurugram, India, with React.js and React Native experience.",
+        "Portfolio of Anuj Dhanuka — Software Engineer and Frontend Developer based in Vizianagaram, India, with React.js and React Native experience.",
       publisher: { "@id": PERSON_ID },
       inLanguage: site.locale,
     },
@@ -125,7 +122,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Navbar projects={projectNavItems} />
+          <Navbar projects={projectNavItems} experience={experienceNavItems} />
           {children}
           <Footer />
         </ThemeProvider>
