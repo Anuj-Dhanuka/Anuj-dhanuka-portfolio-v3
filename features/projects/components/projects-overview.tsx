@@ -1,4 +1,5 @@
 import { ProjectsHero } from "@/features/projects/components/projects-hero"
+import Link from "next/link"
 import { ArrowUpRight, Code2, Smartphone, Store } from "lucide-react"
 import { ProjectCard } from "@/features/projects/components/projects"
 import { projects } from "@/features/projects/data/projects"
@@ -36,6 +37,18 @@ function SelectedWorkHeader() {
         <p className="type-lead mx-auto mt-5 max-w-3xl copy-body">
           Selected web and mobile work showing the product context, technology choices and final interface
           delivered for each project.
+        </p>
+        {/* Why the professional work isn't here: ChefKart's code is proprietary. */}
+        <p className="type-small mx-auto mt-4 max-w-3xl copy-body">
+          Most of my professional work at ChefKart is proprietary, so the projects here are personal and
+          freelance work I can share publicly. You can read about the ChefKart work in the{" "}
+          <Link
+            href="/experience/chefkart"
+            className="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4 hover:decoration-brand-500 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-brand-300"
+          >
+            ChefKart case study
+          </Link>
+          .
         </p>
       </div>
     </header>
