@@ -169,6 +169,8 @@ Everything below is live and verified as of 2026-06-07. If domain, Google accoun
 - **Enhanced measurement:** ON (auto-tracks page views, scrolls, outbound clicks, site search, form interactions, file downloads, video engagement)
 - **Implementation:** `app/layout.tsx` — two `<Script>` tags via `next/script` with `strategy="afterInteractive"` (no LCP impact)
 - **Production-only:** wrapped in `process.env.NODE_ENV === "production"` so localhost dev runs do not pollute analytics
+- **Build-time ID:** `NEXT_PUBLIC_GA_MEASUREMENT_ID` (`G-Z31QZE55CS`) is inlined at build time. If it is missing from the Netlify environment, no GA4 tag ships at all; this silently stopped collection from late September to November 2026. After deploying, confirm `googletagmanager.com/gtag/js` appears in the live HTML.
+- **Page views:** GA4 enhanced measurement records client-side navigations ("page changes based on browser history events"). Do not also send `gtag("config")` on route changes; that double-counted every in-site navigation. `NavigationAnalytics` sends route-change page views to Matomo only.
 - **Verified live:** 2026-06-07 — Realtime report confirmed 1 active user from `anujdhanuka.com`
 
 ### Search Console ↔ GA4 association
