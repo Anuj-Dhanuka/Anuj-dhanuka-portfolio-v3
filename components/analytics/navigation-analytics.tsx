@@ -26,7 +26,9 @@ export function NavigationAnalytics({ matomoEnabled }: { matomoEnabled: boolean 
 
     if (matomoEnabled && window._paq) {
       window._paq.push(["setCustomUrl", window.location.href])
-      window._paq.push(["setDocumentTitle", document.title])
+      // Same "domain/title" form as the first page view in the Matomo snippet (app/layout.tsx), so a
+      // page reached by a link and by a full load is reported under one title.
+      window._paq.push(["setDocumentTitle", `${document.domain}/${document.title}`])
       window._paq.push(["trackPageView"])
     }
   }, [matomoEnabled, pathname])
