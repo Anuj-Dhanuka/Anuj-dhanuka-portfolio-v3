@@ -117,10 +117,15 @@ export function ThirdEyeLabContent() {
 
           <ol className="relative mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {thirdEyeLabJourney.steps.map((step, index) => (
-              <Reveal key={step.title} delay={index * 0.05}>
-                <li className="h-full rounded-2xl border border-brand-100 bg-white p-6 shadow-[0_18px_50px_rgba(91,33,182,0.07)] dark:border-brand-900/50 dark:bg-gray-950">
+              <li key={step.title} className="h-full">
+                <Reveal
+                  delay={index * 0.05}
+                  className="h-full rounded-2xl border border-brand-100 bg-white p-6 shadow-[0_18px_50px_rgba(91,33,182,0.07)] dark:border-brand-900/50 dark:bg-gray-950"
+                >
                   <div className="flex items-center justify-between gap-4">
-                    <span className="type-caption font-bold text-brand-500">{step.number}</span>
+                    <span className="type-caption font-bold text-brand-600 dark:text-brand-400">
+                      {step.number}
+                    </span>
                     <span
                       className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-brand-500 to-accent1-500"
                       aria-hidden="true"
@@ -128,8 +133,8 @@ export function ThirdEyeLabContent() {
                   </div>
                   <h3 className="type-card mt-5 copy-heading">{step.title}</h3>
                   <p className="type-small mt-3 copy-body">{step.body}</p>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ol>
         </div>
@@ -239,7 +244,9 @@ export function ThirdEyeLabContent() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="type-caption font-bold text-brand-500">{stage.period}</p>
+                    <p className="type-caption font-bold text-brand-600 dark:text-brand-400">
+                      {stage.period}
+                    </p>
                     <h3 className="type-card mt-2 copy-heading">{stage.company}</h3>
                   </div>
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-100 text-sm font-bold text-brand-700 dark:bg-brand-900/50 dark:text-brand-300">
@@ -250,6 +257,8 @@ export function ThirdEyeLabContent() {
                 <p className="type-small mt-3 flex-1 copy-body">{stage.body}</p>
                 <LinkButton
                   href={stage.href}
+                  data-cta="career_stage"
+                  data-cta-section="career_path"
                   variant="line"
                   className="mt-6 self-start"
                   icon={<ArrowUpRight className="h-4 w-4" />}

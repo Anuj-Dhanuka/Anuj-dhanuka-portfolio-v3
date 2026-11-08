@@ -44,6 +44,7 @@ function SelectedWorkHeader() {
           freelance work I can share publicly. You can read about the ChefKart work in the{" "}
           <Link
             href="/experience/chefkart"
+            data-cta="chefkart_case_study"
             className="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4 hover:decoration-brand-500 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-brand-300"
           >
             ChefKart case study

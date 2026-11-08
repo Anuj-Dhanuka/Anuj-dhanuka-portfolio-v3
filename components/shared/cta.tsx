@@ -56,7 +56,7 @@ export function CTA({
               size="lg"
               className="h-10 rounded-lg bg-white px-5 py-2 text-base text-purple-900 shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl"
             >
-              <Link href={contactHref}>
+              <Link href={contactHref} data-cta="contact" data-cta-section="closing_cta">
                 <Mail className="mr-2 h-5 w-5" aria-hidden="true" /> {contactLabel}
               </Link>
             </Button>
@@ -67,7 +67,14 @@ export function CTA({
               variant="outline"
               className="h-10 rounded-lg border-white bg-purple-950/90 px-5 py-2 text-base text-white hover:bg-purple-900 hover:text-white"
             >
-              <a href={resumeHref} download target="_blank" rel="noopener noreferrer">
+              <a
+                href={resumeHref}
+                data-cta="resume_download"
+                data-cta-section="closing_cta"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Download className="mr-2 h-5 w-5" aria-hidden="true" /> {resumeLabel}
               </a>
             </Button>

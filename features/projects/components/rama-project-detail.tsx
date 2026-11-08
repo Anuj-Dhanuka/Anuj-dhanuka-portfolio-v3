@@ -281,14 +281,18 @@ export function RamaProjectDetail({ project }: { project: CaseStudyProject }) {
               </div>
               <dl className="mt-5 divide-y divide-gray-200/80 border-t border-gray-200/80 dark:divide-gray-800 dark:border-gray-800">
                 {collegeContent.map(({ title, description, Icon }) => (
-                  <div key={title} className="flex gap-4 py-5">
-                    <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <div className="min-w-0">
-                      <dt className="type-small font-semibold copy-heading">{title}</dt>
-                      <dd className="type-small mt-1 copy-body">{description}</dd>
-                    </div>
+                  // dt/dd sit directly in the group div (valid <dl>); the icon lives inside <dt>, placed where it was.
+                  <div key={title} className="relative py-5 pl-15">
+                    <dt className="type-small font-semibold copy-heading">
+                      <span
+                        className="absolute left-0 top-5 flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                        aria-hidden="true"
+                      >
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      {title}
+                    </dt>
+                    <dd className="type-small mt-1 copy-body">{description}</dd>
                   </div>
                 ))}
               </dl>

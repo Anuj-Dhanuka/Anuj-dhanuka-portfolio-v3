@@ -125,6 +125,8 @@ export function ChefkartHero() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <LinkButton
                 href="#story"
+                data-cta="explore_work"
+                data-cta-section="hero"
                 className="min-h-12 w-full px-6 py-3 text-base sm:w-auto"
                 icon={<ArrowDown className="h-4 w-4" />}
               >
@@ -132,6 +134,8 @@ export function ChefkartHero() {
               </LinkButton>
               <LinkButton
                 href="/contact"
+                data-cta="talk_to_me"
+                data-cta-section="hero"
                 variant="outlineInverse"
                 className="min-h-12 w-full px-6 py-3 text-base sm:w-auto"
                 icon={<ArrowRight className="h-4 w-4" />}

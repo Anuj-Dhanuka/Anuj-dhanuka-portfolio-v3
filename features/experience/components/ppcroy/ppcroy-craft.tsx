@@ -156,7 +156,13 @@ export function PpcroyDesign() {
         </ul>
       </Reveal>
       <Reveal delay={0.05} className="mt-10 flex justify-center">
-        <LinkButton href={ppcroyDesign.cta.href} variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
+        <LinkButton
+          href={ppcroyDesign.cta.href}
+          data-cta="uiux_case_study"
+          data-cta-section="design_judgment"
+          variant="outline"
+          icon={<ArrowRight className="h-4 w-4" />}
+        >
           {ppcroyDesign.cta.label}
         </LinkButton>
       </Reveal>
@@ -393,7 +399,12 @@ export function PpcroyProcess() {
       </Reveal>
       <SectionClosing>{ppcroyProcess.closing}</SectionClosing>
       <Reveal delay={0.05} className="mt-6 flex justify-center">
-        <LinkButton href={ppcroyProcess.cta.href} icon={<ArrowRight className="h-4 w-4" />}>
+        <LinkButton
+          href={ppcroyProcess.cta.href}
+          data-cta="explore_projects"
+          data-cta-section="process"
+          icon={<ArrowRight className="h-4 w-4" />}
+        >
           {ppcroyProcess.cta.label}
         </LinkButton>
       </Reveal>

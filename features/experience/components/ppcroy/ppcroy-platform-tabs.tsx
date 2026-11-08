@@ -119,6 +119,8 @@ export function PlatformTabs() {
             {"caseStudy" in item && item.caseStudy && (
               <LinkButton
                 href={item.caseStudy.href}
+                data-cta={`${item.icon}_case_study`}
+                data-cta-section="platforms"
                 variant="line"
                 className="mt-6"
                 icon={<ArrowRight className="h-4 w-4" />}

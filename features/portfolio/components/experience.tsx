@@ -172,7 +172,7 @@ export function Experience() {
                               ? "text-purple-600 dark:text-purple-400"
                               : item.accent === "blue"
                                 ? "text-blue-600 dark:text-blue-400"
-                                : "text-pink-600 dark:text-pink-400"
+                                : "text-pink-700 dark:text-pink-400"
                           }`}
                         >
                           {item.company}
@@ -281,6 +281,7 @@ export function Experience() {
                         {item.cta && (
                           <Link
                             href={item.cta.href}
+                            data-cta={`${item.id}_experience`}
                             target={item.cta.external ? "_blank" : undefined}
                             rel={item.cta.external ? "noopener noreferrer" : undefined}
                             className="mt-5 inline-flex items-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-purple-500/25"

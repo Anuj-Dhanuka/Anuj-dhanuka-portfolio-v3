@@ -99,6 +99,8 @@ export default function ThirdEyeLabExperiencePage() {
           <p className="type-small mt-8 font-semibold text-white">
             <Link
               href="/experience/ppcroy"
+              data-cta="ppcroy_experience"
+              data-cta-section="closing"
               className="underline decoration-white/40 underline-offset-4 hover:decoration-white focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               Continue to my PPCROY client-delivery experience

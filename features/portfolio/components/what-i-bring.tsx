@@ -73,7 +73,7 @@ export function WhatIBring() {
                   <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-brand-100 bg-brand-50 text-brand-600 transition-transform duration-300 group-hover:scale-105 dark:border-brand-800/50 dark:bg-brand-900/25 dark:text-brand-300">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <span className="text-xs font-bold tabular-nums text-gray-300 dark:text-gray-700">
+                  <span className="text-xs font-bold tabular-nums text-gray-500 dark:text-gray-400">
                     0{index + 1}
                   </span>
                 </div>
