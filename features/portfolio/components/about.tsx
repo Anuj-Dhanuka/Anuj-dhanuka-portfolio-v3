@@ -82,7 +82,7 @@ export function About() {
                 asChild
                 className="h-11 w-full rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 transition-all duration-300 hover:from-brand-700 hover:to-accent1-700 sm:w-auto"
               >
-                <Link href="/about" aria-label="Learn more about Anuj Dhanuka">
+                <Link href="/about" data-cta="learn_more_about" aria-label="Learn more about Anuj Dhanuka">
                   More About Me
                   <ArrowRight className="h-4 w-4" />
                 </Link>

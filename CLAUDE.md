@@ -229,11 +229,11 @@ This portfolio underwent a full HR-perspective audit. The following issues were 
 
 Open follow-ups noted for the candidate (not code changes — content/copy work):
 
-- LinkedIn recognition date alignment ("May 2026" badge vs Jan 2025 post ID)
+- ~~LinkedIn recognition date alignment~~ — resolved 8 November 2026: the post ID in `site.recognitionUrl` decodes to 21 May 2026, matching the "May 2026" badge
 - "20+ client projects" — only 3 visible in portfolio
 - 4-year education gap (2015–2019) unexplained in `components/education.tsx`
 - Mechanical → Software career pivot not narrated in `components/about.tsx`
-- PPCROY `companyUrl: "#"` in `components/experience.tsx` (broken link)
+- ~~PPCROY `companyUrl: "#"` broken link~~ — resolved: no `#` company link remains; PPCROY now links to `/experience/ppcroy`
 - GitHub surface area thin (only 1 public repo linked)
 - ~~No disclosure that ChefKart product work is proprietary~~ — done 7 November 2026: notes on the ChefKart case study (Contribution section) and the Projects page
 

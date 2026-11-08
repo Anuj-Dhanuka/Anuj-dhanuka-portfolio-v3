@@ -53,7 +53,7 @@ export function FAQ() {
             asChild
             className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:opacity-95"
           >
-            <Link href="/contact">
+            <Link href="/contact" data-cta="discuss_opportunity">
               <Mail className="h-4 w-4" />
               Discuss an Opportunity
             </Link>

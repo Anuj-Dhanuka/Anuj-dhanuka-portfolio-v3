@@ -33,6 +33,15 @@ type LinkButtonProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href
 const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
   ({ children, className, icon, variant, href, ...props }, ref) => {
     const classes = cn(linkButtonVariants({ variant }), className)
+    // Every LinkButton is a call to action: name it for click analytics from its text unless the
+    // caller passes data-cta (spread below, so it wins).
+    const autoCta =
+      typeof children === "string"
+        ? children
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "_")
+            .replace(/^_|_$/g, "")
+        : undefined
     const content = (
       <>
         <span>{children}</span>
@@ -47,14 +56,14 @@ const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
     // File downloads need a plain anchor: client-side navigation would intercept the request.
     if (props.download !== undefined && typeof href === "string") {
       return (
-        <a ref={ref} href={href} className={classes} {...props}>
+        <a ref={ref} href={href} className={classes} data-cta={autoCta} {...props}>
           {content}
         </a>
       )
     }
 
     return (
-      <Link ref={ref} href={href} className={classes} {...props}>
+      <Link ref={ref} href={href} className={classes} data-cta={autoCta} {...props}>
         {content}
       </Link>
     )

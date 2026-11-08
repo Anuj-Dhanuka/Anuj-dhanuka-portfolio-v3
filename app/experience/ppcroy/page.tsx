@@ -117,7 +117,14 @@ export default function PpcroyExperiencePage() {
             })}
           </ul>
           <p className="type-small mt-6 font-semibold text-white">
-            <a href={site.linkedIn} target="_blank" rel="noopener noreferrer" className={closingLink}>
+            <a
+              href={site.linkedIn}
+              data-cta="linkedin"
+              data-cta-section="closing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={closingLink}
+            >
               {ppcroyClosing.linkedInLabel}
               <span className="sr-only"> (opens in a new tab)</span>
             </a>

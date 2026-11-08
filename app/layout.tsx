@@ -8,6 +8,7 @@ import { experienceNavItems } from "@/features/experience/experience-nav"
 import { projectNavItems } from "@/features/projects/project-nav"
 import { Footer } from "@/components/layout/footer"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CtaClickTracker } from "@/components/analytics/cta-click-tracker"
 import { NavigationAnalytics } from "@/components/analytics/navigation-analytics"
 import { analytics } from "@/config/analytics"
 
@@ -162,10 +163,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </>
         )}
         {process.env.NODE_ENV === "production" && (
-          <NavigationAnalytics
-            googleMeasurementId={analytics.googleMeasurementId}
-            matomoEnabled={Boolean(analytics.matomoUrl && analytics.matomoSiteId)}
-          />
+          <>
+            <NavigationAnalytics
+              googleMeasurementId={analytics.googleMeasurementId}
+              matomoEnabled={Boolean(analytics.matomoUrl && analytics.matomoSiteId)}
+            />
+            <CtaClickTracker />
+          </>
         )}
       </body>
     </html>

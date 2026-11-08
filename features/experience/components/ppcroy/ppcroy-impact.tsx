@@ -149,7 +149,12 @@ export function PpcroyImpact() {
 
         {/* 32px under the cards on phones, the site's usual content-to-button gap. */}
         <Reveal delay={0.05} className="max-lg:-mt-4 lg:col-start-1 lg:row-start-2 lg:self-start">
-          <LinkButton href="/experience/chefkart" icon={<ArrowRight className="h-4 w-4" />}>
+          <LinkButton
+            href="/experience/chefkart"
+            data-cta="chefkart_experience"
+            data-cta-section="impact"
+            icon={<ArrowRight className="h-4 w-4" />}
+          >
             {ppcroyImpact.cta}
           </LinkButton>
         </Reveal>

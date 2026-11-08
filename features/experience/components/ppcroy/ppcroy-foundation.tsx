@@ -203,6 +203,8 @@ export function PpcroyClients() {
         <Reveal delay={0.05} className="max-lg:-mt-2 lg:col-start-1 lg:row-start-2 lg:self-start">
           <LinkButton
             href={ppcroyClients.cta.href}
+            data-cta="talk_to_me"
+            data-cta-section="client_ownership"
             variant="outlineInverse"
             icon={<ArrowRight className="h-4 w-4" />}
           >

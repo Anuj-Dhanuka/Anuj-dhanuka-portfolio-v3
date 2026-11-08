@@ -244,6 +244,7 @@ export function QuizWarProjectDetail({ project }: { project: CaseStudyProject })
         <div className="mt-8 flex justify-center">
           <Link
             href="/skills#core-skills"
+            data-cta="explore_skills"
             className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-center font-semibold text-brand-700 underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-brand-300"
           >
             Explore my React Native and frontend skills
@@ -275,7 +276,7 @@ export function QuizWarProjectDetail({ project }: { project: CaseStudyProject })
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-950/50 dark:text-brand-300">
                     <Icon className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <span className="font-mono text-sm font-semibold text-brand-300 dark:text-brand-700">
+                  <span className="font-mono text-sm font-semibold text-brand-600 dark:text-brand-300">
                     0{index + 1}
                   </span>
                 </div>
@@ -328,7 +329,7 @@ export function QuizWarProjectDetail({ project }: { project: CaseStudyProject })
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-4">
                         <h4 className="font-bold copy-heading">{step.title}</h4>
-                        <span className="font-mono text-sm font-semibold text-brand-400 dark:text-brand-600">
+                        <span className="font-mono text-sm font-semibold text-brand-600 dark:text-brand-300">
                           0{index + 1}
                         </span>
                       </div>
@@ -431,7 +432,7 @@ export function QuizWarProjectDetail({ project }: { project: CaseStudyProject })
                   >
                     <Icon className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <span className="font-mono text-sm font-semibold text-brand-300 dark:text-brand-700">
+                  <span className="font-mono text-sm font-semibold text-brand-600 dark:text-brand-300">
                     0{index + 1}
                   </span>
                 </div>

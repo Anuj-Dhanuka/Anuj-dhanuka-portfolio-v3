@@ -7,4 +7,5 @@ export const analytics = {
 export const analyticsEvents = {
   contactSubmitted: "contact_submitted",
   projectViewed: "project_viewed",
+  ctaClicked: "cta_clicked",
 } as const

@@ -276,6 +276,7 @@ export function AboutContent() {
             See how this journey translates into interfaces and shipped work in my{" "}
             <Link
               href="/projects"
+              data-cta="selected_projects"
               className="font-semibold text-brand-300 underline-offset-4 hover:text-accent1-300 hover:underline"
             >
               selected web and mobile projects

@@ -211,7 +211,9 @@ export function ExperienceContent() {
                   {index === 1 ? (
                     <Trophy className="h-5 w-5 text-accent1-500" aria-hidden="true" />
                   ) : (
-                    <span className="type-caption font-bold text-brand-400">0{index + 1}</span>
+                    <span className="type-caption font-bold text-brand-600 dark:text-brand-300">
+                      0{index + 1}
+                    </span>
                   )}
                 </div>
                 <h3 className="type-card mt-5 copy-heading">{item.title}</h3>

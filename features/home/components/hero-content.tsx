@@ -46,7 +46,12 @@ export function HeroContent() {
             asChild
             className="group relative h-11 w-full overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 hover:shadow-lg sm:h-12 sm:w-auto sm:px-6 sm:text-base"
           >
-            <Link href="#projects" aria-label="Navigate to projects section">
+            <Link
+              href="#projects"
+              data-cta="view_work"
+              data-cta-section="hero"
+              aria-label="Navigate to projects section"
+            >
               <span className="relative z-10 flex items-center">
                 View My Work{" "}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -62,6 +67,8 @@ export function HeroContent() {
           >
             <a
               href="/ANUJ_DHANUKA_RESUME.pdf"
+              data-cta="resume_download"
+              data-cta-section="hero"
               download
               target="_blank"
               rel="noopener noreferrer"
@@ -75,6 +82,8 @@ export function HeroContent() {
 
         <a
           href={site.linkedIn}
+          data-cta="linkedin"
+          data-cta-section="hero"
           target="_blank"
           rel="noopener noreferrer"
           className="group inline-flex items-center gap-2 text-sm font-semibold text-purple-200 transition-colors duration-300 hover:text-white"
