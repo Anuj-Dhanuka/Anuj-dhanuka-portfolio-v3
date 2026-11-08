@@ -164,10 +164,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
         {process.env.NODE_ENV === "production" && (
           <>
-            <NavigationAnalytics
-              googleMeasurementId={analytics.googleMeasurementId}
-              matomoEnabled={Boolean(analytics.matomoUrl && analytics.matomoSiteId)}
-            />
+            <NavigationAnalytics matomoEnabled={Boolean(analytics.matomoUrl && analytics.matomoSiteId)} />
             <CtaClickTracker />
           </>
         )}

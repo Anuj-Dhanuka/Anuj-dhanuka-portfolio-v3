@@ -11,13 +11,10 @@ declare global {
   }
 }
 
-export function NavigationAnalytics({
-  googleMeasurementId,
-  matomoEnabled,
-}: {
-  googleMeasurementId: string | null
-  matomoEnabled: boolean
-}) {
+// GA4 records client-side navigations itself (enhanced measurement: page changes based on browser
+// history events), so only Matomo needs a page view sent here. Sending one to GA4 as well counted
+// every in-site navigation twice.
+export function NavigationAnalytics({ matomoEnabled }: { matomoEnabled: boolean }) {
   const pathname = usePathname()
   const isInitialRender = useRef(true)
 
@@ -27,16 +24,12 @@ export function NavigationAnalytics({
       return
     }
 
-    if (googleMeasurementId && window.gtag) {
-      window.gtag("config", googleMeasurementId, { page_path: pathname })
-    }
-
     if (matomoEnabled && window._paq) {
       window._paq.push(["setCustomUrl", window.location.href])
       window._paq.push(["setDocumentTitle", document.title])
       window._paq.push(["trackPageView"])
     }
-  }, [googleMeasurementId, matomoEnabled, pathname])
+  }, [matomoEnabled, pathname])
 
   return null
 }
