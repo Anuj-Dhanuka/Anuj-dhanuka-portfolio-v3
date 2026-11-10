@@ -20,10 +20,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // the end of the ChefKart role (31 October 2026) on Home, About, Experience, ChefKart and Contact.
   // November 10 server-renders the homepage's inactive tab panels, moves About and Experience copy to the
   // past tense, aligns the internship duration, and labels Mopedo a frontend demo.
+  // November 11 redesigns the 3rd Eye Lab page and removes an unsupported internship claim from About and Experience.
   return [
     { url: site.homeUrl, lastModified: "2026-11-10" },
-    { url: `${site.url}/about`, lastModified: "2026-11-10" },
-    { url: `${site.url}/experience`, lastModified: "2026-11-10" },
+    { url: `${site.url}/about`, lastModified: "2026-11-11" },
+    { url: `${site.url}/experience`, lastModified: "2026-11-11" },
     { url: `${site.url}${chefkartPage.path}`, lastModified: chefkartPage.lastModified },
     { url: `${site.url}${ppcroyPage.path}`, lastModified: ppcroyPage.lastModified },
     { url: `${site.url}${thirdEyeLabPage.path}`, lastModified: thirdEyeLabPage.lastModified },

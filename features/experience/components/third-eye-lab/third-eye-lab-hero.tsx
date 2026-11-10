@@ -1,60 +1,41 @@
 import Image from "next/image"
-import { ArrowDown, ArrowRight, ChevronRight, Smartphone } from "lucide-react"
+import { ArrowDown, ArrowRight } from "lucide-react"
 
 import { HeroBackground } from "@/components/shared/hero-background"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { LinkButton } from "@/components/ui/link-button"
 import { thirdEyeLabHero } from "@/features/experience/data/third-eye-lab"
 
-const flow = ["Category", "Questions", "Progress", "Feedback"] as const
-
+// No frame: the image's near-black backdrop blends into the hero background (lighten), as the PPCROY hero fades.
 function InternshipVisual() {
+  const { image } = thirdEyeLabHero
+
   return (
-    <figure className="relative mx-auto w-full max-w-lg" aria-labelledby="internship-visual-caption">
+    <figure className="relative">
       <div
-        className="pointer-events-none absolute inset-10 rounded-full bg-gradient-to-br from-brand-500/30 to-accent1-500/25 blur-3xl"
+        className="pointer-events-none absolute inset-6 rounded-full bg-gradient-to-br from-brand-500/25 to-accent1-500/20 blur-3xl"
         aria-hidden="true"
       />
-      <div className="relative rounded-[2rem] border border-white/15 bg-white/[0.07] p-4 shadow-2xl shadow-brand-950/30 backdrop-blur sm:p-6">
-        <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white">
-              <Image
-                src="/logos/3rd-eye-lab-logo.png"
-                alt="3rd Eye Lab"
-                width={44}
-                height={44}
-                className="h-9 w-9 object-contain"
-              />
-            </span>
-            <div>
-              <p className="text-sm font-bold text-white">Mobile assignment</p>
-              <p className="text-xs text-brand-200">React Native CLI</p>
-            </div>
-          </div>
-          <Smartphone className="h-6 w-6 text-brand-200" aria-hidden="true" />
-        </div>
-
-        <ol className="mt-5 grid gap-3">
-          {flow.map((item, index) => (
-            <li key={item} className="flex items-center gap-3">
-              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-brand-500/20 text-xs font-bold text-brand-200">
-                {index + 1}
-              </span>
-              <span className="flex-1 rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm font-semibold text-white">
-                {item}
-              </span>
-              {index < flow.length - 1 ? (
-                <ChevronRight className="h-4 w-4 flex-none text-brand-300" aria-hidden="true" />
-              ) : (
-                <span className="h-4 w-4" aria-hidden="true" />
-              )}
-            </li>
-          ))}
-        </ol>
+      <div className="relative aspect-[4/3] mix-blend-lighten [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent),linear-gradient(to_bottom,transparent,black_7%,black_90%,transparent)]">
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          priority
+          sizes="(min-width: 1024px) 45vw, 100vw"
+          className="object-cover"
+        />
       </div>
-      <figcaption id="internship-visual-caption" className="type-caption mt-4 text-center text-gray-400">
-        A simplified view of the user flow, not a product screenshot.
+      <Image
+        src="/logos/3rd-eye-lab-logo.png"
+        alt="3rd Eye Lab"
+        width={2560}
+        height={861}
+        sizes="120px"
+        className="relative mx-auto mt-2 h-7 w-auto brightness-0 invert"
+      />
+      <figcaption className="type-caption relative mt-3 text-center text-gray-400">
+        Illustrations of the assignment&apos;s flow, not product screenshots.
       </figcaption>
     </figure>
   )
@@ -85,7 +66,6 @@ export function ThirdEyeLabHero() {
                 {paragraph}
               </p>
             ))}
-            <p className="type-small mt-4 text-brand-200">{thirdEyeLabHero.meta}</p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <LinkButton
@@ -108,8 +88,6 @@ export function ThirdEyeLabHero() {
                 Talk to me
               </LinkButton>
             </div>
-
-            <p className="type-caption mt-6 max-w-2xl text-gray-400">{thirdEyeLabHero.stack.join(" · ")}</p>
           </div>
 
           <InternshipVisual />
