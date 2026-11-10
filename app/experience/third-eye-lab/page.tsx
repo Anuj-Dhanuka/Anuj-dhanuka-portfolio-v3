@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Link from "next/link"
+import { Briefcase, Clock, MapPin } from "lucide-react"
 
 import { CTA } from "@/components/shared/cta"
 import { site } from "@/config/site"
@@ -10,6 +10,8 @@ import {
   thirdEyeLabHero,
   thirdEyeLabPage,
 } from "@/features/experience/data/third-eye-lab"
+
+const availabilityIcons = [Clock, MapPin, Briefcase]
 
 const url = `${site.url}${thirdEyeLabPage.path}`
 const image = {
@@ -63,7 +65,7 @@ const thirdEyeLabJsonLd = {
       url,
       author: { "@id": `${site.url}/#person` },
       about: { "@type": "Organization", name: "3rd Eye Lab" },
-      datePublished: thirdEyeLabPage.lastModified,
+      datePublished: thirdEyeLabPage.published,
       dateModified: thirdEyeLabPage.lastModified,
       image: `${site.url}${thirdEyeLabPage.path}/opengraph-image`,
       keywords: thirdEyeLabHero.stack.join(", "),
@@ -93,18 +95,39 @@ export default function ThirdEyeLabExperiencePage() {
         <CTA
           title={thirdEyeLabClosing.title}
           description={thirdEyeLabClosing.description}
-          contactLabel="Start a conversation"
-          resumeLabel="View my résumé"
+          contactLabel={thirdEyeLabClosing.contactLabel}
+          resumeLabel={thirdEyeLabClosing.resumeLabel}
         >
-          <p className="type-small mt-8 font-semibold text-white">
-            <Link
-              href="/experience/ppcroy"
-              data-cta="ppcroy_experience"
+          {/* As on PPCROY. Phones: one panel, as wide as the buttons, with divided rows. Larger screens: a row of pills. */}
+          <ul
+            className="mt-8 divide-y divide-white/15 rounded-lg border border-white/20 bg-white/10 text-left sm:flex sm:flex-wrap sm:justify-center sm:gap-2 sm:divide-y-0 sm:border-0 sm:bg-transparent"
+            aria-label="Availability"
+          >
+            {thirdEyeLabClosing.availability.map((item, index) => {
+              const Icon = availabilityIcons[index]
+              return (
+                <li
+                  key={item}
+                  className="type-small flex items-center gap-3 px-4 py-3 text-white sm:inline-flex sm:gap-2 sm:rounded-full sm:border sm:border-white/25 sm:bg-white/10 sm:px-3 sm:py-1.5"
+                >
+                  <Icon className="h-4 w-4 text-white/80" aria-hidden="true" />
+                  {item}
+                </li>
+              )
+            })}
+          </ul>
+          <p className="type-small mt-6 font-semibold text-white">
+            <a
+              href={site.linkedIn}
+              data-cta="linkedin"
               data-cta-section="closing"
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline decoration-white/40 underline-offset-4 hover:decoration-white focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
-              Continue to my PPCROY client-delivery experience
-            </Link>
+              {thirdEyeLabClosing.linkedInLabel}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
           </p>
         </CTA>
       </main>

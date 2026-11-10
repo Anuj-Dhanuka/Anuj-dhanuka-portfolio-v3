@@ -88,7 +88,8 @@ export function LeftSectionHeader({
   title: string
   // For dark sections: the hero's pill and white heading.
   inverse?: boolean
-  children: ReactNode
+  // Optional so the header can sit beside separate copy.
+  children?: ReactNode
 }) {
   return (
     <>
@@ -113,7 +114,7 @@ export function LeftSectionHeader({
         className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500"
         aria-hidden="true"
       />
-      <div className="mt-6 max-w-2xl space-y-4">{children}</div>
+      {children ? <div className="mt-6 max-w-2xl space-y-4">{children}</div> : null}
     </>
   )
 }

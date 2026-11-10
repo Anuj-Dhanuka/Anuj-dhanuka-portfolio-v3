@@ -100,10 +100,10 @@ export const experienceRoles: readonly ExperienceRole[] = [
       "Developed mobile application screens using React Native CLI and JavaScript.",
       "Built practical experience in mobile user flows and application navigation.",
       "Applied Firebase and Git fundamentals while working in an onsite development environment.",
-      "Completed the assigned project ahead of schedule and delivered additional features beyond the initial requirements.",
+      "Completed the assigned project ahead of schedule.",
     ],
     technologies: ["React Native CLI", "JavaScript", "Firebase", "Git", "Mobile UI"],
-    achievement: "Completed ahead of schedule with additional features",
+    achievement: "Completed ahead of schedule",
     isCurrent: false,
     accent: "pink",
     cta: {

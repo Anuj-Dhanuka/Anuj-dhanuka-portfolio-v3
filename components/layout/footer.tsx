@@ -13,7 +13,7 @@ export function Footer() {
             <Link
               href="/"
               className="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 hover:from-pink-600 hover:to-purple-600 transition-all duration-300 pointer-events-auto"
-              aria-label="Go to home section"
+              aria-label="Portfolio, go to home"
             >
               Portfolio
             </Link>

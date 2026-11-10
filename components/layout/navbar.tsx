@@ -174,7 +174,7 @@ export function Navbar({
             href="/"
             className="text-lg md:text-2xl font-bold gradient-text py-1 truncate max-w-[140px] sm:max-w-[180px] md:max-w-none"
             onClick={(e) => handleNavigation(e, "/#home")}
-            aria-label="Go to home section"
+            aria-label="Anuj Dhanuka, go to home"
           >
             Anuj Dhanuka
           </Link>
@@ -301,7 +301,7 @@ export function Navbar({
               href="/"
               className="min-w-0"
               onClick={(e) => handleNavigation(e, "/#home")}
-              aria-label="Go to home section"
+              aria-label="Anuj Dhanuka, go to home"
             >
               <span className="block text-xl font-bold gradient-text">Anuj Dhanuka</span>
             </Link>

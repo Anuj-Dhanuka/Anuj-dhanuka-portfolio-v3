@@ -6,6 +6,7 @@ import { site } from "@/config/site"
 
 export const ppcroyPage = {
   path: "/experience/ppcroy",
+  published: "2026-11-07",
   lastModified: "2026-11-07",
   // Under ~60 characters so search results show it whole; the description stays under ~160.
   title: "PPCROY | React, Shopify, Webflow & WordPress | Anuj Dhanuka",

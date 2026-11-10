@@ -292,6 +292,13 @@
   }
 }
 
+/* Dashes travelling along a diagram connector (dash + gap = 2.6 units; two cycles per loop). */
+@keyframes diagram-flow {
+  to {
+    stroke-dashoffset: -5.2;
+  }
+}
+
 @keyframes hero-glow {
   0%,
   100% {

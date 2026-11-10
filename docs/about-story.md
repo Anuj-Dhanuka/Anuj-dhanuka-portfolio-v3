@@ -47,7 +47,7 @@ He applied this learning through projects such as a Todo application, travel web
 
 At the end of 2023 and beginning of 2024, Anuj actively searched for his first software opportunity and attended multiple interviews. He earned a two-month onsite internship with 3rd Eye Lab in Hyderabad, from April to June 2024. Moving from the Visakhapatnam region to Hyderabad for the role was an important step in committing fully to a software career.
 
-During the internship, he applied his CCBP learning while working with React Native CLI, Firebase and Git. He developed the Levels App, a mobile quiz application with category-based questions and dynamic content. He completed the assigned work ahead of schedule and delivered additional features beyond the initial requirements.
+During the internship, he applied his CCBP learning while working with React Native CLI, Firebase and Git. He developed the Levels App, a mobile quiz application with category-based questions and dynamic content. He completed the assigned work ahead of schedule.
 
 To deepen his mobile development knowledge after the internship, he completed a dedicated React Native course on Udemy in September 2024:
 

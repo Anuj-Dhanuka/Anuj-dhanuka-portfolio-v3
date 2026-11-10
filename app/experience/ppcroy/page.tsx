@@ -60,7 +60,7 @@ const ppcroyJsonLd = {
       url,
       author: { "@id": `${site.url}/#person` },
       about: { "@type": "Organization", name: "PPCROY TECH SOLUTIONS" },
-      datePublished: ppcroyPage.lastModified,
+      datePublished: ppcroyPage.published,
       dateModified: ppcroyPage.lastModified,
       image: `${site.url}${ppcroyPage.path}/opengraph-image`,
       keywords: ppcroyHero.stack.join(", "),
