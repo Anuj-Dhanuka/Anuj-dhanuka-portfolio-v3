@@ -183,7 +183,7 @@ export function ResponsiveShowcase({
             const { category, title, description, points, tags, chip } = views[id]
 
             return (
-              <TabsContent key={id} value={id} className="mt-8">
+              <TabsContent key={id} value={id} forceMount className="mt-8 data-[state=inactive]:hidden">
                 <article className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
                   <div className="order-2 lg:order-1">
                     <p className="type-label text-accent1-600 dark:text-accent1-300">{category}</p>

@@ -7,11 +7,11 @@
 export const chefkartPage = {
   path: "/experience/chefkart",
   published: "2026-11-03",
-  lastModified: "2026-11-07",
+  lastModified: "2026-11-10",
   // Under ~60 characters with the stack recruiters search for; descriptions stay under ~160.
   title: "ChefKart Case Study: React Native & Next.js | Anuj Dhanuka",
   description:
-    "How Anuj Dhanuka built ChefKart’s app and website booking journeys, from discovery and payments to performance and internal operations tools.",
+    "How Anuj Dhanuka contributed to ChefKart’s app and website booking journeys, from discovery and payments to performance and internal operations tools.",
   ogTitle: "Multiple entry points, one service journey: my engineering work at ChefKart",
   ogDescription:
     "A frontend case study of ChefKart’s app journeys, web acquisition, payments, bookings and the internal tools used to fulfil them.",

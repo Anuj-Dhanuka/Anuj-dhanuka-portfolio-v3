@@ -4,7 +4,7 @@
 
 export const thirdEyeLabPage = {
   path: "/experience/third-eye-lab",
-  lastModified: "2026-11-07",
+  lastModified: "2026-11-10",
   title: "3rd Eye Lab | React Native Internship | Anuj Dhanuka",
   description:
     "How Anuj Dhanuka moved from learning React Native to delivering a mobile assignment at 3rd Eye Lab using JavaScript, Firebase, Git and mobile UI fundamentals.",
@@ -23,7 +23,7 @@ export const thirdEyeLabHero = {
 } as const
 
 export const thirdEyeLabProof = [
-  { value: "3", label: "Months onsite" },
+  { value: "2", label: "Months onsite" },
   { value: "1", label: "Mobile assignment" },
   { value: "5", label: "Core foundations" },
   { value: "Early", label: "Assigned scope delivered" },

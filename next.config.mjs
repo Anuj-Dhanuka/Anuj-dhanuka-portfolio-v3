@@ -40,6 +40,10 @@ const nextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }]
   },
+  async redirects() {
+    // Levels App was the 3rd Eye Lab internship assignment; its retired case study is succeeded by the internship page.
+    return [{ source: "/projects/levels-app", destination: "/experience/third-eye-lab", permanent: true }]
+  },
 }
 
 export default nextConfig

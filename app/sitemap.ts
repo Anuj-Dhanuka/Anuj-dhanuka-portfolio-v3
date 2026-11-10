@@ -18,10 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // November 3 publishes the ChefKart experience case study, linked from Home, Experience and Skills.
   // November 7 publishes the PPCROY and 3rd Eye Lab experience pages, linked from Experience, and records
   // the end of the ChefKart role (31 October 2026) on Home, About, Experience, ChefKart and Contact.
+  // November 10 server-renders the homepage's inactive tab panels, moves About and Experience copy to the
+  // past tense, aligns the internship duration, and labels Mopedo a frontend demo.
   return [
-    { url: site.homeUrl, lastModified: "2026-11-07" },
-    { url: `${site.url}/about`, lastModified: "2026-11-07" },
-    { url: `${site.url}/experience`, lastModified: "2026-11-07" },
+    { url: site.homeUrl, lastModified: "2026-11-10" },
+    { url: `${site.url}/about`, lastModified: "2026-11-10" },
+    { url: `${site.url}/experience`, lastModified: "2026-11-10" },
     { url: `${site.url}${chefkartPage.path}`, lastModified: chefkartPage.lastModified },
     { url: `${site.url}${ppcroyPage.path}`, lastModified: ppcroyPage.lastModified },
     { url: `${site.url}${thirdEyeLabPage.path}`, lastModified: thirdEyeLabPage.lastModified },

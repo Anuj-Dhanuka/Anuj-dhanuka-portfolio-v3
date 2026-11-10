@@ -12,7 +12,7 @@ const aboutSections = [
   { href: "#story-foundation", label: "My approach" },
   { href: "#journey", label: "Career journey" },
   { href: "#learning", label: "Credentials" },
-  { href: "#current-chapter", label: "Current work" },
+  { href: "#current-chapter", label: "Recent work" },
 ] as const
 
 export function AboutContent() {
@@ -204,14 +204,18 @@ export function AboutContent() {
         <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid overflow-hidden rounded-3xl border border-white/10 bg-white/[0.05] shadow-2xl shadow-black/20 backdrop-blur-sm lg:grid-cols-[1.08fr_0.92fr]">
             <div className="border-b border-white/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-12">
-              <p className="type-label text-brand-300">Current chapter</p>
+              <p className="type-label text-brand-300">Recent chapter</p>
               <h2 id="current-chapter-heading" className="type-section mt-4 text-white">
-                Building products at ChefKart and learning from the complete product cycle.
+                Product experience at ChefKart, across the complete product cycle.
               </h2>
               <p className="type-body mt-5 text-gray-300">
-                I work directly with backend engineers, designers and product managers, with guidance from the
-                co-founder and CTO. The short feedback loop lets me share ideas, improve them quickly and
-                carry approved features through implementation and release.
+                From December 2025 to October 2026, I worked directly with backend engineers, designers and
+                product managers, with guidance from the co-founder and CTO. The short feedback loop let me
+                share ideas, improve them quickly and carry approved features through implementation and
+                release.
+              </p>
+              <p className="type-body mt-4 text-gray-300">
+                I&apos;m now available to join immediately for frontend and React Native roles.
               </p>
 
               <ul className="mt-7 grid gap-3 sm:grid-cols-2">

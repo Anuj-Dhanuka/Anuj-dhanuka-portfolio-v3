@@ -50,7 +50,7 @@ export const journey = [
     period: "2019",
     title: "The first step from mechanical engineering into software",
     description:
-      "I became interested in software during the final year of my B.Tech in Mechanical Engineering. As regular coursework ended in 2019, I joined an institute to learn computer fundamentals, Java and Android Studio, completed that training in August and then began exploring HTML and CSS independently.",
+      "I became interested in software during the final year of my B.Tech in Mechanical Engineering. As regular coursework ended in 2019, I joined an institute to learn computer fundamentals, Java and Android Studio, completed that training in August and then began exploring HTML and CSS independently. I completed the degree itself in May 2023.",
     proof: "Foundational software training completed in August 2019",
     skills: ["Mechanical Engineering", "Java", "Android Studio", "HTML", "CSS"],
     Icon: GraduationCap,

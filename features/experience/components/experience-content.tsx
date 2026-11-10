@@ -83,7 +83,7 @@ export function ExperienceContent() {
             </h2>
             <p className="type-body mx-auto mt-5 max-w-3xl copy-body">
               Each role added a different layer: React Native fundamentals, multi-platform client delivery and
-              ongoing ownership across live customer and internal products.
+              end-to-end ownership across live customer and internal products.
             </p>
           </div>
 
