@@ -94,7 +94,7 @@ export function Experience() {
           <div className="h-1.5 w-24 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 dark:from-purple-400 dark:via-fuchsia-400 dark:to-pink-400 mx-auto mb-4 rounded-full shadow-lg shadow-purple-500/20 dark:shadow-purple-900/30"></div>
           <p className="type-body copy-body max-w-2xl mx-auto">
             My professional journey includes React Native mobile development, multi-platform client project
-            delivery and ongoing ownership across customer-facing and internal product experiences.
+            delivery and end-to-end ownership across customer-facing and internal product experiences.
           </p>
         </motion.div>
 

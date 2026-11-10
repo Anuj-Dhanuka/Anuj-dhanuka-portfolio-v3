@@ -198,12 +198,12 @@ export const projects: Project[] = [
     id: "mopedo",
     caseStudy: {
       slug: "mopedo",
-      lastModified: "2026-10-06",
+      lastModified: "2026-11-10",
       // Search-only description; the frozen case-study content is unchanged.
       metaDescription:
-        "Mopedo is a responsive React web app for bike taxi, food and goods delivery. I designed its interface and built the frontend from scratch.",
+        "Mopedo is a responsive React frontend demo for bike taxi, food and goods delivery. I designed its interface and built the frontend from scratch.",
       summary:
-        "Mopedo is a responsive React web application for bike taxi, food delivery and goods delivery. I designed its interface and built the frontend from scratch, including its responsive layouts and client-side navigation.",
+        "Mopedo is a responsive React frontend demo for bike taxi, food delivery and goods delivery. I designed its interface and built the frontend from scratch, including its responsive layouts and client-side navigation.",
       context:
         "The interface needed to explain three different service categories as parts of one product. Visitors needed both a short service overview and space to read each offering in detail, with layouts that accommodate the text and images on smaller screens.",
       responsibility: "Interface design, React frontend development and responsive implementation",

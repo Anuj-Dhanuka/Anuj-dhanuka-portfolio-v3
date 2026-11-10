@@ -182,7 +182,7 @@ export function FeaturedProductWork() {
             </div>
 
             {productAreas.map(({ id, category, title, technologies, description, contributions, image }) => (
-              <TabsContent key={id} value={id} className="mt-12">
+              <TabsContent key={id} value={id} forceMount className="mt-12 data-[state=inactive]:hidden">
                 <article className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
                   <div className="order-2 lg:order-1">
                     <p className="type-label font-semibold uppercase tracking-[0.18em] text-accent1-600 dark:text-accent1-300">
