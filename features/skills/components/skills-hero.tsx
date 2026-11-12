@@ -18,7 +18,7 @@ export function SkillsHero() {
           <div className="min-w-0">
             <HeroBreadcrumb current="Skills" />
 
-            <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200 backdrop-blur-sm">
+            <p className="type-badge inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200 backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-brand-300" aria-hidden="true" />
               Technical skills and product capabilities
             </p>

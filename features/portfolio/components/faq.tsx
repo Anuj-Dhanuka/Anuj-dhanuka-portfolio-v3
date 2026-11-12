@@ -51,7 +51,7 @@ export function FAQ() {
         <>
           <Button
             asChild
-            className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:opacity-95"
+            className="h-11 w-full rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:opacity-95 sm:w-auto"
           >
             <Link href="/contact" data-cta="discuss_opportunity">
               <Mail className="h-4 w-4" />
@@ -61,7 +61,7 @@ export function FAQ() {
           <Button
             asChild
             variant="outline"
-            className="h-11 rounded-lg border-brand-200 bg-white px-5 text-brand-700 hover:bg-brand-50 hover:text-brand-800 dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300 dark:hover:bg-brand-900/30"
+            className="h-11 w-full rounded-lg border-brand-200 bg-white px-5 text-brand-700 sm:w-auto hover:bg-brand-50 hover:text-brand-800 dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300 dark:hover:bg-brand-900/30"
           >
             <Link href={site.linkedIn} target="_blank" rel="noopener noreferrer">
               <LuLinkedin className="h-4 w-4" />

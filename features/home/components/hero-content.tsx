@@ -1,5 +1,4 @@
 import { ArrowRight, Download } from "lucide-react"
-import Link from "next/link"
 import { FaLinkedinIn } from "react-icons/fa"
 
 import { Button } from "@/components/ui/button"
@@ -8,7 +7,7 @@ import { site } from "@/config/site"
 export function HeroContent() {
   return (
     <div className="flex-1 space-y-6 text-left md:mt-0">
-      <div className="inline-block rounded-full bg-purple-900/80 px-3 py-1 text-sm font-medium text-purple-200">
+      <div className="inline-block rounded-full bg-purple-900/80 px-3 py-1 type-badge font-medium tracking-[0.04em] text-purple-200">
         <span className="mr-2 inline-block h-2 w-2 animate-pulse rounded-full bg-green-400" />
         SOFTWARE ENGINEER · FRONTEND DEVELOPER
       </div>
@@ -46,7 +45,8 @@ export function HeroContent() {
             asChild
             className="group relative h-11 w-full overflow-hidden rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 hover:shadow-lg sm:h-12 sm:w-auto sm:px-6 sm:text-base"
           >
-            <Link
+            {/* Plain anchor: next/link does not re-scroll when the URL already ends in #projects. */}
+            <a
               href="#projects"
               data-cta="view_work"
               data-cta-section="hero"
@@ -57,7 +57,7 @@ export function HeroContent() {
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
               <span className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            </Link>
+            </a>
           </Button>
 
           <Button

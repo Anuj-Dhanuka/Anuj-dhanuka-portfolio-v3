@@ -60,6 +60,11 @@
     font-size: var(--type-small);
     line-height: var(--type-leading-body);
   }
+  /* Hero eyebrow pills: one step smaller on phones so the role line stays on one row. */
+  .type-badge {
+    font-size: var(--type-badge);
+    line-height: 1.5;
+  }
   .type-caption {
     font-size: var(--type-caption);
     line-height: 1.5;

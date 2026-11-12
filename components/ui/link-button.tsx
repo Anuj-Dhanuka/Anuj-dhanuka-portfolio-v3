@@ -54,7 +54,8 @@ const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
     )
 
     // File downloads need a plain anchor: client-side navigation would intercept the request.
-    if (props.download !== undefined && typeof href === "string") {
+    // Same-page #hash links do too: next/link does not re-scroll when the URL already ends in that hash.
+    if (typeof href === "string" && (props.download !== undefined || href.startsWith("#"))) {
       return (
         <a ref={ref} href={href} className={classes} data-cta={autoCta} {...props}>
           {content}

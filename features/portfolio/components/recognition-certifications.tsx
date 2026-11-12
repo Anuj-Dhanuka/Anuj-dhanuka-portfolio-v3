@@ -1,7 +1,15 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Award, BookOpenCheck, ExternalLink, GraduationCap, Sparkles, Trophy } from "lucide-react"
+import {
+  ArrowUpRight,
+  Award,
+  BookOpenCheck,
+  ExternalLink,
+  GraduationCap,
+  Sparkles,
+  Trophy,
+} from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { site } from "@/config/site"
@@ -97,8 +105,8 @@ export function RecognitionCertifications() {
             />
             <div className="relative flex h-full flex-col">
               <div className="flex items-start justify-between gap-4">
-                <span className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-accent1-600 text-white shadow-lg shadow-purple-500/20">
-                  <Trophy className="h-6 w-6" />
+                <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-accent1-600 text-white shadow-lg shadow-purple-500/20 md:h-14 md:w-14">
+                  <Trophy className="h-5 w-5 md:h-6 md:w-6" />
                 </span>
                 <span className="rounded-full border border-purple-100 bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-gray-500 shadow-sm dark:border-purple-800/40 dark:bg-gray-950/40 dark:text-gray-400">
                   {items[0].meta}
@@ -109,7 +117,9 @@ export function RecognitionCertifications() {
                 <p className="type-label font-bold uppercase tracking-[0.16em] text-accent1-600 dark:text-accent1-300">
                   {items[0].issuer}
                 </p>
-                <h3 className="type-section mt-3 copy-heading">{items[0].title}</h3>
+                <h3 className="type-card mt-3 text-balance copy-heading md:text-[length:var(--type-section)] md:tracking-[-0.025em]">
+                  {items[0].title}
+                </h3>
                 <p className="type-body mt-5 max-w-xl copy-body">{items[0].description}</p>
               </div>
 
@@ -185,8 +195,8 @@ export function RecognitionCertifications() {
             ))}
           </div>
         </div>
-        <div className="mt-8 text-center">
-          <LinkButton href="/certifications" variant="outline">
+        <div className="mt-10 flex justify-center md:mt-12">
+          <LinkButton href="/certifications" variant="line" icon={<ArrowUpRight className="h-4 w-4" />}>
             View all certifications
           </LinkButton>
         </div>

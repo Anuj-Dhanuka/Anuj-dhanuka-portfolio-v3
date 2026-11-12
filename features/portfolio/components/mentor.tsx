@@ -42,8 +42,10 @@ export function Mentor() {
       />
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+        {/* Below lg the CTA follows the learning card; on lg the spacer rows keep copy + CTA centred beside it. */}
+        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:grid-rows-[1fr_auto_auto_1fr] lg:gap-y-0">
           <motion.div
+            className="lg:col-start-1 lg:row-start-2"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-70px" }}
@@ -66,25 +68,10 @@ export function Mentor() {
                 goals.
               </p>
             </div>
-            <div className="mt-7">
-              <Button
-                asChild
-                className="h-11 rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700"
-              >
-                <Link
-                  href="https://www.linkedin.com/in/anjaneyulu-jadda/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Connect on LinkedIn
-                  <ExternalLink className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
           </motion.div>
 
           <motion.div
-            className="relative"
+            className="relative lg:col-start-2 lg:row-span-4 lg:row-start-1"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-70px" }}
@@ -138,6 +125,28 @@ export function Mentor() {
                 ))}
               </div>
             </div>
+          </motion.div>
+
+          <motion.div
+            className="lg:col-start-1 lg:row-start-3 lg:mt-7"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+          >
+            <Button
+              asChild
+              className="h-11 w-full rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700 sm:w-auto"
+            >
+              <Link
+                href="https://www.linkedin.com/in/anjaneyulu-jadda/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Connect on LinkedIn
+                <ExternalLink className="h-4 w-4" />
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </div>

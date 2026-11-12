@@ -17,7 +17,8 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"} https://www.googletagmanager.com${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
   `connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com${matomoOrigin ? ` ${matomoOrigin}` : ""}`,
-  "upgrade-insecure-requests",
+  // Production only: over plain http on a LAN address (phone testing) it upgrades every asset to https and breaks the page.
+  ...(process.env.NODE_ENV === "production" ? ["upgrade-insecure-requests"] : []),
 ].join("; ")
 
 const securityHeaders = [
@@ -34,6 +35,8 @@ const securityHeaders = [
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
+  // Lets phones on the same home network load dev assets via the laptop's LAN address (`npm run dev -- -H 0.0.0.0`).
+  allowedDevOrigins: ["192.168.*.*"],
   images: {
     formats: ["image/avif", "image/webp"],
   },

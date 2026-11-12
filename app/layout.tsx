@@ -7,6 +7,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { experienceNavItems } from "@/features/experience/experience-nav"
 import { projectNavItems } from "@/features/projects/project-nav"
 import { Footer } from "@/components/layout/footer"
+import { RouteScrollReset } from "@/components/layout/route-scroll-reset"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CtaClickTracker } from "@/components/analytics/cta-click-tracker"
 import { NavigationAnalytics } from "@/components/analytics/navigation-analytics"
@@ -123,6 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <RouteScrollReset />
           <Navbar projects={projectNavItems} experience={experienceNavItems} />
           {children}
           <Footer />

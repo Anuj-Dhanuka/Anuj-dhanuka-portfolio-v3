@@ -150,8 +150,8 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-1 sm:space-y-2">
-          <label htmlFor="name" className="text-sm font-medium">
+        <div className="space-y-2">
+          <label htmlFor="name" className="block text-sm font-medium">
             Full Name
           </label>
           <Input
@@ -170,8 +170,8 @@ export function ContactForm() {
           <FieldError id="name-error" message={fieldErrors.name} />
         </div>
 
-        <div className="space-y-1 sm:space-y-2">
-          <label htmlFor="email" className="text-sm font-medium">
+        <div className="space-y-2">
+          <label htmlFor="email" className="block text-sm font-medium">
             Email Address
           </label>
           <Input
@@ -192,8 +192,8 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div className="space-y-1 sm:space-y-2">
-        <label htmlFor="subject" className="text-sm font-medium">
+      <div className="space-y-2">
+        <label htmlFor="subject" className="block text-sm font-medium">
           Subject
         </label>
         <Input
@@ -212,8 +212,8 @@ export function ContactForm() {
         <FieldError id="subject-error" message={fieldErrors.subject} />
       </div>
 
-      <div className="flex-1 space-y-1 sm:space-y-2">
-        <label htmlFor="message" className="text-sm font-medium">
+      <div className="flex-1 space-y-2">
+        <label htmlFor="message" className="block text-sm font-medium">
           Message
         </label>
         <Textarea

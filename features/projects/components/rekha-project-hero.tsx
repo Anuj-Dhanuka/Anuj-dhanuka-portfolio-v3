@@ -28,7 +28,7 @@ export function RekhaProjectHero({ project }: { project: CaseStudyProject }) {
 
         <div className="mt-8 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="order-2 min-w-0 lg:order-1">
-            <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/25 bg-brand-950/60 px-3 py-1 font-medium text-brand-200">
+            <p className="type-badge inline-flex items-center gap-2 rounded-full border border-brand-400/25 bg-brand-950/60 px-3 py-1 font-medium text-brand-200">
               <Store className="h-4 w-4" aria-hidden="true" />
               Independent business website
             </p>

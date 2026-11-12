@@ -172,7 +172,8 @@ export function MobileProjectsMenu({
   linkClassName,
   label = "Projects",
   href = "/projects",
-}: Omit<MenuTarget, "allLabel"> & {
+  allLabel = "View all projects",
+}: MenuTarget & {
   items: ProjectNavItem[]
   pathname: string
   onNavigate: (event: MouseEvent<HTMLAnchorElement>, href: string) => void
@@ -231,6 +232,18 @@ export function MobileProjectsMenu({
               </li>
             )
           })}
+          {/* Same closing row as the desktop menu: the section's full page. */}
+          <li>
+            <Link
+              href={href}
+              onClick={(event) => onNavigate(event, href)}
+              aria-current={pathname === href ? "page" : undefined}
+              className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-brand-700 transition-colors hover:text-accent1-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:text-brand-300 dark:hover:text-accent1-300"
+            >
+              {allLabel}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </li>
         </ul>
       )}
     </div>

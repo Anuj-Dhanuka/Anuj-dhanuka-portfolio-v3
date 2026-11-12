@@ -16,7 +16,7 @@ export function CertificationsHero() {
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.75fr)] lg:gap-16">
           <div className="min-w-0">
             <HeroBreadcrumb current="Certifications" />
-            <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200">
+            <p className="type-badge inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200">
               <Award className="h-4 w-4" aria-hidden="true" /> Anuj Dhanuka · Certifications
             </p>
             <h1 id="certifications-heading" className="type-hero mt-5 max-w-2xl text-white">
