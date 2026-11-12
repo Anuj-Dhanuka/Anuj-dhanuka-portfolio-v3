@@ -29,7 +29,7 @@ export function QuizWarProjectHero({ project }: { project: CaseStudyProject }) {
             <div className="hidden lg:block">
               <HeroBreadcrumb current={project.title} parents={[{ label: "Projects", href: "/projects" }]} />
             </div>
-            <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200 backdrop-blur-sm">
+            <p className="type-badge inline-flex items-center gap-2 rounded-full border border-brand-400/20 bg-brand-950/70 px-3 py-1 font-medium text-brand-200 backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-brand-300" aria-hidden="true" />
               Independent React Native project
             </p>

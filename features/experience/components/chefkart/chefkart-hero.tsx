@@ -111,7 +111,7 @@ export function ChefkartHero() {
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16">
           <div className="min-w-0">
-            <p className="type-small inline-flex items-center gap-2 rounded-full border border-brand-400/25 bg-brand-950/60 px-3 py-1 font-medium text-brand-200">
+            <p className="type-badge inline-flex items-center gap-2 rounded-full border border-brand-400/25 bg-brand-950/60 px-3 py-1 font-medium text-brand-200">
               <span className="h-2 w-2 rounded-full bg-brand-300" aria-hidden="true" />
               {chefkartHero.eyebrow}
             </p>

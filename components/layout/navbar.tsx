@@ -28,21 +28,34 @@ export function Navbar({
   const [scrollProgress, setScrollProgress] = useState(0)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuPanelRef = useRef<HTMLDivElement>(null)
+  const menuListRef = useRef<HTMLElement>(null)
+  const [menuHasMoreBelow, setMenuHasMoreBelow] = useState(false)
 
-  // Prevent body scroll when mobile menu is open
+  // Lock page scroll while the mobile menu is open. The lock goes on <html>: globals.css gives it
+  // overflow-x: hidden, which makes it the page scroller, so overflow on <body> alone has no effect.
   useEffect(() => {
-    if (typeof document !== "undefined") {
-      if (isOpen) {
-        document.body.style.overflow = "hidden"
-      } else {
-        document.body.style.overflow = ""
-      }
-    }
-
+    if (!isOpen) return
+    const root = document.documentElement
+    root.style.overflow = "hidden"
     return () => {
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = ""
-      }
+      root.style.overflow = ""
+    }
+  }, [isOpen])
+
+  // Show the fade above the call button only while more links sit below the fold, including after
+  // the Experience/Projects lists expand. It clears at the end so the last link is never veiled.
+  useEffect(() => {
+    const list = menuListRef.current
+    if (!isOpen || !list) return
+    const update = () => setMenuHasMoreBelow(list.scrollHeight - list.scrollTop - list.clientHeight > 4)
+    update()
+    list.addEventListener("scroll", update, { passive: true })
+    const observer = new ResizeObserver(update)
+    observer.observe(list)
+    if (list.firstElementChild) observer.observe(list.firstElementChild)
+    return () => {
+      list.removeEventListener("scroll", update)
+      observer.disconnect()
     }
   }, [isOpen])
 
@@ -281,7 +294,7 @@ export function Navbar({
       {/* Mobile navigation: a focused sheet above a blurred overlay that also covers the header. */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[55] bg-gray-950/50 backdrop-blur-[2px] lg:hidden"
+          className="fixed inset-0 z-[55] touch-none bg-gray-950/50 backdrop-blur-[2px] lg:hidden"
           aria-hidden="true"
           onClick={() => setIsOpen(false)}
         />
@@ -294,19 +307,19 @@ export function Navbar({
           role="dialog"
           aria-modal="true"
           aria-label="Main navigation"
-          className="animate-slide-in-right fixed bottom-0 right-0 top-0 z-[56] flex w-[88%] max-w-sm flex-col rounded-l-3xl bg-white shadow-2xl motion-reduce:animate-none dark:bg-gray-950 lg:hidden"
+          className="animate-slide-in-right fixed bottom-0 right-0 top-0 z-[56] flex w-[88%] max-w-sm flex-col overscroll-contain rounded-l-3xl bg-white shadow-2xl motion-reduce:animate-none dark:bg-gray-950 lg:hidden"
         >
           <div className="flex items-center justify-between gap-3 px-5 pb-4 pt-5">
             <Link
               href="/"
-              className="min-w-0"
+              className="flex min-w-0 items-center"
               onClick={(e) => handleNavigation(e, "/#home")}
               aria-label="Anuj Dhanuka, go to home"
             >
               <span className="block text-xl font-bold gradient-text">Anuj Dhanuka</span>
             </Link>
             <button
-              className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+              className="-mr-2 flex h-11 w-11 flex-none items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 active:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-800"
               onClick={() => setIsOpen(false)}
               aria-label="Close menu"
             >
@@ -316,7 +329,11 @@ export function Navbar({
 
           <div className="mx-5 h-px bg-gray-100 dark:bg-gray-800" />
 
-          <nav className="flex-1 overflow-y-auto px-5 py-2" aria-label="Pages">
+          <nav
+            ref={menuListRef}
+            className="flex-1 overflow-y-auto overscroll-contain px-5 py-2"
+            aria-label="Pages"
+          >
             <ul className="divide-y divide-gray-100 dark:divide-gray-800">
               {navLinks.map((link) => {
                 const active = isActive(link.href)
@@ -334,6 +351,7 @@ export function Navbar({
                         items={navMenus[link.href].items}
                         label={link.name}
                         href={link.href}
+                        allLabel={navMenus[link.href].allLabel}
                         pathname={pathname}
                         onNavigate={handleNavigation}
                         linkClassName={linkClassName}
@@ -354,7 +372,15 @@ export function Navbar({
             </ul>
           </nav>
 
-          <div className="border-t border-gray-100 px-5 pb-6 pt-4 dark:border-gray-800">
+          <div className="relative border-t border-gray-100 px-5 pb-6 pt-4 dark:border-gray-800">
+            {/* Frosted fade over the last visible links: a soft blur under a white wash, both faded out upward. */}
+            <div
+              className={cn(
+                "pointer-events-none absolute inset-x-0 bottom-full z-10 h-14 bg-gradient-to-t from-white via-white/70 to-white/0 backdrop-blur-[2px] transition-opacity duration-200 [mask-image:linear-gradient(to_top,black_35%,transparent)] motion-reduce:transition-none dark:from-gray-950 dark:via-gray-950/70 dark:to-gray-950/0",
+                menuHasMoreBelow ? "opacity-100" : "opacity-0",
+              )}
+              aria-hidden="true"
+            />
             <a
               href={site.phoneHref}
               onClick={() => setIsOpen(false)}

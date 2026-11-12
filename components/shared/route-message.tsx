@@ -28,8 +28,8 @@ export function RouteMessage({
       className="grid min-h-[72vh] place-items-center bg-white px-4 pb-20 pt-32 dark:bg-gray-950"
     >
       <div className="mx-auto max-w-2xl text-center">
-        <p className="type-eyebrow text-brand-700 dark:text-brand-300">{eyebrow}</p>
-        <h1 className="type-page mt-4 copy-heading">{title}</h1>
+        <p className="type-label text-brand-700 dark:text-brand-300">{eyebrow}</p>
+        <h1 className="type-hero mt-4 text-balance copy-heading">{title}</h1>
         <p className="type-lead mx-auto mt-5 max-w-xl copy-body">{description}</p>
         <div className="mt-8">
           {actionHref ? (

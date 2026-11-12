@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { CodeXml } from "lucide-react"
 
 import { skillIcons } from "@/features/skills/components/skill-icons"
@@ -103,7 +102,8 @@ export function SkillsOrbit() {
 
           return (
             <li key={group.id} className={`group absolute ${layout.position}`}>
-              <Link
+              {/* Plain anchor: next/link does not re-scroll when the URL already ends in this hash. */}
+              <a
                 href={`#${group.id}`}
                 className="flex min-h-16 min-w-20 flex-col items-center justify-center rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 focus-visible:ring-offset-4 focus-visible:ring-offset-gray-950"
                 aria-label={`${group.title}: ${group.skills.length} skills`}
@@ -125,7 +125,7 @@ export function SkillsOrbit() {
                 <span className="mt-1.5 max-w-28 rounded-full border border-white/10 bg-gray-950/65 px-2 py-1 text-center text-[10px] font-bold leading-3 text-white/90 shadow-sm backdrop-blur-sm">
                   {group.title}
                 </span>
-              </Link>
+              </a>
 
               <div
                 className={`pointer-events-none invisible absolute z-40 w-64 rounded-2xl border border-white/15 bg-gray-950/95 p-4 opacity-0 shadow-2xl shadow-black/40 backdrop-blur-md transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 ${layout.panel}`}

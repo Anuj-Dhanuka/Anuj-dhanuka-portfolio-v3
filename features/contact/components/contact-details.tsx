@@ -76,16 +76,17 @@ export function ContactDetails() {
         <p className="type-label font-bold uppercase tracking-[0.16em] text-gray-400 dark:text-gray-500">
           Social links
         </p>
-        <div className="mt-4 flex flex-wrap gap-3">
+        {/* Phones: one row of three equal links (icons drop below 340px so the labels fit); wider screens keep the wrapping row. */}
+        <div className="mt-4 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
           {socialLinks.map(({ label, href, Icon }) => (
             <a
               key={label}
               href={href}
               target={href.startsWith("mailto:") ? undefined : "_blank"}
               rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-              className="inline-flex h-11 items-center gap-2 rounded-lg border border-purple-100 bg-white px-4 text-sm font-bold text-brand-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50 dark:border-purple-800/40 dark:bg-gray-950/55 dark:text-brand-300 dark:hover:bg-brand-900/20"
+              className="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-purple-100 bg-white px-1.5 text-[13px] sm:gap-2 sm:px-4 sm:text-sm font-bold text-brand-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50 dark:border-purple-800/40 dark:bg-gray-950/55 dark:text-brand-300 dark:hover:bg-brand-900/20"
             >
-              <Icon className="h-4 w-4" aria-hidden="true" />
+              <Icon className="hidden h-4 w-4 flex-none min-[340px]:block" aria-hidden="true" />
               {label}
             </a>
           ))}

@@ -51,8 +51,10 @@ export function About() {
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        {/* Below lg the CTAs follow the cards; on lg the spacer rows keep copy + CTAs centred beside them. */}
+        <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:grid-rows-[1fr_auto_auto_1fr] lg:gap-y-0">
           <motion.div
+            className="lg:col-start-1 lg:row-start-2"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-70px" }}
@@ -76,32 +78,10 @@ export function About() {
                 strong focus on usability, visual consistency and real business needs.
               </p>
             </div>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button
-                asChild
-                className="h-11 w-full rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 transition-all duration-300 hover:from-brand-700 hover:to-accent1-700 sm:w-auto"
-              >
-                <Link href="/about" data-cta="learn_more_about" aria-label="Learn more about Anuj Dhanuka">
-                  More About Me
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 shadow-sm backdrop-blur transition-all duration-300 hover:border-brand-300 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
-              >
-                <Link href={site.linkedIn} target="_blank" rel="noopener noreferrer">
-                  Connect on LinkedIn
-                  <ExternalLink className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
           </motion.div>
 
           <motion.div
-            className="relative min-h-[520px] lg:min-h-[560px]"
+            className="relative min-h-[520px] lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:min-h-[560px]"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-70px" }}
@@ -160,6 +140,34 @@ export function About() {
                 </motion.button>
               ))}
             </div>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col gap-3 sm:flex-row lg:col-start-1 lg:row-start-3 lg:mt-7"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+          >
+            <Button
+              asChild
+              className="h-11 w-full rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 transition-all duration-300 hover:from-brand-700 hover:to-accent1-700 sm:w-auto"
+            >
+              <Link href="/about" data-cta="learn_more_about" aria-label="Learn more about Anuj Dhanuka">
+                More About Me
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-11 rounded-lg border-purple-200 bg-white px-5 text-brand-700 shadow-sm backdrop-blur transition-all duration-300 hover:border-brand-300 hover:bg-purple-50 dark:border-purple-800/50 dark:bg-gray-950/30 dark:text-brand-300 dark:hover:bg-purple-900/20"
+            >
+              <Link href={site.linkedIn} target="_blank" rel="noopener noreferrer">
+                Connect on LinkedIn
+                <ExternalLink className="h-4 w-4" />
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </div>

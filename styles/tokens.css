@@ -190,6 +190,7 @@
     --type-small: 0.875rem;
     --type-caption: 0.75rem;
     --type-label: 0.6875rem;
+    --type-badge: 0.75rem;
     --type-nav-heading: 1.125rem;
     --text-heading: var(--color-gray-900);
     --text-body: var(--color-gray-600);
@@ -212,6 +213,7 @@
       --type-lead: 1.125rem;
       --type-cta: 1.875rem;
       --type-cta-body: 1.125rem;
+      --type-badge: 0.875rem;
     }
   }
 
