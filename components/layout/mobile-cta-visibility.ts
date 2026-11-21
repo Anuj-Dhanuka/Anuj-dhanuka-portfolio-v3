@@ -1,4 +1,5 @@
 import { hireHub, hirePages } from "@/config/hire-pages"
+import { whatsappLink } from "@/lib/whatsapp"
 
 // Pure display rules for the mobile bottom CTA bar, kept separate from the DOM wiring so they can be tested.
 
@@ -62,4 +63,15 @@ export function isEditableElement(element: Element | null): boolean {
 export function isHirePath(pathname: string | null): boolean {
   if (!pathname) return false
   return pathname === hireHub.href || hirePages.some((page) => page.href === pathname)
+}
+
+// The WhatsApp chat link for a hire page, with a message prefilled from the page the visitor is on, so they
+// can send it as is or edit it first. Null on every other page (they keep "View resume").
+export function hireWhatsappHref(pathname: string | null): string | null {
+  if (!pathname || !isHirePath(pathname)) return null
+  const page = hirePages.find((entry) => entry.href === pathname)
+  const message = page
+    ? `Hi Anuj, I found your ${page.label} page and would like to discuss working with you.`
+    : "Hi Anuj, I found your Hire Me page and would like to discuss working with you."
+  return whatsappLink(message)
 }

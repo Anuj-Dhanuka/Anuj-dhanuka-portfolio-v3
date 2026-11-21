@@ -12,14 +12,14 @@ import {
   MOBILE_MENU_ATTRIBUTE,
   PAGE_HERO_ATTRIBUTE,
   isEditableElement,
-  isHirePath,
+  hireWhatsappHref,
   isMobileCtaVisible,
   isPastHero,
 } from "@/components/layout/mobile-cta-visibility"
 import { cn } from "@/lib/utils"
 
 // Global mobile bottom bar (below 768px): "View resume" and "Call Anuj"; on the eight hire pages the resume
-// button becomes "WhatsApp" (isHirePath). It appears once the page's marked
+// button becomes "WhatsApp" with a prefilled message (hireWhatsappHref). It appears once the page's marked
 // opening section is scrolled past and hides for the mobile menu, a visible contact form and text entry.
 // Rules live in mobile-cta-visibility.ts; this component only wires them to observers.
 export function MobileCtaBar() {
@@ -36,6 +36,7 @@ export function MobileCtaBar() {
   const hasHero = hero?.path === pathname
   const pastHero = hasHero && hero.pastHero
   const hideRegionVisible = hideRegion?.path === pathname && hideRegion.visible
+  const whatsappHref = hireWhatsappHref(pathname)
 
   // Per route: observe the marked opening section and any contact-form regions. Re-runs on client-side
   // navigation and Back/Forward because the pathname changes.
@@ -136,12 +137,14 @@ export function MobileCtaBar() {
       {/* Two columns at normal text size (8rem fits twice at 320px); enlarged text grows the rem minimum,
           so the buttons stack instead of clipping their labels. */}
       <nav aria-label="Quick contact" className="grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-3">
-        {isHirePath(pathname) ? (
+        {whatsappHref ? (
           <a
-            href={site.whatsappHref}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             data-cta="whatsapp_anuj"
+            // GA4 records the chat link without the message (the page is already reported).
+            data-cta-destination={site.whatsappHref}
             data-cta-section="mobile_sticky"
             className={cn(
               linkButtonVariants({ variant: "outline" }),

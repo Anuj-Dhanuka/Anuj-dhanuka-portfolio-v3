@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 
 import {
   isEditableElement,
+  hireWhatsappHref,
   isHirePath,
   isMobileCtaVisible,
   isPastHero,
@@ -74,5 +75,27 @@ describe("hire-page WhatsApp swap", () => {
     for (const path of ["/", "/about", "/contact", "/projects/mopedo", "/hire/extra", null]) {
       expect(isHirePath(path)).toBe(false)
     }
+  })
+})
+
+describe("hire-page WhatsApp message", () => {
+  const message = (path: string) => {
+    const href = hireWhatsappHref(path)
+    return href && new URL(href).searchParams.get("text")
+  }
+
+  it("prefills a message naming the page the visitor is on", () => {
+    expect(hireWhatsappHref("/react-developer")).toMatch(/^https:\/\/wa\.me\/918978264705\?text=/)
+    expect(message("/react-developer")).toBe(
+      "Hi Anuj, I found your React Developer for Hire page and would like to discuss working with you.",
+    )
+    expect(message("/figma-to-website")).toContain("Figma to Website Development Services page")
+    expect(message("/hire")).toBe(
+      "Hi Anuj, I found your Hire Me page and would like to discuss working with you.",
+    )
+  })
+
+  it("returns nothing outside the hire pages", () => {
+    for (const path of ["/", "/contact", "/projects/mopedo"]) expect(hireWhatsappHref(path)).toBeNull()
   })
 })

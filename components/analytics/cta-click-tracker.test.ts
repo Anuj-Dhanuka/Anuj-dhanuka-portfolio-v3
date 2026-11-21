@@ -29,6 +29,18 @@ describe("CTA click analytics", () => {
     })
   })
 
+  it("reports an explicit destination instead of a long href", () => {
+    expect(
+      ctaEventProperties(
+        link(
+          { cta: "whatsapp_anuj", ctaSection: "mobile_sticky", ctaDestination: site.whatsappHref },
+          `${site.whatsappHref}?text=Hi%20Anuj`,
+        ),
+        "/hire",
+      ),
+    ).toMatchObject({ cta: "whatsapp_anuj", destination: site.whatsappHref })
+  })
+
   it("recognises contact links by address and finds their section", () => {
     const inSection = { "section[id], header[id]": { id: "contact" } }
     expect(ctaEventProperties(link({}, `mailto:${site.email}`, inSection), "/")).toMatchObject({

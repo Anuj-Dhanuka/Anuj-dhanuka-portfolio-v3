@@ -3,11 +3,14 @@
 import { useState, useEffect, useRef, type MouseEvent } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { FaWhatsapp } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Phone } from "lucide-react"
 import { smoothScroll } from "@/utils/smooth-scroll"
 import { cn } from "@/lib/utils"
 import { site } from "@/config/site"
+import { hireWhatsappHref } from "@/components/layout/mobile-cta-visibility"
+import { whatsappGeneralMessage, whatsappLink } from "@/lib/whatsapp"
 import {
   DesktopProjectsMenu,
   MobileProjectsMenu,
@@ -394,15 +397,32 @@ export function Navbar({
               )}
               aria-hidden="true"
             />
-            <a
-              href={site.phoneHref}
-              onClick={() => setIsOpen(false)}
-              aria-label={`Call ${site.phoneDisplay}`}
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border-2 border-purple-700 text-base font-semibold text-purple-900 transition-colors hover:bg-purple-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:border-purple-400 dark:text-white dark:hover:bg-purple-600"
-            >
-              <Phone className="h-5 w-5" aria-hidden="true" />
-              {site.phoneDisplay}
-            </a>
+            {/* Call and WhatsApp side by side; they stack when the sheet is too narrow for both labels. */}
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] gap-3">
+              <a
+                href={site.phoneHref}
+                onClick={() => setIsOpen(false)}
+                aria-label={`Call ${site.phoneDisplay}`}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border-2 border-purple-700 text-base font-semibold text-purple-900 transition-colors hover:bg-purple-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:border-purple-400 dark:text-white dark:hover:bg-purple-600"
+              >
+                <Phone className="h-5 w-5" aria-hidden="true" />
+                {site.phoneDisplay}
+              </a>
+              {/* Prefilled message: page-specific on the hire pages, general elsewhere. */}
+              <a
+                href={hireWhatsappHref(pathname) ?? whatsappLink(whatsappGeneralMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                data-cta="whatsapp_anuj"
+                data-cta-section="mobile_menu"
+                data-cta-destination={site.whatsappHref}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border-2 border-purple-700 text-base font-semibold text-purple-900 transition-colors hover:bg-purple-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 dark:border-purple-400 dark:text-white dark:hover:bg-purple-600"
+              >
+                <FaWhatsapp className="h-5 w-5" aria-hidden="true" />
+                WhatsApp<span className="sr-only"> Anuj Dhanuka (opens in a new tab)</span>
+              </a>
+            </div>
           </div>
         </div>
       )}
