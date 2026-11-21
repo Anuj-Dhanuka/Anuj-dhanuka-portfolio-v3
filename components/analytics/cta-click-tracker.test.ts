@@ -10,7 +10,7 @@ const link = (
 ) => ({
   dataset,
   getAttribute: (name: string) => (name === "href" ? href : null),
-  // Matches the selectors the tracker asks for: "section[id], header[id]", "footer", "header, nav".
+  // Matches the selectors the tracker asks for: "section[id], header[id]", "[data-page-hero]", "footer", "header, nav".
   closest: (selector: string) => (around[selector] as Element | undefined) ?? null,
 })
 
@@ -44,6 +44,20 @@ describe("CTA click analytics", () => {
       section: "footer",
     })
     expect(ctaEventProperties(link({}, site.github), "/")).toMatchObject({ cta: "github" })
+  })
+
+  it("names a page hero without an id as the hero section", () => {
+    expect(
+      ctaEventProperties(
+        link({ cta: "explore_my_journey" }, "#journey", { "[data-page-hero]": {} }),
+        "/about",
+      ),
+    ).toMatchObject({ cta: "explore_my_journey", section: "hero", page: "/about" })
+    // An id or explicit section still wins.
+    const both = { "section[id], header[id]": { id: "overview" }, "[data-page-hero]": {} }
+    expect(ctaEventProperties(link({ cta: "x" }, "/contact", both), "/")).toMatchObject({
+      section: "overview",
+    })
   })
 
   it("ignores plain navigation and in-page jumps", () => {
