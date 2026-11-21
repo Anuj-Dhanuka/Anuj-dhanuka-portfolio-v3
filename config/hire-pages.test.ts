@@ -8,6 +8,7 @@ import { frontendDeveloperHero } from "@/features/frontend-developer/data/fronte
 import { reactDeveloperHero } from "@/features/react-developer/data/react-developer"
 import { reactNativeDeveloperHero } from "@/features/react-native-developer/data/react-native-developer"
 import { shopifyDeveloperHero } from "@/features/shopify-developer/data/shopify-developer"
+import { wordpressDeveloperHero } from "@/features/wordpress-developer/data/wordpress-developer"
 
 // The H1 of each published hire page, keyed by route.
 const headings: Record<string, string> = {
@@ -15,6 +16,7 @@ const headings: Record<string, string> = {
   "/react-native-developer": `${reactNativeDeveloperHero.title} ${reactNativeDeveloperHero.titleAccent}`,
   "/frontend-developer": `${frontendDeveloperHero.title} ${frontendDeveloperHero.titleAccent}`,
   "/shopify-developer": `${shopifyDeveloperHero.title} ${shopifyDeveloperHero.titleAccent}`,
+  "/wordpress-developer": `${wordpressDeveloperHero.title} ${wordpressDeveloperHero.titleAccent}`,
 }
 
 describe("hire pages", () => {

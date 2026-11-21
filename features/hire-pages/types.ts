@@ -1,6 +1,7 @@
 import type { Project, ProjectCaseStudy } from "@/features/projects/data/projects"
 
-// Shared shapes for the "<Role> Developer for Hire" pages (/react-developer, /react-native-developer, /frontend-developer, /shopify-developer).
+// Shared shapes for the "<Role> Developer for Hire" pages (/react-developer, /react-native-developer,
+// /frontend-developer, /shopify-developer, /wordpress-developer).
 // Each page keeps its copy in its own feature data module; the layout lives in features/hire-pages.
 
 export type HirePageMeta = {
@@ -116,7 +117,7 @@ export type Engagement = {
   title: string
   summary: string
   // A scannable checklist with its closing line kept as a note.
-  share: { heading: string; items: readonly string[]; note: string }
+  share: { heading: string; items: readonly string[]; note?: string }
   cta: { label: string; href: string; analytics: string }
   // Plain, non-interactive pills above the main button: availability (full-time) or services (freelance).
   facts: readonly string[]
@@ -159,6 +160,16 @@ export type TechIcon =
   | "apps"
   | "shipping"
   | "seo"
+  | "woocommerce"
+  | "elementorPro"
+  | "wpThemes"
+  | "plugins"
+  | "forms"
+  | "wpSeo"
+  | "breakpoints"
+  | "hosting"
+  | "analytics"
+  | "performance"
 
 // `kind` describes the tool itself (not a claim about experience), shown under each name.
 export type TechItem = {
@@ -176,21 +187,32 @@ export type HirePageSections = {
   nav: readonly { href: `#${string}`; label: string }[]
   work: { id: string; title: string; intro: string; items: readonly WorkItem[] }
   // Optional `label` (eyebrow) and `title` overrides; omitted, the reference page's wording is used.
+  // Optional `id` overrides set a section's in-page anchor (defaults: capabilities, work-with-me, approach).
   capabilities: {
+    id?: string
     label?: string
     title: string
     intro: string
     ctaLabel: string
     items: readonly Capability[]
   }
-  engagement: { intro: string; items: readonly Engagement[] }
+  engagement: { id?: string; intro: string; items: readonly Engagement[] }
   approach: {
+    id?: string
     label?: string
     title?: string
     intro: string
-    ctaLabel: string
+    // Omitted, the section ends without its line button.
+    ctaLabel?: string
     steps: readonly { title: string; body: string }[]
   }
-  technologies: { label?: string; title?: string; intro: string; items: readonly TechItem[] }
+  technologies: {
+    label?: string
+    title?: string
+    intro: string
+    items: readonly TechItem[]
+    // Optional sentence under the tiles, e.g. a scope boundary for the tools shown.
+    note?: string
+  }
   freelanceContactHref: string
 }

@@ -19,4 +19,5 @@ export const hirePages: readonly HirePage[] = [
   },
   { label: "Frontend Developer for Hire", role: "frontend developer", href: "/frontend-developer" },
   { label: "Shopify Developer for Hire", role: "Shopify developer", href: "/shopify-developer" },
+  { label: "WordPress Developer for Hire", role: "WordPress developer", href: "/wordpress-developer" },
 ]

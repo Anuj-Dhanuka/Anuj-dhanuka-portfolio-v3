@@ -7,6 +7,7 @@ import { frontendDeveloperPage } from "@/features/frontend-developer/data/fronte
 import { reactDeveloperPage } from "@/features/react-developer/data/react-developer"
 import { reactNativeDeveloperPage } from "@/features/react-native-developer/data/react-native-developer"
 import { shopifyDeveloperPage } from "@/features/shopify-developer/data/shopify-developer"
+import { wordpressDeveloperPage } from "@/features/wordpress-developer/data/wordpress-developer"
 import { caseStudyProjects, projectPath } from "@/features/projects/project-details"
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -33,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // the page's own `lastModified` and should move to the actual release day if it ships later. The Shopify
   // developer hire page (implemented 21 November 2026) works the same way. The same day adds the owner-confirmed
   // Shopify theme and store-setup skills to the shared skill groups shown on the homepage and Skills page.
+  // The WordPress developer hire page (implemented 21 November 2026) follows the same pattern.
   return [
     { url: site.homeUrl, lastModified: "2026-11-21" },
     { url: `${site.url}/about`, lastModified: "2026-11-11" },
@@ -51,6 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     { url: `${site.url}${frontendDeveloperPage.path}`, lastModified: frontendDeveloperPage.lastModified },
     { url: `${site.url}${shopifyDeveloperPage.path}`, lastModified: shopifyDeveloperPage.lastModified },
+    { url: `${site.url}${wordpressDeveloperPage.path}`, lastModified: wordpressDeveloperPage.lastModified },
     ...caseStudyProjects.map((project) => ({
       url: `${site.url}${projectPath(project)}`,
       lastModified: project.caseStudy.lastModified,

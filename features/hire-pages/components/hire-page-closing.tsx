@@ -11,6 +11,7 @@ export function HirePageClosing({
   faqs,
   faqIntro,
   faqTitle = "Questions about working together",
+  faqId,
   closing,
   fullTimeHref,
   freelanceHref,
@@ -20,6 +21,8 @@ export function HirePageClosing({
   faqs: readonly FaqItem[]
   faqIntro: string
   faqTitle?: string
+  // In-page anchor for the FAQ section (FaqSection's default is "faq").
+  faqId?: string
   closing: { title: string; description: string }
   fullTimeHref: string
   freelanceHref: string
@@ -29,6 +32,7 @@ export function HirePageClosing({
   return (
     <>
       <FaqSection
+        id={faqId}
         items={faqs}
         title={faqTitle}
         description={faqIntro}

@@ -21,6 +21,7 @@ import {
   SiShopify,
   SiVite,
   SiWordpress,
+  SiGoogleanalytics,
 } from "react-icons/si"
 import {
   TbApi,
@@ -35,6 +36,13 @@ import {
   TbTemplate,
   TbTerminal2,
   TbTruckDelivery,
+  TbBolt,
+  TbDevices,
+  TbForms,
+  TbLayout,
+  TbPlug,
+  TbShoppingCart,
+  TbWorldWww,
 } from "react-icons/tb"
 import {
   ArrowUpRight,
@@ -238,10 +246,11 @@ function FeaturedWork({ item, index }: { item: WorkItem; index: number }) {
         <span className="type-label tabular-nums text-brand-700 dark:text-brand-300" aria-hidden="true">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <span className="relative h-px flex-1 bg-purple-100 dark:bg-purple-800/40" aria-hidden="true">
-          <span className="absolute left-0 top-1/2 h-0.5 w-20 -translate-y-1/2 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
+        {/* A long ownership label wraps instead of squeezing the hairline; the rule never exceeds its track. */}
+        <span className="relative h-px min-w-8 flex-1 bg-purple-100 dark:bg-purple-800/40" aria-hidden="true">
+          <span className="absolute left-0 top-1/2 h-0.5 w-20 max-w-full -translate-y-1/2 rounded-full bg-gradient-to-r from-brand-600 to-accent1-600 dark:from-brand-500 dark:to-accent1-500" />
         </span>
-        <p className="type-label text-accent1-600 dark:text-accent1-300">{item.kind}</p>
+        <p className="type-label min-w-0 text-right text-accent1-600 dark:text-accent1-300">{item.kind}</p>
       </div>
 
       <div
@@ -384,7 +393,7 @@ function Capabilities({
 }) {
   return (
     <section
-      id="capabilities"
+      id={capabilities.id ?? "capabilities"}
       aria-labelledby="capabilities-heading"
       className="relative isolate scroll-mt-24 overflow-hidden bg-white py-16 dark:bg-gray-900 md:py-24"
     >
@@ -454,7 +463,7 @@ const engagementIcons = { role: BriefcaseBusiness, project: Code2 } as const
 function WorkWithMe({ engagement }: { engagement: HirePageSections["engagement"] }) {
   return (
     <section
-      id="work-with-me"
+      id={engagement.id ?? "work-with-me"}
       aria-labelledby="work-with-me-heading"
       className="relative isolate scroll-mt-24 overflow-hidden border-t border-purple-100/70 bg-brand-50/50 py-16 dark:border-purple-800/30 dark:bg-gray-950 md:py-24"
     >
@@ -507,7 +516,7 @@ function WorkWithMe({ engagement }: { engagement: HirePageSections["engagement"]
                       </li>
                     ))}
                   </ul>
-                  <p className="type-small mt-3 copy-body">{path.share.note}</p>
+                  {path.share.note && <p className="type-small mt-3 copy-body">{path.share.note}</p>}
                 </div>
 
                 <div>
@@ -571,7 +580,7 @@ function Approach({
 }) {
   return (
     <section
-      id="approach"
+      id={approach.id ?? "approach"}
       aria-labelledby="approach-heading"
       className="relative isolate scroll-mt-24 overflow-hidden border-y border-purple-100/70 bg-gradient-to-b from-white via-purple-50/40 to-pink-50/40 py-16 dark:border-purple-800/30 dark:from-gray-900 dark:via-purple-900/10 dark:to-pink-900/10 md:py-24 lg:bg-none lg:bg-white dark:lg:bg-none dark:lg:bg-gray-950"
     >
@@ -642,17 +651,19 @@ function Approach({
           </ol>
         </div>
 
-        <div className="mt-10 flex justify-center md:mt-12">
-          <LinkButton
-            href={freelanceContactHref}
-            variant="line"
-            data-cta="discuss_your_project"
-            data-cta-section="approach"
-            icon={<ArrowUpRight className="h-4 w-4" />}
-          >
-            {approach.ctaLabel}
-          </LinkButton>
-        </div>
+        {approach.ctaLabel && (
+          <div className="mt-10 flex justify-center md:mt-12">
+            <LinkButton
+              href={freelanceContactHref}
+              variant="line"
+              data-cta="discuss_your_project"
+              data-cta-section="approach"
+              icon={<ArrowUpRight className="h-4 w-4" />}
+            >
+              {approach.ctaLabel}
+            </LinkButton>
+          </div>
+        )}
       </div>
     </section>
   )
@@ -696,6 +707,18 @@ const techIcons: Record<TechIcon, { Icon: IconType; color: string | null }> = {
   apps: { Icon: TbApps, color: "#5E8E3E" },
   shipping: { Icon: TbTruckDelivery, color: "#5E8E3E" },
   seo: { Icon: TbSeo, color: "#5E8E3E" },
+  // The WooCommerce mark is a wide wordmark that shrinks to a sliver in a square tile: a cart in its purple.
+  woocommerce: { Icon: TbShoppingCart, color: "#96588A" },
+  elementorPro: { Icon: SiElementor, color: "#92003B" },
+  // WordPress tooling and site setup have no brand marks of their own: generic icons in WordPress blue.
+  wpThemes: { Icon: TbLayout, color: "#21759B" },
+  plugins: { Icon: TbPlug, color: "#21759B" },
+  forms: { Icon: TbForms, color: "#21759B" },
+  wpSeo: { Icon: TbSeo, color: "#21759B" },
+  breakpoints: { Icon: TbDevices, color: "#21759B" },
+  hosting: { Icon: TbWorldWww, color: "#21759B" },
+  analytics: { Icon: SiGoogleanalytics, color: "#E37400" },
+  performance: { Icon: TbBolt, color: "#21759B" },
 }
 
 // Same tile as the homepage technology strip, without its drag/scroll behaviour (static list here).
@@ -764,6 +787,10 @@ function Technologies({ technologies }: { technologies: HirePageSections["techno
             <TechPill key={item.name} {...item} />
           ))}
         </ul>
+
+        {technologies.note && (
+          <p className="type-small mx-auto mt-6 max-w-2xl text-center copy-body">{technologies.note}</p>
+        )}
 
         <div className="mt-10 flex justify-center">
           <LinkButton href="/skills" variant="line" icon={<ArrowUpRight className="h-4 w-4" />}>
