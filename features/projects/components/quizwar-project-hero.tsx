@@ -14,7 +14,10 @@ export function QuizWarProjectHero({ project }: { project: CaseStudyProject }) {
   const quiz = detail.screenshots.find((screen) => screen.src === "/quizwar-quiz.webp")
 
   return (
-    <header className="relative isolate overflow-hidden pb-14 pt-20 text-white md:pb-16 md:pt-24 lg:flex lg:min-h-[640px] lg:items-center lg:pb-12 lg:pt-32 xl:min-h-[680px]">
+    <header
+      data-page-hero
+      className="relative isolate overflow-hidden pb-14 pt-20 text-white md:pb-16 md:pt-24 lg:flex lg:min-h-[640px] lg:items-center lg:pb-12 lg:pt-32 xl:min-h-[680px]"
+    >
       <HeroBackground />
       <div
         aria-hidden="true"

@@ -40,7 +40,10 @@ function HeroVisual() {
 // Shared hero pattern: text and actions on the left, the visual on the right.
 export function PpcroyHero() {
   return (
-    <header className="relative isolate overflow-hidden pb-12 pt-24 text-white md:pb-16 md:pt-32">
+    <header
+      data-page-hero
+      className="relative isolate overflow-hidden pb-12 pt-24 text-white md:pb-16 md:pt-32"
+    >
       <HeroBackground />
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <HeroBreadcrumb current="PPCROY" parents={[{ label: "Experience", href: "/experience" }]} />

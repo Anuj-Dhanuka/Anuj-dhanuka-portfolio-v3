@@ -9,6 +9,7 @@ import { aboutHighlights } from "@/features/about/data/about"
 export function AboutHero() {
   return (
     <section
+      data-page-hero
       aria-labelledby="about-hero-heading"
       className="relative overflow-hidden pb-14 pt-20 text-white md:pb-16 md:pt-24 lg:flex lg:min-h-[680px] lg:items-center lg:pb-12 lg:pt-32 xl:min-h-[720px]"
     >

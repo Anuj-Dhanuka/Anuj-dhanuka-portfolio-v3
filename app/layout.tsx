@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { site } from "@/config/site"
 import Script from "next/script"
 import "./globals.css"
+import { MobileCtaBar } from "@/components/layout/mobile-cta-bar"
 import { Navbar } from "@/components/layout/navbar"
 import { experienceNavItems } from "@/features/experience/experience-nav"
 import { projectNavItems } from "@/features/projects/project-nav"
@@ -128,6 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar projects={projectNavItems} experience={experienceNavItems} />
           {children}
           <Footer />
+          <MobileCtaBar />
         </ThemeProvider>
         {process.env.NODE_ENV === "production" && analytics.googleMeasurementId && (
           <>

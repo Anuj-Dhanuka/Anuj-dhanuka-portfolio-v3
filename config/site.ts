@@ -9,6 +9,8 @@ export const site = {
   email: "anujd973@gmail.com",
   phoneDisplay: "+91 8978264705",
   phoneHref: "tel:+918978264705",
+  // Current resume PDF (served from /public). Rename the file and update here when it changes.
+  resumeHref: "/ANUJ_DHANUKA_RESUME.pdf",
   location: "Vizianagaram, Andhra Pradesh, India",
   // Shown on the homepage hero, Contact page and default closing CTA; ChefKart role ended 31 October 2026.
   availability: "Available to join immediately",

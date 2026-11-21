@@ -59,6 +59,7 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Images need meaningful alt text unless decorative; decorative elements must be hidden from assistive technology.
 - Respect reduced-motion preferences through Framer Motion viewport behavior and `motion-reduce` styles.
 - Maintain at least 44px touch targets for primary mobile controls and prevent fixed elements from covering content.
+- The mobile bottom CTA bar (`components/layout/mobile-cta-bar.tsx`) depends on explicit markers: every page hero carries `data-page-hero`, the shared contact form wrapper carries `data-mobile-cta-hide`, and floating buttons carry `data-floating-action` so they move above the bar. Add `data-page-hero` to any new page's opening section, or the bar never appears there. See `CLAUDE.md` for the full display rules.
 - Treat the homepage animations as product behaviour, not disposable decoration. Preserve the two-direction technology marquee, its hover pause, the interactive stacking in the “Building With Purpose” cards, and the Experience timeline entrance/pulse effects.
 - The overlapping About cards must activate on pointer hover, keyboard focus and click. The active card must rise above its siblings as well as move visually.
 - Do not place `content-visibility: auto` on wrappers containing Framer Motion `whileInView`, Intersection Observer logic or CSS marquees. Skipped subtrees previously prevented the technology strip and Experience timeline from starting reliably.

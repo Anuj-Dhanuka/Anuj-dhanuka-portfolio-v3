@@ -366,6 +366,7 @@ function FloatingCompanyCard({
 export function Hero() {
   return (
     <section
+      data-page-hero
       id="home"
       className="relative flex overflow-hidden pt-20 pb-12 md:pt-28 md:pb-16 lg:min-h-screen lg:items-center lg:pt-32 lg:pb-24"
     >
@@ -376,58 +377,62 @@ export function Hero() {
           <HeroContent />
 
           {/* Right: orbit visual */}
-          <div className="flex-1 relative py-4 sm:py-8 md:py-0">
-            <div className="relative mx-auto h-[400px] w-[320px] sm:h-[440px] sm:w-[390px] md:h-[500px] md:w-[460px]">
-              {/* Ambient glow */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="hero-glow h-[280px] w-[280px] rounded-full bg-gradient-to-br from-purple-600/35 to-pink-600/35 blur-3xl sm:h-[340px] sm:w-[340px] md:h-[390px] md:w-[390px]" />
-              </div>
-
-              {/* Outer orbit ring — clockwise */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="hero-orbit-clockwise relative h-[270px] w-[270px] rounded-full border border-purple-300/28 sm:h-[330px] sm:w-[330px] md:h-[390px] md:w-[390px]">
-                  <span className="absolute left-8 top-4 h-[7px] w-[7px] rounded-full bg-purple-300 shadow-[0_0_14px_rgba(216,180,254,0.9)]" />
-                  <span className="absolute bottom-8 right-5 h-[5px] w-[5px] rounded-full bg-pink-300 shadow-[0_0_12px_rgba(249,168,212,0.9)]" />
+          {/* Phones: the 320×400 composition is scaled to 70% and its box shrinks to match (280px tall),
+              so the headline and first button rise without re-placing every icon. sm and up are unchanged. */}
+          <div className="flex-1 relative py-2 sm:py-8 md:py-0">
+            <div className="h-[280px] w-[320px] max-sm:mx-auto sm:contents">
+              <div className="relative mx-auto h-[400px] w-[320px] origin-top scale-[0.7] sm:h-[440px] sm:w-[390px] sm:scale-100 md:h-[500px] md:w-[460px]">
+                {/* Ambient glow */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="hero-glow h-[280px] w-[280px] rounded-full bg-gradient-to-br from-purple-600/35 to-pink-600/35 blur-3xl sm:h-[340px] sm:w-[340px] md:h-[390px] md:w-[390px]" />
                 </div>
-              </div>
 
-              {/* Inner orbit ring — counter-clockwise */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="hero-orbit-counter h-[215px] w-[215px] rounded-full border border-white/15 sm:h-[268px] sm:w-[268px] md:h-[320px] md:w-[320px]" />
-              </div>
-
-              {/* Profile image */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative z-20 h-[228px] w-[228px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40 sm:h-[278px] sm:w-[278px] md:h-[318px] md:w-[318px]">
-                  <Image
-                    src="/anuj-profile-400.jpg"
-                    alt="Anuj Dhanuka — Software Engineer and Frontend Developer based in Vizianagaram, India"
-                    fill
-                    className="object-cover"
-                    priority
-                    fetchPriority="high"
-                    unoptimized
-                    sizes="(max-width: 640px) 228px, (max-width: 768px) 278px, 318px"
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQABIAEgAAD/2wBDAAQEBAQEBAYEBAYJBgYGCQwJCQkJDA8MDAwMDA8SDw8PDw8PEhISEhISEhIVFRUVFRUZGRkZGRwcHBwcHBwcHBz/2wBDAQQFBQcHBwwHBwwdFBAUHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/3QAEAAH/2gAMAwEAAhEDEQA/APV/iX8QtI0zWY9FE93Fc6IE1O5FvL5SyRjGIeD87HcDtYbcda9g8P65ZeJdEstf03d9mv4hNGHGGAPYgEjIPB5r8+fizGbj4l+IppXZma72deAsaKqge2BX2l8G4kh+HunRp91ZLnaOyj7RJgAdgOwr0UrSbM+a6SP/2Q=="
-                  />
+                {/* Outer orbit ring — clockwise */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="hero-orbit-clockwise relative h-[270px] w-[270px] rounded-full border border-purple-300/28 sm:h-[330px] sm:w-[330px] md:h-[390px] md:w-[390px]">
+                    <span className="absolute left-8 top-4 h-[7px] w-[7px] rounded-full bg-purple-300 shadow-[0_0_14px_rgba(216,180,254,0.9)]" />
+                    <span className="absolute bottom-8 right-5 h-[5px] w-[5px] rounded-full bg-pink-300 shadow-[0_0_12px_rgba(249,168,212,0.9)]" />
+                  </div>
                 </div>
+
+                {/* Inner orbit ring — counter-clockwise */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="hero-orbit-counter h-[215px] w-[215px] rounded-full border border-white/15 sm:h-[268px] sm:w-[268px] md:h-[320px] md:w-[320px]" />
+                </div>
+
+                {/* Profile image */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative z-20 h-[228px] w-[228px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40 sm:h-[278px] sm:w-[278px] md:h-[318px] md:w-[318px]">
+                    <Image
+                      src="/anuj-profile-400.jpg"
+                      alt="Anuj Dhanuka — Software Engineer and Frontend Developer based in Vizianagaram, India"
+                      fill
+                      className="object-cover"
+                      priority
+                      fetchPriority="high"
+                      unoptimized
+                      sizes="(max-width: 640px) 228px, (max-width: 768px) 278px, 318px"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQABIAEgAAD/2wBDAAQEBAQEBAYEBAYJBgYGCQwJCQkJDA8MDAwMDA8SDw8PDw8PEhISEhISEhIVFRUVFRUZGRkZGRwcHBwcHBwcHBz/2wBDAQQFBQcHBwwHBwwdFBAUHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/3QAEAAH/2gAMAwEAAhEDEQA/APV/iX8QtI0zWY9FE93Fc6IE1O5FvL5SyRjGIeD87HcDtYbcda9g8P65ZeJdEstf03d9mv4hNGHGGAPYgEjIPB5r8+fizGbj4l+IppXZma72deAsaKqge2BX2l8G4kh+HunRp91ZLnaOyj7RJgAdgOwr0UrSbM+a6SP/2Q=="
+                    />
+                  </div>
+                </div>
+
+                {/* Primary tech + AI icons — octagon outer ring */}
+                {techIcons.map((icon) => (
+                  <FloatingTechIcon key={icon.name} {...icon} />
+                ))}
+
+                {/* Secondary icons — diagonal gaps, smaller */}
+                {secondaryIcons.map((icon) => (
+                  <FloatingSecondaryIcon key={icon.name} {...icon} />
+                ))}
+
+                {/* Company cards — inner ring */}
+                {companyCards.map((card) => (
+                  <FloatingCompanyCard key={card.name} {...card} />
+                ))}
               </div>
-
-              {/* Primary tech + AI icons — octagon outer ring */}
-              {techIcons.map((icon) => (
-                <FloatingTechIcon key={icon.name} {...icon} />
-              ))}
-
-              {/* Secondary icons — diagonal gaps, smaller */}
-              {secondaryIcons.map((icon) => (
-                <FloatingSecondaryIcon key={icon.name} {...icon} />
-              ))}
-
-              {/* Company cards — inner ring */}
-              {companyCards.map((card) => (
-                <FloatingCompanyCard key={card.name} {...card} />
-              ))}
             </div>
           </div>
         </div>
