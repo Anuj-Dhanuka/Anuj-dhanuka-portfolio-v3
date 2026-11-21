@@ -10,7 +10,7 @@ export type HireEnquiryAction = {
 }
 
 // The hero and closing CTA's two enquiry buttons, primary first. Role pages keep the full-time default;
-// a service page (/landing-page-development) leads with the project enquiry.
+// a service page (/landing-page-development, /figma-to-website) leads with the project enquiry.
 export function hireEnquiryActions({
   fullTimeHref,
   freelanceHref,

@@ -46,16 +46,19 @@ import {
 } from "react-icons/tb"
 import {
   ArrowUpRight,
+  BadgeCheck,
   BriefcaseBusiness,
   Check,
   ClipboardList,
   Code2,
+  Component,
   CreditCard,
   Download,
   ExternalLink,
   FolderGit2,
   Globe,
   Handshake,
+  Hash,
   KeyRound,
   LayoutDashboard,
   LayoutTemplate,
@@ -69,9 +72,12 @@ import {
   Paintbrush,
   PanelsTopLeft,
   PenLine,
+  Scale,
   ShoppingBag,
   Smartphone,
   Store,
+  SwatchBook,
+  Type,
   type LucideIcon,
 } from "lucide-react"
 
@@ -95,10 +101,12 @@ import {
 import type {
   Capability,
   CapabilityIcon,
+  DesignDetails as DesignDetailsContent,
   EngagementLink,
   HirePageSections,
   ComparisonOption,
   OptionComparison,
+  PlatformChoices,
   TechIcon,
   TechItem,
   WorkItem,
@@ -124,6 +132,8 @@ const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
   product: ShoppingBag,
   edit: PenLine,
   handover: PackageCheck,
+  typography: Type,
+  consistency: Component,
 }
 
 const pill =
@@ -452,42 +462,69 @@ function Capabilities({
 
         {capabilities.comparison && <Comparison comparison={capabilities.comparison} />}
 
-        {/* One row of line buttons: the comparison's links (if any), then the project enquiry. On phones
-            they keep one row with short visible labels. */}
-        <ul
-          className={cn(
-            "mt-10 flex items-center gap-x-1 min-[360px]:gap-x-3 sm:justify-center sm:gap-x-8",
-            capabilities.comparison ? "justify-between" : "justify-center",
-          )}
-        >
-          {capabilities.comparison?.links.map((link) => (
-            <li key={link.href}>
-              <LinkButton
-                href={link.href}
-                variant="line"
-                data-cta={ctaSlug(link.label)}
-                className="whitespace-nowrap"
-                icon={<ArrowUpRight className="h-4 w-4" />}
-              >
-                <ResponsiveLabel label={link.label} shortLabel={link.shortLabel} />
-              </LinkButton>
-            </li>
-          ))}
-          <li>
-            <LinkButton
-              href={freelanceContactHref}
-              variant="line"
-              data-cta="discuss_freelance_project"
-              data-cta-section="capabilities"
-              className="whitespace-nowrap"
-              icon={<ArrowUpRight className="h-4 w-4" />}
-            >
-              <ResponsiveLabel label={capabilities.ctaLabel} shortLabel={capabilities.ctaShortLabel} />
-            </LinkButton>
-          </li>
-        </ul>
+        {/* With a separate platform-choice section, that section carries the buttons instead. */}
+        {!capabilities.choices && (
+          <ActionRow
+            links={capabilities.comparison?.links ?? []}
+            href={freelanceContactHref}
+            label={capabilities.ctaLabel}
+            shortLabel={capabilities.ctaShortLabel}
+            section="capabilities"
+          />
+        )}
       </div>
     </section>
+  )
+}
+
+// One row of line buttons: related-page links (if any), then the project enquiry. On phones they keep one
+// row with short visible labels (the full label stays the accessible name).
+function ActionRow({
+  links,
+  href,
+  label,
+  shortLabel,
+  section,
+}: {
+  links: OptionComparison["links"]
+  href: string
+  label: string
+  shortLabel?: string
+  section: string
+}) {
+  return (
+    <ul
+      className={cn(
+        "mt-10 flex items-center gap-x-1 min-[360px]:gap-x-3 sm:justify-center sm:gap-x-8",
+        links.length > 0 ? "justify-between" : "justify-center",
+      )}
+    >
+      {links.map((link) => (
+        <li key={link.href}>
+          <LinkButton
+            href={link.href}
+            variant="line"
+            data-cta={ctaSlug(link.label)}
+            className="whitespace-nowrap"
+            icon={<ArrowUpRight className="h-4 w-4" />}
+          >
+            <ResponsiveLabel label={link.label} shortLabel={link.shortLabel} />
+          </LinkButton>
+        </li>
+      ))}
+      <li>
+        <LinkButton
+          href={href}
+          variant="line"
+          data-cta="discuss_freelance_project"
+          data-cta-section={section}
+          className="whitespace-nowrap"
+          icon={<ArrowUpRight className="h-4 w-4" />}
+        >
+          <ResponsiveLabel label={label} shortLabel={shortLabel} />
+        </LinkButton>
+      </li>
+    </ul>
   )
 }
 
@@ -613,6 +650,265 @@ function Comparison({ comparison }: { comparison: OptionComparison }) {
   )
 }
 
+// Platform choice as its own section after Services: the shared centred header, each platform described
+// once in a full-width homepage card (three divided columns from lg, stacked with dividers on phones, each
+// opening with its brand mark), the closing sentence, then the row of related-page links and the project
+// enquiry. A light brand tint and top border separate it from Services; the option names are h3s.
+function ChoicesSection({
+  choices,
+  freelanceContactHref,
+  ctaLabel,
+  ctaShortLabel,
+}: {
+  choices: PlatformChoices
+  freelanceContactHref: string
+  ctaLabel: string
+  ctaShortLabel?: string
+}) {
+  return (
+    <section
+      id={choices.id}
+      aria-labelledby={`${choices.id}-heading`}
+      className="relative isolate scroll-mt-24 overflow-hidden border-t border-purple-100/70 bg-brand-50/40 py-12 dark:border-purple-800/30 dark:bg-gray-900 sm:py-16 md:py-20"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <CenteredSectionHeader
+          reveal={false}
+          id={`${choices.id}-heading`}
+          label={choices.label}
+          title={choices.title}
+          icon={Scale}
+        />
+        <div className={cn("relative mt-10 overflow-hidden md:mt-12", homeCard)}>
+          <AccentBar />
+          <ul
+            aria-labelledby={`${choices.id}-heading`}
+            className="grid divide-y divide-purple-100/70 dark:divide-purple-800/30 lg:grid-cols-3 lg:divide-x lg:divide-y-0"
+          >
+            {choices.options.map((option) => (
+              <li
+                key={option.label}
+                className="p-5 transition-colors duration-300 hover:bg-brand-50/40 motion-reduce:transition-none dark:hover:bg-brand-950/15 sm:p-6 lg:p-8"
+              >
+                <div className="flex items-center gap-3">
+                  <OptionMark option={option} />
+                  <h3 className="type-card copy-heading">{option.label}</h3>
+                </div>
+                <p className="type-small mt-4 copy-body">{option.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="type-body mx-auto mt-8 max-w-2xl text-center copy-body">{choices.closing}</p>
+        <ActionRow
+          links={choices.links}
+          href={freelanceContactHref}
+          label={ctaLabel}
+          shortLabel={ctaShortLabel}
+          section="platform_choice"
+        />
+      </div>
+    </section>
+  )
+}
+
+// Small token-drawn visuals for the design-details bento tiles (no screenshots, project files or numbers),
+// one per detail icon. Decorative: each tile's heading and text carry the meaning.
+const bar = "block h-1.5 rounded-full bg-gray-200 dark:bg-gray-700"
+
+function SpecTile({ icon }: { icon: CapabilityIcon }) {
+  switch (icon) {
+    case "typography":
+      // Type specimen: a gradient "Aa", heading and body lines, and a pink spacing redline between them.
+      return (
+        <div className="flex w-56 items-center gap-4">
+          <span className="bg-gradient-to-br from-brand-600 to-accent1-600 bg-clip-text text-5xl font-bold leading-none tracking-tight text-transparent dark:from-brand-400 dark:to-accent1-400">
+            Aa
+          </span>
+          <span className="relative flex flex-1 flex-col gap-1.5">
+            <span className="block h-2.5 w-11/12 rounded-full bg-gray-800 dark:bg-gray-200" />
+            <span className="block h-2.5 w-2/3 rounded-full bg-gray-800 dark:bg-gray-200" />
+            <span className="relative my-1 ml-1 block h-3 w-px bg-accent1-500">
+              <span className="absolute -left-1 top-0 h-px w-2.5 bg-accent1-500" />
+              <span className="absolute -left-1 bottom-0 h-px w-2.5 bg-accent1-500" />
+            </span>
+            <span className={cn(bar, "w-full")} />
+            <span className={cn(bar, "w-5/6")} />
+            <span className={cn(bar, "w-3/5")} />
+          </span>
+        </div>
+      )
+    case "responsive":
+      // Desktop, tablet and phone frames, each restacking the same blocks.
+      return (
+        <div className="flex items-end justify-center gap-3">
+          {(
+            [
+              ["h-16 w-24", "grid-cols-3"],
+              ["h-16 w-12", "grid-cols-2"],
+              ["h-12 w-7", "grid-cols-1"],
+            ] as const
+          ).map(([size, cols]) => (
+            <span
+              key={size}
+              className={cn(
+                "flex flex-col gap-1 rounded-md border-2 border-gray-300 p-1 dark:border-gray-500",
+                size,
+              )}
+            >
+              <span className="block h-1 w-1/2 rounded-full bg-brand-500/70" />
+              <span className={cn("grid flex-1 gap-0.5", cols)}>
+                {Array.from({ length: cols === "grid-cols-1" ? 2 : cols === "grid-cols-2" ? 4 : 3 }).map(
+                  (_, index) => (
+                    <span key={index} className="rounded-[2px] bg-brand-100 dark:bg-brand-500/35" />
+                  ),
+                )}
+              </span>
+            </span>
+          ))}
+        </div>
+      )
+    case "interactive":
+      // One button in three states: default, hover (gradient) and keyboard focus (offset ring).
+      return (
+        <div className="flex flex-col items-center gap-2">
+          <span className="flex h-6 w-28 items-center justify-center rounded-md border border-brand-300 dark:border-brand-600">
+            <span className="h-1.5 w-12 rounded-full bg-brand-400" />
+          </span>
+          <span className="flex h-6 w-28 items-center justify-center rounded-md bg-gradient-to-r from-brand-600 to-accent1-600 shadow-md shadow-purple-500/20">
+            <span className="h-1.5 w-12 rounded-full bg-white/80" />
+          </span>
+          <span className="flex h-6 w-28 items-center justify-center rounded-md border border-brand-300 ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:border-brand-600 dark:ring-offset-gray-950">
+            <span className="h-1.5 w-12 rounded-full bg-brand-400" />
+          </span>
+        </div>
+      )
+    case "consistency":
+      // Repeated instances of one component; the main component is outlined like a Figma selection.
+      return (
+        <div className="grid w-56 grid-cols-3 gap-2">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <span
+              key={index}
+              className={cn(
+                "flex flex-col gap-1 rounded-md border bg-white p-1.5 dark:bg-gray-900",
+                index === 0
+                  ? "border-dashed border-brand-500 dark:border-brand-400"
+                  : "border-purple-100 dark:border-purple-800/40",
+              )}
+            >
+              <span className="h-2 w-2 rounded-full bg-gradient-to-br from-brand-500 to-accent1-500" />
+              <span className="block h-1 w-full rounded-full bg-gray-300 dark:bg-gray-600" />
+              <span className="block h-1 w-2/3 rounded-full bg-gray-200 dark:bg-gray-700" />
+            </span>
+          ))}
+        </div>
+      )
+    default:
+      return null
+  }
+}
+
+// Figma-style frame names shown above each frame's visual (decorative; the heading carries the meaning).
+const frameNames: Partial<Record<CapabilityIcon, string>> = {
+  typography: "Type scale",
+  responsive: "Breakpoints",
+  interactive: "States",
+  consistency: "Components",
+}
+
+const handleClass =
+  "absolute h-2 w-2 rounded-[2px] border border-brand-400 bg-gray-950 opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none"
+
+// Text-led section between Services and Engagement: a compact dark "design canvas" in the homepage hero's
+// palette (black in both themes via the `dark` class, so every `dark:` style and semantic text colour inside
+// switches with it). The shared centred header (as on Process), then
+// the four details sit in one row of Figma-like frames: frame label, a small token-drawn visual on a dotted
+// artboard, heading and text, with selection handles and a violet outline on hover. On phones the frames
+// become a swipeable, snapping row that shows the edge of the next frame, so the section stays about one
+// screen tall, and the closing promise ends the section; every frame's copy is server-rendered and readable, and the row is keyboard-scrollable.
+function DesignDetails({ details }: { details: DesignDetailsContent }) {
+  const [titleStart, titleEnd] = details.titleAccent
+    ? details.title.split(details.titleAccent)
+    : [details.title, ""]
+  return (
+    <section
+      id={details.id}
+      aria-labelledby={`${details.id}-heading`}
+      className="dark relative isolate scroll-mt-24 overflow-hidden border-t border-white/10 bg-gray-950 py-12 text-white sm:py-16 md:py-20"
+    >
+      {/* Hero-style glows: violet top-left, pink bottom-right. */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_10%_0%,rgba(124,58,237,0.32),transparent_38%),radial-gradient(circle_at_92%_100%,rgba(219,39,119,0.22),transparent_38%)]"
+        aria-hidden="true"
+      />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Same centred header as the other sections (Process included); inside this `dark` section it
+            takes its dark styles. */}
+        <CenteredSectionHeader
+          reveal={false}
+          id={`${details.id}-heading`}
+          label={details.label}
+          title={
+            <>
+              {titleStart}
+              {details.titleAccent && <span className="hero-gradient-text">{details.titleAccent}</span>}
+              {titleEnd}
+            </>
+          }
+          intro={details.intro}
+          icon={SwatchBook}
+        />
+
+        {/* Phones: a swipeable row (tabIndex so keyboard users can scroll it). md: 2×2. lg: one row of four. */}
+        <ul
+          tabIndex={0}
+          aria-label={details.title}
+          className="-mx-4 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 pt-2 [scrollbar-width:thin] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 sm:-mx-6 sm:mt-10 sm:scroll-px-6 sm:px-6 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 lg:mt-12 lg:grid-cols-4"
+        >
+          {details.items.map(({ title, body, icon }, index) => (
+            <li
+              key={title}
+              className="group relative flex w-[82%] flex-none snap-start flex-col rounded-lg border border-white/10 bg-white/[0.04] p-3 backdrop-blur-sm transition-colors duration-300 hover:border-brand-400/70 hover:bg-white/[0.06] motion-reduce:transition-none min-[480px]:w-[60%] md:w-auto"
+            >
+              <span aria-hidden="true">
+                <span className={cn(handleClass, "-left-1 -top-1")} />
+                <span className={cn(handleClass, "-right-1 -top-1")} />
+                <span className={cn(handleClass, "-bottom-1 -left-1")} />
+                <span className={cn(handleClass, "-bottom-1 -right-1")} />
+              </span>
+              <p
+                className="flex items-center gap-1.5 px-1 pb-2 text-xs font-medium text-gray-400 transition-colors duration-300 group-hover:text-brand-300 motion-reduce:transition-none"
+                aria-hidden="true"
+              >
+                <Hash className="h-3 w-3" />
+                {String(index + 1).padStart(2, "0")} {frameNames[icon] ?? title}
+              </p>
+              {/* Artboard holding the frame's visual. */}
+              <div
+                className="flex h-28 items-center justify-center overflow-hidden rounded-md border border-white/[0.06] bg-gray-950/70 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.08)_1px,transparent_0)] [background-size:14px_14px]"
+                aria-hidden="true"
+              >
+                <div className="origin-center scale-[0.85] transition-transform duration-300 group-hover:scale-90 motion-reduce:transition-none motion-reduce:group-hover:scale-[0.85]">
+                  <SpecTile icon={icon} />
+                </div>
+              </div>
+              <h3 className="type-card mt-4 px-1 text-white">{title}</h3>
+              <p className="type-small mt-2 px-1 pb-1 text-gray-300">{body}</p>
+            </li>
+          ))}
+        </ul>
+
+        {/* The closing promise ends the section, centred under the frames. */}
+        <p className="mx-auto mt-6 max-w-3xl md:mt-10 text-center text-sm font-semibold leading-6 text-white">
+          <BadgeCheck className="mr-2 inline h-5 w-5 align-[-5px] text-brand-300" aria-hidden="true" />
+          {details.closing}
+        </p>
+      </div>
+    </section>
+  )
+}
+
 const engagementIcons = { role: BriefcaseBusiness, project: Code2 } as const
 
 // Two parallel path cards in the homepage card style. From lg each card is a five-row subgrid (intro,
@@ -630,7 +926,7 @@ function WorkWithMe({ engagement }: { engagement: HirePageSections["engagement"]
           reveal={false}
           id="work-with-me-heading"
           label="Engagement"
-          title="Two ways to work with me"
+          title={engagement.title ?? "Two ways to work with me"}
           intro={engagement.intro}
           icon={Handshake}
         />
@@ -880,10 +1176,15 @@ const techIcons: Record<TechIcon, { Icon: IconType; color: string | null }> = {
 }
 
 // Same tile as the homepage technology strip, without its drag/scroll behaviour (static list here).
-function TechPill({ name, breakableName, kind, icon }: TechItem) {
+function TechPill({ name, breakableName, kind, icon, className }: TechItem & { className?: string }) {
   const { Icon, color } = techIcons[icon]
   return (
-    <li className="group relative flex min-h-16 min-w-0 items-center gap-3 min-[360px]:max-sm:[&:last-child:nth-child(odd)]:col-span-2 overflow-hidden rounded-lg border border-purple-100/80 bg-white p-3 shadow-[0_1px_0_rgba(15,23,42,0.04),0_12px_28px_rgba(124,58,237,0.055)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_1px_0_rgba(15,23,42,0.05),0_18px_38px_rgba(124,58,237,0.12)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 dark:border-purple-800/35 dark:bg-gray-950/70 dark:shadow-none dark:hover:border-brand-700/70 sm:p-3.5">
+    <li
+      className={cn(
+        "group relative flex min-h-16 min-w-0 items-center gap-3 min-[360px]:max-sm:[&:last-child:nth-child(odd)]:col-span-2 overflow-hidden rounded-lg border border-purple-100/80 bg-white p-3 shadow-[0_1px_0_rgba(15,23,42,0.04),0_12px_28px_rgba(124,58,237,0.055)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_1px_0_rgba(15,23,42,0.05),0_18px_38px_rgba(124,58,237,0.12)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 dark:border-purple-800/35 dark:bg-gray-950/70 dark:shadow-none dark:hover:border-brand-700/70 sm:p-3.5",
+        className,
+      )}
+    >
       <span
         className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-brand-600 to-accent1-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-brand-500 dark:to-accent1-500"
         aria-hidden="true"
@@ -911,6 +1212,10 @@ function TechPill({ name, breakableName, kind, icon }: TechItem) {
 // One full-width grid of homepage technology-strip tiles: five per row on desktop, two on phones (one below
 // 360px, where a long name such as "styled-components" cannot fit half the width).
 function Technologies({ technologies }: { technologies: HirePageSections["technologies"] }) {
+  const count = technologies.items.length
+  // Seven or eight tiles: centred rows (two, three, then four per row) so the last row is not left hanging
+  // under a five-column grid. A lone last tile still spans the row on phones.
+  const centredRows = count >= 7 && count <= 8
   return (
     <section
       id="technologies"
@@ -934,18 +1239,30 @@ function Technologies({ technologies }: { technologies: HirePageSections["techno
         <ul
           aria-label="Technologies"
           className={cn(
-            "mt-10 grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 md:mt-12 lg:gap-4",
+            "mt-10 gap-3 md:mt-12 lg:gap-4",
+            centredRows
+              ? "mx-auto flex max-w-5xl flex-wrap justify-center"
+              : "grid grid-cols-1 min-[360px]:grid-cols-2",
             // A short list stays a compact, centred pair instead of padding a five-column grid.
-            technologies.items.length <= 2
-              ? "mx-auto max-w-xl"
-              : technologies.items.length <= 6
-                ? // Up to six tiles: two even rows of three rather than five plus a lone tile.
-                  "mx-auto max-w-4xl sm:grid-cols-3"
-                : "sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5",
+            !centredRows &&
+              (count <= 2
+                ? "mx-auto max-w-xl"
+                : count <= 6
+                  ? // Up to six tiles: two even rows of three rather than five plus a lone tile.
+                    "mx-auto max-w-4xl sm:grid-cols-3"
+                  : "sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"),
           )}
         >
           {technologies.items.map((item) => (
-            <TechPill key={item.name} {...item} />
+            <TechPill
+              key={item.name}
+              {...item}
+              className={
+                centredRows
+                  ? "w-full min-[360px]:w-[calc(50%-0.375rem)] min-[360px]:max-sm:[&:last-child:nth-child(odd)]:w-full sm:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/4)]"
+                  : undefined
+              }
+            />
           ))}
         </ul>
 
@@ -976,6 +1293,15 @@ export function HirePageSectionsView({ sections }: { sections: HirePageSections 
         capabilities={sections.capabilities}
         freelanceContactHref={sections.freelanceContactHref}
       />
+      {sections.capabilities.choices && (
+        <ChoicesSection
+          choices={sections.capabilities.choices}
+          freelanceContactHref={sections.freelanceContactHref}
+          ctaLabel={sections.capabilities.ctaLabel}
+          ctaShortLabel={sections.capabilities.ctaShortLabel}
+        />
+      )}
+      {sections.designDetails && <DesignDetails details={sections.designDetails} />}
       <WorkWithMe engagement={sections.engagement} />
       <Approach approach={sections.approach} freelanceContactHref={sections.freelanceContactHref} />
       <Technologies technologies={sections.technologies} />

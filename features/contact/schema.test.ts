@@ -92,5 +92,9 @@ describe("contactFormSchema", () => {
       }),
     ).toMatchObject({ enquiryType: "freelance", source: "landing-page-development" })
     expect(contactFormSchema.safeParse({ ...validSubmission, source: "landing-page" }).success).toBe(false)
+    expect(
+      contactFormSchema.parse({ ...validSubmission, enquiryType: "freelance", source: "figma-to-website" }),
+    ).toMatchObject({ enquiryType: "freelance", source: "figma-to-website" })
+    expect(contactFormSchema.safeParse({ ...validSubmission, source: "figma-to-react" }).success).toBe(false)
   })
 })

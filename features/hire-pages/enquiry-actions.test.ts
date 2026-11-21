@@ -31,7 +31,7 @@ describe("hire page enquiry actions", () => {
     ])
   })
 
-  it("is changed only by the landing-page service route; role pages keep the default order", () => {
+  it("is changed only by the two service routes; role pages keep the default order", () => {
     const appDir = join(process.cwd(), "app")
     const leadsWithProject = hirePages
       .map((page) => page.href)
@@ -39,9 +39,11 @@ describe("hire page enquiry actions", () => {
         const source = readFileSync(join(appDir, href.slice(1), "page.tsx"), "utf8")
         return /primary=\{/.test(source)
       })
-    expect(leadsWithProject).toEqual(["/landing-page-development"])
+    expect(leadsWithProject).toEqual(["/landing-page-development", "/figma-to-website"])
     // Every hire route is listed, so none is skipped by this check.
-    const routes = readdirSync(appDir).filter((name) => /-developer$|^landing-page-development$/.test(name))
+    const routes = readdirSync(appDir).filter((name) =>
+      /-developer$|^landing-page-development$|^figma-to-website$/.test(name),
+    )
     expect(routes.sort()).toEqual(hirePages.map((page) => page.href.slice(1)).sort())
   })
 })

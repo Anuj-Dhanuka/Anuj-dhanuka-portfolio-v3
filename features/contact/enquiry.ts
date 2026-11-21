@@ -17,6 +17,7 @@ export const enquirySources = [
   "shopify-developer",
   "wordpress-developer",
   "landing-page-development",
+  "figma-to-website",
 ] as const
 export type EnquirySource = (typeof enquirySources)[number]
 

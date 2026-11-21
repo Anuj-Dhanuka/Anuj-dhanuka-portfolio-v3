@@ -179,8 +179,9 @@
     --type-leading-lead: 1.625;
     --type-tracking-heading: -0.025em;
     --type-hero: 1.875rem;
-    --type-section: 1.875rem;
-    --type-display: 1.875rem;
+    /* Phones only: H2s stay a clear step below the 30px H1. Larger screens keep their sizes below. */
+    --type-section: 1.625rem;
+    --type-display: 1.625rem;
     --type-card: 1.25rem;
     --type-card-large: 1.5rem;
     --type-cta: 1.5rem;
