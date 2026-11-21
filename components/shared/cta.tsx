@@ -3,6 +3,17 @@ import type { ReactNode } from "react"
 import { Button } from "@/components/ui/button"
 import { Download, Mail } from "lucide-react"
 
+// Shared closing-CTA buttons, exported so pages passing custom `actions` match exactly. Both are 44px
+// (brand touch-target size) with a white focus ring that shows on the gradient. The secondary is a frosted
+// "glass" button (translucent white fill, white outline) so it reads as secondary to the solid white primary
+// instead of a dark block; white text stays >= 5.3:1 on every part of the gradient and stays white on hover.
+const ctaButtonBase =
+  "h-11 rounded-lg px-5 py-2 text-base transition-all focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-purple-900"
+
+export const ctaPrimaryButtonClass = `${ctaButtonBase} bg-white text-purple-900 shadow-lg hover:bg-gray-100 hover:shadow-xl`
+
+export const ctaSecondaryButtonClass = `${ctaButtonBase} border border-white/70 bg-white/10 text-white backdrop-blur-sm hover:border-white hover:bg-white/15 hover:text-white focus-visible:text-white`
+
 type CTAProps = {
   title?: string
   description?: string | readonly string[]
@@ -10,6 +21,8 @@ type CTAProps = {
   contactHref?: string
   resumeLabel?: string
   resumeHref?: string
+  // Replaces the default contact and resume buttons.
+  actions?: ReactNode
   children?: ReactNode
 }
 
@@ -20,6 +33,7 @@ export function CTA({
   contactHref = "/contact",
   resumeLabel = "Download Resume",
   resumeHref = "/ANUJ_DHANUKA_RESUME.pdf",
+  actions,
   children,
 }: CTAProps = {}) {
   const paragraphs = typeof description === "string" ? [description] : description
@@ -51,33 +65,28 @@ export function CTA({
           </div>
 
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="h-10 rounded-lg bg-white px-5 py-2 text-base text-purple-900 shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl"
-            >
-              <Link href={contactHref} data-cta="contact" data-cta-section="closing_cta">
-                <Mail className="mr-2 h-5 w-5" aria-hidden="true" /> {contactLabel}
-              </Link>
-            </Button>
+            {actions ?? (
+              <>
+                <Button asChild size="lg" className={ctaPrimaryButtonClass}>
+                  <Link href={contactHref} data-cta="contact" data-cta-section="closing_cta">
+                    <Mail className="mr-2 h-5 w-5" aria-hidden="true" /> {contactLabel}
+                  </Link>
+                </Button>
 
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-10 rounded-lg border-white bg-purple-950/90 px-5 py-2 text-base text-white hover:bg-purple-900 hover:text-white"
-            >
-              <a
-                href={resumeHref}
-                data-cta="resume_download"
-                data-cta-section="closing_cta"
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Download className="mr-2 h-5 w-5" aria-hidden="true" /> {resumeLabel}
-              </a>
-            </Button>
+                <Button asChild size="lg" variant="outline" className={ctaSecondaryButtonClass}>
+                  <a
+                    href={resumeHref}
+                    data-cta="resume_download"
+                    data-cta-section="closing_cta"
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Download className="mr-2 h-5 w-5" aria-hidden="true" /> {resumeLabel}
+                  </a>
+                </Button>
+              </>
+            )}
           </div>
 
           {children}

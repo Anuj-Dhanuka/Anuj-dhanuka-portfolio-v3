@@ -40,7 +40,7 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Keep important copy and links server rendered.
 - Add new indexable routes to `app/sitemap.ts`; keep API routes blocked in `app/robots.ts`.
 - Use only Next.js native `app/sitemap.ts` and `app/robots.ts`; do not add a second implementation or `next-sitemap`.
-- Sitemap entries must be canonical, indexable production pages only: currently `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications`, `/contact` and reviewed `/projects/[slug]` case studies derived from project data. Exclude API, preview, localhost, redirect, noindex, debug and missing-page URLs.
+- Sitemap entries must be canonical, indexable production pages only: currently `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications`, `/contact`, `/react-developer` and reviewed `/projects/[slug]` case studies derived from project data. Exclude API, preview, localhost, redirect, noindex, debug and missing-page URLs.
 - Keep sitemap, canonical, Open Graph and page-schema URLs equivalent after URL normalization. `site.url` is the production origin without a trailing slash; `site.homeUrl` is the homepage canonical with `/`. Other public page URLs have no trailing slash. Next.js serializes root canonical/OG tags without `/`; this is the same normalized homepage URL. Do not change global trailing-slash routing solely for that serialization difference.
 - Do not add sitemap `priority` or `changefreq`. Maintain explicit `lastModified` date strings for meaningful page content, structured-data or link changes in `app/sitemap.ts` (reviewed case-study dates come from their project records); never derive them from request/build time or file modification times.
 - When adding or updating a public page, review its sitemap entry/date, confirm `/robots.txt` still references `${site.url}/sitemap.xml`, and verify the generated XML and metadata with a production build.
@@ -125,6 +125,16 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 - Keep the homepage contact section and standalone Contact page on the same shared form, validation and contact-detail implementation.
 - Project detail pages use `app/projects/[slug]/page.tsx`; only reviewed records with `caseStudy` in `features/projects/data/projects.ts` are published. Mopedo V2, QuizWar V2, Rekha Maa Ki Rasoi and Rama Technical College are published. Rama's scope is the homepage only, and its v0 (ideas only) and ChatGPT (content formatting) use is disclosed deliberately. ChefKart has a verified professional case study at `/experience/chefkart` (not a project route); keep its publication boundary in `CLAUDE.md`.
 - Update this file, the README and relevant docs whenever architecture, deployment, environment variables or required checks change.
+
+## Hire-intent page pattern
+
+`/react-developer` (React Developer for Hire) is the approved reference for role pages aimed at recruiters and freelance clients; future pages (React Native Developer, Frontend Developer) follow it. Use the project skill `.claude/skills/hire-intent-page/SKILL.md` for the full recipe. Key rules:
+
+- Confirm each new route with the owner first (`config/hire-pages.ts` assumes `/<role>-developer`; `docs/project-case-studies.md` lists older alternatives). Build section by section with desktop and phone screenshots and owner approval.
+- Section order: hero (one intro paragraph, linked facts, full-time and freelance buttons, no "Explore my work") → section nav (hidden on phones) → Selected work (editorial `01` dividers, 50/50, no cards or image frames, text no taller than image) → What I can help you build (centred homepage-Skills header, 4 lift cards) → Two ways to work with me (tinted, subgrid-aligned path cards) → How we can approach your project (desktop card with 4 columns; phone timeline with homepage Experience feel) → Technologies (quotable sentence + brand-icon tiles) → FAQ (`grid={false}`, intro line) → closing CTA (44px buttons).
+- Homepage feel everywhere; never grid ("check") backgrounds; no scroll-reveal on text; no em dashes in headings; only documented claims; availability on the full-time path only.
+- Inbound links: one entry in `config/hire-pages.ts` (label = exact H1) feeds the footer "Hire Me" column and the Skills/Experience `HirePageLinks` sentence; add it only after the route and sitemap entry exist.
+- Before hand-off verify Googlebot/no-JavaScript readability and GA4 events with a dummy measurement ID and mocked contact API, plus the standard checks.
 
 ## Project case-study architecture
 

@@ -237,6 +237,14 @@
   animation: float 6s ease-in-out infinite;
 }
 
+/* This unlayered rule outranks Tailwind's layered motion-reduce:animate-none, so stop it here for
+   visitors who prefer reduced motion (the shared closing CTA's floating circles). */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float {
+    animation: none;
+  }
+}
+
 @keyframes pulse-slow {
   0%,
   100% {

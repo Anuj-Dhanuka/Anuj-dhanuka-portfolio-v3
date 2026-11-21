@@ -2,14 +2,15 @@ import Link from "next/link"
 import { BsInstagram } from "react-icons/bs"
 import { FiGithub } from "react-icons/fi"
 import { LuLinkedin } from "react-icons/lu"
+import { hirePages } from "@/config/hire-pages"
 import { site } from "@/config/site"
 
 export function Footer() {
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 relative z-10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pointer-events-auto">
-          <div className="sm:col-span-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 pointer-events-auto">
+          <div className="sm:col-span-3 lg:col-span-2">
             <Link
               href="/"
               className="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 hover:from-pink-600 hover:to-purple-600 transition-all duration-300 pointer-events-auto"
@@ -101,6 +102,26 @@ export function Footer() {
               ))}
             </ul>
           </div>
+
+          {/* Hire-intent role pages, from config/hire-pages.ts. */}
+          {hirePages.length > 0 && (
+            <div>
+              <h2 className="type-nav-heading mb-4">Hire Me</h2>
+              <ul className="space-y-2">
+                {hirePages.map((page) => (
+                  <li key={page.href}>
+                    <Link
+                      href={page.href}
+                      className="text-gray-600 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400 transition-colors hover:translate-x-1 transform inline-block"
+                    >
+                      {/* The visible text is the accessible name (no aria-label), per WCAG label-in-name. */}
+                      {page.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 flex justify-center text-center">

@@ -1,5 +1,6 @@
 import { ArrowUpRight, Award, Check, GraduationCap, Rocket, Sparkles } from "lucide-react"
 
+import { HirePageLinks } from "@/components/shared/hire-page-links"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
 import { futureFocus } from "@/features/about/data/about"
@@ -35,7 +36,7 @@ export function SkillsContent() {
             </h2>
             <p className="type-body mx-auto mt-5 max-w-3xl copy-body">
               These skills reflect technologies and practices I have used through professional roles, client
-              delivery, training and maintained portfolio work.
+              delivery, training and maintained portfolio work. <HirePageLinks />
             </p>
           </div>
 

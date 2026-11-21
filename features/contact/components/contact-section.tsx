@@ -4,7 +4,13 @@ import { ContactDetails } from "@/features/contact/components/contact-details"
 import { ContactForm } from "@/features/contact/components/contact-form"
 import { DeferredContactForm } from "@/features/contact/components/deferred-contact-form"
 
-export function ContactSection({ deferForm = false }: { deferForm?: boolean }) {
+export function ContactSection({
+  deferForm = false,
+  showEnquiryType = false,
+}: {
+  deferForm?: boolean
+  showEnquiryType?: boolean
+}) {
   return (
     <section
       id="contact"
@@ -49,7 +55,7 @@ export function ContactSection({ deferForm = false }: { deferForm?: boolean }) {
             <ContactDetails />
           </div>
           <div className="order-1 h-full lg:order-2">
-            {deferForm ? <DeferredContactForm /> : <ContactForm />}
+            {deferForm ? <DeferredContactForm /> : <ContactForm showEnquiryType={showEnquiryType} />}
           </div>
         </div>
       </div>

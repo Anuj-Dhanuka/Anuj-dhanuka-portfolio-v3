@@ -1,5 +1,7 @@
 import { z } from "zod"
 
+import { enquirySources, enquiryTypes } from "@/features/contact/enquiry"
+
 const requiredText = (label: string, maxLength: number) =>
   z
     .string()
@@ -20,6 +22,10 @@ export const contactFormSchema = z.object({
     "Subject must be a single line.",
   ),
   message: requiredText("Message", 3000),
+  // Older clients (the homepage form) send neither field, so absence means a general, direct enquiry.
+  // Values outside the allowlist are rejected rather than normalised.
+  enquiryType: z.enum(enquiryTypes).default("general"),
+  source: z.enum(enquirySources).default("direct"),
   formCheck: z.string().max(200).default(""),
 })
 
@@ -35,5 +41,7 @@ export const emptyContactForm: ContactFormData = {
   phone: "",
   subject: "",
   message: "",
+  enquiryType: "general",
+  source: "direct",
   formCheck: "",
 }
