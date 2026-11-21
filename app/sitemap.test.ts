@@ -25,6 +25,7 @@ describe("public sitemap", () => {
       "https://anujdhanuka.com/frontend-developer",
       "https://anujdhanuka.com/shopify-developer",
       "https://anujdhanuka.com/wordpress-developer",
+      "https://anujdhanuka.com/landing-page-development",
       "https://anujdhanuka.com/projects/quizwar",
       "https://anujdhanuka.com/projects/mopedo",
       "https://anujdhanuka.com/projects/rekha-maa-ki-rasoi",

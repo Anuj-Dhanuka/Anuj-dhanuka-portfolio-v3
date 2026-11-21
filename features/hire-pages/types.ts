@@ -1,7 +1,8 @@
 import type { Project, ProjectCaseStudy } from "@/features/projects/data/projects"
 
 // Shared shapes for the "<Role> Developer for Hire" pages (/react-developer, /react-native-developer,
-// /frontend-developer, /shopify-developer, /wordpress-developer).
+// /frontend-developer, /shopify-developer, /wordpress-developer) and the /landing-page-development service
+// page, which reuses the same layout with a few optional additions.
 // Each page keeps its copy in its own feature data module; the layout lives in features/hire-pages.
 
 export type HirePageMeta = {
@@ -15,6 +16,27 @@ export type HirePageMeta = {
 }
 
 export type HireFact = { label: string; href?: string }
+
+// The two enquiry paths. Matches the Contact page's enquiry types other than "general".
+export type HireEnquiryType = "full-time" | "freelance"
+
+// A sentence with one phrase as a crawlable inline link (the phrase must occur in `text` exactly once).
+export type InlineLinkText = { text: string; link: { text: string; href: `/${string}` } }
+
+// Accessible side-by-side comparison of two options, e.g. React or WordPress for a landing page.
+export type OptionComparison = {
+  title: string
+  intro: string
+  // Header of the row-label column, then the two options with their brand icons.
+  needLabel: string
+  options: readonly [ComparisonOption, ComparisonOption]
+  rows: readonly { need: string; icon: CapabilityIcon; values: readonly [string, string] }[]
+  // Rendered in one row with the section's contact link; `shortLabel` is the phone text (the full label
+  // stays the accessible name) so all three fit one row on small screens.
+  links: readonly { label: string; shortLabel: string; href: `/${string}` }[]
+}
+
+export type ComparisonOption = { label: string; icon: TechIcon }
 
 export type HireHeroContent = {
   eyebrow: string
@@ -53,6 +75,8 @@ export type CapabilityIcon =
   | "store"
   | "theme"
   | "product"
+  | "edit"
+  | "handover"
 
 export type Capability = {
   title: string
@@ -185,7 +209,14 @@ export type TechItem = {
 export type HirePageSections = {
   navLabel: string
   nav: readonly { href: `#${string}`; label: string }[]
-  work: { id: string; title: string; intro: string; items: readonly WorkItem[] }
+  work: {
+    id: string
+    title: string
+    intro: string
+    items: readonly WorkItem[]
+    // Optional closing sentence under the projects, e.g. a link to related professional work.
+    note?: InlineLinkText
+  }
   // Optional `label` (eyebrow) and `title` overrides; omitted, the reference page's wording is used.
   // Optional `id` overrides set a section's in-page anchor (defaults: capabilities, work-with-me, approach).
   capabilities: {
@@ -194,7 +225,11 @@ export type HirePageSections = {
     title: string
     intro: string
     ctaLabel: string
+    // Shorter phone text for the line button (used when it shares a row with the comparison links).
+    ctaShortLabel?: string
     items: readonly Capability[]
+    // Optional comparison after the cards, inside the same section (service page platform choice).
+    comparison?: OptionComparison
   }
   engagement: { id?: string; intro: string; items: readonly Engagement[] }
   approach: {

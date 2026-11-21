@@ -92,6 +92,15 @@ describe("enquiry URL context", () => {
       expect(wordpress).toBe(`/contact?enquiry=${type}&source=wordpress-developer`)
       expect(read(wordpress.split("?")[1])).toEqual({ enquiryType: type, source: "wordpress-developer" })
     }
+    for (const type of ["full-time", "freelance"] as const) {
+      const landing = contactHref(type, "landing-page-development")
+      expect(landing).toBe(`/contact?enquiry=${type}&source=landing-page-development`)
+      expect(read(landing.split("?")[1])).toEqual({ enquiryType: type, source: "landing-page-development" })
+    }
+    expect(read("enquiry=freelance&source=landing-page").source).toBe("direct")
+    expect(
+      read("enquiry=freelance&source=landing-page-development&source=landing-page-development").source,
+    ).toBe("direct")
     // Near-miss and repeated values still fall back to the neutral default.
     expect(read("enquiry=freelance&source=wordpress").source).toBe("direct")
     expect(read("enquiry=freelance&source=shopify").source).toBe("direct")

@@ -68,6 +68,7 @@ import {
   PackageCheck,
   Paintbrush,
   PanelsTopLeft,
+  PenLine,
   ShoppingBag,
   Smartphone,
   Store,
@@ -87,6 +88,7 @@ import {
 } from "@/features/experience/components/chefkart/chefkart-illustrations"
 import {
   AccentBar,
+  homeCard,
   homeCardLift,
   homeIconTile,
 } from "@/features/experience/components/experience-card-styles"
@@ -95,6 +97,8 @@ import type {
   CapabilityIcon,
   EngagementLink,
   HirePageSections,
+  ComparisonOption,
+  OptionComparison,
   TechIcon,
   TechItem,
   WorkItem,
@@ -118,6 +122,8 @@ const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
   store: Store,
   theme: Paintbrush,
   product: ShoppingBag,
+  edit: PenLine,
+  handover: PackageCheck,
 }
 
 const pill =
@@ -362,13 +368,18 @@ function SelectedWork({ work }: { work: HirePageSections["work"] }) {
             <FeaturedWork key={item.id} item={item} index={index} />
           ))}
         </div>
+        {work.note && (
+          <p className="type-body mx-auto mt-14 max-w-3xl text-center copy-body md:mt-16">
+            <LinkedText body={work.note.text} link={work.note.link} />
+          </p>
+        )}
       </div>
     </section>
   )
 }
 
 // Body text with one phrase as an inline link, so the destination is an ordinary crawlable anchor.
-function CapabilityBody({ body, link }: { body: string; link: NonNullable<Capability["link"]> }) {
+function LinkedText({ body, link }: { body: string; link: NonNullable<Capability["link"]> }) {
   const [before, after] = body.split(link.text)
   return (
     <>
@@ -432,26 +443,173 @@ function Capabilities({
                 </div>
                 <h3 className="type-card copy-heading">{title}</h3>
                 <p className="type-small mt-3 copy-body">
-                  {link ? <CapabilityBody body={body} link={link} /> : body}
+                  {link ? <LinkedText body={body} link={link} /> : body}
                 </p>
               </li>
             )
           })}
         </ul>
 
-        <div className="mt-10 flex justify-center">
-          <LinkButton
-            href={freelanceContactHref}
-            variant="line"
-            data-cta="discuss_freelance_project"
-            data-cta-section="capabilities"
-            icon={<ArrowUpRight className="h-4 w-4" />}
-          >
-            {capabilities.ctaLabel}
-          </LinkButton>
-        </div>
+        {capabilities.comparison && <Comparison comparison={capabilities.comparison} />}
+
+        {/* One row of line buttons: the comparison's links (if any), then the project enquiry. On phones
+            they keep one row with short visible labels. */}
+        <ul
+          className={cn(
+            "mt-10 flex items-center gap-x-1 min-[360px]:gap-x-3 sm:justify-center sm:gap-x-8",
+            capabilities.comparison ? "justify-between" : "justify-center",
+          )}
+        >
+          {capabilities.comparison?.links.map((link) => (
+            <li key={link.href}>
+              <LinkButton
+                href={link.href}
+                variant="line"
+                data-cta={ctaSlug(link.label)}
+                className="whitespace-nowrap"
+                icon={<ArrowUpRight className="h-4 w-4" />}
+              >
+                <ResponsiveLabel label={link.label} shortLabel={link.shortLabel} />
+              </LinkButton>
+            </li>
+          ))}
+          <li>
+            <LinkButton
+              href={freelanceContactHref}
+              variant="line"
+              data-cta="discuss_freelance_project"
+              data-cta-section="capabilities"
+              className="whitespace-nowrap"
+              icon={<ArrowUpRight className="h-4 w-4" />}
+            >
+              <ResponsiveLabel label={capabilities.ctaLabel} shortLabel={capabilities.ctaShortLabel} />
+            </LinkButton>
+          </li>
+        </ul>
       </div>
     </section>
+  )
+}
+
+// Visible text on phones, full label from sm up; the full label is always the accessible name.
+function ResponsiveLabel({ label, shortLabel }: { label: string; shortLabel?: string }) {
+  if (!shortLabel) return <>{label}</>
+  return (
+    <>
+      <span className="sm:hidden" aria-hidden="true">
+        {shortLabel}
+      </span>
+      <span className="sr-only sm:not-sr-only">{label}</span>
+    </>
+  )
+}
+
+// An option's brand mark in the tinted tile used by the technology tiles.
+function OptionMark({ option, size = "md" }: { option: ComparisonOption; size?: "sm" | "md" }) {
+  const { Icon, color } = techIcons[option.icon]
+  return (
+    <span
+      className={cn(
+        "flex flex-none items-center justify-center rounded-lg border border-gray-100 dark:border-gray-800",
+        size === "md" ? "h-10 w-10" : "h-6 w-6 rounded-md",
+        !color && "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white",
+      )}
+      style={color ? { backgroundColor: `${color}1a` } : undefined}
+      aria-hidden="true"
+    >
+      <Icon className={size === "md" ? "h-5 w-5" : "h-3.5 w-3.5"} style={color ? { color } : undefined} />
+    </span>
+  )
+}
+
+// Two options compared row by row inside the Services section, as one full-width homepage card (accent bar,
+// brand-tinted header, icon tiles). One real table with column and row headers for screen readers; on
+// phones it becomes stacked rows. Explicit ARIA table roles keep the semantics when the display changes,
+// and each phone cell repeats its option name visibly (hidden from screen readers, which announce the
+// header).
+function Comparison({ comparison }: { comparison: OptionComparison }) {
+  return (
+    <div className="mt-16 md:mt-20">
+      <div className="mx-auto max-w-2xl text-center">
+        <h3 id="comparison-heading" className="type-card-large copy-heading">
+          {comparison.title}
+        </h3>
+        <p className="type-body mt-3 copy-body">{comparison.intro}</p>
+      </div>
+
+      <div className={cn("relative mt-8 overflow-hidden md:mt-10", homeCard)}>
+        <AccentBar />
+        <table role="table" aria-labelledby="comparison-heading" className="w-full table-fixed text-left">
+          <thead role="rowgroup" className="hidden sm:table-header-group">
+            <tr
+              role="row"
+              className="border-b border-purple-100/70 bg-brand-50/60 dark:border-purple-800/30 dark:bg-brand-950/20"
+            >
+              <th
+                role="columnheader"
+                scope="col"
+                className="type-label w-[30%] px-6 py-5 align-middle text-brand-700 dark:text-brand-300 lg:w-[26%]"
+              >
+                {comparison.needLabel}
+              </th>
+              {comparison.options.map((option) => (
+                <th
+                  key={option.label}
+                  role="columnheader"
+                  scope="col"
+                  className="border-l border-purple-100/70 px-6 py-5 align-middle dark:border-purple-800/30"
+                >
+                  <span className="flex items-center gap-3">
+                    <OptionMark option={option} />
+                    <span className="type-card copy-heading">{option.label}</span>
+                  </span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody role="rowgroup" className="block sm:table-row-group">
+            {comparison.rows.map((row) => {
+              const Icon = capabilityIcons[row.icon]
+              return (
+                <tr
+                  role="row"
+                  key={row.need}
+                  className="group block border-b border-purple-100/70 px-5 py-6 transition-colors duration-300 last:border-b-0 hover:bg-brand-50/40 motion-reduce:transition-none dark:border-purple-800/30 dark:hover:bg-brand-950/15 sm:table-row sm:p-0"
+                >
+                  <th
+                    role="rowheader"
+                    scope="row"
+                    className="block sm:table-cell sm:px-6 sm:py-6 sm:align-middle"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className={cn(homeIconTile, "h-10 w-10")}>
+                        <Icon className="h-[1.125rem] w-[1.125rem]" aria-hidden="true" />
+                      </span>
+                      <span className="type-card copy-heading">{row.need}</span>
+                    </span>
+                  </th>
+                  {row.values.map((value, index) => (
+                    <td
+                      role="cell"
+                      key={comparison.options[index].label}
+                      className="type-body mt-4 block copy-body sm:mt-0 sm:table-cell sm:align-middle sm:border-l sm:border-purple-100/70 sm:px-6 sm:py-6 sm:dark:border-purple-800/30"
+                    >
+                      <span className="mb-1.5 flex items-center gap-2 sm:hidden" aria-hidden="true">
+                        <OptionMark option={comparison.options[index]} size="sm" />
+                        <span className="text-sm font-semibold copy-heading">
+                          {comparison.options[index].label}
+                        </span>
+                      </span>
+                      {value}
+                    </td>
+                  ))}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
 
@@ -780,7 +938,10 @@ function Technologies({ technologies }: { technologies: HirePageSections["techno
             // A short list stays a compact, centred pair instead of padding a five-column grid.
             technologies.items.length <= 2
               ? "mx-auto max-w-xl"
-              : "sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5",
+              : technologies.items.length <= 6
+                ? // Up to six tiles: two even rows of three rather than five plus a lone tile.
+                  "mx-auto max-w-4xl sm:grid-cols-3"
+                : "sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5",
           )}
         >
           {technologies.items.map((item) => (
