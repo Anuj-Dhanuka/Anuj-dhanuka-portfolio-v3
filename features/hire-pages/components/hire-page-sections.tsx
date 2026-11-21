@@ -8,6 +8,7 @@ import {
   SiGit,
   SiGithub,
   SiHtml5,
+  SiJson,
   SiJavascript,
   SiNextdotjs,
   SiReact,
@@ -17,10 +18,24 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiElementor,
+  SiShopify,
   SiVite,
   SiWordpress,
 } from "react-icons/si"
-import { TbApi, TbCloudUpload, TbDatabase, TbRoute } from "react-icons/tb"
+import {
+  TbApi,
+  TbApps,
+  TbBraces,
+  TbCloudUpload,
+  TbDatabase,
+  TbFilter,
+  TbListDetails,
+  TbRoute,
+  TbSeo,
+  TbTemplate,
+  TbTerminal2,
+  TbTruckDelivery,
+} from "react-icons/tb"
 import {
   ArrowUpRight,
   BriefcaseBusiness,
@@ -29,6 +44,7 @@ import {
   Code2,
   CreditCard,
   Download,
+  ExternalLink,
   FolderGit2,
   Globe,
   Handshake,
@@ -42,15 +58,21 @@ import {
   MousePointerClick,
   Network,
   PackageCheck,
+  Paintbrush,
   PanelsTopLeft,
+  ShoppingBag,
   Smartphone,
+  Store,
   type LucideIcon,
 } from "lucide-react"
 
+import { TrackedLink } from "@/components/analytics/tracked-link"
 import { inlineLinkClass } from "@/components/shared/hire-page-links"
 import { CenteredSectionHeader } from "@/components/shared/centered-section-header"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
+import { Button } from "@/components/ui/button"
 import { LinkButton } from "@/components/ui/link-button"
+import { analyticsEvents } from "@/config/analytics"
 import {
   CityPageIllustration,
   PaymentsIllustration,
@@ -85,6 +107,9 @@ const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
   responsive: MonitorSmartphone,
   interactive: MousePointerClick,
   website: PanelsTopLeft,
+  store: Store,
+  theme: Paintbrush,
+  product: ShoppingBag,
 }
 
 const pill =
@@ -139,30 +164,35 @@ const illustrations = {
 function WorkFrame({ visual }: { visual: WorkVisual }) {
   if (visual.type === "image") {
     return (
-      <figure className="overflow-hidden rounded-lg border border-purple-100 bg-white shadow-[0_20px_50px_rgba(76,29,149,0.14)] dark:border-purple-800/40">
-        <div className="flex items-center gap-1.5 border-b border-gray-100 bg-gray-50 px-3 py-2">
-          <span className="h-2 w-2 rounded-full bg-accent1-400" aria-hidden="true" />
-          <span className="h-2 w-2 rounded-full bg-brand-400" aria-hidden="true" />
-          <span className="h-2 w-2 rounded-full bg-gray-300" aria-hidden="true" />
-          <span className="type-caption ml-2 truncate text-gray-500">{visual.address}</span>
-          {visual.live && (
-            <span className="ml-auto inline-flex flex-none items-center gap-1.5 rounded-full border border-success-200 bg-success-50 px-2 py-0.5 text-[11px] font-semibold text-success-700">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-success-500 motion-safe:animate-pulse"
-                aria-hidden="true"
-              />
-              Live
-            </span>
-          )}
+      <figure>
+        <div className="overflow-hidden rounded-lg border border-purple-100 bg-white shadow-[0_20px_50px_rgba(76,29,149,0.14)] dark:border-purple-800/40">
+          <div className="flex items-center gap-1.5 border-b border-gray-100 bg-gray-50 px-3 py-2">
+            <span className="h-2 w-2 rounded-full bg-accent1-400" aria-hidden="true" />
+            <span className="h-2 w-2 rounded-full bg-brand-400" aria-hidden="true" />
+            <span className="h-2 w-2 rounded-full bg-gray-300" aria-hidden="true" />
+            <span className="type-caption ml-2 truncate text-gray-500">{visual.address}</span>
+            {visual.live && (
+              <span className="ml-auto inline-flex flex-none items-center gap-1.5 rounded-full border border-success-200 bg-success-50 px-2 py-0.5 text-[11px] font-semibold text-success-700">
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-success-500 motion-safe:animate-pulse"
+                  aria-hidden="true"
+                />
+                Live
+              </span>
+            )}
+          </div>
+          <Image
+            src={visual.src}
+            alt={visual.alt}
+            width={visual.width}
+            height={visual.height}
+            sizes="(min-width: 1024px) 45vw, 92vw"
+            className="h-auto w-full"
+          />
         </div>
-        <Image
-          src={visual.src}
-          alt={visual.alt}
-          width={visual.width}
-          height={visual.height}
-          sizes="(min-width: 1024px) 45vw, 92vw"
-          className="h-auto w-full"
-        />
+        {visual.caption && (
+          <figcaption className="type-caption mt-3 text-center copy-body">{visual.caption}</figcaption>
+        )}
       </figure>
     )
   }
@@ -197,7 +227,11 @@ function WorkFrame({ visual }: { visual: WorkVisual }) {
 function FeaturedWork({ item, index }: { item: WorkItem; index: number }) {
   const visualFirst = index % 2 === 0
   return (
-    <article aria-labelledby={`${item.id}-work-heading`}>
+    <article
+      id={item.anchor}
+      aria-labelledby={`${item.id}-work-heading`}
+      className={item.anchor ? "scroll-mt-24" : undefined}
+    >
       {/* Editorial divider: index, a hairline that opens with the homepage's brand→accent rule, and the
           ownership label. It separates the projects without boxing them in. */}
       <div className="mb-8 flex items-center gap-4 lg:mb-10">
@@ -261,6 +295,24 @@ function FeaturedWork({ item, index }: { item: WorkItem; index: number }) {
                   <ProjectLinks project={item.project} includeCaseStudy />
                 </div>
               </>
+            ) : item.liveSite ? (
+              // Same live-project button and project_viewed event as the shared project buttons.
+              <Button
+                asChild
+                className="h-11 w-full rounded-lg bg-gradient-to-r from-brand-600 to-accent1-600 px-5 text-white shadow-lg shadow-purple-500/20 hover:from-brand-700 hover:to-accent1-700 sm:w-auto"
+              >
+                <TrackedLink
+                  eventName={analyticsEvents.projectViewed}
+                  eventProperties={{ project: item.liveSite.id, destination: "live" }}
+                  aria-label={`View ${item.liveSite.title} live project (opens in a new tab)`}
+                  href={item.liveSite.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Live Project
+                  <ExternalLink className="h-4 w-4" />
+                </TrackedLink>
+              </Button>
             ) : (
               item.primaryLink && (
                 <LinkButton
@@ -346,7 +398,7 @@ function Capabilities({
         <CenteredSectionHeader
           reveal={false}
           id="capabilities-heading"
-          label="Capabilities"
+          label={capabilities.label ?? "Capabilities"}
           title={capabilities.title}
           intro={capabilities.intro}
           icon={Layers}
@@ -535,8 +587,8 @@ function Approach({
         <CenteredSectionHeader
           reveal={false}
           id="approach-heading"
-          label="Process"
-          title="How we can approach your project"
+          label={approach.label ?? "Process"}
+          title={approach.title ?? "How we can approach your project"}
           intro={approach.intro}
           icon={ListChecks}
         />
@@ -632,6 +684,18 @@ const techIcons: Record<TechIcon, { Icon: IconType; color: string | null }> = {
   storage: { Icon: TbCloudUpload, color: "#FFA000" },
   wordpress: { Icon: SiWordpress, color: "#21759B" },
   elementor: { Icon: SiElementor, color: "#92003B" },
+  shopify: { Icon: SiShopify, color: "#5E8E3E" },
+  // Liquid has no brand mark in the icon set: template braces in the portfolio violet.
+  liquid: { Icon: TbBraces, color: "#7C3AED" },
+  json: { Icon: SiJson, color: null },
+  // Shopify tooling and store setup have no brand marks of their own: generic icons in Shopify green.
+  cli: { Icon: TbTerminal2, color: "#5E8E3E" },
+  themeEditor: { Icon: TbTemplate, color: "#5E8E3E" },
+  metafields: { Icon: TbListDetails, color: "#5E8E3E" },
+  collections: { Icon: TbFilter, color: "#5E8E3E" },
+  apps: { Icon: TbApps, color: "#5E8E3E" },
+  shipping: { Icon: TbTruckDelivery, color: "#5E8E3E" },
+  seo: { Icon: TbSeo, color: "#5E8E3E" },
 }
 
 // Same tile as the homepage technology strip, without its drag/scroll behaviour (static list here).
@@ -680,15 +744,21 @@ function Technologies({ technologies }: { technologies: HirePageSections["techno
         <CenteredSectionHeader
           reveal={false}
           id="technologies-heading"
-          label="Technology"
-          title="Technologies I work with"
+          label={technologies.label ?? "Technology"}
+          title={technologies.title ?? "Technologies I work with"}
           intro={technologies.intro}
           icon={Code2}
         />
 
         <ul
           aria-label="Technologies"
-          className="mt-10 grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 sm:grid-cols-3 md:mt-12 md:grid-cols-4 lg:grid-cols-5 lg:gap-4"
+          className={cn(
+            "mt-10 grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 md:mt-12 lg:gap-4",
+            // A short list stays a compact, centred pair instead of padding a five-column grid.
+            technologies.items.length <= 2
+              ? "mx-auto max-w-xl"
+              : "sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5",
+          )}
         >
           {technologies.items.map((item) => (
             <TechPill key={item.name} {...item} />

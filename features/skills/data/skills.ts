@@ -61,7 +61,22 @@ export const skillGroups: readonly SkillGroup[] = [
     title: "Platforms and commerce",
     description:
       "Creating and customising business websites across content, commerce and visual-development platforms.",
-    skills: ["WordPress", "Shopify", "Shopify Liquid", "Webflow", "CMS Customisation"],
+    // Shopify theme and store-setup tools confirmed by the owner on 21 November 2026 (see /shopify-developer).
+    skills: [
+      "WordPress",
+      "Shopify",
+      "Shopify Liquid",
+      "Shopify CLI",
+      "JSON Templates",
+      "Theme Editor",
+      "Metafields",
+      "Collections & Filters",
+      "Shopify Apps",
+      "Payments & Shipping",
+      "Shopify SEO",
+      "Webflow",
+      "CMS Customisation",
+    ],
     icon: "platform",
   },
   {

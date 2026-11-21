@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 export function HirePageClosing({
   faqs,
   faqIntro,
+  faqTitle = "Questions about working together",
   closing,
   fullTimeHref,
   freelanceHref,
@@ -18,6 +19,7 @@ export function HirePageClosing({
 }: {
   faqs: readonly FaqItem[]
   faqIntro: string
+  faqTitle?: string
   closing: { title: string; description: string }
   fullTimeHref: string
   freelanceHref: string
@@ -28,7 +30,7 @@ export function HirePageClosing({
     <>
       <FaqSection
         items={faqs}
-        title="Questions about working together"
+        title={faqTitle}
         description={faqIntro}
         eyebrow="Questions"
         reveal={false}

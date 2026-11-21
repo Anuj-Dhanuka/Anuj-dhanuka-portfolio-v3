@@ -72,5 +72,9 @@ describe("contactFormSchema", () => {
       contactFormSchema.parse({ ...validSubmission, enquiryType: "freelance", source: "frontend-developer" }),
     ).toMatchObject({ enquiryType: "freelance", source: "frontend-developer" })
     expect(contactFormSchema.safeParse({ ...validSubmission, source: "frontend" }).success).toBe(false)
+    expect(
+      contactFormSchema.parse({ ...validSubmission, enquiryType: "freelance", source: "shopify-developer" }),
+    ).toMatchObject({ enquiryType: "freelance", source: "shopify-developer" })
+    expect(contactFormSchema.safeParse({ ...validSubmission, source: "shopify" }).success).toBe(false)
   })
 })

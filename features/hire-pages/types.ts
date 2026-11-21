@@ -1,6 +1,6 @@
 import type { Project, ProjectCaseStudy } from "@/features/projects/data/projects"
 
-// Shared shapes for the "<Role> Developer for Hire" pages (/react-developer, /react-native-developer).
+// Shared shapes for the "<Role> Developer for Hire" pages (/react-developer, /react-native-developer, /frontend-developer, /shopify-developer).
 // Each page keeps its copy in its own feature data module; the layout lives in features/hire-pages.
 
 export type HirePageMeta = {
@@ -49,6 +49,9 @@ export type CapabilityIcon =
   | "responsive"
   | "interactive"
   | "website"
+  | "store"
+  | "theme"
+  | "product"
 
 export type Capability = {
   title: string
@@ -68,6 +71,8 @@ export type WorkVisual =
       address: string
       // Shows a "Live" indicator in the browser bar for a deployed site.
       live?: boolean
+      // Optional line under the frame, e.g. the scope of a contribution to someone else's store.
+      caption?: string
     }
   // Existing mobile screenshots in the shared phone presentation.
   | { type: "phones"; screens: readonly ProjectCaseStudy["screenshots"][number][]; caption: string }
@@ -79,7 +84,14 @@ export type WorkItem = {
   // Ownership boundary in the overline: employer work is a team contribution; freelance and personal work
   // name the kind of engagement exactly.
   kind:
-    "Team contribution" | "Independent project" | "Freelance homepage" | "Independent family-business website"
+    | "Team contribution"
+    | "Independent project"
+    | "Freelance homepage"
+    | "Independent family-business website"
+    | "Direct-client project"
+    | "Freelance contribution"
+  // In-page target for hero facts (rendered as the article id, e.g. "phoolkalaa-work").
+  anchor?: string
   // Role and dates where they add information; omitted when the summary already says it.
   meta?: string
   title: string
@@ -92,6 +104,9 @@ export type WorkItem = {
   // (live project, case study, GitHub repo) so it matches the Projects page.
   primaryLink?: EngagementLink
   project?: Project
+  // A live site that has no project record or case study (client storefronts): one tracked "View Live
+  // Project" button reporting project_viewed with this id.
+  liveSite?: { id: string; title: string; href: string }
 }
 
 export type Engagement = {
@@ -134,6 +149,16 @@ export type TechIcon =
   | "storage"
   | "wordpress"
   | "elementor"
+  | "shopify"
+  | "liquid"
+  | "json"
+  | "cli"
+  | "themeEditor"
+  | "metafields"
+  | "collections"
+  | "apps"
+  | "shipping"
+  | "seo"
 
 // `kind` describes the tool itself (not a claim about experience), shown under each name.
 export type TechItem = {
@@ -150,9 +175,22 @@ export type HirePageSections = {
   navLabel: string
   nav: readonly { href: `#${string}`; label: string }[]
   work: { id: string; title: string; intro: string; items: readonly WorkItem[] }
-  capabilities: { title: string; intro: string; ctaLabel: string; items: readonly Capability[] }
+  // Optional `label` (eyebrow) and `title` overrides; omitted, the reference page's wording is used.
+  capabilities: {
+    label?: string
+    title: string
+    intro: string
+    ctaLabel: string
+    items: readonly Capability[]
+  }
   engagement: { intro: string; items: readonly Engagement[] }
-  approach: { intro: string; ctaLabel: string; steps: readonly { title: string; body: string }[] }
-  technologies: { intro: string; items: readonly TechItem[] }
+  approach: {
+    label?: string
+    title?: string
+    intro: string
+    ctaLabel: string
+    steps: readonly { title: string; body: string }[]
+  }
+  technologies: { label?: string; title?: string; intro: string; items: readonly TechItem[] }
   freelanceContactHref: string
 }

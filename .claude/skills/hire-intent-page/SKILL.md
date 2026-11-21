@@ -5,7 +5,7 @@ description: Use when building, redesigning or reviewing a "<Role> Developer for
 
 # Hire-intent page
 
-`/react-developer` (React Developer for Hire) is the approved reference; `/react-native-developer` and `/frontend-developer` are built on the same shared components. Every new role page copies its structure and the owner's decisions below; the code shows _what_ exists, this file records _why_ and the choices that are easy to get wrong.
+`/react-developer` (React Developer for Hire) is the approved reference; `/react-native-developer`, `/frontend-developer` and `/shopify-developer` are built on the same shared components. Shared sections accept optional `label`/`title` overrides (capabilities, approach, technologies), `HirePageClosing` an optional `faqTitle`, and a `WorkItem` can carry `anchor` (hero-fact jump target, rendered with a plain `<a>`), an image `caption` and `liveSite` (tracked live button for client sites without a project record). A technologies list of two renders as a compact centred pair. Every new role page copies its structure and the owner's decisions below; the code shows _what_ exists, this file records _why_ and the choices that are easy to get wrong.
 
 ## Before writing code
 
