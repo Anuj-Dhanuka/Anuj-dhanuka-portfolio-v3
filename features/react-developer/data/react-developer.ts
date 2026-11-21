@@ -62,7 +62,6 @@ export const reactDeveloperHero = {
   intro:
     "I’m Anuj Dhanuka, a React.js developer in India, building responsive interfaces, dashboards and API-connected applications. I’ve contributed to ChefKart’s React operations dashboard and Next.js website, and built independent React projects. I’m open to full-time roles and freelance frontend work.",
   facts: heroFacts,
-  portraitAlt: "Anuj Dhanuka, React.js developer based in India",
   fullTimeLabel: "Discuss a full-time role",
   freelanceLabel: "Discuss a freelance project",
 } as const satisfies HireHeroContent

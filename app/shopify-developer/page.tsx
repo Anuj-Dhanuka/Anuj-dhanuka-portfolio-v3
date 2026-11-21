@@ -28,7 +28,7 @@ export default function ShopifyDeveloperPage() {
       />
       <main id="main-content">
         <HireHero
-          breadcrumb={shopifyDeveloperPage.breadcrumb}
+          page={shopifyDeveloperPage}
           hero={shopifyDeveloperHero}
           fullTimeHref={fullTimeContactHref}
           freelanceHref={freelanceContactHref}

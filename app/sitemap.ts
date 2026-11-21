@@ -7,6 +7,7 @@ import { frontendDeveloperPage } from "@/features/frontend-developer/data/fronte
 import { reactDeveloperPage } from "@/features/react-developer/data/react-developer"
 import { reactNativeDeveloperPage } from "@/features/react-native-developer/data/react-native-developer"
 import { shopifyDeveloperPage } from "@/features/shopify-developer/data/shopify-developer"
+import { hirePage } from "@/features/hire/data/hire"
 import { figmaToWebsitePage } from "@/features/figma-to-website/data/figma-to-website"
 import { landingPageDevelopmentPage } from "@/features/landing-page-development/data/landing-page-development"
 import { wordpressDeveloperPage } from "@/features/wordpress-developer/data/wordpress-developer"
@@ -37,7 +38,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // developer hire page (implemented 21 November 2026) works the same way. The same day adds the owner-confirmed
   // Shopify theme and store-setup skills to the shared skill groups shown on the homepage and Skills page.
   // The WordPress developer hire page (implemented 21 November 2026) follows the same pattern, as does the
-  // landing-page development service page (same day) and the Figma-to-website service page.
+  // landing-page development service page (same day) and the Figma-to-website service page. The central
+  // Hire Me overview (/hire, implemented the same day) links to all seven and uses its own content date.
   return [
     { url: site.homeUrl, lastModified: "2026-11-21" },
     { url: `${site.url}/about`, lastModified: "2026-11-11" },
@@ -49,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/projects`, lastModified: "2026-11-02" },
     { url: `${site.url}/certifications`, lastModified: "2026-10-03" },
     { url: `${site.url}/contact`, lastModified: "2026-11-20" },
+    { url: `${site.url}${hirePage.path}`, lastModified: hirePage.lastModified },
     { url: `${site.url}${reactDeveloperPage.path}`, lastModified: reactDeveloperPage.lastModified },
     {
       url: `${site.url}${reactNativeDeveloperPage.path}`,

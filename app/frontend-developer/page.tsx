@@ -27,7 +27,7 @@ export default function FrontendDeveloperPage() {
       />
       <main id="main-content">
         <HireHero
-          breadcrumb={frontendDeveloperPage.breadcrumb}
+          page={frontendDeveloperPage}
           hero={frontendDeveloperHero}
           fullTimeHref={fullTimeContactHref}
           freelanceHref={freelanceContactHref}

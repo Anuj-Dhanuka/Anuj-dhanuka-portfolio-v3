@@ -63,7 +63,6 @@ export const reactNativeDeveloperHero = {
   intro:
     "I’m Anuj Dhanuka, a React Native developer in India. I build mobile interfaces, connect APIs and handle the states around everyday app journeys. My work includes ChefKart’s customer app and QuizWar, an independent quiz application. I’m open to full-time roles and freelance React Native projects.",
   facts: heroFacts,
-  portraitAlt: "Anuj Dhanuka, React Native developer based in India",
   fullTimeLabel: "Discuss a full-time role",
   freelanceLabel: "Discuss a freelance project",
 } as const satisfies HireHeroContent

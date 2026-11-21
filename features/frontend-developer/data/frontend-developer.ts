@@ -73,7 +73,6 @@ export const frontendDeveloperHero = {
   intro:
     "I’m Anuj Dhanuka, a frontend developer in India. I turn designs and requirements into responsive websites and interfaces. My work spans ChefKart’s web experiences, a freelance education homepage and an independent food-business website. I’m open to full-time roles and freelance projects.",
   facts: heroFacts,
-  portraitAlt: "Anuj Dhanuka, frontend developer based in India",
   fullTimeLabel: "Discuss a full-time role",
   freelanceLabel: "Discuss a freelance project",
 } as const satisfies HireHeroContent

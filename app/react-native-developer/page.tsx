@@ -27,7 +27,7 @@ export default function ReactNativeDeveloperPage() {
       />
       <main id="main-content">
         <HireHero
-          breadcrumb={reactNativeDeveloperPage.breadcrumb}
+          page={reactNativeDeveloperPage}
           hero={reactNativeDeveloperHero}
           fullTimeHref={fullTimeContactHref}
           freelanceHref={freelanceContactHref}

@@ -6,23 +6,31 @@ import { HeroBackground } from "@/components/shared/hero-background"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { LinkButton } from "@/components/ui/link-button"
 import { hireEnquiryActions } from "@/features/hire-pages/enquiry-actions"
-import type { HireEnquiryType, HireHeroContent } from "@/features/hire-pages/types"
+import { hireBreadcrumbParents } from "@/config/hire-pages"
+import type { HireEnquiryType, HireHeroContent, HirePageMeta } from "@/features/hire-pages/types"
 
 // Inline so a wrapped label keeps its arrow on the last line instead of pinning it to the far edge.
 const factLink =
   "py-2.5 underline decoration-brand-300/40 underline-offset-4 transition-colors hover:text-white hover:decoration-white focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 sm:py-0"
 
 // Shared hero for hire-intent pages: breadcrumb, eyebrow pill, type-hero H1 with a gradient phrase, one
-// intro paragraph, linked facts and the two enquiry buttons. The portrait reuses the homepage's small
-// direct-served file; it is not preloaded here, so the homepage LCP strategy is unchanged.
+// intro paragraph, linked facts and the two enquiry buttons. The desktop-only portrait is its own 300×300
+// WebP (owner-supplied, 21 November 2026), served directly and not preloaded; the homepage portrait, its
+// preload and cache rules are separate and unchanged.
+// Shared by the seven specialist pages and /hire. The owner's 300×300 PNG converted once to WebP (sharp/libwebp,
+// quality 90, alpha kept: 77.6 KB → 10.4 KB, visually identical) and served directly at its own size, as the
+// homepage portrait is, so there is no image-optimizer request. Versioned name: replace under a new name.
+export const hirePortrait = { src: "/anuj-hire-portrait-v1.webp", alt: "Anuj Dhanuka" } as const
+
 export function HireHero({
-  breadcrumb,
+  page,
   hero,
   fullTimeHref,
   freelanceHref,
   primary = "full-time",
 }: {
-  breadcrumb: string
+  // Breadcrumb source: the page's own name, after Hire Me for the specialist pages (same trail as the JSON-LD).
+  page: Pick<HirePageMeta, "path" | "breadcrumb">
   hero: HireHeroContent
   fullTimeHref: string
   freelanceHref: string
@@ -45,7 +53,7 @@ export function HireHero({
     >
       <HeroBackground />
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <HeroBreadcrumb current={breadcrumb} />
+        <HeroBreadcrumb current={page.breadcrumb} parents={hireBreadcrumbParents(page.path)} />
 
         <div className="mt-8 grid items-center gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-16">
           <div className="min-w-0">
@@ -107,15 +115,20 @@ export function HireHero({
               className="absolute inset-[-28px] rounded-full bg-gradient-to-br from-purple-600/35 to-pink-600/35 blur-3xl"
               aria-hidden="true"
             />
-            <div className="relative h-[300px] w-[300px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40 xl:h-[320px] xl:w-[320px]">
+            {/* Fixed 300px frame (the supplied portrait's own size, never enlarged). The image already has a
+                circular composition, so it is contained rather than cropped or zoomed. */}
+            <div className="relative h-[300px] w-[300px] overflow-hidden rounded-full border-[3px] border-purple-300/30 shadow-2xl shadow-purple-950/40">
               <Image
-                src="/anuj-profile-400.jpg"
-                alt={hero.portraitAlt}
+                src={hirePortrait.src}
+                alt={hirePortrait.alt}
                 fill
                 unoptimized
-                loading="eager"
-                sizes="320px"
-                className="object-cover"
+                // Lazy, not eager: eager makes React emit a <link rel="preload"> on every viewport, so phones would
+                // download a portrait they never show. A lazy image inside the hidden (below lg) container is
+                // not fetched; on desktop it is in view and loads straight away. It is not the LCP element.
+                loading="lazy"
+                sizes="300px"
+                className="object-contain"
               />
             </div>
           </div>

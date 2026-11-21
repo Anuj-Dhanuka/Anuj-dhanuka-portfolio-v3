@@ -28,7 +28,7 @@ export default function WordpressDeveloperPage() {
       />
       <main id="main-content">
         <HireHero
-          breadcrumb={wordpressDeveloperPage.breadcrumb}
+          page={wordpressDeveloperPage}
           hero={wordpressDeveloperHero}
           fullTimeHref={fullTimeContactHref}
           freelanceHref={freelanceContactHref}

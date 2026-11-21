@@ -20,6 +20,7 @@ describe("public sitemap", () => {
       "https://anujdhanuka.com/projects",
       "https://anujdhanuka.com/certifications",
       "https://anujdhanuka.com/contact",
+      "https://anujdhanuka.com/hire",
       "https://anujdhanuka.com/react-developer",
       "https://anujdhanuka.com/react-native-developer",
       "https://anujdhanuka.com/frontend-developer",

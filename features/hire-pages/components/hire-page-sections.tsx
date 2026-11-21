@@ -116,7 +116,7 @@ import { ProjectPhone } from "@/features/projects/components/project-phone"
 import { ProjectLinks } from "@/features/projects/components/projects"
 import { cn } from "@/lib/utils"
 
-const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
+export const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
   interface: LayoutTemplate,
   dashboard: LayoutDashboard,
   api: Network,
@@ -914,7 +914,7 @@ const engagementIcons = { role: BriefcaseBusiness, project: Code2 } as const
 // Two parallel path cards in the homepage card style. From lg each card is a five-row subgrid (intro,
 // "Share:" box, availability, main button, secondary links), so rows and both main buttons line up even
 // though only the full-time card has availability pills and secondary links.
-function WorkWithMe({ engagement }: { engagement: HirePageSections["engagement"] }) {
+export function WorkWithMe({ engagement }: { engagement: HirePageSections["engagement"] }) {
   return (
     <section
       id={engagement.id ?? "work-with-me"}
@@ -1019,13 +1019,13 @@ function WorkWithMe({ engagement }: { engagement: HirePageSections["engagement"]
   )
 }
 
-// Icons for the phone timeline markers, in step order (the homepage Experience timeline uses icon markers).
+// Icons for the phone timeline markers, in step order (three-step lists use the first three) (the homepage Experience timeline uses icon markers).
 const approachIcons: readonly LucideIcon[] = [MessagesSquare, ClipboardList, Code2, PackageCheck]
 
 // Process steps. Phones: the homepage Experience-timeline feel — a bold continuous brand gradient line,
 // ringed icon markers with a soft pulse, and each step in a white card opening with a tinted "Step" pill,
 // on the homepage's violet/pink wash. From lg: one homepage card (accent bar) with four divided columns.
-function Approach({
+export function Approach({
   approach,
   freelanceContactHref,
 }: {
@@ -1064,7 +1064,13 @@ function Approach({
             className="absolute bottom-6 left-5 top-6 w-1 -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-500 via-fuchsia-500 to-pink-500 shadow-lg shadow-purple-500/20 dark:from-purple-400 dark:via-fuchsia-400 dark:to-pink-400 lg:hidden"
             aria-hidden="true"
           />
-          <ol className="grid gap-6 lg:grid-cols-4 lg:gap-0">
+          <ol
+            className={cn(
+              "grid gap-6 lg:gap-0",
+              // Three steps (the /hire overview) share the card in thirds; the role pages use four.
+              approach.steps.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4",
+            )}
+          >
             {approach.steps.map((step, index) => {
               const Icon = approachIcons[index]
               const number = String(index + 1).padStart(2, "0")

@@ -26,7 +26,7 @@ import { projects, type Project } from "@/features/projects/data/projects"
 // appears on the full-time path only.
 export const wordpressDeveloperPage = {
   path: "/wordpress-developer",
-  breadcrumb: "WordPress Developer for Hire",
+  breadcrumb: "WordPress Developer",
   title: "WordPress Developer for Hire | Anuj Dhanuka",
   description:
     "Hire Anuj Dhanuka for WordPress and Elementor websites, responsive business pages and clear enquiry journeys. Explore projects and discuss your requirements.",
@@ -65,7 +65,6 @@ export const wordpressDeveloperHero = {
   intro:
     "I’m Anuj Dhanuka, a WordPress developer in India building responsive business websites with Elementor. I turn services, course information and business ideas into clear pages with practical enquiry paths, drawing on my work for Rekha Maa Ki Rasoi and the Rama Technical College homepage.",
   facts: heroFacts,
-  portraitAlt: "Anuj Dhanuka, WordPress developer based in India",
   fullTimeLabel: "Discuss a Full-time Role",
   freelanceLabel: "Discuss a WordPress Project",
 } as const satisfies HireHeroContent

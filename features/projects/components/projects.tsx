@@ -145,9 +145,14 @@ export function ProjectCard({
   compact = false,
   brief = false,
   showContributions = true,
+  label,
+  summary,
 }: {
   project: Project
   compact?: boolean
+  // Optional page-specific overline and summary (the /hire proof cards); defaults are the project's own.
+  label?: string
+  summary?: string
   // Full-size card with only the stack, a one-line summary and links; the case study carries the detail.
   brief?: boolean
   showContributions?: boolean
@@ -156,7 +161,7 @@ export function ProjectCard({
     project.icon
   ]
   const description =
-    compact || brief ? (project.compactDescription ?? project.description) : project.description
+    summary ?? (compact || brief ? (project.compactDescription ?? project.description) : project.description)
   const tags = compact ? project.tags.slice(0, 2) : project.tags
 
   return (
@@ -176,7 +181,7 @@ export function ProjectCard({
             <p
               className={`${compact ? "type-caption" : "type-small"} font-semibold text-accent1-600 dark:text-accent1-300`}
             >
-              {project.category}
+              {label ?? project.category}
             </p>
             <h3
               className={`${compact ? "text-lg font-bold leading-snug" : "type-card-large"} mt-2 copy-heading`}

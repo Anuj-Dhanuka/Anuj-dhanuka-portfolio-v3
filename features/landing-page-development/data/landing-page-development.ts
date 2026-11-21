@@ -74,7 +74,6 @@ export const landingPageDevelopmentHero = {
   intro:
     "I’m Anuj Dhanuka. I build responsive landing pages with React and WordPress/Elementor for product launches, service enquiries and campaigns. From your design or brief, I shape a clear page journey with readable content, purposeful interactions and a straightforward next step.",
   facts: heroFacts,
-  portraitAlt: "Anuj Dhanuka, landing page developer based in India",
   fullTimeLabel: "Discuss a Full-time Role",
   freelanceLabel: "Discuss a Landing Page",
 } as const satisfies HireHeroContent

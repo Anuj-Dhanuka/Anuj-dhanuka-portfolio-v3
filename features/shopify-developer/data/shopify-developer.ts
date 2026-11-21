@@ -62,7 +62,6 @@ export const shopifyDeveloperHero = {
   intro:
     "I’m Anuj Dhanuka, a Shopify developer in India. I build online stores and customize Shopify themes with Liquid. My work includes PhoolKalaa’s end-to-end storefront and custom product features for Phoria Jewellery. Hire me for a defined Shopify project or discuss a full-time role.",
   facts: heroFacts,
-  portraitAlt: "Anuj Dhanuka, Shopify developer based in India",
   fullTimeLabel: "Discuss a full-time role",
   freelanceLabel: "Discuss a Shopify project",
 } as const satisfies HireHeroContent
