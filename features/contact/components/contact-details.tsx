@@ -1,10 +1,20 @@
 import { Code2, Link2, Mail, MapPin, Phone } from "lucide-react"
+import { FaWhatsapp } from "react-icons/fa"
 
 import { site } from "@/config/site"
+import { whatsappGeneralMessage, whatsappLink } from "@/lib/whatsapp"
 
 const contactDetails = [
   { label: "Email", value: site.email, href: `mailto:${site.email}`, Icon: Mail },
   { label: "Phone", value: site.phoneDisplay, href: site.phoneHref, Icon: Phone },
+  // Opens a chat with a prefilled message, in a new tab.
+  {
+    label: "WhatsApp",
+    value: "Chat on WhatsApp",
+    href: whatsappLink(whatsappGeneralMessage),
+    Icon: FaWhatsapp,
+    whatsapp: true,
+  },
   { label: "Location", value: site.location, Icon: MapPin },
 ]
 
@@ -38,7 +48,8 @@ export function ContactDetails() {
       </div>
 
       <div className="relative mt-5 grid gap-3">
-        {contactDetails.map(({ label, value, href, Icon }) => {
+        {contactDetails.map(({ label, value, href, Icon, ...detail }) => {
+          const whatsapp = "whatsapp" in detail
           const content = (
             <>
               <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-brand-50 to-accent1-50 text-brand-600 dark:from-brand-900/30 dark:to-accent1-900/20 dark:text-brand-300">
@@ -48,6 +59,7 @@ export function ContactDetails() {
                 <span className="block text-sm font-bold copy-heading">{label}</span>
                 <span className="mt-1 block text-sm font-medium text-gray-600 transition-colors group-hover:text-brand-700 dark:text-gray-300 dark:group-hover:text-brand-300">
                   {value}
+                  {whatsapp && <span className="sr-only"> (opens in a new tab)</span>}
                 </span>
               </span>
             </>
@@ -57,6 +69,15 @@ export function ContactDetails() {
             <a
               key={label}
               href={href}
+              {...(whatsapp
+                ? {
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    "data-cta": "whatsapp_anuj",
+                    "data-cta-section": "contact_details",
+                    "data-cta-destination": site.whatsappHref,
+                  }
+                : {})}
               className="group flex items-start gap-3 rounded-lg border border-purple-100 bg-purple-50/50 p-3.5 transition-all duration-300 hover:border-brand-200 hover:bg-white hover:shadow-[0_14px_35px_rgba(124,58,237,0.08)] dark:border-purple-800/35 dark:bg-purple-900/15 dark:hover:bg-gray-950/60"
             >
               {content}

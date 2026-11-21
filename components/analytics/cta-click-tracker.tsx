@@ -35,7 +35,9 @@ export function ctaEventProperties(link: CtaLink, pathname: string): AnalyticsPr
   const href = link.getAttribute("href") ?? ""
   const cta = link.dataset.cta || contactCta(href)
   if (!cta) return null
-  return { cta, section: ctaSection(link), page: pathname, destination: href }
+  // data-cta-destination overrides a long href (for example a WhatsApp link carrying a prefilled message).
+  const destination = link.dataset.ctaDestination || href
+  return { cta, section: ctaSection(link), page: pathname, destination }
 }
 
 // One delegated listener for the whole site. Links marked data-cta (LinkButtons mark themselves) and
