@@ -31,7 +31,7 @@ export default function FigmaToWebsitePage() {
       />
       <main id="main-content">
         <HireHero
-          breadcrumb={figmaToWebsitePage.breadcrumb}
+          page={figmaToWebsitePage}
           hero={figmaToWebsiteHero}
           fullTimeHref={fullTimeContactHref}
           freelanceHref={freelanceContactHref}

@@ -96,5 +96,9 @@ describe("contactFormSchema", () => {
       contactFormSchema.parse({ ...validSubmission, enquiryType: "freelance", source: "figma-to-website" }),
     ).toMatchObject({ enquiryType: "freelance", source: "figma-to-website" })
     expect(contactFormSchema.safeParse({ ...validSubmission, source: "figma-to-react" }).success).toBe(false)
+    expect(
+      contactFormSchema.parse({ ...validSubmission, enquiryType: "full-time", source: "hire" }),
+    ).toMatchObject({ enquiryType: "full-time", source: "hire" })
+    expect(contactFormSchema.safeParse({ ...validSubmission, source: "services" }).success).toBe(false)
   })
 })

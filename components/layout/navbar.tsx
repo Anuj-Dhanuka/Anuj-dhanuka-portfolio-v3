@@ -17,9 +17,11 @@ import {
 export function Navbar({
   projects,
   experience,
+  hire,
 }: {
   projects: ProjectNavItem[]
   experience: ProjectNavItem[]
+  hire: ProjectNavItem[]
 }) {
   const pathname = usePathname()
   const isHome = pathname === "/"
@@ -89,7 +91,7 @@ export function Navbar({
     if (!isOpen) return
 
     const panel = menuPanelRef.current
-    const mediaQuery = window.matchMedia("(min-width: 1024px)")
+    const mediaQuery = window.matchMedia("(min-width: 1280px)")
     const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
     // Re-queried on each Tab because the projects accordion adds and removes links.
     const getFocusables = () =>
@@ -136,6 +138,8 @@ export function Navbar({
     { name: "Experience", href: "/experience" },
     { name: "Projects", href: "/projects" },
     { name: "Certifications", href: "/certifications" },
+    // The Hire Me overview, with the seven specialist pages in its dropdown.
+    { name: "Hire Me", href: "/hire" },
     { name: "Contact", href: "/contact" },
   ]
 
@@ -143,6 +147,7 @@ export function Navbar({
   const navMenus: Record<string, { items: ProjectNavItem[]; allLabel: string }> = {
     "/experience": { items: experience, allLabel: "View all experience" },
     "/projects": { items: projects, allLabel: "View all projects" },
+    "/hire": { items: hire, allLabel: "View all hiring options" },
   }
 
   const hasDarkHero =
@@ -157,6 +162,8 @@ export function Navbar({
   const isActive = (href: string) => {
     const [route] = href.split("#")
     if (route === "/") return isHome
+    // A dropdown item stays highlighted on its detail pages, including the hire pages outside /hire/.
+    if (navMenus[route]?.items.some((item) => item.href === pathname)) return true
     return pathname === route || pathname.startsWith(`${route}/`)
   }
 
@@ -196,7 +203,10 @@ export function Navbar({
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          {/* Desktop links from xl (1280px): with Hire Me the row needs about 1,060px, more than the 976px the
+              container gives between 1024 and 1279px, so those widths use the menu sheet instead of
+              wrapping or shortened labels. */}
+          <nav className="hidden xl:flex items-center space-x-1">
             {navLinks.map((link) =>
               navMenus[link.href] ? (
                 // Experience and Projects keep their page link and add a hover/disclosure dropdown of detail pages.
@@ -250,7 +260,7 @@ export function Navbar({
                 </div>
               ),
             )}
-            <div className="pl-1 transition-transform hover:scale-105 lg:pl-2">
+            <div className="pl-1 transition-transform hover:scale-105">
               <Button
                 asChild
                 variant="outline"
@@ -259,7 +269,7 @@ export function Navbar({
                   solidHeader
                     ? "border-purple-700 bg-white text-purple-900 hover:bg-purple-700 hover:text-white dark:border-purple-400 dark:bg-gray-800 dark:text-white dark:hover:bg-purple-600"
                     : "border-white bg-purple-800/90 text-white hover:bg-white hover:text-purple-800 dark:border-white dark:bg-purple-700 dark:text-white dark:hover:bg-white dark:hover:text-purple-800",
-                  "px-3 lg:px-4 py-1 h-9 rounded-lg group shadow-md transition-all duration-300",
+                  "px-4 py-1 h-9 rounded-lg group shadow-md transition-all duration-300",
                 )}
               >
                 <a
@@ -279,7 +289,7 @@ export function Navbar({
           <button
             ref={menuButtonRef}
             className={cn(
-              "lg:hidden min-h-11 min-w-11 p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500",
+              "xl:hidden min-h-11 min-w-11 p-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500",
               solidHeader
                 ? "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
                 : "text-white hover:bg-white/10 dark:text-white dark:hover:bg-gray-800/30",
@@ -297,7 +307,7 @@ export function Navbar({
       {/* Mobile navigation: a focused sheet above a blurred overlay that also covers the header. */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[55] touch-none bg-gray-950/50 backdrop-blur-[2px] lg:hidden"
+          className="fixed inset-0 z-[55] touch-none bg-gray-950/50 backdrop-blur-[2px] xl:hidden"
           aria-hidden="true"
           onClick={() => setIsOpen(false)}
         />
@@ -310,7 +320,7 @@ export function Navbar({
           role="dialog"
           aria-modal="true"
           aria-label="Main navigation"
-          className="animate-slide-in-right fixed bottom-0 right-0 top-0 z-[56] flex w-[88%] max-w-sm flex-col overscroll-contain rounded-l-3xl bg-white shadow-2xl motion-reduce:animate-none dark:bg-gray-950 lg:hidden"
+          className="animate-slide-in-right fixed bottom-0 right-0 top-0 z-[56] flex w-[88%] max-w-sm flex-col overscroll-contain rounded-l-3xl bg-white shadow-2xl motion-reduce:animate-none dark:bg-gray-950 xl:hidden"
         >
           <div className="flex items-center justify-between gap-3 px-5 pb-4 pt-5">
             <Link

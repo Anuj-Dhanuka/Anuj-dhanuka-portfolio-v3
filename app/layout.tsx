@@ -7,6 +7,7 @@ import { MobileCtaBar } from "@/components/layout/mobile-cta-bar"
 import { Navbar } from "@/components/layout/navbar"
 import { experienceNavItems } from "@/features/experience/experience-nav"
 import { projectNavItems } from "@/features/projects/project-nav"
+import { hireNavItems } from "@/features/hire/hire-nav"
 import { Footer } from "@/components/layout/footer"
 import { RouteScrollReset } from "@/components/layout/route-scroll-reset"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -126,7 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <RouteScrollReset />
-          <Navbar projects={projectNavItems} experience={experienceNavItems} />
+          <Navbar projects={projectNavItems} experience={experienceNavItems} hire={hireNavItems} />
           {children}
           <Footer />
           <MobileCtaBar />

@@ -71,7 +71,6 @@ export const figmaToWebsiteHero = {
   intro:
     "I’m Anuj Dhanuka. I turn Figma designs into responsive React and WordPress websites, with attention to typography, spacing and the details that make an interface feel considered. Bring an approved design, or discuss the refinements it needs before development.",
   facts: heroFacts,
-  portraitAlt: "Anuj Dhanuka, Figma to website developer based in India",
   fullTimeLabel: "Discuss a Full-time Role",
   freelanceLabel: "Discuss Your Figma Design",
 } as const satisfies HireHeroContent

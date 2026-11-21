@@ -29,7 +29,7 @@ export default function ReactDeveloperPage() {
       />
       <main id="main-content">
         <HireHero
-          breadcrumb={reactDeveloperPage.breadcrumb}
+          page={reactDeveloperPage}
           hero={reactDeveloperHero}
           fullTimeHref={fullTimeContactHref}
           freelanceHref={freelanceContactHref}

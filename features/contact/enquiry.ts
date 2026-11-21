@@ -18,6 +18,8 @@ export const enquirySources = [
   "wordpress-developer",
   "landing-page-development",
   "figma-to-website",
+  // The central Hire Me overview.
+  "hire",
 ] as const
 export type EnquirySource = (typeof enquirySources)[number]
 

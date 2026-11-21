@@ -2,7 +2,7 @@ import Link from "next/link"
 import { BsInstagram } from "react-icons/bs"
 import { FiGithub } from "react-icons/fi"
 import { LuLinkedin } from "react-icons/lu"
-import { hirePages } from "@/config/hire-pages"
+import { footerHireLinks } from "@/config/hire-pages"
 import { site } from "@/config/site"
 
 export function Footer() {
@@ -103,12 +103,20 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Hire-intent role pages, from config/hire-pages.ts. */}
-          {hirePages.length > 0 && (
+          {/* The Hire Me overview (/hire) as the column heading's link, then the five role pages and a link to
+              the overview (config/hire-pages.ts). The heading stays an h2; only its text is the link. */}
+          {footerHireLinks.length > 0 && (
             <div>
-              <h2 className="type-nav-heading mb-4">Hire Me</h2>
+              <h2 className="type-nav-heading mb-4">
+                <Link
+                  href="/hire"
+                  className="rounded-sm underline decoration-transparent underline-offset-4 transition-colors hover:text-purple-600 hover:decoration-current focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 dark:hover:text-purple-400 dark:focus-visible:ring-offset-gray-950"
+                >
+                  Hire Me
+                </Link>
+              </h2>
               <ul className="space-y-2">
-                {hirePages.map((page) => (
+                {footerHireLinks.map((page) => (
                   <li key={page.href}>
                     <Link
                       href={page.href}

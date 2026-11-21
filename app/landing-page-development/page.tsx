@@ -31,7 +31,7 @@ export default function LandingPageDevelopmentPage() {
       />
       <main id="main-content">
         <HireHero
-          breadcrumb={landingPageDevelopmentPage.breadcrumb}
+          page={landingPageDevelopmentPage}
           hero={landingPageDevelopmentHero}
           fullTimeHref={fullTimeContactHref}
           freelanceHref={freelanceContactHref}

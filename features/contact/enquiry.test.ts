@@ -102,6 +102,12 @@ describe("enquiry URL context", () => {
       expect(figma).toBe(`/contact?enquiry=${type}&source=figma-to-website`)
       expect(read(figma.split("?")[1])).toEqual({ enquiryType: type, source: "figma-to-website" })
     }
+    for (const type of ["full-time", "freelance"] as const) {
+      const hire = contactHref(type, "hire")
+      expect(hire).toBe(`/contact?enquiry=${type}&source=hire`)
+      expect(read(hire.split("?")[1])).toEqual({ enquiryType: type, source: "hire" })
+    }
+    expect(read("enquiry=freelance&source=hire-me").source).toBe("direct")
     expect(read("enquiry=freelance&source=figma").source).toBe("direct")
     expect(read("enquiry=freelance&source=landing-page").source).toBe("direct")
     expect(

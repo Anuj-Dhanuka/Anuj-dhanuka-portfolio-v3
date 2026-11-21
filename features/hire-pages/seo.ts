@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { hireBreadcrumbParents } from "@/config/hire-pages"
 import { site } from "@/config/site"
 import type { HirePageMeta } from "@/features/hire-pages/types"
 
@@ -9,6 +10,7 @@ export const hirePageUrl = (page: HirePageMeta) => `${site.url}${page.path}`
 // Canonical without a trailing slash, and the route's own generated social image.
 export function hirePageMetadata(page: HirePageMeta, imageAlt: string): Metadata {
   const { title, description } = page
+  const social = page.social ?? { title, description }
   const url = hirePageUrl(page)
   const image = { url: `${page.path}/opengraph-image`, width: 1200, height: 630, alt: imageAlt }
   return {
@@ -16,15 +18,20 @@ export function hirePageMetadata(page: HirePageMeta, imageAlt: string): Metadata
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
-      description,
+      title: social.title,
+      description: social.description,
       url,
       type: "website",
       siteName: site.name,
       locale: "en_IN",
       images: [image],
     },
-    twitter: { card: "summary_large_image", title, description, images: [image] },
+    twitter: {
+      card: "summary_large_image",
+      title: social.title,
+      description: social.description,
+      images: [image],
+    },
   }
 }
 
@@ -51,10 +58,15 @@ export function hirePageJsonLd(page: HirePageMeta) {
       {
         "@type": "BreadcrumbList",
         "@id": `${url}/#breadcrumb`,
+        // Same trail as the visible breadcrumb: Home, then Hire Me for the specialist pages, then this page.
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: site.homeUrl },
-          { "@type": "ListItem", position: 2, name: page.breadcrumb, item: url },
-        ],
+          { name: "Home", item: site.homeUrl },
+          ...hireBreadcrumbParents(page.path).map((parent) => ({
+            name: parent.label,
+            item: `${site.url}${parent.href}`,
+          })),
+          { name: page.breadcrumb, item: url },
+        ].map((entry, index) => ({ "@type": "ListItem", position: index + 1, ...entry })),
       },
     ],
   }

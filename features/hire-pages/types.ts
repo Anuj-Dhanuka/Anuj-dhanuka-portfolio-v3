@@ -13,6 +13,8 @@ export type HirePageMeta = {
   lastModified: string
   // Breadcrumb and JSON-LD BreadcrumbList name, e.g. "React Developer".
   breadcrumb: string
+  // Optional Open Graph/Twitter wording when it differs from the page title and description (/hire).
+  social?: { title: string; description: string }
 }
 
 export type HireFact = { label: string; href?: string }
@@ -69,7 +71,6 @@ export type HireHeroContent = {
   // One paragraph so both enquiry buttons reach the first phone screen.
   intro: string
   facts: readonly HireFact[]
-  portraitAlt: string
   fullTimeLabel: string
   freelanceLabel: string
 }
