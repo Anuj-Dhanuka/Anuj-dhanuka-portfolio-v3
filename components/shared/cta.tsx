@@ -41,7 +41,7 @@ export function CTA({
   return (
     <section aria-labelledby="shared-cta-heading" className="relative overflow-hidden py-20">
       <div
-        className="absolute inset-0 z-0 bg-gradient-to-br from-purple-900/90 to-pink-900/90"
+        className="absolute inset-0 z-0 bg-gradient-to-br from-purple-950 to-pink-950"
         aria-hidden="true"
       />
 
