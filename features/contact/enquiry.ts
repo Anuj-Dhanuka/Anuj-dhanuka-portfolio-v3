@@ -15,6 +15,7 @@ export const enquirySources = [
   "react-native-developer",
   "frontend-developer",
   "shopify-developer",
+  "wordpress-developer",
 ] as const
 export type EnquirySource = (typeof enquirySources)[number]
 
