@@ -11,6 +11,7 @@ export function ProjectsHero() {
 
   return (
     <section
+      data-page-hero
       aria-labelledby="projects-hero-heading"
       className="relative overflow-hidden pb-12 pt-20 text-white md:pb-14 md:pt-24 lg:flex lg:min-h-[75svh] lg:items-center lg:pb-12 lg:pt-32"
     >

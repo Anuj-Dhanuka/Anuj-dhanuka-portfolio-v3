@@ -446,3 +446,19 @@
 [id] {
   scroll-margin-top: 7rem;
 }
+
+/* Mobile bottom CTA bar (components/layout/mobile-cta-bar.tsx). On pages that use it, keep the last footer
+   content reachable above the bar and stop focused controls from scrolling underneath it. The bar sets
+   --mobile-cta-space from its measured height, so enlarged text is accounted for. */
+@media (max-width: 767.98px) {
+  html[data-mobile-cta] {
+    scroll-padding-bottom: calc(var(--mobile-cta-space, 5rem) + 0.75rem);
+  }
+  html[data-mobile-cta] footer {
+    padding-bottom: var(--mobile-cta-space, 5rem);
+  }
+  /* Floating buttons (Back to top) sit above the bar only while it is showing. */
+  html[data-mobile-cta="visible"] [data-floating-action] {
+    bottom: calc(var(--mobile-cta-space, 5rem) + 1rem);
+  }
+}

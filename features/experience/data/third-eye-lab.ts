@@ -22,6 +22,8 @@ export const thirdEyeLabHero = {
     "At 3rd Eye Lab, I moved from guided learning into an onsite development environment and worked on a category-based quiz application using React Native CLI and JavaScript.",
     "The assignment was compact, but it taught me something important: a mobile screen only becomes useful when navigation, changing data, feedback and device behaviour work together as one journey.",
   ],
+  // Same place and format as the ChefKart hero line; dates match the Experience timeline.
+  meta: "Hyderabad · Onsite · April 2024 – June 2024",
   stack: ["React Native CLI", "JavaScript", "Firebase", "Git", "Mobile UI", "Application Navigation"],
   // Illustration of the assignment's flow, deliberately unlike any real product UI.
   image: {

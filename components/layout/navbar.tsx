@@ -37,8 +37,11 @@ export function Navbar({
     if (!isOpen) return
     const root = document.documentElement
     root.style.overflow = "hidden"
+    // Shared with the mobile bottom CTA bar, which hides while the menu is open.
+    root.setAttribute("data-mobile-menu", "open")
     return () => {
       root.style.overflow = ""
+      root.removeAttribute("data-mobile-menu")
     }
   }, [isOpen])
 

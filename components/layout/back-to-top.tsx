@@ -35,6 +35,7 @@ export function BackToTop() {
       onClick={scrollToTop}
       className="animate-fade-in fixed bottom-6 right-6 p-3 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 z-50 group motion-reduce:animate-none"
       aria-label="Back to top"
+      data-floating-action
     >
       <ArrowUp className="h-5 w-5 group-hover:animate-bounce" />
     </button>

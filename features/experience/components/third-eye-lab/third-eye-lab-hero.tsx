@@ -43,7 +43,10 @@ function InternshipVisual() {
 
 export function ThirdEyeLabHero() {
   return (
-    <header className="relative isolate overflow-hidden pb-12 pt-24 text-white md:pb-16 md:pt-32">
+    <header
+      data-page-hero
+      className="relative isolate overflow-hidden pb-12 pt-24 text-white md:pb-16 md:pt-32"
+    >
       <HeroBackground />
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <HeroBreadcrumb current="3rd Eye Lab" parents={[{ label: "Experience", href: "/experience" }]} />
@@ -66,6 +69,7 @@ export function ThirdEyeLabHero() {
                 {paragraph}
               </p>
             ))}
+            <p className="type-small mt-4 text-brand-200">{thirdEyeLabHero.meta}</p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <LinkButton

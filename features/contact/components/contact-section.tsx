@@ -54,7 +54,7 @@ export function ContactSection({
           <div className="order-2 h-full lg:order-1">
             <ContactDetails />
           </div>
-          <div className="order-1 h-full lg:order-2">
+          <div className="order-1 h-full lg:order-2" data-mobile-cta-hide>
             {deferForm ? <DeferredContactForm /> : <ContactForm showEnquiryType={showEnquiryType} />}
           </div>
         </div>

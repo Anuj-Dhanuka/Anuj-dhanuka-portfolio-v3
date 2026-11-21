@@ -21,7 +21,10 @@ const factLink =
 // homepage LCP strategy is unchanged.
 export function ReactDeveloperHero() {
   return (
-    <header className="relative isolate overflow-hidden pb-12 pt-24 text-white md:pb-16 md:pt-32">
+    <header
+      data-page-hero
+      className="relative isolate overflow-hidden pb-12 pt-24 text-white md:pb-16 md:pt-32"
+    >
       <HeroBackground />
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <HeroBreadcrumb current="React Developer" />
