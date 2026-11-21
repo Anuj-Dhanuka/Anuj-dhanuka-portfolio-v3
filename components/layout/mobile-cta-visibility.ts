@@ -1,3 +1,5 @@
+import { hireHub, hirePages } from "@/config/hire-pages"
+
 // Pure display rules for the mobile bottom CTA bar, kept separate from the DOM wiring so they can be tested.
 
 // Explicit, reusable boundaries. A page opts in by marking its opening section; anything inside a marked
@@ -53,4 +55,11 @@ export function isEditableElement(element: Element | null): boolean {
     "image",
     "hidden",
   ].includes(type)
+}
+
+// The eight hire pages (the /hire overview and every registry page) swap "View resume" for WhatsApp, so a
+// prospective client can message instead of reading a CV; every other page keeps resume + call.
+export function isHirePath(pathname: string | null): boolean {
+  if (!pathname) return false
+  return pathname === hireHub.href || hirePages.some((page) => page.href === pathname)
 }
