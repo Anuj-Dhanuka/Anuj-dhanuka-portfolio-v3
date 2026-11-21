@@ -84,5 +84,13 @@ describe("contactFormSchema", () => {
       }),
     ).toMatchObject({ enquiryType: "full-time", source: "wordpress-developer" })
     expect(contactFormSchema.safeParse({ ...validSubmission, source: "elementor" }).success).toBe(false)
+    expect(
+      contactFormSchema.parse({
+        ...validSubmission,
+        enquiryType: "freelance",
+        source: "landing-page-development",
+      }),
+    ).toMatchObject({ enquiryType: "freelance", source: "landing-page-development" })
+    expect(contactFormSchema.safeParse({ ...validSubmission, source: "landing-page" }).success).toBe(false)
   })
 })

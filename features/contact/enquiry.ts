@@ -16,6 +16,7 @@ export const enquirySources = [
   "frontend-developer",
   "shopify-developer",
   "wordpress-developer",
+  "landing-page-development",
 ] as const
 export type EnquirySource = (typeof enquirySources)[number]
 

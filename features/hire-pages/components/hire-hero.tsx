@@ -5,7 +5,8 @@ import { ArrowDown, ArrowRight, ArrowUpRight, MapPin } from "lucide-react"
 import { HeroBackground } from "@/components/shared/hero-background"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
 import { LinkButton } from "@/components/ui/link-button"
-import type { HireHeroContent } from "@/features/hire-pages/types"
+import { hireEnquiryActions } from "@/features/hire-pages/enquiry-actions"
+import type { HireEnquiryType, HireHeroContent } from "@/features/hire-pages/types"
 
 // Inline so a wrapped label keeps its arrow on the last line instead of pinning it to the far edge.
 const factLink =
@@ -19,12 +20,24 @@ export function HireHero({
   hero,
   fullTimeHref,
   freelanceHref,
+  primary = "full-time",
 }: {
   breadcrumb: string
   hero: HireHeroContent
   fullTimeHref: string
   freelanceHref: string
+  // Which enquiry leads (first and solid). Role pages keep the full-time default; a service page leads with
+  // the project enquiry. Each button keeps its own destination and analytics identity either way.
+  primary?: HireEnquiryType
 }) {
+  const buttons = hireEnquiryActions({
+    fullTimeHref,
+    freelanceHref,
+    fullTimeLabel: hero.fullTimeLabel,
+    freelanceLabel: hero.freelanceLabel,
+    primary,
+  })
+
   return (
     <header
       data-page-hero
@@ -73,25 +86,19 @@ export function HireHero({
             </ul>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <LinkButton
-                href={fullTimeHref}
-                data-cta="discuss_full_time_role"
-                data-cta-section="hero"
-                className="min-h-12 w-full px-6 py-3 text-base sm:w-auto"
-                icon={<ArrowRight className="h-4 w-4" />}
-              >
-                {hero.fullTimeLabel}
-              </LinkButton>
-              <LinkButton
-                href={freelanceHref}
-                variant="outlineInverse"
-                data-cta="discuss_freelance_project"
-                data-cta-section="hero"
-                className="min-h-12 w-full px-6 py-3 text-base sm:w-auto"
-                icon={<ArrowRight className="h-4 w-4" />}
-              >
-                {hero.freelanceLabel}
-              </LinkButton>
+              {buttons.map((button, index) => (
+                <LinkButton
+                  key={button.type}
+                  href={button.href}
+                  variant={index === 0 ? "primary" : "outlineInverse"}
+                  data-cta={button.cta}
+                  data-cta-section="hero"
+                  className="min-h-12 w-full px-6 py-3 text-base sm:w-auto"
+                  icon={<ArrowRight className="h-4 w-4" />}
+                >
+                  {button.label}
+                </LinkButton>
+              ))}
             </div>
           </div>
 
