@@ -18,12 +18,13 @@ function contactCta(href: string): string | undefined {
   return undefined
 }
 
-// The section a link sits in: an explicit data-cta-section, else the nearest section id,
-// else the header or footer.
+// The section a link sits in: an explicit data-cta-section, else the nearest section id, else "hero" for a
+// page's opening section (marked data-page-hero; several have no id), else the header or footer.
 function ctaSection(link: CtaLink): string {
   if (link.dataset.ctaSection) return link.dataset.ctaSection
   const section = link.closest("section[id], header[id]")
   if (section?.id) return section.id
+  if (link.closest("[data-page-hero]")) return "hero"
   if (link.closest("footer")) return "footer"
   if (link.closest("header, nav")) return "header"
   return ""
