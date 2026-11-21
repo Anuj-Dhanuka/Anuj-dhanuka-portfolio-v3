@@ -5,7 +5,7 @@ description: Use when building, redesigning or reviewing a "<Role> Developer for
 
 # Hire-intent page
 
-`/react-developer` (React Developer for Hire) is the approved reference; `/react-native-developer` is the second page built on the same shared components. Every new role page copies its structure and the owner's decisions below; the code shows _what_ exists, this file records _why_ and the choices that are easy to get wrong.
+`/react-developer` (React Developer for Hire) is the approved reference; `/react-native-developer` and `/frontend-developer` are built on the same shared components. Every new role page copies its structure and the owner's decisions below; the code shows _what_ exists, this file records _why_ and the choices that are easy to get wrong.
 
 ## Before writing code
 

@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next"
 import { chefkartPage } from "@/features/experience/data/chefkart"
 import { ppcroyPage } from "@/features/experience/data/ppcroy"
 import { thirdEyeLabPage } from "@/features/experience/data/third-eye-lab"
+import { frontendDeveloperPage } from "@/features/frontend-developer/data/frontend-developer"
 import { reactDeveloperPage } from "@/features/react-developer/data/react-developer"
 import { reactNativeDeveloperPage } from "@/features/react-native-developer/data/react-native-developer"
 import { caseStudyProjects, projectPath } from "@/features/projects/project-details"
@@ -27,6 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // enquiry-type selector to the Contact page.
   // November 21 redesigns the React developer page section by section and adds five documented technologies,
   // and publishes the React Native developer hire page, linked from the footer, Skills and Experience.
+  // The Frontend developer hire page (implemented 21 November 2026) follows the same linking; its date is
+  // the page's own `lastModified` and should move to the actual release day if it ships later.
   return [
     { url: site.homeUrl, lastModified: "2026-11-10" },
     { url: `${site.url}/about`, lastModified: "2026-11-11" },
@@ -43,6 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${site.url}${reactNativeDeveloperPage.path}`,
       lastModified: reactNativeDeveloperPage.lastModified,
     },
+    { url: `${site.url}${frontendDeveloperPage.path}`, lastModified: frontendDeveloperPage.lastModified },
     ...caseStudyProjects.map((project) => ({
       url: `${site.url}${projectPath(project)}`,
       lastModified: project.caseStudy.lastModified,

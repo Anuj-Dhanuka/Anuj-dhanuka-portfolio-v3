@@ -15,6 +15,10 @@ describe("enquiry URL context", () => {
       enquiryType: "full-time",
       source: "react-native-developer",
     })
+    expect(read("enquiry=freelance&source=frontend-developer")).toEqual({
+      enquiryType: "freelance",
+      source: "frontend-developer",
+    })
   })
 
   const neutral = { enquiryType: "general", source: "direct" }
@@ -36,6 +40,11 @@ describe("enquiry URL context", () => {
     expect(read("enquiry=freelance&source=React-Native-Developer").source).toBe("direct")
     expect(read("enquiry=freelance&source=react-native").source).toBe("direct")
     expect(read("enquiry=freelance&source=%20react-native-developer").source).toBe("direct")
+    expect(read("enquiry=freelance&source=frontend").source).toBe("direct")
+    expect(read("enquiry=freelance&source=front-end-developer").source).toBe("direct")
+    expect(read("enquiry=freelance&source=frontend-developer&source=frontend-developer").source).toBe(
+      "direct",
+    )
     // Two different sources are as ambiguous as two identical ones.
     expect(read("enquiry=freelance&source=react-developer&source=react-native-developer")).toEqual({
       enquiryType: "freelance",
@@ -68,5 +77,10 @@ describe("enquiry URL context", () => {
     const native = contactHref("full-time", "react-native-developer")
     expect(native).toBe("/contact?enquiry=full-time&source=react-native-developer")
     expect(read(native.split("?")[1])).toEqual({ enquiryType: "full-time", source: "react-native-developer" })
+    for (const type of ["full-time", "freelance"] as const) {
+      const frontend = contactHref(type, "frontend-developer")
+      expect(frontend).toBe(`/contact?enquiry=${type}&source=frontend-developer`)
+      expect(read(frontend.split("?")[1])).toEqual({ enquiryType: type, source: "frontend-developer" })
+    }
   })
 })

@@ -38,9 +38,25 @@ export type EngagementLink = {
   shortLabel?: string
 }
 
-export type CapabilityIcon = "interface" | "dashboard" | "api" | "nextjs" | "mobile" | "auth" | "payments"
+export type CapabilityIcon =
+  | "interface"
+  | "dashboard"
+  | "api"
+  | "nextjs"
+  | "mobile"
+  | "auth"
+  | "payments"
+  | "responsive"
+  | "interactive"
+  | "website"
 
-export type Capability = { title: string; body: string; icon: CapabilityIcon }
+export type Capability = {
+  title: string
+  body: string
+  icon: CapabilityIcon
+  // Optional crawlable link on a phrase inside `body` (the text must occur in it exactly once).
+  link?: { text: string; href: `/${string}` }
+}
 
 export type WorkVisual =
   | {
@@ -60,8 +76,10 @@ export type WorkVisual =
 
 export type WorkItem = {
   id: string
-  // Ownership boundary in the overline: employer work is a team contribution, the rest independent.
-  kind: "Team contribution" | "Independent project"
+  // Ownership boundary in the overline: employer work is a team contribution; freelance and personal work
+  // name the kind of engagement exactly.
+  kind:
+    "Team contribution" | "Independent project" | "Freelance homepage" | "Independent family-business website"
   // Role and dates where they add information; omitted when the summary already says it.
   meta?: string
   title: string
@@ -114,6 +132,8 @@ export type TechIcon =
   | "firebase"
   | "firestore"
   | "storage"
+  | "wordpress"
+  | "elementor"
 
 // `kind` describes the tool itself (not a claim about experience), shown under each name.
 export type TechItem = {

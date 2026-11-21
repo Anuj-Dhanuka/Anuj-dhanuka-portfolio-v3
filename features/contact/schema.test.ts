@@ -68,5 +68,9 @@ describe("contactFormSchema", () => {
       }),
     ).toMatchObject({ enquiryType: "full-time", source: "react-native-developer" })
     expect(contactFormSchema.safeParse({ ...validSubmission, source: "react-native" }).success).toBe(false)
+    expect(
+      contactFormSchema.parse({ ...validSubmission, enquiryType: "freelance", source: "frontend-developer" }),
+    ).toMatchObject({ enquiryType: "freelance", source: "frontend-developer" })
+    expect(contactFormSchema.safeParse({ ...validSubmission, source: "frontend" }).success).toBe(false)
   })
 })
