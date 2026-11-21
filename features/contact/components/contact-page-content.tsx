@@ -12,7 +12,7 @@ export function ContactPageContent() {
   return (
     <>
       <PageSectionNav items={contactSections} />
-      <ContactSection />
+      <ContactSection showEnquiryType />
       <ContactGuidance />
     </>
   )

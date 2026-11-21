@@ -101,7 +101,8 @@ export async function POST(request: Request) {
       return jsonResponse({ success: false, error: "Unable to send your message right now." }, 502, requestId)
     }
 
-    logInfo("contact.email_sent", { requestId })
+    // Allowlisted enquiry context only; never form content.
+    logInfo("contact.email_sent", { requestId, enquiryType: contact.enquiryType, source: contact.source })
     return jsonResponse({ success: true }, 200, requestId)
   } catch (error) {
     logError("contact.unexpected_error", error, { requestId })

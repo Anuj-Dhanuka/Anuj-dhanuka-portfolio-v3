@@ -11,7 +11,7 @@ export type FaqItem = { question: string; answer: string }
 type FaqSectionProps = {
   items: readonly FaqItem[]
   title: string
-  description: string
+  description?: string
   eyebrow?: string
   id?: string
   // Emit FAQPage structured data; only one page should publish a given set of answers.
@@ -20,6 +20,10 @@ type FaqSectionProps = {
   actions?: ReactNode
   // Optional content below everything else, such as a footnote.
   children?: ReactNode
+  // false renders the section visible from the start instead of fading it up on scroll.
+  reveal?: boolean
+  // false drops the faint grid pattern behind the section (the glow wash stays).
+  grid?: boolean
 }
 
 // Matches the accordion's collapse transition (duration-300).
@@ -36,6 +40,8 @@ export function FaqSection({
   jsonLd = false,
   actions,
   children,
+  reveal = true,
+  grid = true,
 }: FaqSectionProps) {
   const listRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
@@ -82,20 +88,22 @@ export function FaqSection({
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_16%,rgba(124,58,237,0.08),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(219,39,119,0.07),transparent_34%),linear-gradient(180deg,#ffffff_0%,#faf7ff_52%,#ffffff_100%)] dark:bg-[radial-gradient(circle_at_12%_16%,rgba(139,92,246,0.16),transparent_30%),radial-gradient(circle_at_86%_70%,rgba(236,72,153,0.12),transparent_34%),linear-gradient(180deg,#111827_0%,#0f172a_52%,#111827_100%)]"
         aria-hidden="true"
       />
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-        aria-hidden="true"
-      />
+      {grid && (
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] dark:opacity-[0.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(124,58,237,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(219,39,119,0.10) 1px, transparent 1px)",
+            backgroundSize: "44px 44px",
+          }}
+          aria-hidden="true"
+        />
+      )}
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="mx-auto max-w-3xl text-center"
-          initial={{ opacity: 0, y: 18 }}
+          initial={reveal ? { opacity: 0, y: 18 } : false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease: "easeOut" }}
@@ -107,12 +115,12 @@ export function FaqSection({
           <h2 id={`${id}-heading`} className="type-section copy-heading">
             {title}
           </h2>
-          <p className="type-body mt-4 copy-body">{description}</p>
+          {description && <p className="type-body mt-4 copy-body">{description}</p>}
         </motion.div>
 
         <motion.div
           className="mx-auto mt-12 max-w-4xl"
-          initial={{ opacity: 0, y: 20 }}
+          initial={reveal ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, delay: 0.05, ease: "easeOut" }}
@@ -151,7 +159,7 @@ export function FaqSection({
         {actions && (
           <motion.div
             className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-3 sm:flex-row"
-            initial={{ opacity: 0, y: 20 }}
+            initial={reveal ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}

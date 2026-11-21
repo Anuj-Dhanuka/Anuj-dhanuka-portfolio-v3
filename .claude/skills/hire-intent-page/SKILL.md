@@ -1,0 +1,71 @@
+---
+name: hire-intent-page
+description: Use when building, redesigning or reviewing a "<Role> Developer for Hire" page in the Anuj Dhanuka portfolio (React, React Native, Frontend or any future role page aimed at recruiters and freelance clients), or when adding one to the footer "Hire Me" column, the sitemap or the contact enquiry flow.
+---
+
+# Hire-intent page
+
+`/react-developer` (React Developer for Hire) is the approved reference. Every new role page copies its structure and the owner's decisions below; the code shows _what_ exists, this file records _why_ and the choices that are easy to get wrong.
+
+## Before writing code
+
+1. **Confirm the route with the owner.** `config/hire-pages.ts` assumes `/<role>-developer` (e.g. `/react-native-developer`), while `docs/project-case-studies.md` lists older ideas (`/expertise/react-native`, `/hire-react-native-developer`). Do not pick one silently.
+2. **Get the copy and evidence from the owner.** Only claims already documented on the site (case-study data, `features/skills/data/skills.ts`, `features/experience/data/*`) may appear. No rates, years of experience, testimonials, metrics, freelance capacity or "Full-Stack" framing.
+3. **Work section by section.** Show each section (desktop + phone screenshots), wait for approval, then move on. Start with the simplest version; no extra badges, filled highlights or icon tiles beyond the patterns below.
+4. When the second hire page is built, extract the shared blocks (`FeaturedWork`, `WorkWithMe`, `Approach`, `TechPill`) from `features/react-developer/components/react-developer-content.tsx` into shared hire-page components instead of copying them.
+
+## Section order and recipe
+
+| #   | Section (H2)                                | Desktop                                                                                                                                                                                                     | Phone                                                                                                                                      |
+| --- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 0   | Hero (H1 "`<Role>` Developer **for Hire**") | `HeroBackground`, breadcrumb, eyebrow "Full-time roles · Freelance projects", ONE intro paragraph, linked facts row (location, role + dates → case study, independent project), two buttons, portrait right | No portrait; both buttons on the first 390×844 screen; **no "Explore my work" link**                                                       |
+| –   | "On this page" nav                          | `PageSectionNav`                                                                                                                                                                                            | **Hidden** (`hidden sm:block`)                                                                                                             |
+| 1   | Selected `<stack>` work                     | Editorial divider per project (`01` · hairline opening with brand→accent rule · ownership label), then 50/50 grid, sides alternate. **No card around the project, no frame around the image**               | Heading → image → text                                                                                                                     |
+| 2   | What I can help you build                   | Centred header like homepage Skills (pill, H2, rule, intro), 4 homepage lift cards in one row, one centred line link                                                                                        | Cards stack                                                                                                                                |
+| 3   | Two ways to work with me                    | Tinted section (`bg-brand-50/50` + top border). Two path cards on a 5-row subgrid so both main buttons align: intro → "Share:" checklist box → pills → main button → secondary links                        | Secondary links in one row with short labels (`shortLabel`)                                                                                |
+| 4   | How we can approach your project            | One homepage card, 4 divided columns, small outlined numbers (`h-7 text-xs`)                                                                                                                                | Homepage Experience-timeline feel: bold gradient line, ringed icon markers (soft pulse), white cards with "Step 0N" pill, violet/pink wash |
+| 5   | Technologies I work with                    | Quotable intro sentence naming every tool, then a full-width grid (5/row) of brand-icon tiles with a category line                                                                                          | 2/row (1 below 360px); a lone last tile spans the row                                                                                      |
+| 6   | Questions about working together            | `FaqSection` with `description` intro, `reveal={false}`, `grid={false}`                                                                                                                                     | same                                                                                                                                       |
+| 7   | Closing CTA                                 | Shared `CTA` with custom `actions`: two `h-11` (44px) buttons                                                                                                                                               | full-width buttons                                                                                                                         |
+
+## Owner decisions that are easy to miss
+
+- **Homepage feel**: reuse homepage pills, gradient rules, `homeCard`/`homeCardLift`, `homeIconTile`, `AccentBar`, radial violet/pink washes. **Never use grid ("check") backgrounds** (`SectionBackdrop`, FAQ grid). Adjacent sections must visibly separate (tint, border or shade) on phones too.
+- **No scroll-reveal for text**: `reveal={false}` on `CenteredSectionHeader`/`FaqSection`; no `opacity:0` in server HTML.
+- **Headings**: no em dashes; brand name kept in headings ("Web experiences and internal operations at ChefKart", "Mopedo, an independently built React frontend").
+- **Project text must not be taller than its image** at 1280–1440px: summary + 3 labelled highlights + plain dotted tech line + buttons. Trim copy before adding space.
+- **Published projects reuse `ProjectLinks`** (View Live Project → case study → GitHub Repo) with a green "● Live" badge in the browser frame; on phones use `size="sm"` inside `@container` so the three buttons sit in one row.
+- **Freelance path**: no secondary links; fill the space with non-focusable services pills and one quotable sentence (e.g. "Freelance React.js developer in India for …").
+- **Full-time path**: primary button first, then Experience / Resume / LinkedIn; `site.availability` and `site.openTo` on this path only.
+- **Process copy**: titles without full stops; step descriptions within ~90–100 characters each.
+- **Technologies**: only tools already documented as the owner's work; `kind` describes the tool, not experience; keep a sentence listing them all (AI answers quote sentences, not lists).
+- **Touch targets**: main buttons 44px; never shrink below the site's existing patterns.
+
+## Wiring a new page
+
+1. `features/<role>-developer/data/<role>-developer.ts` (copy + `path`, `title`, `description`, `published`, `lastModified`) with a content-boundary test beside it.
+2. `app/<role>-developer/page.tsx` (metadata: title "`<Role>` Developer for Hire | Anuj Dhanuka", canonical without trailing slash, OG/Twitter, `WebPage` + `BreadcrumbList` JSON-LD referencing `#person`/`#website`; no FAQPage/JobPosting/Offer/rating) and `opengraph-image.tsx`.
+3. `app/sitemap.ts` entry with an explicit content date (and update `app/sitemap.test.ts`).
+4. `features/contact/enquiry.ts`: add the page slug to `enquirySources`; build CTAs with `contactHref("full-time" | "freelance", "<slug>")`.
+5. **Last**: one entry in `config/hire-pages.ts` — `label` is the page's exact H1 ("React Native Developer for Hire"), `role` is lower-case ("React Native developer"). This feeds the footer "Hire Me" column (no `aria-label`; visible text is the name) and the `HirePageLinks` sentence on Skills and Experience. `config/hire-pages.test.ts` fails if the page is not in the sitemap.
+6. Do not add links inside the frozen Mopedo/QuizWar case studies or the homepage body. Update the page lists in `CLAUDE.md`, `AGENTS.md` and `docs/seo-audit.md`.
+
+## Verification before hand-off
+
+- `npm run format:check`, `lint`, `typecheck`, `test`, `test:coverage` (contact changes), `build` (new route and `/contact` must stay `○` static).
+- Browser via Chrome DevTools Protocol emulation (window resizing is unreliable) at 320, 360, 390, 768, 1024, 1440, light and dark: no horizontal overflow, hero buttons on the first phone screen, divider/card alignment, no clipped tile names.
+- **Google**: fetch with the Googlebot smartphone user agent (same HTML as visitors) and with JavaScript disabled; every copy string from the data file must be in the raw HTML; only desktop duplicates or collapsed FAQ answers may be hidden.
+- **GA4**: build with a dummy `NEXT_PUBLIC_GA_MEASUREMENT_ID`, block `googletagmanager.com`/`google-analytics.com`, mock `/api/contact` (never send a real email), then check `dataLayer`: `config` on load, `cta_clicked` with `cta`/`section`/`destination` for every CTA, `project_viewed` for project buttons, `contact_submitted` with `enquiry_type` and `entry_source` only on success. Rebuild without the ID afterwards.
+- Contrast (WCAG AA) on real colour pairs, keyboard focus visible on every control, reduced motion stops all decorative animation.
+- Never commit; the owner commits.
+
+## Common mistakes
+
+| Mistake                                                            | Instead                                                |
+| ------------------------------------------------------------------ | ------------------------------------------------------ |
+| Copying the page before confirming the route                       | Ask the owner first                                    |
+| Grid/check background, cards around projects, frames around images | Plain/tinted sections, editorial dividers, bare images |
+| Footer link text "React Native Developer" with an `aria-label`     | Exact H1 text, no `aria-label`                         |
+| Adding a placeholder entry to `config/hire-pages.ts`               | Add only after the route and sitemap entry exist       |
+| Long text column beside a short image                              | Trim summary/highlights, keep keywords                 |
+| Shipping without the Googlebot/no-JS and GA4 dummy-ID checks       | Run both; report evidence paths                        |

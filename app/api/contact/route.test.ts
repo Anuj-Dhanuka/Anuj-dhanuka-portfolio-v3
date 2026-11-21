@@ -57,6 +57,26 @@ describe("contact route", () => {
     await expect(response.json()).resolves.toEqual({ success: true })
   })
 
+  it("rejects enquiry context outside the allowlist before any email work", async () => {
+    const response = await POST(
+      createRequest(
+        JSON.stringify({
+          name: "Visitor",
+          email: "visitor@example.com",
+          phone: "",
+          subject: "Hello",
+          message: "Message",
+          enquiryType: "vip",
+          source: "https://evil.example",
+        }),
+      ),
+    )
+    const body = await response.json()
+    expect(response.status).toBe(400)
+    expect(body.fieldErrors.enquiryType).toBeDefined()
+    expect(body.fieldErrors.source).toBeDefined()
+  })
+
   it("rejects oversized requests from the declared content length", async () => {
     const response = await POST(createRequest("{}", { "content-length": "12001" }))
     expect(response.status).toBe(413)

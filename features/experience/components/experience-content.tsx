@@ -8,6 +8,7 @@ import {
   Trophy,
 } from "lucide-react"
 
+import { HirePageLinks } from "@/components/shared/hire-page-links"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
 import { site } from "@/config/site"
@@ -83,7 +84,7 @@ export function ExperienceContent() {
             </h2>
             <p className="type-body mx-auto mt-5 max-w-3xl copy-body">
               Each role added a different layer: React Native fundamentals, multi-platform client delivery and
-              end-to-end ownership across live customer and internal products.
+              end-to-end ownership across live customer and internal products. <HirePageLinks />
             </p>
           </div>
 

@@ -35,4 +35,30 @@ describe("contactFormSchema", () => {
     const result = contactFormSchema.safeParse({ ...validSubmission, message: "a".repeat(3001) })
     expect(result.success).toBe(false)
   })
+
+  it("defaults enquiry context only when older payloads omit it", () => {
+    expect(contactFormSchema.parse(validSubmission)).toMatchObject({
+      enquiryType: "general",
+      source: "direct",
+    })
+  })
+
+  it("rejects enquiry context outside the allowlist", () => {
+    const result = contactFormSchema.safeParse({
+      ...validSubmission,
+      enquiryType: "<b>vip</b>",
+      source: "https://evil.example",
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.enquiryType).toBeDefined()
+      expect(result.error.flatten().fieldErrors.source).toBeDefined()
+    }
+  })
+
+  it("keeps allowlisted enquiry context", () => {
+    expect(
+      contactFormSchema.parse({ ...validSubmission, enquiryType: "freelance", source: "react-developer" }),
+    ).toMatchObject({ enquiryType: "freelance", source: "react-developer" })
+  })
 })

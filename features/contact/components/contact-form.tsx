@@ -1,17 +1,24 @@
 "use client"
 
 import type React from "react"
-import { useRef, useState } from "react"
+import { Suspense, useCallback, useEffect, useRef, useState } from "react"
 import { Send } from "lucide-react"
+import { useSearchParams } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { analyticsEvents } from "@/config/analytics"
 import { site } from "@/config/site"
+import {
+  enquiryParamsKey,
+  enquiryTypeLabels,
+  enquiryTypes,
+  readEnquiryParams,
+  type EnquirySource,
+  type EnquiryType,
+} from "@/features/contact/enquiry"
 import type { ContactFormData } from "@/features/contact/schema"
 import { submitContactForm } from "@/features/contact/submit-contact"
-import { trackEvent } from "@/lib/analytics"
 
 type ContactFieldErrors = Partial<Record<keyof ContactFormData, string>>
 
@@ -21,6 +28,8 @@ const emptyContactForm: ContactFormData = {
   phone: "",
   subject: "",
   message: "",
+  enquiryType: "general",
+  source: "direct",
   formCheck: "",
 }
 
@@ -28,6 +37,7 @@ function validateContactForm(values: ContactFormData) {
   const data = Object.fromEntries(
     Object.entries(values).map(([key, value]) => [key, value.trim()]),
   ) as ContactFormData
+  if (!enquiryTypes.includes(data.enquiryType)) data.enquiryType = "general"
   const errors: ContactFieldErrors = {}
 
   if (!data.name) errors.name = "Name is required."
@@ -59,13 +69,38 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   )
 }
 
-export function ContactForm() {
+type EnquiryContext = { enquiryType: EnquiryType; source: EnquirySource }
+
+// Reads ?enquiry= and ?source= after hydration. It renders nothing and sits in its own Suspense boundary,
+// so the form itself stays in the prerendered HTML and /contact stays static. It applies the complete
+// context (with defaults) only when those two parameters change, so a manual selection survives
+// re-renders and unrelated query changes, while navigating to plain /contact clears old context.
+function EnquiryPrefill({ onChange }: { onChange: (context: EnquiryContext) => void }) {
+  const searchParams = useSearchParams()
+  const key = enquiryParamsKey(searchParams)
+  const lastKey = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (lastKey.current === key) return
+    lastKey.current = key
+    onChange(readEnquiryParams(searchParams))
+  }, [key, searchParams, onChange])
+
+  return null
+}
+
+// showEnquiryType adds the enquiry selector and URL prefill (dedicated Contact page only); the homepage
+// form keeps its existing fields and submits the general defaults.
+export function ContactForm({ showEnquiryType = false }: { showEnquiryType?: boolean }) {
   const [formState, setFormState] = useState<ContactFormData>(emptyContactForm)
   const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const formRef = useRef<HTMLFormElement>(null)
+  const applyEnquiryContext = useCallback((context: EnquiryContext) => {
+    setFormState((previous) => ({ ...previous, ...context }))
+  }, [])
 
   const focusFirstInvalidField = () => {
     requestAnimationFrame(() => {
@@ -73,7 +108,9 @@ export function ContactForm() {
     })
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = event.target as { name: keyof ContactFormData; value: string }
     setFormState((previous) => ({ ...previous, [name]: value }))
     setFieldErrors((previous) => ({ ...previous, [name]: undefined }))
@@ -113,8 +150,12 @@ export function ContactForm() {
     }
 
     setSubmitSuccess(true)
-    trackEvent(analyticsEvents.contactSubmitted)
-    setFormState(emptyContactForm)
+    // Keep the enquiry context so a second message from the same visit stays labelled.
+    setFormState({
+      ...emptyContactForm,
+      enquiryType: validation.data.enquiryType,
+      source: validation.data.source,
+    })
   }
 
   return (
@@ -148,6 +189,32 @@ export function ContactForm() {
           fields are required.
         </p>
       </div>
+
+      {showEnquiryType && (
+        <>
+          <Suspense fallback={null}>
+            <EnquiryPrefill onChange={applyEnquiryContext} />
+          </Suspense>
+          <div className="space-y-2">
+            <label htmlFor="enquiryType" className="block text-sm font-medium">
+              What is this about?
+            </label>
+            <select
+              id="enquiryType"
+              name="enquiryType"
+              value={formState.enquiryType}
+              onChange={handleChange}
+              className="interactive pointer-events-auto flex h-10 w-full rounded-md border border-purple-100 bg-white px-3 py-2 text-base ring-offset-background focus:border-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:border-purple-800/45 dark:bg-gray-950/50 md:text-sm"
+            >
+              {enquiryTypes.map((type) => (
+                <option key={type} value={type}>
+                  {enquiryTypeLabels[type]}
+                </option>
+              ))}
+            </select>
+          </div>
+        </>
+      )}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">

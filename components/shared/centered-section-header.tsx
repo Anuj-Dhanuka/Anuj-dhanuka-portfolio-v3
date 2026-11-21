@@ -11,15 +11,19 @@ export function CenteredSectionHeader({
   title,
   intro,
   icon: Icon,
+  reveal = true,
 }: {
   id: string
   label: string
   title: ReactNode
   intro?: ReactNode
   icon: LucideIcon
+  // false keeps the header visible without waiting for a scroll-triggered entrance.
+  reveal?: boolean
 }) {
+  const Wrapper = reveal ? Reveal : "div"
   return (
-    <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
+    <Wrapper className="mx-auto flex max-w-3xl flex-col items-center text-center">
       <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm backdrop-blur dark:border-brand-800/50 dark:bg-gray-950/40 dark:text-brand-300">
         <Icon className="h-3.5 w-3.5" aria-hidden="true" />
         {label}
@@ -32,7 +36,7 @@ export function CenteredSectionHeader({
         aria-hidden="true"
       />
       {intro && <p className="type-body mt-6 copy-body">{intro}</p>}
-    </Reveal>
+    </Wrapper>
   )
 }
 

@@ -1,3 +1,4 @@
+import { enquiryTypeLabels } from "@/features/contact/enquiry"
 import type { ContactFormData } from "@/features/contact/schema"
 
 export function escapeHtml(value: string) {
@@ -24,6 +25,8 @@ export function createContactEmailHtml(data: ContactFormData, submittedAt = new 
     <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
     <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
     <p><strong>Phone:</strong> ${escapeHtml(data.phone || "Not provided")}</p>
+    <p><strong>Enquiry type:</strong> ${escapeHtml(enquiryTypeLabels[data.enquiryType])}</p>
+    <p><strong>Started from:</strong> ${escapeHtml(data.source === "direct" ? "Contact form" : `/${data.source}`)}</p>
     <p><strong>Subject:</strong> ${escapeHtml(data.subject)}</p>
     <p><strong>Message:</strong><br />${preserveLineBreaks(data.message)}</p>
     <hr />
