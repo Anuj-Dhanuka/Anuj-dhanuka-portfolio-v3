@@ -22,6 +22,7 @@ describe("public sitemap", () => {
       "https://anujdhanuka.com/contact",
       "https://anujdhanuka.com/react-developer",
       "https://anujdhanuka.com/react-native-developer",
+      "https://anujdhanuka.com/frontend-developer",
       "https://anujdhanuka.com/projects/quizwar",
       "https://anujdhanuka.com/projects/mopedo",
       "https://anujdhanuka.com/projects/rekha-maa-ki-rasoi",

@@ -4,6 +4,7 @@ import sitemap from "@/app/sitemap"
 import { hirePages } from "@/config/hire-pages"
 import { site } from "@/config/site"
 import { enquirySources } from "@/features/contact/enquiry"
+import { frontendDeveloperHero } from "@/features/frontend-developer/data/frontend-developer"
 import { reactDeveloperHero } from "@/features/react-developer/data/react-developer"
 import { reactNativeDeveloperHero } from "@/features/react-native-developer/data/react-native-developer"
 
@@ -11,6 +12,7 @@ import { reactNativeDeveloperHero } from "@/features/react-native-developer/data
 const headings: Record<string, string> = {
   "/react-developer": `${reactDeveloperHero.title} ${reactDeveloperHero.titleAccent}`,
   "/react-native-developer": `${reactNativeDeveloperHero.title} ${reactNativeDeveloperHero.titleAccent}`,
+  "/frontend-developer": `${frontendDeveloperHero.title} ${frontendDeveloperHero.titleAccent}`,
 }
 
 describe("hire pages", () => {

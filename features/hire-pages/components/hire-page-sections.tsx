@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import type { IconType } from "react-icons"
 import {
   SiCss,
@@ -15,7 +16,9 @@ import {
   SiStyledcomponents,
   SiTailwindcss,
   SiTypescript,
+  SiElementor,
   SiVite,
+  SiWordpress,
 } from "react-icons/si"
 import { TbApi, TbCloudUpload, TbDatabase, TbRoute } from "react-icons/tb"
 import {
@@ -35,12 +38,16 @@ import {
   Layers,
   ListChecks,
   MessagesSquare,
+  MonitorSmartphone,
+  MousePointerClick,
   Network,
   PackageCheck,
+  PanelsTopLeft,
   Smartphone,
   type LucideIcon,
 } from "lucide-react"
 
+import { inlineLinkClass } from "@/components/shared/hire-page-links"
 import { CenteredSectionHeader } from "@/components/shared/centered-section-header"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
@@ -54,6 +61,7 @@ import {
   homeIconTile,
 } from "@/features/experience/components/experience-card-styles"
 import type {
+  Capability,
   CapabilityIcon,
   EngagementLink,
   HirePageSections,
@@ -74,6 +82,9 @@ const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
   mobile: Smartphone,
   auth: KeyRound,
   payments: CreditCard,
+  responsive: MonitorSmartphone,
+  interactive: MousePointerClick,
+  website: PanelsTopLeft,
 }
 
 const pill =
@@ -295,6 +306,20 @@ function SelectedWork({ work }: { work: HirePageSections["work"] }) {
   )
 }
 
+// Body text with one phrase as an inline link, so the destination is an ordinary crawlable anchor.
+function CapabilityBody({ body, link }: { body: string; link: NonNullable<Capability["link"]> }) {
+  const [before, after] = body.split(link.text)
+  return (
+    <>
+      {before}
+      <Link href={link.href} className={inlineLinkClass}>
+        {link.text}
+      </Link>
+      {after}
+    </>
+  )
+}
+
 // Homepage skills-section layout: a centred header (pill, heading, rule, description), four numbered lift
 // cards in the "What I Bring" card style, then one centred text link. No scroll-triggered entrance, so the
 // copy is visible without waiting for an animation.
@@ -328,7 +353,7 @@ function Capabilities({
         />
 
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:grid-cols-4 lg:gap-5">
-          {capabilities.items.map(({ title, body, icon }, index) => {
+          {capabilities.items.map(({ title, body, icon, link }, index) => {
             const Icon = capabilityIcons[icon]
             return (
               <li key={title} className={cn("relative overflow-hidden p-5", homeCardLift)}>
@@ -345,7 +370,9 @@ function Capabilities({
                   </span>
                 </div>
                 <h3 className="type-card copy-heading">{title}</h3>
-                <p className="type-small mt-3 copy-body">{body}</p>
+                <p className="type-small mt-3 copy-body">
+                  {link ? <CapabilityBody body={body} link={link} /> : body}
+                </p>
               </li>
             )
           })}
@@ -603,6 +630,8 @@ const techIcons: Record<TechIcon, { Icon: IconType; color: string | null }> = {
   firebase: { Icon: SiFirebase, color: "#FFA000" },
   firestore: { Icon: TbDatabase, color: "#FFA000" },
   storage: { Icon: TbCloudUpload, color: "#FFA000" },
+  wordpress: { Icon: SiWordpress, color: "#21759B" },
+  elementor: { Icon: SiElementor, color: "#92003B" },
 }
 
 // Same tile as the homepage technology strip, without its drag/scroll behaviour (static list here).
