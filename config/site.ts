@@ -9,6 +9,9 @@ export const site = {
   email: "anujd973@gmail.com",
   phoneDisplay: "+91 8978264705",
   phoneHref: "tel:+918978264705",
+  // WhatsApp chat on the same number (wa.me takes the number without "+" or spaces). Shown in the mobile
+  // bottom bar on the hire pages only.
+  whatsappHref: "https://wa.me/918978264705",
   // Current resume PDF (served from /public). Rename the file and update here when it changes.
   resumeHref: "/ANUJ_DHANUKA_RESUME.pdf",
   location: "Vizianagaram, Andhra Pradesh, India",

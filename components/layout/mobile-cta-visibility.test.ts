@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 
 import {
   isEditableElement,
+  isHirePath,
   isMobileCtaVisible,
   isPastHero,
   type MobileCtaState,
@@ -54,5 +55,24 @@ describe("mobile CTA bar visibility", () => {
     expect(isEditableElement(el("INPUT", "submit"))).toBe(false)
     expect(isEditableElement(el("A"))).toBe(false)
     expect(isEditableElement(null)).toBe(false)
+  })
+})
+
+describe("hire-page WhatsApp swap", () => {
+  it("applies to /hire and all seven specialist hire pages only", () => {
+    const hire = [
+      "/hire",
+      "/react-developer",
+      "/react-native-developer",
+      "/frontend-developer",
+      "/shopify-developer",
+      "/wordpress-developer",
+      "/landing-page-development",
+      "/figma-to-website",
+    ]
+    for (const path of hire) expect(isHirePath(path)).toBe(true)
+    for (const path of ["/", "/about", "/contact", "/projects/mopedo", "/hire/extra", null]) {
+      expect(isHirePath(path)).toBe(false)
+    }
   })
 })

@@ -2,6 +2,7 @@
 
 import { FileText, Phone } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { FaWhatsapp } from "react-icons/fa"
 import { useEffect, useRef, useState } from "react"
 
 import { linkButtonVariants } from "@/components/ui/link-button"
@@ -11,12 +12,14 @@ import {
   MOBILE_MENU_ATTRIBUTE,
   PAGE_HERO_ATTRIBUTE,
   isEditableElement,
+  isHirePath,
   isMobileCtaVisible,
   isPastHero,
 } from "@/components/layout/mobile-cta-visibility"
 import { cn } from "@/lib/utils"
 
-// Global mobile bottom bar (below 768px): "View resume" and "Call Anuj". It appears once the page's marked
+// Global mobile bottom bar (below 768px): "View resume" and "Call Anuj"; on the eight hire pages the resume
+// button becomes "WhatsApp" (isHirePath). It appears once the page's marked
 // opening section is scrolled past and hides for the mobile menu, a visible contact form and text entry.
 // Rules live in mobile-cta-visibility.ts; this component only wires them to observers.
 export function MobileCtaBar() {
@@ -133,20 +136,39 @@ export function MobileCtaBar() {
       {/* Two columns at normal text size (8rem fits twice at 320px); enlarged text grows the rem minimum,
           so the buttons stack instead of clipping their labels. */}
       <nav aria-label="Quick contact" className="grid grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-3">
-        <a
-          href={site.resumeHref}
-          data-cta="view_resume"
-          data-cta-section="mobile_sticky"
-          className={cn(
-            linkButtonVariants({ variant: "outline" }),
-            "h-auto min-h-12 whitespace-normal px-3 text-center leading-tight",
-          )}
-        >
-          <FileText className="h-4 w-4 flex-none" aria-hidden="true" />
-          <span>
-            View resume<span className="sr-only"> of Anuj Dhanuka (PDF)</span>
-          </span>
-        </a>
+        {isHirePath(pathname) ? (
+          <a
+            href={site.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta="whatsapp_anuj"
+            data-cta-section="mobile_sticky"
+            className={cn(
+              linkButtonVariants({ variant: "outline" }),
+              "h-auto min-h-12 whitespace-normal px-3 text-center leading-tight",
+            )}
+          >
+            <FaWhatsapp className="h-4 w-4 flex-none" aria-hidden="true" />
+            <span>
+              WhatsApp<span className="sr-only"> Anuj Dhanuka (opens in a new tab)</span>
+            </span>
+          </a>
+        ) : (
+          <a
+            href={site.resumeHref}
+            data-cta="view_resume"
+            data-cta-section="mobile_sticky"
+            className={cn(
+              linkButtonVariants({ variant: "outline" }),
+              "h-auto min-h-12 whitespace-normal px-3 text-center leading-tight",
+            )}
+          >
+            <FileText className="h-4 w-4 flex-none" aria-hidden="true" />
+            <span>
+              View resume<span className="sr-only"> of Anuj Dhanuka (PDF)</span>
+            </span>
+          </a>
+        )}
         <a
           href={site.phoneHref}
           data-cta="call_anuj"
