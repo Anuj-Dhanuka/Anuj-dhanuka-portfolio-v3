@@ -11,6 +11,10 @@ describe("enquiry URL context", () => {
       source: "react-developer",
     })
     expect(read("enquiry=freelance")).toEqual({ enquiryType: "freelance", source: "direct" })
+    expect(read("enquiry=full-time&source=react-native-developer")).toEqual({
+      enquiryType: "full-time",
+      source: "react-native-developer",
+    })
   })
 
   const neutral = { enquiryType: "general", source: "direct" }
@@ -28,6 +32,15 @@ describe("enquiry URL context", () => {
       source: "direct",
     })
     expect(read("enquiry=&source=")).toEqual(neutral)
+    // Near-misses of the React Native source are not accepted.
+    expect(read("enquiry=freelance&source=React-Native-Developer").source).toBe("direct")
+    expect(read("enquiry=freelance&source=react-native").source).toBe("direct")
+    expect(read("enquiry=freelance&source=%20react-native-developer").source).toBe("direct")
+    // Two different sources are as ambiguous as two identical ones.
+    expect(read("enquiry=freelance&source=react-developer&source=react-native-developer")).toEqual({
+      enquiryType: "freelance",
+      source: "direct",
+    })
   })
 
   it("clears previous context when navigating to a contact URL without parameters", () => {
@@ -42,11 +55,18 @@ describe("enquiry URL context", () => {
     expect(key("enquiry=freelance")).not.toBe(key(""))
     expect(key("enquiry=freelance")).not.toBe(key("enquiry=freelance&source=react-developer"))
     expect(key("enquiry=freelance&enquiry=freelance")).not.toBe(key("enquiry=freelance"))
+    // Moving between hire pages with the same enquiry type still re-applies the context.
+    expect(key("enquiry=freelance&source=react-developer")).not.toBe(
+      key("enquiry=freelance&source=react-native-developer"),
+    )
   })
 
   it("builds contact links that round-trip through the parser", () => {
     const href = contactHref("freelance", "react-developer")
     expect(href).toBe("/contact?enquiry=freelance&source=react-developer")
     expect(read(href.split("?")[1])).toEqual({ enquiryType: "freelance", source: "react-developer" })
+    const native = contactHref("full-time", "react-native-developer")
+    expect(native).toBe("/contact?enquiry=full-time&source=react-native-developer")
+    expect(read(native.split("?")[1])).toEqual({ enquiryType: "full-time", source: "react-native-developer" })
   })
 })

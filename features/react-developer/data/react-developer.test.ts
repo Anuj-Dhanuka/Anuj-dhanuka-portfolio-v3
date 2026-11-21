@@ -20,9 +20,7 @@ describe("React developer page content", () => {
     expect(chefkart.summary).toMatch(/I contributed to/)
     expect(JSON.stringify(chefkart)).not.toMatch(/I built ChefKart|I led/i)
     expect(chefkart.visual).toMatchObject({ type: "illustration" })
-    expect(page.reactDeveloperHero.intro.join(" ")).toContain(
-      "contributed to ChefKart’s React operations dashboard",
-    )
+    expect(page.reactDeveloperHero.intro).toContain("contributed to ChefKart’s React operations dashboard")
     expect(mopedo.kind).toBe("Independent project")
     expect(mopedo.highlights.find((highlight) => highlight.label === "Scope")?.text).toMatch(
       /^A frontend demo/,

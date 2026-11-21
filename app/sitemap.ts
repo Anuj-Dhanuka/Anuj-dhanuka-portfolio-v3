@@ -4,6 +4,7 @@ import { chefkartPage } from "@/features/experience/data/chefkart"
 import { ppcroyPage } from "@/features/experience/data/ppcroy"
 import { thirdEyeLabPage } from "@/features/experience/data/third-eye-lab"
 import { reactDeveloperPage } from "@/features/react-developer/data/react-developer"
+import { reactNativeDeveloperPage } from "@/features/react-native-developer/data/react-native-developer"
 import { caseStudyProjects, projectPath } from "@/features/projects/project-details"
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -24,7 +25,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // November 11 redesigns the 3rd Eye Lab page and removes an unsupported internship claim from About and Experience.
   // November 20 publishes the React developer hire page, links it from Skills and Experience, and adds an
   // enquiry-type selector to the Contact page.
-  // November 21 redesigns the React developer page section by section and adds five documented technologies.
+  // November 21 redesigns the React developer page section by section and adds five documented technologies,
+  // and publishes the React Native developer hire page, linked from the footer, Skills and Experience.
   return [
     { url: site.homeUrl, lastModified: "2026-11-10" },
     { url: `${site.url}/about`, lastModified: "2026-11-11" },
@@ -37,6 +39,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/certifications`, lastModified: "2026-10-03" },
     { url: `${site.url}/contact`, lastModified: "2026-11-20" },
     { url: `${site.url}${reactDeveloperPage.path}`, lastModified: reactDeveloperPage.lastModified },
+    {
+      url: `${site.url}${reactNativeDeveloperPage.path}`,
+      lastModified: reactNativeDeveloperPage.lastModified,
+    },
     ...caseStudyProjects.map((project) => ({
       url: `${site.url}${projectPath(project)}`,
       lastModified: project.caseStudy.lastModified,

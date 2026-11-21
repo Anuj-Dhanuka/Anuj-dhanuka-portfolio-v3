@@ -3,6 +3,7 @@ import type { IconType } from "react-icons"
 import {
   SiCss,
   SiFigma,
+  SiFirebase,
   SiGit,
   SiGithub,
   SiHtml5,
@@ -16,17 +17,19 @@ import {
   SiTypescript,
   SiVite,
 } from "react-icons/si"
-import { TbApi } from "react-icons/tb"
+import { TbApi, TbCloudUpload, TbDatabase, TbRoute } from "react-icons/tb"
 import {
   ArrowUpRight,
   BriefcaseBusiness,
   Check,
   ClipboardList,
   Code2,
+  CreditCard,
   Download,
   FolderGit2,
   Globe,
   Handshake,
+  KeyRound,
   LayoutDashboard,
   LayoutTemplate,
   Layers,
@@ -34,38 +37,33 @@ import {
   MessagesSquare,
   Network,
   PackageCheck,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react"
 
 import { CenteredSectionHeader } from "@/components/shared/centered-section-header"
 import { PageSectionNav } from "@/components/shared/page-section-nav"
 import { LinkButton } from "@/components/ui/link-button"
-import { CityPageIllustration } from "@/features/experience/components/chefkart/chefkart-illustrations"
-import { ProjectLinks } from "@/features/projects/components/projects"
+import {
+  CityPageIllustration,
+  PaymentsIllustration,
+} from "@/features/experience/components/chefkart/chefkart-illustrations"
 import {
   AccentBar,
   homeCardLift,
   homeIconTile,
 } from "@/features/experience/components/experience-card-styles"
-import {
-  approachIntro,
-  approachSteps,
-  capabilities,
-  capabilitiesIntro,
-  engagementIntro,
-  engagements,
-  freelanceContactHref,
-  reactDeveloperSections,
-  selectedWork,
-  technologies,
-  technologyStack,
-  workIntro,
-  workSectionId,
-  type CapabilityIcon,
-  type TechIcon,
-  type EngagementLink,
-  type WorkItem,
-} from "@/features/react-developer/data/react-developer"
+import type {
+  CapabilityIcon,
+  EngagementLink,
+  HirePageSections,
+  TechIcon,
+  TechItem,
+  WorkItem,
+  WorkVisual,
+} from "@/features/hire-pages/types"
+import { ProjectPhone } from "@/features/projects/components/project-phone"
+import { ProjectLinks } from "@/features/projects/components/projects"
 import { cn } from "@/lib/utils"
 
 const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
@@ -73,6 +71,9 @@ const capabilityIcons: Record<CapabilityIcon, LucideIcon> = {
   dashboard: LayoutDashboard,
   api: Network,
   nextjs: Globe,
+  mobile: Smartphone,
+  auth: KeyRound,
+  payments: CreditCard,
 }
 
 const pill =
@@ -106,15 +107,25 @@ function TextLink({ link, section }: { link: EngagementLink; section?: string })
       ) : (
         link.label
       )}
-      {link.external && <span className="sr-only"> (opens in a new tab)</span>}
+      {(link.pdf || link.external) && (
+        <span className="sr-only">
+          {" "}
+          ({[link.pdf && "PDF", link.external && "opens in a new tab"].filter(Boolean).join(", ")})
+        </span>
+      )}
     </LinkButton>
   )
 }
 
+const illustrations = {
+  "chefkart-city": CityPageIllustration,
+  "chefkart-payments": PaymentsIllustration,
+} as const
+
 // Featured-project pattern: the visual and the text column share each row 50/50 (overline, title, summary,
 // three highlights, a plain tech line and one primary action), alternating sides. Phones read overline and
 // title → visual → details, so the visual never precedes its heading.
-function WorkFrame({ visual }: { visual: WorkItem["visual"] }) {
+function WorkFrame({ visual }: { visual: WorkVisual }) {
   if (visual.type === "image") {
     return (
       <figure className="overflow-hidden rounded-lg border border-purple-100 bg-white shadow-[0_20px_50px_rgba(76,29,149,0.14)] dark:border-purple-800/40">
@@ -145,14 +156,29 @@ function WorkFrame({ visual }: { visual: WorkItem["visual"] }) {
     )
   }
 
+  if (visual.type === "phones") {
+    // The shared mobile presentation (bare phone frames, no surrounding box), three screens in a row.
+    return (
+      <figure>
+        <ul className="mx-auto grid max-w-[34rem] grid-cols-3 items-center gap-3 sm:gap-5">
+          {visual.screens.map((screen, index) => (
+            <li key={screen.src} className={cn(index === 1 && "lg:-translate-y-4")}>
+              <ProjectPhone screenshot={screen} />
+            </li>
+          ))}
+        </ul>
+        <figcaption className="type-caption mt-5 text-center copy-body">{visual.caption}</figcaption>
+      </figure>
+    )
+  }
+
+  const Illustration = illustrations[visual.name]
   return (
     <figure>
       <div className="rounded-lg border border-purple-100 bg-white p-3 shadow-[0_20px_50px_rgba(76,29,149,0.14)] dark:border-purple-800/40">
-        <CityPageIllustration />
+        <Illustration />
       </div>
-      <figcaption className="type-caption mt-3 text-center copy-body">
-        {visual.caption}. Illustration, not a real ChefKart screen.
-      </figcaption>
+      <figcaption className="type-caption mt-3 text-center copy-body">{visual.caption}</figcaption>
     </figure>
   )
 }
@@ -236,9 +262,6 @@ function FeaturedWork({ item, index }: { item: WorkItem; index: number }) {
                 </LinkButton>
               )
             )}
-            {item.links.map((link) => (
-              <TextLink key={link.href} link={link} />
-            ))}
           </div>
         </div>
       </div>
@@ -246,24 +269,24 @@ function FeaturedWork({ item, index }: { item: WorkItem; index: number }) {
   )
 }
 
-function SelectedWork() {
+function SelectedWork({ work }: { work: HirePageSections["work"] }) {
   return (
     <section
-      id={workSectionId}
-      aria-labelledby="selected-react-work-heading"
+      id={work.id}
+      aria-labelledby={`${work.id}-heading`}
       className="relative scroll-mt-24 border-y border-purple-100/70 bg-white py-16 dark:border-purple-800/30 dark:bg-gray-950 md:py-24"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <CenteredSectionHeader
           reveal={false}
-          id="selected-react-work-heading"
+          id={`${work.id}-heading`}
           label="Evidence"
-          title="Selected React work"
-          intro={workIntro}
+          title={work.title}
+          intro={work.intro}
           icon={FolderGit2}
         />
         <div className="mt-12 space-y-16 md:mt-16 lg:space-y-20">
-          {selectedWork.map((item, index) => (
+          {work.items.map((item, index) => (
             <FeaturedWork key={item.id} item={item} index={index} />
           ))}
         </div>
@@ -275,7 +298,13 @@ function SelectedWork() {
 // Homepage skills-section layout: a centred header (pill, heading, rule, description), four numbered lift
 // cards in the "What I Bring" card style, then one centred text link. No scroll-triggered entrance, so the
 // copy is visible without waiting for an animation.
-function Capabilities() {
+function Capabilities({
+  capabilities,
+  freelanceContactHref,
+}: {
+  capabilities: HirePageSections["capabilities"]
+  freelanceContactHref: string
+}) {
   return (
     <section
       id="capabilities"
@@ -292,14 +321,14 @@ function Capabilities() {
         <CenteredSectionHeader
           reveal={false}
           id="capabilities-heading"
-          label={capabilitiesIntro.label}
-          title={capabilitiesIntro.title}
-          intro={capabilitiesIntro.body}
+          label="Capabilities"
+          title={capabilities.title}
+          intro={capabilities.intro}
           icon={Layers}
         />
 
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:grid-cols-4 lg:gap-5">
-          {capabilities.map(({ title, body, icon }, index) => {
+          {capabilities.items.map(({ title, body, icon }, index) => {
             const Icon = capabilityIcons[icon]
             return (
               <li key={title} className={cn("relative overflow-hidden p-5", homeCardLift)}>
@@ -330,7 +359,7 @@ function Capabilities() {
             data-cta-section="capabilities"
             icon={<ArrowUpRight className="h-4 w-4" />}
           >
-            {capabilitiesIntro.ctaLabel}
+            {capabilities.ctaLabel}
           </LinkButton>
         </div>
       </div>
@@ -343,7 +372,7 @@ const engagementIcons = { role: BriefcaseBusiness, project: Code2 } as const
 // Two parallel path cards in the homepage card style. From lg each card is a five-row subgrid (intro,
 // "Share:" box, availability, main button, secondary links), so rows and both main buttons line up even
 // though only the full-time card has availability pills and secondary links.
-function WorkWithMe() {
+function WorkWithMe({ engagement }: { engagement: HirePageSections["engagement"] }) {
   return (
     <section
       id="work-with-me"
@@ -356,16 +385,17 @@ function WorkWithMe() {
           id="work-with-me-heading"
           label="Engagement"
           title="Two ways to work with me"
-          intro={engagementIntro}
+          intro={engagement.intro}
           icon={Handshake}
         />
         <div className="mt-10 grid gap-5 md:mt-12 lg:grid-cols-2 lg:grid-rows-[repeat(5,auto)] lg:gap-y-0">
-          {engagements.map((engagement) => {
-            const Icon = engagementIcons[engagement.icon]
+          {engagement.items.map((path) => {
+            const Icon = engagementIcons[path.icon]
+            const section = `${path.id.replace("-", "_")}_path`
             return (
               <article
-                key={engagement.id}
-                aria-labelledby={`${engagement.id}-heading`}
+                key={path.id}
+                aria-labelledby={`${path.id}-heading`}
                 className={cn(
                   "relative flex flex-col overflow-hidden p-5 sm:p-8 lg:row-span-5 lg:grid lg:grid-rows-subgrid lg:gap-y-0",
                   homeCardLift,
@@ -377,18 +407,18 @@ function WorkWithMe() {
                     <div className={homeIconTile}>
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
-                    <p className="type-label text-accent1-600 dark:text-accent1-300">{engagement.label}</p>
+                    <p className="type-label text-accent1-600 dark:text-accent1-300">{path.label}</p>
                   </div>
-                  <h3 id={`${engagement.id}-heading`} className="type-card-large mt-5 copy-heading">
-                    {engagement.title}
+                  <h3 id={`${path.id}-heading`} className="type-card-large mt-5 copy-heading">
+                    {path.title}
                   </h3>
-                  <p className="type-body mt-3 copy-body">{engagement.summary}</p>
+                  <p className="type-body mt-3 copy-body">{path.summary}</p>
                 </div>
 
                 <div className="mt-6 rounded-lg border border-purple-100 bg-brand-50/40 p-4 dark:border-purple-800/30 dark:bg-brand-950/20">
-                  <p className="text-sm font-semibold copy-heading">{engagement.share.heading}</p>
+                  <p className="text-sm font-semibold copy-heading">{path.share.heading}</p>
                   <ul className="mt-3 space-y-2">
-                    {engagement.share.items.map((entry) => (
+                    {path.share.items.map((entry) => (
                       <li key={entry} className="type-small flex gap-2.5 copy-body">
                         <Check
                           className="mt-1 h-4 w-4 flex-none text-brand-600 dark:text-brand-300"
@@ -398,13 +428,13 @@ function WorkWithMe() {
                       </li>
                     ))}
                   </ul>
-                  <p className="type-small mt-3 copy-body">{engagement.share.note}</p>
+                  <p className="type-small mt-3 copy-body">{path.share.note}</p>
                 </div>
 
                 <div>
-                  {engagement.facts.length > 0 && (
-                    <ul aria-label={engagement.factsLabel} className="mt-5 flex flex-wrap gap-2">
-                      {engagement.facts.map((fact) => (
+                  {path.facts.length > 0 && (
+                    <ul aria-label={path.factsLabel} className="mt-5 flex flex-wrap gap-2">
+                      {path.facts.map((fact) => (
                         <li key={fact} className={pill}>
                           {fact}
                         </li>
@@ -415,24 +445,24 @@ function WorkWithMe() {
 
                 <div className="mt-6 border-t border-purple-100/70 pt-6 dark:border-purple-800/30">
                   <LinkButton
-                    href={engagement.cta.href}
-                    data-cta={engagement.cta.analytics}
-                    data-cta-section={`${engagement.id.replace("-", "_")}_path`}
+                    href={path.cta.href}
+                    data-cta={path.cta.analytics}
+                    data-cta-section={section}
                     className="w-full sm:w-auto"
                     icon={<ArrowUpRight className="h-4 w-4" />}
                   >
-                    {engagement.cta.label}
+                    {path.cta.label}
                   </LinkButton>
                 </div>
 
                 {/* Below the main button: secondary links (full-time) or a plain, non-focusable summary (freelance). */}
                 <div>
-                  {engagement.footnote && <p className="type-small mt-4 copy-body">{engagement.footnote}</p>}
-                  {engagement.links.length > 0 && (
+                  {path.footnote && <p className="type-small mt-4 copy-body">{path.footnote}</p>}
+                  {path.links.length > 0 && (
                     <ul className="mt-5 flex flex-wrap justify-between gap-x-3 gap-y-3 sm:justify-start sm:gap-x-6">
-                      {engagement.links.map((link) => (
+                      {path.links.map((link) => (
                         <li key={link.href}>
-                          <TextLink link={link} section={`${engagement.id.replace("-", "_")}_path`} />
+                          <TextLink link={link} section={section} />
                         </li>
                       ))}
                     </ul>
@@ -453,7 +483,13 @@ const approachIcons: readonly LucideIcon[] = [MessagesSquare, ClipboardList, Cod
 // Process steps. Phones: the homepage Experience-timeline feel — a bold continuous brand gradient line,
 // ringed icon markers with a soft pulse, and each step in a white card opening with a tinted "Step" pill,
 // on the homepage's violet/pink wash. From lg: one homepage card (accent bar) with four divided columns.
-function Approach() {
+function Approach({
+  approach,
+  freelanceContactHref,
+}: {
+  approach: HirePageSections["approach"]
+  freelanceContactHref: string
+}) {
   return (
     <section
       id="approach"
@@ -474,7 +510,7 @@ function Approach() {
           id="approach-heading"
           label="Process"
           title="How we can approach your project"
-          intro={approachIntro.body}
+          intro={approach.intro}
           icon={ListChecks}
         />
         <div className="relative mx-auto mt-10 max-w-xl md:mt-12 lg:max-w-none lg:overflow-hidden lg:rounded-lg lg:border lg:border-purple-100 lg:bg-white/90 lg:shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_45px_rgba(124,58,237,0.07)] lg:backdrop-blur-sm lg:dark:border-purple-800/30 lg:dark:bg-gray-950/55 lg:dark:shadow-none">
@@ -487,7 +523,7 @@ function Approach() {
             aria-hidden="true"
           />
           <ol className="grid gap-6 lg:grid-cols-4 lg:gap-0">
-            {approachSteps.map((step, index) => {
+            {approach.steps.map((step, index) => {
               const Icon = approachIcons[index]
               const number = String(index + 1).padStart(2, "0")
               return (
@@ -535,7 +571,7 @@ function Approach() {
             data-cta-section="approach"
             icon={<ArrowUpRight className="h-4 w-4" />}
           >
-            {approachIntro.ctaLabel}
+            {approach.ctaLabel}
           </LinkButton>
         </div>
       </div>
@@ -544,8 +580,11 @@ function Approach() {
 }
 
 // Brand icons and colours, as in the homepage technology strip. null = monochrome mark (follows the theme).
+// Generic marks (REST APIs, React Navigation, Firestore, Firebase Storage) use the portfolio violet or the
+// Firebase amber rather than an imitation logo.
 const techIcons: Record<TechIcon, { Icon: IconType; color: string | null }> = {
   react: { Icon: SiReact, color: "#61DAFB" },
+  reactNative: { Icon: SiReact, color: "#61DAFB" },
   nextjs: { Icon: SiNextdotjs, color: null },
   javascript: { Icon: SiJavascript, color: "#F7DF1E" },
   typescript: { Icon: SiTypescript, color: "#3178C6" },
@@ -555,15 +594,19 @@ const techIcons: Record<TechIcon, { Icon: IconType; color: string | null }> = {
   tailwind: { Icon: SiTailwindcss, color: "#06B6D4" },
   restApi: { Icon: TbApi, color: "#7C3AED" },
   reactRouter: { Icon: SiReactrouter, color: "#CA4245" },
+  navigation: { Icon: TbRoute, color: "#7C3AED" },
   vite: { Icon: SiVite, color: "#646CFF" },
   figma: { Icon: SiFigma, color: "#F24E1E" },
   styledComponents: { Icon: SiStyledcomponents, color: "#DB7093" },
   git: { Icon: SiGit, color: "#F05032" },
   github: { Icon: SiGithub, color: null },
+  firebase: { Icon: SiFirebase, color: "#FFA000" },
+  firestore: { Icon: TbDatabase, color: "#FFA000" },
+  storage: { Icon: TbCloudUpload, color: "#FFA000" },
 }
 
 // Same tile as the homepage technology strip, without its drag/scroll behaviour (static list here).
-function TechPill({ name, kind, icon }: { name: string; kind: string; icon: TechIcon }) {
+function TechPill({ name, breakableName, kind, icon }: TechItem) {
   const { Icon, color } = techIcons[icon]
   return (
     <li className="group relative flex min-h-16 min-w-0 items-center gap-3 min-[360px]:max-sm:[&:last-child:nth-child(odd)]:col-span-2 overflow-hidden rounded-lg border border-purple-100/80 bg-white p-3 shadow-[0_1px_0_rgba(15,23,42,0.04),0_12px_28px_rgba(124,58,237,0.055)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_1px_0_rgba(15,23,42,0.05),0_18px_38px_rgba(124,58,237,0.12)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 dark:border-purple-800/35 dark:bg-gray-950/70 dark:shadow-none dark:hover:border-brand-700/70 sm:p-3.5">
@@ -582,7 +625,9 @@ function TechPill({ name, kind, icon }: { name: string; kind: string; icon: Tech
         <Icon className="h-5 w-5" style={color ? { color } : undefined} />
       </span>
       <span className="min-w-0">
-        <span className="block break-words text-sm font-semibold leading-tight copy-heading">{name}</span>
+        <span className="block break-words text-sm font-semibold leading-tight copy-heading">
+          {breakableName ?? name}
+        </span>
         <span className="mt-1 block text-xs leading-tight text-gray-500 dark:text-gray-400">{kind}</span>
       </span>
     </li>
@@ -590,8 +635,8 @@ function TechPill({ name, kind, icon }: { name: string; kind: string; icon: Tech
 }
 
 // One full-width grid of homepage technology-strip tiles: five per row on desktop, two on phones (one below
-// 360px, where "styled-components" cannot fit half the width).
-function Technologies() {
+// 360px, where a long name such as "styled-components" cannot fit half the width).
+function Technologies({ technologies }: { technologies: HirePageSections["technologies"] }) {
   return (
     <section
       id="technologies"
@@ -616,8 +661,8 @@ function Technologies() {
           aria-label="Technologies"
           className="mt-10 grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 sm:grid-cols-3 md:mt-12 md:grid-cols-4 lg:grid-cols-5 lg:gap-4"
         >
-          {technologyStack.map((item) => (
-            <TechPill key={item.name} name={item.name} kind={item.kind} icon={item.icon} />
+          {technologies.items.map((item) => (
+            <TechPill key={item.name} {...item} />
           ))}
         </ul>
 
@@ -631,18 +676,22 @@ function Technologies() {
   )
 }
 
-export function ReactDeveloperContent() {
+// Everything between a hire page's hero and its FAQ, in the approved order.
+export function HirePageSectionsView({ sections }: { sections: HirePageSections }) {
   return (
     <>
       {/* Hidden on phones, where the page reads straight down; shown from sm up. */}
       <div className="hidden sm:block">
-        <PageSectionNav items={reactDeveloperSections} ariaLabel="React developer page sections" />
+        <PageSectionNav items={sections.nav} ariaLabel={sections.navLabel} />
       </div>
-      <SelectedWork />
-      <Capabilities />
-      <WorkWithMe />
-      <Approach />
-      <Technologies />
+      <SelectedWork work={sections.work} />
+      <Capabilities
+        capabilities={sections.capabilities}
+        freelanceContactHref={sections.freelanceContactHref}
+      />
+      <WorkWithMe engagement={sections.engagement} />
+      <Approach approach={sections.approach} freelanceContactHref={sections.freelanceContactHref} />
+      <Technologies technologies={sections.technologies} />
     </>
   )
 }

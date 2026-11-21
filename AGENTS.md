@@ -40,7 +40,7 @@ See `docs/design-system.md` and `docs/production-readiness.md` for the current f
 - Keep important copy and links server rendered.
 - Add new indexable routes to `app/sitemap.ts`; keep API routes blocked in `app/robots.ts`.
 - Use only Next.js native `app/sitemap.ts` and `app/robots.ts`; do not add a second implementation or `next-sitemap`.
-- Sitemap entries must be canonical, indexable production pages only: currently `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications`, `/contact`, `/react-developer` and reviewed `/projects/[slug]` case studies derived from project data. Exclude API, preview, localhost, redirect, noindex, debug and missing-page URLs.
+- Sitemap entries must be canonical, indexable production pages only: currently `/`, `/about`, `/experience`, `/skills`, `/projects`, `/certifications`, `/contact`, `/react-developer`, `/react-native-developer` and reviewed `/projects/[slug]` case studies derived from project data. Exclude API, preview, localhost, redirect, noindex, debug and missing-page URLs.
 - Keep sitemap, canonical, Open Graph and page-schema URLs equivalent after URL normalization. `site.url` is the production origin without a trailing slash; `site.homeUrl` is the homepage canonical with `/`. Other public page URLs have no trailing slash. Next.js serializes root canonical/OG tags without `/`; this is the same normalized homepage URL. Do not change global trailing-slash routing solely for that serialization difference.
 - Do not add sitemap `priority` or `changefreq`. Maintain explicit `lastModified` date strings for meaningful page content, structured-data or link changes in `app/sitemap.ts` (reviewed case-study dates come from their project records); never derive them from request/build time or file modification times.
 - When adding or updating a public page, review its sitemap entry/date, confirm `/robots.txt` still references `${site.url}/sitemap.xml`, and verify the generated XML and metadata with a production build.
@@ -136,6 +136,7 @@ Authentication, authorization, databases, transactions, payments, uploads, searc
 - Homepage feel everywhere; never grid ("check") backgrounds; no scroll-reveal on text; no em dashes in headings; only documented claims; availability on the full-time path only.
 - Inbound links: one entry in `config/hire-pages.ts` (label = exact H1) feeds the footer "Hire Me" column and the Skills/Experience `HirePageLinks` sentence; add it only after the route and sitemap entry exist.
 - Before hand-off verify Googlebot/no-JavaScript readability and GA4 events with a dummy measurement ID and mocked contact API, plus the standard checks.
+- Published pages: `/react-developer` and `/react-native-developer` (21 November 2026). Both render through `features/hire-pages/` (shared hero, sections, FAQ + CTA closing, metadata/JSON-LD helpers and OG image); each page keeps its copy in `features/<role>-developer/data/`. A layout change in the shared module affects both pages, so check both.
 
 ## Project case-study architecture
 

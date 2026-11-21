@@ -12,6 +12,10 @@ export type HirePage = {
 
 export const hirePages: readonly HirePage[] = [
   { label: "React Developer for Hire", role: "React developer", href: "/react-developer" },
-  // Planned: "React Native Developer for Hire" (/react-native-developer), "Frontend Developer for Hire"
-  // (/frontend-developer).
+  {
+    label: "React Native Developer for Hire",
+    role: "React Native developer",
+    href: "/react-native-developer",
+  },
+  // Planned: "Frontend Developer for Hire" (/frontend-developer).
 ]

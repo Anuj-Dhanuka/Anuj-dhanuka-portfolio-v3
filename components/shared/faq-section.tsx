@@ -1,12 +1,19 @@
 "use client"
 
 import { motion, useReducedMotion } from "framer-motion"
-import { HelpCircle } from "lucide-react"
+import { ArrowUpRight, HelpCircle } from "lucide-react"
+import Link from "next/link"
 import { useRef, type ReactNode } from "react"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
-export type FaqItem = { question: string; answer: string }
+export type FaqItem = {
+  question: string
+  answer: string
+  // Optional internal links shown under the answer (e.g. the case studies it refers to). They stay in the
+  // server HTML; FAQPage markup, when enabled, still uses the plain answer text.
+  links?: readonly { label: string; href: string }[]
+}
 
 type FaqSectionProps = {
   items: readonly FaqItem[]
@@ -148,6 +155,21 @@ export function FaqSection({
                       {faq.answer.split("\n\n").map((paragraph, i) => (
                         <p key={i}>{paragraph}</p>
                       ))}
+                      {faq.links && faq.links.length > 0 && (
+                        <ul className="flex flex-wrap gap-x-6">
+                          {faq.links.map((link) => (
+                            <li key={link.href}>
+                              <Link
+                                href={link.href}
+                                className="inline-flex min-h-11 items-center gap-1 font-semibold text-brand-700 underline decoration-brand-300 underline-offset-4 hover:decoration-brand-700 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-brand-300 dark:decoration-brand-700 dark:hover:decoration-brand-300"
+                              >
+                                {link.label}
+                                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </AccordionContent>
                 </AccordionItem>

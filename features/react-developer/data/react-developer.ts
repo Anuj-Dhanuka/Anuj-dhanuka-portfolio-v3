@@ -2,7 +2,17 @@ import { site } from "@/config/site"
 import { contactHref } from "@/features/contact/enquiry"
 import { chefkartPage } from "@/features/experience/data/chefkart"
 import { experienceRoles } from "@/features/experience/data/experience"
-import { projects, type Project } from "@/features/projects/data/projects"
+import type {
+  Capability,
+  Engagement,
+  HireFact,
+  HireHeroContent,
+  HirePageMeta,
+  HirePageSections,
+  TechItem,
+  WorkItem,
+} from "@/features/hire-pages/types"
+import { projects } from "@/features/projects/data/projects"
 
 // Hire-intent page for React roles and freelance projects. One page serves both audiences; do not
 // split it into near-identical React / React.js / freelance pages. Copy is the owner's brief of
@@ -11,13 +21,14 @@ import { projects, type Project } from "@/features/projects/data/projects"
 // rates, hours, years of experience, testimonials or activity metrics.
 export const reactDeveloperPage = {
   path: "/react-developer",
+  breadcrumb: "React Developer",
   title: "React Developer for Hire | Anuj Dhanuka",
   description:
     "Hire Anuj Dhanuka, a React developer in India, for full-time roles or freelance projects. Explore React and Next.js work, dashboards and frontend experience.",
   published: "2026-11-20",
   // 21 Nov 2026: section-by-section redesign (selected work, capabilities, paths, process, technologies, FAQ).
   lastModified: "2026-11-21",
-} as const
+} as const satisfies HirePageMeta
 
 // Each button preselects its enquiry type on the Contact page; the visitor can still change it.
 export const fullTimeContactHref = contactHref("full-time", "react-developer")
@@ -29,7 +40,7 @@ const lowerFirst = (text: string) => text.charAt(0).toLowerCase() + text.slice(1
 const chefkartRole = experienceRoles.find((role) => role.id === "chefkart")
 
 // Linked facts under the hero intro: where Anuj is, and where the React work can be checked.
-export const heroFacts: readonly { label: string; href?: string }[] = [
+export const heroFacts: readonly HireFact[] = [
   { label: site.location },
   ...(chefkartRole
     ? [
@@ -48,12 +59,13 @@ export const reactDeveloperHero = {
   title: "React Developer",
   titleAccent: "for Hire",
   // One paragraph so both enquiry buttons reach the first phone screen. ChefKart stays "contributed to".
-  intro: [
+  intro:
     "I’m Anuj Dhanuka, a React.js developer in India, building responsive interfaces, dashboards and API-connected applications. I’ve contributed to ChefKart’s React operations dashboard and Next.js website, and built independent React projects. I’m open to full-time roles and freelance frontend work.",
-  ],
+  facts: heroFacts,
+  portraitAlt: "Anuj Dhanuka, React.js developer based in India",
   fullTimeLabel: "Discuss a full-time role",
   freelanceLabel: "Discuss a freelance project",
-} as const
+} as const satisfies HireHeroContent
 
 export const reactDeveloperSections = [
   { href: `#${workSectionId}`, label: "Selected work" },
@@ -61,19 +73,16 @@ export const reactDeveloperSections = [
   { href: "#work-with-me", label: "Ways to work" },
   { href: "#approach", label: "Approach" },
   { href: "#faq", label: "Questions" },
-] as const
+] as const satisfies HirePageSections["nav"]
 
 // Neutral framing only: it introduces the four areas below and makes no new claim.
 export const capabilitiesIntro = {
-  label: "Capabilities",
   title: "What I can help you build",
   body: "Whether you’re hiring for your team or need help with a specific project, these are the areas where I can contribute.",
   ctaLabel: "Discuss a freelance project",
 } as const
 
-export type CapabilityIcon = "interface" | "dashboard" | "api" | "nextjs"
-
-export const capabilities: readonly { title: string; body: string; icon: CapabilityIcon }[] = [
+export const capabilities: readonly Capability[] = [
   {
     title: "React web interfaces",
     body: "Turn designs and requirements into reusable React components, responsive layouts and connected user journeys. I can help build a new interface or extend an existing application with additional pages and features.",
@@ -95,46 +104,6 @@ export const capabilities: readonly { title: string; body: string; icon: Capabil
     icon: "nextjs",
   },
 ]
-
-export type EngagementLink = {
-  label: string
-  href: string
-  external?: boolean
-  download?: boolean
-  // Shorter visible text on phones so a row of links fits; screen readers still hear the full label.
-  shortLabel?: string
-}
-export type WorkLink = EngagementLink
-
-export type WorkItem = {
-  id: string
-  // Ownership boundary in the overline: ChefKart is team work, Mopedo is independent.
-  kind: "Team contribution" | "Independent project"
-  // Role and dates where they add information; omitted when the summary already says it.
-  meta?: string
-  title: string
-  summary: string
-  // Three scannable highlights; the full detail lives in each case study.
-  highlights: readonly { label: string; text: string }[]
-  stack: readonly string[]
-  visual:
-    | {
-        type: "image"
-        src: string
-        alt: string
-        width: number
-        height: number
-        address: string
-        // Shows a "Live" indicator in the browser bar for a deployed site.
-        live?: boolean
-      }
-    | { type: "illustration"; name: "chefkart-city"; caption: string }
-  // ChefKart links to its case study. Mopedo, a published project, reuses the site-wide project buttons
-  // (live project, case study, GitHub repo) so it matches the Projects page.
-  primaryLink?: WorkLink
-  links: readonly WorkLink[]
-  project?: Project
-}
 
 const mopedoProject = projects.find((project) => project.id === "mopedo")
 
@@ -169,10 +138,10 @@ export const selectedWork: readonly WorkItem[] = [
     visual: {
       type: "illustration",
       name: "chefkart-city",
-      caption: "How a city page connects search visitors to live booking information",
+      caption:
+        "How a city page connects search visitors to live booking information. Illustration, not a real ChefKart screen.",
     },
     primaryLink: { label: "Read my ChefKart case study", href: chefkartPage.path },
-    links: [],
   },
   {
     id: "mopedo",
@@ -204,28 +173,9 @@ export const selectedWork: readonly WorkItem[] = [
       height: 1520,
       address: "mopedo.netlify.app",
     },
-    links: [],
     project: mopedoProject,
   },
 ]
-
-export type Engagement = {
-  id: "full-time" | "freelance"
-  icon: "role" | "project"
-  label: string
-  title: string
-  summary: string
-  // The brief's "share …" sentence as a scannable checklist, with its closing line kept as a note.
-  share: { heading: string; items: readonly string[]; note: string }
-  cta: { label: string; href: string; analytics: string }
-  // Plain, non-interactive pills above the main button: availability (full-time) or services (freelance).
-  facts: readonly string[]
-  factsLabel: string
-  links: readonly EngagementLink[]
-  // A plain sentence under the main button where the full-time card has links. It restates facts already on
-  // the page (location in the hero, services in the summary) in a quotable form for search and AI answers.
-  footnote?: string
-}
 
 export const engagementIntro =
   "Choose the path that fits. Both open the contact form with your enquiry type already selected."
@@ -306,27 +256,10 @@ export const approachSteps = [
   },
 ] as const
 
-export type TechIcon =
-  | "react"
-  | "nextjs"
-  | "javascript"
-  | "typescript"
-  | "html"
-  | "css"
-  | "redux"
-  | "tailwind"
-  | "restApi"
-  | "reactRouter"
-  | "vite"
-  | "figma"
-  | "styledComponents"
-  | "git"
-  | "github"
-
 // One grid of brand-icon tiles: the core stack first, then the tools used alongside it. The tile names
 // carry the brief's full technology list as text.
 // `kind` describes the tool itself (not a claim about experience), shown under each name.
-export const technologyStack: readonly { name: string; kind: string; icon: TechIcon }[] = [
+export const technologyStack: readonly TechItem[] = [
   { name: "React.js", kind: "UI library", icon: "react" },
   { name: "Next.js", kind: "React framework", icon: "nextjs" },
   { name: "JavaScript", kind: "Language", icon: "javascript" },
@@ -386,3 +319,19 @@ export const reactDeveloperClosing = {
   description:
     "Looking for a React developer for your team or a freelance developer for a web interface? Tell me what you’re building and where you need help.",
 } as const
+
+export const reactDeveloperContent: HirePageSections = {
+  navLabel: "React developer page sections",
+  nav: reactDeveloperSections,
+  work: { id: workSectionId, title: "Selected React work", intro: workIntro, items: selectedWork },
+  capabilities: {
+    title: capabilitiesIntro.title,
+    intro: capabilitiesIntro.body,
+    ctaLabel: capabilitiesIntro.ctaLabel,
+    items: capabilities,
+  },
+  engagement: { intro: engagementIntro, items: engagements },
+  approach: { intro: approachIntro.body, ctaLabel: approachIntro.ctaLabel, steps: approachSteps },
+  technologies: { intro: technologies.intro, items: technologyStack },
+  freelanceContactHref,
+}
