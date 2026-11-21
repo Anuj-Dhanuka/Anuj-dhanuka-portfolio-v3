@@ -4,6 +4,8 @@
 
 Published `/projects/mopedo`, `/projects/quizwar`, `/projects/rekha-maa-ki-rasoi` and `/projects/rama-technical-college` pages extend the public route inventory to eleven canonical pages. Static routes, per-project social images, derived sitemap entries and server-rendered evidence replace the earlier deferred-detail decision for these reviewed projects. Rama Technical College was published on 2 November 2026. See [the case-study engineering report](project-case-studies.md) for implementation, content sources, validation and evidence boundaries. Levels App was removed on 6 October 2026; its former route returns 404 without a redirect. Historical findings below retain their original scope.
 
+Hire-intent pages: `/react-developer` (published 20 November 2026) and `/react-native-developer` (implemented locally 21 November 2026, sitemap `lastModified: "2026-11-21"`) are static, have unique titles, descriptions, canonicals and generated OG/Twitter images, and carry WebPage + BreadcrumbList JSON-LD referencing the root Person/WebSite IDs. They deliberately have no FAQPage, JobPosting, Offer, review or rating markup. All visible copy and FAQ answers are in the server HTML; a Googlebot user-agent fetch returns the same HTML as a visitor fetch. A local check is not evidence of indexing; confirm with Search Console URL Inspection after deployment.
+
 Audit date: 2 October 2026. Canonical origin: `https://anujdhanuka.com`.
 
 ## Certifications integration — 3 October 2026

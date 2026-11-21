@@ -9,7 +9,7 @@ export const enquiryTypeLabels: Record<EnquiryType, string> = {
   freelance: "Freelance project",
 }
 
-export const enquirySources = ["direct", "react-developer"] as const
+export const enquirySources = ["direct", "react-developer", "react-native-developer"] as const
 export type EnquirySource = (typeof enquirySources)[number]
 
 export const enquiryTypeParam = "enquiry"

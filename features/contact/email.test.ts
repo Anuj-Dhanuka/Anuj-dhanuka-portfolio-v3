@@ -43,5 +43,17 @@ describe("contact email rendering", () => {
 
     expect(html).toContain("<strong>Enquiry type:</strong> Full-time role")
     expect(html).toContain("<strong>Started from:</strong> /react-developer")
+    expect(
+      createContactEmailHtml({
+        name: "Client",
+        email: "client@example.com",
+        phone: "",
+        subject: "Mobile app",
+        message: "Hello",
+        enquiryType: "freelance",
+        source: "react-native-developer",
+        formCheck: "",
+      }),
+    ).toContain("<strong>Started from:</strong> /react-native-developer")
   })
 })

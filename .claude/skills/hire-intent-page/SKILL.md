@@ -5,14 +5,14 @@ description: Use when building, redesigning or reviewing a "<Role> Developer for
 
 # Hire-intent page
 
-`/react-developer` (React Developer for Hire) is the approved reference. Every new role page copies its structure and the owner's decisions below; the code shows _what_ exists, this file records _why_ and the choices that are easy to get wrong.
+`/react-developer` (React Developer for Hire) is the approved reference; `/react-native-developer` is the second page built on the same shared components. Every new role page copies its structure and the owner's decisions below; the code shows _what_ exists, this file records _why_ and the choices that are easy to get wrong.
 
 ## Before writing code
 
 1. **Confirm the route with the owner.** `config/hire-pages.ts` assumes `/<role>-developer` (e.g. `/react-native-developer`), while `docs/project-case-studies.md` lists older ideas (`/expertise/react-native`, `/hire-react-native-developer`). Do not pick one silently.
 2. **Get the copy and evidence from the owner.** Only claims already documented on the site (case-study data, `features/skills/data/skills.ts`, `features/experience/data/*`) may appear. No rates, years of experience, testimonials, metrics, freelance capacity or "Full-Stack" framing.
 3. **Work section by section.** Show each section (desktop + phone screenshots), wait for approval, then move on. Start with the simplest version; no extra badges, filled highlights or icon tiles beyond the patterns below.
-4. When the second hire page is built, extract the shared blocks (`FeaturedWork`, `WorkWithMe`, `Approach`, `TechPill`) from `features/react-developer/components/react-developer-content.tsx` into shared hire-page components instead of copying them.
+4. Reuse the shared module in `features/hire-pages/` (extracted when `/react-native-developer` was built): `HireHero`, `HirePageSectionsView` (selected work, capabilities, paths, process, technologies), `HirePageClosing` (FAQ + CTA), `hirePageMetadata`/`hirePageJsonLd`/`serializeJsonLd` and `hireOgImage`. A new page supplies only its data module (`HirePageMeta`, `HireHeroContent`, `HirePageSections`, FAQs, closing copy) and a thin `app/<role>-developer/page.tsx`. Changing the shared module changes every hire page; regression-check all of them.
 
 ## Section order and recipe
 
