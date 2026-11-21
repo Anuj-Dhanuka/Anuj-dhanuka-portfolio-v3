@@ -1,8 +1,8 @@
 import type { Project, ProjectCaseStudy } from "@/features/projects/data/projects"
 
 // Shared shapes for the "<Role> Developer for Hire" pages (/react-developer, /react-native-developer,
-// /frontend-developer, /shopify-developer, /wordpress-developer) and the /landing-page-development service
-// page, which reuses the same layout with a few optional additions.
+// /frontend-developer, /shopify-developer, /wordpress-developer) and the /landing-page-development and
+// /figma-to-website service pages, which reuse the same layout with a few optional additions.
 // Each page keeps its copy in its own feature data module; the layout lives in features/hire-pages.
 
 export type HirePageMeta = {
@@ -37,6 +37,30 @@ export type OptionComparison = {
 }
 
 export type ComparisonOption = { label: string; icon: TechIcon }
+
+// Compact platform choice: each option described once (rather than compared row by row), then a closing
+// sentence. Its links share one row with the section's contact link, as with OptionComparison.
+export type PlatformChoices = {
+  // Rendered as its own section after Services (anchor and eyebrow).
+  id: string
+  label: string
+  title: string
+  options: readonly (ComparisonOption & { body: string })[]
+  closing: string
+  links: OptionComparison["links"]
+}
+
+// Optional text-led section after Services (service pages): one intro, short items and a closing line.
+export type DesignDetails = {
+  id: string
+  label: string
+  title: string
+  // Optional phrase inside `title` shown with the hero gradient (must occur in it exactly once).
+  titleAccent?: string
+  intro: string
+  items: readonly { title: string; body: string; icon: CapabilityIcon }[]
+  closing: string
+}
 
 export type HireHeroContent = {
   eyebrow: string
@@ -77,6 +101,8 @@ export type CapabilityIcon =
   | "product"
   | "edit"
   | "handover"
+  | "typography"
+  | "consistency"
 
 export type Capability = {
   title: string
@@ -228,10 +254,14 @@ export type HirePageSections = {
     // Shorter phone text for the line button (used when it shares a row with the comparison links).
     ctaShortLabel?: string
     items: readonly Capability[]
-    // Optional comparison after the cards, inside the same section (service page platform choice).
+    // Optional comparison after the cards, inside the same section (service page platform choice): a
+    // row-by-row table, or a compact description of each option. Use one, not both.
     comparison?: OptionComparison
+    choices?: PlatformChoices
   }
-  engagement: { id?: string; intro: string; items: readonly Engagement[] }
+  designDetails?: DesignDetails
+  // Optional `title` override (default "Two ways to work with me").
+  engagement: { id?: string; title?: string; intro: string; items: readonly Engagement[] }
   approach: {
     id?: string
     label?: string

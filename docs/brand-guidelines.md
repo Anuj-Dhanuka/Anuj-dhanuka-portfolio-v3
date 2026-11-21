@@ -128,8 +128,8 @@ Use the shared role classes rather than attaching responsive `text-*` utilities 
 | Role class        | Mobile | Small (`640px+`) | Medium (`768px+`) | Large (`1024px+`) | Line height | Use                       |
 | ----------------- | -----: | ---------------: | ----------------: | ----------------: | ----------: | ------------------------- |
 | `type-hero`       |   30px |             36px |              48px |              48px |        1.08 | One H1 per page           |
-| `type-section`    |   30px |             30px |              36px |              36px |        1.25 | Standard H2               |
-| `type-display`    |   30px |             30px |              48px |              48px |        1.25 | High-impact section title |
+| `type-section`    |   26px |             26px |              36px |              36px |        1.25 | Standard H2               |
+| `type-display`    |   26px |             26px |              48px |              48px |        1.25 | High-impact section title |
 | `type-card`       |   20px |             20px |              20px |              20px |        1.25 | Card heading              |
 | `type-card-large` |   24px |             24px |              24px |              24px |        1.25 | Featured card heading     |
 | `type-cta`        |   24px |             30px |              36px |              48px |        1.25 | Shared CTA heading        |
@@ -140,7 +140,7 @@ Use the shared role classes rather than attaching responsive `text-*` utilities 
 | `type-caption`    |   12px |             12px |              12px |              12px |         1.5 | Captions and metadata     |
 | `type-label`      |   11px |             11px |              11px |              11px |         1.5 | Uppercase eyebrow label   |
 
-Headings use `-0.025em` tracking where defined. `type-label` uses `0.16em`, uppercase text, and weight `700`.
+On phones the H2 roles are 26px, a step below the 30px `type-hero` (owner request, 21 November 2026, mobile only), so a section heading never reads as the page H1; larger screens are unchanged. Headings use `-0.025em` tracking where defined. `type-label` uses `0.16em`, uppercase text, and weight `700`.
 
 Choose the HTML element for document meaning and the class for its appearance:
 

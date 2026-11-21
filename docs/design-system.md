@@ -46,8 +46,8 @@ Edit responsive values once in `styles/tokens.css`. Both heroes now use `type-he
 | Visual class                         | Use                                      |
 | ------------------------------------ | ---------------------------------------- |
 | `type-hero`                          | Main page title (30 / 36 / 48px)         |
-| `type-section`                       | Standard section title (30 / 36px)       |
-| `type-display`                       | Prominent section title (30 / 48px)      |
+| `type-section`                       | Standard section title (26 / 36px)       |
+| `type-display`                       | Prominent section title (26 / 48px)      |
 | `type-card` / `type-card-large`      | Card titles (20 / 24px)                  |
 | `type-cta`                           | Shared CTA heading (24 / 30 / 36 / 48px) |
 | `type-body`                          | Standard paragraph (16px)                |

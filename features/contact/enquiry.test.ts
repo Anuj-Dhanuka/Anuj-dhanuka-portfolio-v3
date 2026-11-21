@@ -97,6 +97,12 @@ describe("enquiry URL context", () => {
       expect(landing).toBe(`/contact?enquiry=${type}&source=landing-page-development`)
       expect(read(landing.split("?")[1])).toEqual({ enquiryType: type, source: "landing-page-development" })
     }
+    for (const type of ["full-time", "freelance"] as const) {
+      const figma = contactHref(type, "figma-to-website")
+      expect(figma).toBe(`/contact?enquiry=${type}&source=figma-to-website`)
+      expect(read(figma.split("?")[1])).toEqual({ enquiryType: type, source: "figma-to-website" })
+    }
+    expect(read("enquiry=freelance&source=figma").source).toBe("direct")
     expect(read("enquiry=freelance&source=landing-page").source).toBe("direct")
     expect(
       read("enquiry=freelance&source=landing-page-development&source=landing-page-development").source,

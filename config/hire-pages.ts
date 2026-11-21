@@ -1,4 +1,4 @@
-// Published hire-intent pages ("React developer for hire", later role pages and the landing-page service page). This one list feeds the
+// Published hire-intent pages ("React developer for hire", later role pages and the landing-page and Figma-to-website service pages). This one list feeds the
 // footer "Hire Me" column and the contextual links on Skills and Experience, so a new page appears in all
 // three by adding one entry here. Add a page only once its route is live and in the sitemap; the test beside
 // this file checks that.
@@ -25,5 +25,10 @@ export const hirePages: readonly HirePage[] = [
     label: "Landing Page Development Services",
     role: "landing page developer",
     href: "/landing-page-development",
+  },
+  {
+    label: "Figma to Website Development Services",
+    role: "Figma-to-website developer",
+    href: "/figma-to-website",
   },
 ]

@@ -4,6 +4,7 @@ import sitemap from "@/app/sitemap"
 import { hirePages } from "@/config/hire-pages"
 import { site } from "@/config/site"
 import { enquirySources } from "@/features/contact/enquiry"
+import { figmaToWebsiteHero } from "@/features/figma-to-website/data/figma-to-website"
 import { landingPageDevelopmentHero } from "@/features/landing-page-development/data/landing-page-development"
 import { frontendDeveloperHero } from "@/features/frontend-developer/data/frontend-developer"
 import { reactDeveloperHero } from "@/features/react-developer/data/react-developer"
@@ -19,6 +20,7 @@ const headings: Record<string, string> = {
   "/shopify-developer": `${shopifyDeveloperHero.title} ${shopifyDeveloperHero.titleAccent}`,
   "/wordpress-developer": `${wordpressDeveloperHero.title} ${wordpressDeveloperHero.titleAccent}`,
   "/landing-page-development": `${landingPageDevelopmentHero.title} ${landingPageDevelopmentHero.titleAccent}`,
+  "/figma-to-website": `${figmaToWebsiteHero.title} ${figmaToWebsiteHero.titleAccent}`,
 }
 
 describe("hire pages", () => {

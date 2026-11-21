@@ -5,7 +5,7 @@ import { CTA, ctaPrimaryButtonClass, ctaSecondaryButtonClass } from "@/component
 import { FaqSection, type FaqItem } from "@/components/shared/faq-section"
 import { Button } from "@/components/ui/button"
 import { hireEnquiryActions } from "@/features/hire-pages/enquiry-actions"
-import type { HireEnquiryType } from "@/features/hire-pages/types"
+import type { HireEnquiryType, InlineLinkText } from "@/features/hire-pages/types"
 
 // FAQ (visible from the start, no grid background, no FAQPage markup) followed by the shared closing CTA
 // with both enquiry paths as 44px buttons.
@@ -26,7 +26,8 @@ export function HirePageClosing({
   faqTitle?: string
   // In-page anchor for the FAQ section (FaqSection's default is "faq").
   faqId?: string
-  closing: { title: string; description: string }
+  // Optional sentence under the buttons with one inline link, e.g. to a related service page.
+  closing: { title: string; description: string; note?: InlineLinkText }
   fullTimeHref: string
   freelanceHref: string
   fullTimeLabel: string
@@ -72,7 +73,26 @@ export function HirePageClosing({
             </Button>
           </>
         }
-      />
+      >
+        {closing.note && <ClosingNote note={closing.note} />}
+      </CTA>
     </>
+  )
+}
+
+// White text and a white underline that read on the CTA gradient; the link phrase is ordinary crawlable text.
+function ClosingNote({ note }: { note: InlineLinkText }) {
+  const [before, after] = note.text.split(note.link.text)
+  return (
+    <p className="type-body mx-auto mt-8 max-w-3xl text-white/90">
+      {before}
+      <Link
+        href={note.link.href}
+        className="font-semibold text-white underline decoration-white/60 underline-offset-4 hover:decoration-white focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+      >
+        {note.link.text}
+      </Link>
+      {after}
+    </p>
   )
 }
