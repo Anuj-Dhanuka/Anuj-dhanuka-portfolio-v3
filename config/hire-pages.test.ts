@@ -7,12 +7,14 @@ import { enquirySources } from "@/features/contact/enquiry"
 import { frontendDeveloperHero } from "@/features/frontend-developer/data/frontend-developer"
 import { reactDeveloperHero } from "@/features/react-developer/data/react-developer"
 import { reactNativeDeveloperHero } from "@/features/react-native-developer/data/react-native-developer"
+import { shopifyDeveloperHero } from "@/features/shopify-developer/data/shopify-developer"
 
 // The H1 of each published hire page, keyed by route.
 const headings: Record<string, string> = {
   "/react-developer": `${reactDeveloperHero.title} ${reactDeveloperHero.titleAccent}`,
   "/react-native-developer": `${reactNativeDeveloperHero.title} ${reactNativeDeveloperHero.titleAccent}`,
   "/frontend-developer": `${frontendDeveloperHero.title} ${frontendDeveloperHero.titleAccent}`,
+  "/shopify-developer": `${shopifyDeveloperHero.title} ${shopifyDeveloperHero.titleAccent}`,
 }
 
 describe("hire pages", () => {

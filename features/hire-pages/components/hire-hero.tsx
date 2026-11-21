@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react"
+import { ArrowDown, ArrowRight, ArrowUpRight, MapPin } from "lucide-react"
 
 import { HeroBackground } from "@/components/shared/hero-background"
 import { HeroBreadcrumb } from "@/components/shared/hero-breadcrumb"
@@ -51,7 +51,13 @@ export function HireHero({
             >
               {hero.facts.map((fact) => (
                 <li key={fact.label} className="flex min-h-11 items-center gap-1.5 sm:min-h-0">
-                  {fact.href ? (
+                  {fact.href?.startsWith("#") ? (
+                    // Same-page jump: a plain anchor, since next/link does not re-scroll to a repeated hash.
+                    <a href={fact.href} className={factLink}>
+                      {fact.label}
+                      <ArrowDown className="ml-1 inline h-3.5 w-3.5 align-[-2px]" aria-hidden="true" />
+                    </a>
+                  ) : fact.href ? (
                     <Link href={fact.href} className={factLink}>
                       {fact.label}
                       <ArrowUpRight className="ml-1 inline h-3.5 w-3.5 align-[-2px]" aria-hidden="true" />

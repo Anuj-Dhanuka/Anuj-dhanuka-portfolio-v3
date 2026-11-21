@@ -18,4 +18,5 @@ export const hirePages: readonly HirePage[] = [
     href: "/react-native-developer",
   },
   { label: "Frontend Developer for Hire", role: "frontend developer", href: "/frontend-developer" },
+  { label: "Shopify Developer for Hire", role: "Shopify developer", href: "/shopify-developer" },
 ]
