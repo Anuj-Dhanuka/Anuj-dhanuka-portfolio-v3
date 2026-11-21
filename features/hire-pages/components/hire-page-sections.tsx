@@ -528,15 +528,19 @@ function ActionRow({
   )
 }
 
-// Visible text on phones, full label from sm up; the full label is always the accessible name.
+// The full label is the only text in the HTML and the link's accessible name at every width (screen-reader
+// only on phones). Phones see the short label, drawn from a data attribute by CSS, so the source text never
+// repeats it ("Discuss Discuss your landing page").
 function ResponsiveLabel({ label, shortLabel }: { label: string; shortLabel?: string }) {
   if (!shortLabel) return <>{label}</>
   return (
     <>
-      <span className="sm:hidden" aria-hidden="true">
-        {shortLabel}
-      </span>
       <span className="sr-only sm:not-sr-only">{label}</span>
+      <span
+        className="sm:hidden before:content-[attr(data-short-label)]"
+        data-short-label={shortLabel}
+        aria-hidden="true"
+      />
     </>
   )
 }
